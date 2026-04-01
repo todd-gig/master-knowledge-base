@@ -1,0 +1,6 @@
+{
+  "listen": "stripe listen --events checkout.session.completed,payment_intent.succeeded,payment_intent.payment_failed --forward-to localhost:3002/api/payments/webhooks/stripe",
+  "trigger_checkout": "stripe trigger checkout.session.completed",
+  "trigger_success": "stripe trigger payment_intent.succeeded",
+  "trigger_failure": "stripe trigger payment_intent.payment_failed"
+}

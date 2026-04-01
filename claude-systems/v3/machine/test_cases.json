@@ -1,0 +1,32 @@
+{
+  "version": "3.0",
+  "cases": [
+    {
+      "name": "Lead scoring deterministic",
+      "decision_type": "lead_scoring",
+      "input_summary": "Structured CRM + engagement inputs",
+      "expected_classification": "Python-First",
+      "expected_architecture": "Pure Python",
+      "expected_exception_class": null,
+      "expected_confidence_band": "high"
+    },
+    {
+      "name": "Contract clause interpretation",
+      "decision_type": "contract_clause_classification",
+      "input_summary": "Unstructured legal text with variant language",
+      "expected_classification": "Claude-First",
+      "expected_architecture": "Pure Claude",
+      "expected_exception_class": null,
+      "expected_confidence_band": "moderate"
+    },
+    {
+      "name": "Refund approval with free-text complaints",
+      "decision_type": "refund_review",
+      "input_summary": "Mixed structured fields plus complaint text",
+      "expected_classification": "Hybrid",
+      "expected_architecture": "Claude parse -> Python score -> Claude review exceptions",
+      "expected_exception_class": "policy_gap",
+      "expected_confidence_band": "moderate"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "minimum_quality_score": 0.8,
+  "max_exception_rate": 0.2,
+  "max_human_review_rate": 0.35,
+  "required_comparison_modes": [
+    "Claude",
+    "Python",
+    "Hybrid"
+  ]
+}

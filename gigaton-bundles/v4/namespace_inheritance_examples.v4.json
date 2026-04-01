@@ -1,0 +1,35 @@
+{
+  "examples": [
+    {
+      "namespace_id": "client_liquefex",
+      "inherits_from": "global",
+      "preferred_terminology": {
+        "customer": "carrier or insured stakeholder",
+        "operator": "program operator"
+      },
+      "custom_category_bias": {
+        "commercial_systems": 0.96,
+        "decision_systems": 0.94
+      },
+      "workflow_variants": [
+        "operator_term_sheet_motion",
+        "insurance_research_loop"
+      ]
+    },
+    {
+      "namespace_id": "client_lighthouse_life",
+      "inherits_from": "global",
+      "preferred_terminology": {
+        "lead": "policy opportunity"
+      },
+      "custom_category_bias": {
+        "ontology_and_data_models": 0.95,
+        "commercial_systems": 0.92
+      },
+      "workflow_variants": [
+        "research_first_sales_assist",
+        "carrier_feedback_loop"
+      ]
+    }
+  ]
+}

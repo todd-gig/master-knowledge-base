@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "fixtures": [
+    {
+      "name": "lead_scoring_deterministic",
+      "decision_type": "lead_scoring",
+      "expected_classification": "Python-First",
+      "expected_architecture": "Pure Python",
+      "quality_threshold": 0.95
+    },
+    {
+      "name": "contract_clause_interpretation",
+      "decision_type": "contract_clause_classification",
+      "expected_classification": "Claude-First",
+      "expected_architecture": "Pure Claude",
+      "quality_threshold": 0.8
+    },
+    {
+      "name": "refund_review_hybrid",
+      "decision_type": "refund_review",
+      "expected_classification": "Hybrid",
+      "expected_architecture": "Claude parse -> Python score -> Claude review exceptions",
+      "quality_threshold": 0.9
+    }
+  ]
+}

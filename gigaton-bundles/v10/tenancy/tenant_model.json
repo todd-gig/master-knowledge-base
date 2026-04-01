@@ -1,0 +1,16 @@
+{
+  "tenant_fields": [
+    "tenant_id",
+    "plan_id",
+    "status",
+    "created_at"
+  ],
+  "tenant_scoped_tables": [
+    "namespaces",
+    "namespace_drafts",
+    "retrieval_calibration_runs",
+    "audit_logs",
+    "billing_events"
+  ],
+  "header_name": "x-tenant-id"
+}

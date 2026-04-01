@@ -1,0 +1,17 @@
+{
+  "default_provider": "stripe",
+  "tenant_overrides_supported": true,
+  "providers": {
+    "stripe": {
+      "enabled": true,
+      "supports_checkout_sessions": true,
+      "supports_payment_intents": true,
+      "supports_webhooks": true
+    },
+    "godaddy_poynt": {
+      "enabled": true,
+      "supports_orders_transactions": true,
+      "supports_webhooks": true
+    }
+  }
+}

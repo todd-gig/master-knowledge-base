@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": "USR-001",
+      "email": "operator@example.com",
+      "role": "admin",
+      "created_at": "2026-03-25T20:57:48+00:00"
+    },
+    {
+      "id": "USR-002",
+      "email": "reviewer@example.com",
+      "role": "reviewer",
+      "created_at": "2026-03-25T20:57:48+00:00"
+    }
+  ],
+  "namespaces": [
+    {
+      "id": "NS-001",
+      "namespace_id": "client_liquefex_demo",
+      "client_name": "Liquefex Example",
+      "industry": "insurance",
+      "status": "active",
+      "payload_json": {
+        "inherits_from": "global",
+        "selected_memory_ids": [
+          "MEM-018",
+          "MEM-019",
+          "MEM-002",
+          "MEM-015"
+        ]
+      },
+      "created_by": "USR-001",
+      "approved_by": "USR-002",
+      "created_at": "2026-03-25T20:57:48+00:00",
+      "updated_at": "2026-03-25T20:57:48+00:00"
+    }
+  ]
+}

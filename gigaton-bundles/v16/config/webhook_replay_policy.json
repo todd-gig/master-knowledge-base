@@ -1,0 +1,8 @@
+{
+  "max_replay_attempts": 5,
+  "allowed_providers": [
+    "stripe",
+    "godaddy_poynt"
+  ],
+  "require_operator_note": true
+}

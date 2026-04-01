@@ -1,0 +1,38 @@
+{
+  "policy_name": "gigaton_retrieval_policy_v2",
+  "version": "2.0.0",
+  "load_order": [
+    "tier_1_global",
+    "relevant_tier_2_global",
+    "relevant_client_namespace_overlay",
+    "tier_3_only_if_necessary"
+  ],
+  "resolution_logic": {
+    "primary_sort": [
+      "tier_priority",
+      "category_priority",
+      "confidence_score"
+    ],
+    "tie_breakers": [
+      "authority",
+      "reusability",
+      "recency",
+      "specificity"
+    ],
+    "block_rules": [
+      "client_namespace_cannot_override_foundational_doctrine",
+      "deprecated_memories_blocked_by_default",
+      "superseded_memories_hidden_unless_history_requested"
+    ]
+  },
+  "category_priority": [
+    "foundational_doctrine",
+    "decision_systems",
+    "knowledge_infrastructure",
+    "ontology_and_data_models",
+    "simulation_and_financial_models",
+    "commercial_systems",
+    "platform_and_tooling",
+    "organizational_models"
+  ]
+}

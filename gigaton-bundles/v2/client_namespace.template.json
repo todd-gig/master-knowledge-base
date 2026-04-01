@@ -1,0 +1,26 @@
+{
+  "namespace_id": "client_TEMPLATE",
+  "parent_namespace": "global",
+  "status": "template",
+  "allowed_overrides": [
+    "terminology",
+    "examples",
+    "scoring_weights",
+    "data_mappings",
+    "commercial_templates",
+    "workflow_variants"
+  ],
+  "forbidden_overrides": [
+    "foundational_doctrine",
+    "human_centered_technology_principle",
+    "core_ethics"
+  ],
+  "fields": {
+    "client_name": "",
+    "industry": "",
+    "core_terms": {},
+    "custom_scoring_weights": {},
+    "custom_artifact_templates": [],
+    "custom_constraints": []
+  }
+}

@@ -1,0 +1,1188 @@
+{
+  "registry_meta": {
+    "registry_name": "gigaton_project_memory_registry",
+    "version": "2.0.0",
+    "format": "json_md_hybrid",
+    "canonical": true,
+    "project": "Gigaton",
+    "created_for": "Claude/system integration",
+    "last_updated_utc": "2026-03-25T20:33:25Z",
+    "retrieval_strategy": {
+      "tier_1": "always_load",
+      "tier_2": "load_when_relevant",
+      "tier_3": "load_on_demand"
+    },
+    "conflict_resolution": [
+      "higher_authority",
+      "higher_reusability",
+      "higher_confidence",
+      "higher_recency",
+      "higher_specificity"
+    ],
+    "new_in_v2": [
+      "source_provenance",
+      "confidence_scores",
+      "supersession_fields",
+      "deprecation_fields",
+      "client_namespaces",
+      "governance_policy",
+      "ingestion_contract"
+    ]
+  },
+  "global_directives": {
+    "optimize_for": [
+      "long_term_compounding_value",
+      "cost_relative_to_roi",
+      "speed_to_profitable_execution",
+      "human_centered_technology",
+      "system_reusability",
+      "decision_quality"
+    ],
+    "default_output_rules": [
+      "produce_structured_markdown",
+      "preserve_machine_readability",
+      "prefer_obsidian_ready_files",
+      "minimize_data_leakage",
+      "maximize_reuse"
+    ],
+    "doctrine_priority_order": [
+      "foundational_doctrine",
+      "decision_systems",
+      "knowledge_infrastructure",
+      "ontology_and_data_models",
+      "simulation_and_financial_models",
+      "commercial_systems",
+      "platform_and_tooling",
+      "organizational_models"
+    ]
+  },
+  "namespaces": {
+    "global": {
+      "description": "Applies to all Gigaton reasoning unless explicitly overridden by a valid client-specific namespace."
+    },
+    "client": {
+      "description": "Client overlays that inherit global doctrine but may define narrower constraints, data schemas, or commercial rules.",
+      "rules": [
+        "client namespaces cannot override foundational doctrine",
+        "client namespaces may override templates, scoring weights, terminology, and data mappings",
+        "client namespaces must declare parent_namespace='global'"
+      ]
+    }
+  },
+  "memory_objects": [
+    {
+      "memory_id": "MEM-001",
+      "title": "Trust Matrix + Value Matrix Integration",
+      "tier": 1,
+      "status": "active",
+      "category": "decision_systems",
+      "type": "foundational_logic",
+      "summary": "Core scoring and validation primitive combining trust qualification logic with the value matrix.",
+      "retrieval_tags": [
+        "trust_matrix",
+        "value_matrix",
+        "qualification",
+        "certification",
+        "validation_engine"
+      ],
+      "apply_when": [
+        "building scoring engines",
+        "evaluating evidence",
+        "designing trust certificates",
+        "structuring decision workflows"
+      ],
+      "confidence_score": 0.96,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "rule_of_7s",
+        "smooth_numbers",
+        "first_principles_validation",
+        "trust_scoring"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Trust Matrix + Value Matrix Integration",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-002",
+      "title": "Executive Decision Engine",
+      "tier": 1,
+      "status": "active",
+      "category": "decision_systems",
+      "type": "system_architecture",
+      "summary": "Claude-oriented frontier decision engine for trust certificate to decision execution automation.",
+      "retrieval_tags": [
+        "executive_decision_model",
+        "authority_matrix",
+        "decision_state_machine",
+        "trust_certificate"
+      ],
+      "apply_when": [
+        "building autonomous decision systems",
+        "designing approval logic",
+        "architecting execution governance"
+      ],
+      "confidence_score": 0.95,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "authority_matrix",
+        "evidence_taxonomy",
+        "scoring_weights",
+        "exception_policy",
+        "decision_state_machine"
+      ],
+      "dependencies": [
+        "MEM-001",
+        "MEM-003",
+        "MEM-005"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Executive Decision Engine",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-003",
+      "title": "Decision Execution Engine",
+      "tier": 1,
+      "status": "active",
+      "category": "decision_systems",
+      "type": "service_layer",
+      "summary": "Service layer that converts validated intelligence into actions, workflows, and outputs.",
+      "retrieval_tags": [
+        "decision_execution",
+        "service_layer",
+        "workflow_execution",
+        "action_engine"
+      ],
+      "apply_when": [
+        "turning decisions into workflows",
+        "building service orchestration",
+        "mapping outputs to action"
+      ],
+      "confidence_score": 0.93,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "actions",
+        "workflows",
+        "outputs"
+      ],
+      "dependencies": [
+        "MEM-002"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Decision Execution Engine",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-004",
+      "title": "First Principles Variable Registry",
+      "tier": 1,
+      "status": "active",
+      "category": "ontology_and_data_models",
+      "type": "input_schema",
+      "summary": "Universal categorized input schema for surveys, org modeling, and decision inputs.",
+      "retrieval_tags": [
+        "first_principles",
+        "input_schema",
+        "survey_model",
+        "org_inputs"
+      ],
+      "apply_when": [
+        "creating templates",
+        "building data collection systems",
+        "modeling organizations",
+        "structuring decision inputs"
+      ],
+      "confidence_score": 0.94,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "survey_inputs",
+        "org_modeling",
+        "decision_variables"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "First Principles Variable Registry",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-005",
+      "title": "EO System",
+      "tier": 1,
+      "status": "active",
+      "category": "ontology_and_data_models",
+      "type": "self_improving_intelligence_system",
+      "summary": "Ethnographic Object system with confidence scoring, self-healing question loops, research tasks, and router/code generation.",
+      "retrieval_tags": [
+        "EO",
+        "ethnographic_object",
+        "confidence_engine",
+        "self_healing_system",
+        "research_tasks"
+      ],
+      "apply_when": [
+        "designing adaptive interviews",
+        "building recursive learning systems",
+        "creating research-backed routing logic"
+      ],
+      "confidence_score": 0.92,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "eo_schema",
+        "confidence_scoring",
+        "self_healing_questions",
+        "research_task_integration",
+        "router_table",
+        "code_generation"
+      ],
+      "dependencies": [
+        "MEM-004"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "EO System",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-006",
+      "title": "Value of Human Contribution Matrix",
+      "tier": 1,
+      "status": "active",
+      "category": "commercial_systems",
+      "type": "valuation_model",
+      "summary": "Valuation model for time, effort, uniqueness, quality, network, and risk reduction across compensation and partnership contexts.",
+      "retrieval_tags": [
+        "human_value_matrix",
+        "compensation",
+        "equity",
+        "valuation",
+        "contribution_scoring"
+      ],
+      "apply_when": [
+        "designing compensation",
+        "allocating equity",
+        "valuing partnerships",
+        "evaluating contributor impact"
+      ],
+      "confidence_score": 0.94,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "time",
+        "effort",
+        "uniqueness",
+        "quality",
+        "relationships_network",
+        "risk_reduction",
+        "increased_probability_of_success"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Value of Human Contribution Matrix",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-007",
+      "title": "Probabilistic Simulation Models",
+      "tier": 2,
+      "status": "active",
+      "category": "simulation_and_financial_models",
+      "type": "forecasting_system",
+      "summary": "Monte Carlo and probabilistic modeling for adoption, retention, growth, and partner value.",
+      "retrieval_tags": [
+        "monte_carlo",
+        "forecasting",
+        "retention",
+        "adoption",
+        "portfolio_growth"
+      ],
+      "apply_when": [
+        "forecasting growth",
+        "simulating deal outcomes",
+        "testing scenarios"
+      ],
+      "confidence_score": 0.9,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "adoption_forecasting",
+        "retention_modeling",
+        "portfolio_growth",
+        "partner_value_analysis"
+      ],
+      "dependencies": [
+        "MEM-006"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Probabilistic Simulation Models",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-008",
+      "title": "Experience Engineering Equation",
+      "tier": 2,
+      "status": "active",
+      "category": "simulation_and_financial_models",
+      "type": "economic_model",
+      "summary": "Core equation linking brand and interaction management to revenue and predictable profitability.",
+      "retrieval_tags": [
+        "experience_engineering",
+        "brand_interaction",
+        "profitability_model",
+        "scenario_analysis"
+      ],
+      "apply_when": [
+        "building dashboards",
+        "modeling revenue",
+        "designing CX systems"
+      ],
+      "confidence_score": 0.91,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "brand_plus_interaction",
+        "experience_engineering",
+        "revenue_generation",
+        "predictable_profitability"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Experience Engineering Equation",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-009",
+      "title": "Organizational Intelligence Structure",
+      "tier": 2,
+      "status": "active",
+      "category": "organizational_models",
+      "type": "org_template",
+      "summary": "CEO plus 6 C-suite functional model with structured sub-entities and support agents.",
+      "retrieval_tags": [
+        "org_structure",
+        "c_suite_model",
+        "resource_template",
+        "entity_architecture"
+      ],
+      "apply_when": [
+        "designing org charts",
+        "mapping responsibilities",
+        "identifying structural gaps"
+      ],
+      "confidence_score": 0.89,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "executive_count_7",
+        "sub_entities_per_executive_7",
+        "support_agents_max_3"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Organizational Intelligence Structure",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-010",
+      "title": "Structure vs Framework vs Harness Model",
+      "tier": 3,
+      "status": "active",
+      "category": "organizational_models",
+      "type": "conceptual_architecture",
+      "summary": "Model defining the difference between static organization, reusable system logic, and execution control layers.",
+      "retrieval_tags": [
+        "structure",
+        "framework",
+        "harness",
+        "system_design"
+      ],
+      "apply_when": [
+        "explaining architecture",
+        "defining system layers",
+        "mapping business components"
+      ],
+      "confidence_score": 0.86,
+      "confidence_level": "medium",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "structure",
+        "framework",
+        "harness"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Structure vs Framework vs Harness Model",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-011",
+      "title": "Obsidian MD System Standard",
+      "tier": 1,
+      "status": "active",
+      "category": "knowledge_infrastructure",
+      "type": "documentation_standard",
+      "summary": "Project-wide markdown system requiring YAML frontmatter, Templater readiness, and maximum data capture with minimum leakage.",
+      "retrieval_tags": [
+        "obsidian",
+        "markdown_standard",
+        "templater",
+        "knowledge_capture"
+      ],
+      "apply_when": [
+        "creating markdown files",
+        "building project docs",
+        "structuring reusable notes"
+      ],
+      "confidence_score": 0.97,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "yaml_frontmatter",
+        "obsidian_templater_ready",
+        "structured_sections",
+        "maximum_information_capture",
+        "minimum_data_leakage"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Obsidian MD System Standard",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-012",
+      "title": "Universal MD Response Contract",
+      "tier": 1,
+      "status": "active",
+      "category": "knowledge_infrastructure",
+      "type": "output_standard",
+      "summary": "Universal output contract requiring structure, reusability, and machine-ingestibility in markdown.",
+      "retrieval_tags": [
+        "md_contract",
+        "output_standard",
+        "machine_ingestible",
+        "structured_output"
+      ],
+      "apply_when": [
+        "responding with files",
+        "creating artifacts",
+        "designing reusable outputs"
+      ],
+      "confidence_score": 0.96,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "structure",
+        "reusability",
+        "machine_ingestibility"
+      ],
+      "dependencies": [
+        "MEM-011"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Universal MD Response Contract",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-013",
+      "title": "MD Transformation Engine",
+      "tier": 2,
+      "status": "active",
+      "category": "platform_and_tooling",
+      "type": "productizable_tool",
+      "summary": "Firebase-based app that transforms raw markdown into optimized Obsidian-ready markdown through a Python pipeline.",
+      "retrieval_tags": [
+        "firebase",
+        "markdown_transformer",
+        "obsidian_optimizer",
+        "python_pipeline"
+      ],
+      "apply_when": [
+        "designing FE tools",
+        "automating markdown cleanup",
+        "productizing knowledge workflows"
+      ],
+      "confidence_score": 0.88,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "raw_markdown",
+        "optimized_markdown"
+      ],
+      "dependencies": [
+        "MEM-011",
+        "MEM-012"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "MD Transformation Engine",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-014",
+      "title": "Claude + External Systems Integration",
+      "tier": 2,
+      "status": "active",
+      "category": "platform_and_tooling",
+      "type": "integration_pattern",
+      "summary": "Integration logic for Firebase, deployment pipelines, and connector-based intelligence workflows.",
+      "retrieval_tags": [
+        "claude_integration",
+        "firebase",
+        "deployment",
+        "connectors"
+      ],
+      "apply_when": [
+        "connecting AI to platforms",
+        "building deployment flows",
+        "architecting automation"
+      ],
+      "confidence_score": 0.87,
+      "confidence_level": "medium",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "firebase",
+        "deployment_pipelines",
+        "connector_workflows"
+      ],
+      "dependencies": [
+        "MEM-013"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Claude + External Systems Integration",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-015",
+      "title": "Gigaton Value Matrix",
+      "tier": 1,
+      "status": "active",
+      "category": "commercial_systems",
+      "type": "core_ip",
+      "summary": "Core monetization logic driving partnerships, contracts, and performance engineering.",
+      "retrieval_tags": [
+        "gigaton_value_matrix",
+        "core_ip",
+        "partnerships",
+        "performance_logic"
+      ],
+      "apply_when": [
+        "structuring deals",
+        "building contracts",
+        "evaluating commercial value"
+      ],
+      "confidence_score": 0.97,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "partnerships",
+        "contracts",
+        "performance"
+      ],
+      "dependencies": [
+        "MEM-001",
+        "MEM-006"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Gigaton Value Matrix",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-016",
+      "title": "Cross-Licensing + Term Sheet Structures",
+      "tier": 2,
+      "status": "active",
+      "category": "commercial_systems",
+      "type": "deal_framework",
+      "summary": "Commercial structures for investor, SMB, operator, and Blue Ocean deal variants.",
+      "retrieval_tags": [
+        "cross_licensing",
+        "term_sheet",
+        "deal_structure",
+        "commercial_framework"
+      ],
+      "apply_when": [
+        "drafting commercial terms",
+        "structuring partner agreements",
+        "designing licensing models"
+      ],
+      "confidence_score": 0.9,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "investor",
+        "smb",
+        "operator",
+        "blue_ocean"
+      ],
+      "dependencies": [
+        "MEM-015"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Cross-Licensing + Term Sheet Structures",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-017",
+      "title": "Negotiation + Operator Playbook",
+      "tier": 2,
+      "status": "active",
+      "category": "commercial_systems",
+      "type": "execution_playbook",
+      "summary": "Simulation-backed negotiation framework for operator deals and value-based structuring.",
+      "retrieval_tags": [
+        "negotiation",
+        "operator_playbook",
+        "deal_strategy",
+        "simulation_backed_terms"
+      ],
+      "apply_when": [
+        "preparing negotiations",
+        "optimizing commercial leverage",
+        "running deal scenarios"
+      ],
+      "confidence_score": 0.89,
+      "confidence_level": "medium_high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "negotiation",
+        "operator",
+        "simulations"
+      ],
+      "dependencies": [
+        "MEM-007",
+        "MEM-016"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Negotiation + Operator Playbook",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-018",
+      "title": "Gigaton Axiom Registry + Constitution",
+      "tier": 1,
+      "status": "active",
+      "category": "foundational_doctrine",
+      "type": "doctrinal_system",
+      "summary": "Foundational philosophical and logical core of the ecosystem, including first principles, constitutions, multi-language logic expansion, and proof-oriented structure.",
+      "retrieval_tags": [
+        "axiom_registry",
+        "constitution",
+        "first_principles",
+        "doctrine",
+        "proof_structure"
+      ],
+      "apply_when": [
+        "deriving principles",
+        "resolving conflicts",
+        "building foundational systems"
+      ],
+      "confidence_score": 0.98,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "axioms",
+        "constitutions",
+        "multi_language_logic",
+        "proof_oriented_structure"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Gigaton Axiom Registry + Constitution",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "cannot_override_foundational_doctrine_from_client_namespace",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-019",
+      "title": "Human-Tech Co-Evolution Framework",
+      "tier": 1,
+      "status": "active",
+      "category": "foundational_doctrine",
+      "type": "guiding_framework",
+      "summary": "Connect, Create, Thrive, Evolve framework embedded across all systems.",
+      "retrieval_tags": [
+        "connect_create_thrive_evolve",
+        "human_tech_coevolution",
+        "guiding_framework"
+      ],
+      "apply_when": [
+        "framing strategy",
+        "aligning systems",
+        "evaluating mission fit"
+      ],
+      "confidence_score": 0.98,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "connect",
+        "create",
+        "thrive",
+        "evolve"
+      ],
+      "dependencies": [],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Human-Tech Co-Evolution Framework",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "cannot_override_foundational_doctrine_from_client_namespace",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    },
+    {
+      "memory_id": "MEM-020",
+      "title": "Portable System Prompt Contract",
+      "tier": 1,
+      "status": "active",
+      "category": "knowledge_infrastructure",
+      "type": "root_control_layer",
+      "summary": "Portable control layer encoding project logic, constraints, frameworks, and behavior into reusable system prompts.",
+      "retrieval_tags": [
+        "system_prompt_contract",
+        "portable_prompt",
+        "root_control_layer",
+        "behavioral_logic"
+      ],
+      "apply_when": [
+        "creating AI prompt layers",
+        "encoding behavior",
+        "porting system logic between models"
+      ],
+      "confidence_score": 0.97,
+      "confidence_level": "high",
+      "confidence_rationale": "High repeated relevance across multiple project threads and direct artifact requests.",
+      "key_constructs": [
+        "project_logic",
+        "constraints",
+        "frameworks",
+        "behavior"
+      ],
+      "dependencies": [
+        "MEM-011",
+        "MEM-012",
+        "MEM-018",
+        "MEM-019"
+      ],
+      "namespace": "global",
+      "parent_namespace": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "deprecated": false,
+      "deprecation_reason": null,
+      "provenance": [
+        {
+          "source_type": "project_conversation",
+          "source_scope": "shared_project_history",
+          "confidence_basis": "derived_from_repeated_project directives and artifact requests"
+        },
+        {
+          "source_hint": "Portable System Prompt Contract",
+          "source_type": "derived_memory",
+          "source_scope": "assistant_structured_synthesis",
+          "confidence_basis": "condensed from prior project tasks and user-approved bundling request"
+        }
+      ],
+      "governance": {
+        "mutation_policy": "update_only_if_newer_and_more_authoritative",
+        "override_policy": "client_namespace_may_refine_non_foundational_fields",
+        "review_cycle": "quarterly_or_on_major_architecture_change"
+      }
+    }
+  ]
+}

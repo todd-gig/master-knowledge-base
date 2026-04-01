@@ -1,0 +1,72 @@
+{
+  "version": "6.0.0",
+  "last_updated_utc": "2026-03-25T20:57:48+00:00",
+  "sources": [
+    {
+      "source_id": "SRC-001",
+      "title": "Trust Matrix Design",
+      "project_thread_ref": "20260323T16:05 Trust Matrix Design",
+      "link_hint": "shared_project_conversation://1"
+    },
+    {
+      "source_id": "SRC-002",
+      "title": "Executive Decision Model Plan",
+      "project_thread_ref": "20260323T22:12 Executive Decision Model Plan",
+      "link_hint": "shared_project_conversation://2"
+    },
+    {
+      "source_id": "SRC-003",
+      "title": "Structure vs Framework vs Harness",
+      "project_thread_ref": "20260323T17:03 Structure vs Framework vs Harness",
+      "link_hint": "shared_project_conversation://4"
+    },
+    {
+      "source_id": "SRC-004",
+      "title": "Obsidian Markdown Overview",
+      "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+      "link_hint": "shared_project_conversation://5"
+    },
+    {
+      "source_id": "SRC-005",
+      "title": "Experience Engineering Math",
+      "project_thread_ref": "20260310T16 Experience Engineering Math",
+      "link_hint": "shared_project_conversation://6"
+    },
+    {
+      "source_id": "SRC-006",
+      "title": "First Principles in German",
+      "project_thread_ref": "20260302T16 First Principles in German",
+      "link_hint": "shared_project_conversation://7"
+    },
+    {
+      "source_id": "SRC-007",
+      "title": "Onboarding and API Key",
+      "project_thread_ref": "20260302T23 Onboarding and API Key",
+      "link_hint": "shared_project_conversation://8"
+    },
+    {
+      "source_id": "SRC-008",
+      "title": "Gigaton Value Matrix",
+      "project_thread_ref": "20260217T22 Gigaton Value Matrix",
+      "link_hint": "shared_project_conversation://10"
+    },
+    {
+      "source_id": "SRC-009",
+      "title": "Ethnographic Research and Optimization",
+      "project_thread_ref": "20260210T16 Ethnographic Research and Optimization",
+      "link_hint": "shared_project_conversation://12"
+    },
+    {
+      "source_id": "SRC-010",
+      "title": "Valuing Human Contributions",
+      "project_thread_ref": "20260225T13 Valuing Human Contributions",
+      "link_hint": "shared_project_conversation://13"
+    },
+    {
+      "source_id": "SRC-011",
+      "title": "Attractor Dynamix Constitution",
+      "project_thread_ref": "20260223T21 Attractor Dynamix Constitution",
+      "link_hint": "shared_project_conversation://16"
+    }
+  ]
+}

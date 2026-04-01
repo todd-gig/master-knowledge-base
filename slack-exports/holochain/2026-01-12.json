@@ -1,0 +1,46 @@
+[
+    {
+        "user": "U094PL1V9MX",
+        "type": "message",
+        "ts": "1768238984.665019",
+        "client_msg_id": "d45d00fe-5b82-4f88-aeb7-0212352f1cbe",
+        "text": "<@U094ACC5CHY> I think they're talking about a lot of the same stuff, but HOW is what matters...\n\nAt least some of the tools they're talking about building are the same things we've discussed....\n\nEX: Once you have the process for the value matrix you can easily get a form &gt; field mapping &gt; fungable\/non funge\/permanent...which is WHY the logic in the matrix is engineered how it is...\n\nIm pretty sure the \"gui's\" Im talking about are the same as some of the tools they're describing, but implemented a bit different vs standard saas UI stuff",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "gecba38c6438",
+            "image_72": "https:\/\/secure.gravatar.com\/avatar\/ecba38c6438785b8696066b83294e7fe.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0012-72.png",
+            "first_name": "todd.​cx",
+            "real_name": "todd.​cx",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "todd.cx",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "thread_ts": "1767212494.391639",
+        "parent_user_id": "U094ACC5CHY",
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "CzCpZ",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "user",
+                                "user_id": "U094ACC5CHY"
+                            },
+                            {
+                                "type": "text",
+                                "text": " I think they're talking about a lot of the same stuff, but HOW is what matters...\n\nAt least some of the tools they're talking about building are the same things we've discussed....\n\nEX: Once you have the process for the value matrix you can easily get a form > field mapping > fungable\/non funge\/permanent...which is WHY the logic in the matrix is engineered how it is...\n\nIm pretty sure the \"gui's\" Im talking about are the same as some of the tools they're describing, but implemented a bit different vs standard saas UI stuff"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

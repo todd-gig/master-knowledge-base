@@ -1,0 +1,44 @@
+{
+  "client_name": "Liquefex Example",
+  "industry": "insurance",
+  "business_model": "b2b services and platform enablement",
+  "primary_revenue_motion": "platform",
+  "top_3_objectives": [
+    "increase decision quality",
+    "speed onboarding",
+    "improve commercial leverage"
+  ],
+  "top_3_constraints": [
+    "limited internal technical bandwidth",
+    "need measurable ROI",
+    "must preserve core doctrine"
+  ],
+  "preferred_terminology": {
+    "customer": "carrier or insured stakeholder",
+    "operator": "program operator"
+  },
+  "success_metrics": [
+    "time_to_onboard",
+    "retrieval_quality",
+    "decision_throughput"
+  ],
+  "decision_rights_map": {
+    "strategy": "executive sponsor",
+    "operations": "client operator",
+    "knowledge_system": "gigaton"
+  },
+  "artifact_priorities": [
+    "decision_automation",
+    "contracts",
+    "ops_dashboard"
+  ],
+  "data_sources": [
+    "google_drive",
+    "crm_exports",
+    "meeting_notes"
+  ],
+  "workflow_preferences": [
+    "research_first",
+    "operator_review_gate"
+  ]
+}

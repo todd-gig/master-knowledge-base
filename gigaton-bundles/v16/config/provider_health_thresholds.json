@@ -1,0 +1,5 @@
+{
+  "warning_failure_rate": 0.05,
+  "critical_failure_rate": 0.15,
+  "min_sample_size": 20
+}

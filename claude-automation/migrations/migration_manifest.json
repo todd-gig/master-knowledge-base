@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "migrations": [
+    {
+      "id": "001",
+      "file": "001_initial_schema.sql"
+    },
+    {
+      "id": "002",
+      "file": "002_dashboard_views.sql"
+    }
+  ]
+}

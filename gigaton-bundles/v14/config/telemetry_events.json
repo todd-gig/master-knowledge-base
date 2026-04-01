@@ -1,0 +1,12 @@
+{
+  "events": [
+    "payment_create_attempted",
+    "payment_create_succeeded",
+    "payment_create_failed",
+    "provider_failover_triggered",
+    "provider_failover_succeeded",
+    "provider_failover_failed",
+    "webhook_verified",
+    "webhook_rejected"
+  ]
+}

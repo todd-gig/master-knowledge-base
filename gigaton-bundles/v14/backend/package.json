@@ -1,0 +1,15 @@
+{
+  "name": "gigaton-payments-real-execution",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5",
+    "stripe": "^18.0.0",
+    "better-sqlite3": "^11.3.0"
+  }
+}

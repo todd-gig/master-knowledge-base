@@ -1,0 +1,26 @@
+{
+  "normalized_statuses": {
+    "requires_payment_method": [
+      "stripe:requires_payment_method"
+    ],
+    "requires_action": [
+      "stripe:requires_action"
+    ],
+    "processing": [
+      "stripe:processing",
+      "godaddy_poynt:OPENED"
+    ],
+    "succeeded": [
+      "stripe:succeeded",
+      "godaddy_poynt:COMPLETED"
+    ],
+    "canceled": [
+      "stripe:canceled",
+      "godaddy_poynt:CANCELLED"
+    ],
+    "failed": [
+      "stripe:payment_failed",
+      "godaddy_poynt:FAILED"
+    ]
+  }
+}

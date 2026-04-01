@@ -1,0 +1,6 @@
+{
+  "provider": "godaddy_poynt",
+  "amount_cents": 50000,
+  "currency": "usd",
+  "order_id": "ORD-002"
+}

@@ -1,0 +1,44 @@
+{
+  "examples": [
+    {
+      "example_id": "NS-EX-001",
+      "name": "liquefex_client_overlay",
+      "inherits_from": "global",
+      "overrides": {
+        "terminology": {
+          "customer": "carrier or insured stakeholder",
+          "operator": "program operator"
+        },
+        "scoring_weights": {
+          "commercial_systems": 0.95,
+          "platform_and_tooling": 0.88
+        },
+        "templates": [
+          "operator_term_sheet_template",
+          "client_onboarding_playbook"
+        ]
+      },
+      "notes": "Inherits all doctrine and Tier 1 memory. Refines vocabulary and deal templates only."
+    },
+    {
+      "example_id": "NS-EX-002",
+      "name": "lighthouse_life_client_overlay",
+      "inherits_from": "global",
+      "overrides": {
+        "terminology": {
+          "EO": "ethnographic object",
+          "lead": "policy opportunity"
+        },
+        "data_mappings": {
+          "primary_kpi": "qualified policy submissions",
+          "secondary_kpi": "placement conversion rate"
+        },
+        "workflow_variants": [
+          "research_first_sales_assist",
+          "carrier_feedback_loop"
+        ]
+      },
+      "notes": "Keeps core doctrine intact while tailoring metrics and workflow logic."
+    }
+  ]
+}

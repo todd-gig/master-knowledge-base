@@ -1,0 +1,20 @@
+python:
+  structured_input: 1.2
+  explicit_rules: 1.3
+  deterministic_output: 1.4
+  high_volume: 1.4
+  repeatability: 1.3
+  stable_logic: 1.4
+
+claude:
+  ambiguous_input: 1.4
+  contextual_reasoning: 1.3
+  incomplete_rules: 1.3
+  edge_case_frequency: 1.2
+  interpretation_burden: 1.4
+
+hybrid:
+  parse_then_score_viable: 1.5
+  structured_output_possible: 1.4
+  exception_isolation_possible: 1.3
+  codification_path_exists: 1.5

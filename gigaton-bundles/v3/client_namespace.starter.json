@@ -1,0 +1,10 @@
+{
+  "namespace_id": "client_acme_template",
+  "inherits_from": "global",
+  "client_name": "ACME Template",
+  "industry": "template",
+  "preferred_terminology": {},
+  "custom_scoring_weights": {},
+  "workflow_variants": [],
+  "templates": []
+}

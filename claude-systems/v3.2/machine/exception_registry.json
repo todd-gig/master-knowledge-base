@@ -1,0 +1,37 @@
+{
+  "version": "3.0",
+  "exceptions": [
+    {
+      "code": "missing_data",
+      "severity": "medium"
+    },
+    {
+      "code": "conflicting_data",
+      "severity": "medium"
+    },
+    {
+      "code": "ambiguous_intent",
+      "severity": "medium"
+    },
+    {
+      "code": "threshold_conflict",
+      "severity": "medium"
+    },
+    {
+      "code": "policy_gap",
+      "severity": "high"
+    },
+    {
+      "code": "out_of_distribution_input",
+      "severity": "high"
+    },
+    {
+      "code": "compliance_risk",
+      "severity": "critical"
+    },
+    {
+      "code": "irreversible_action_risk",
+      "severity": "critical"
+    }
+  ]
+}

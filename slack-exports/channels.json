@@ -1,0 +1,112 @@
+[
+{
+    "id": "C094PL23YFK",
+    "name": "all-ti-gigaton",
+    "created": 1751579701,
+    "creator": "U094PL1V9MX",
+    "is_archived": false,
+    "is_general": true,
+    "members": [
+        "U094ACB5A66",
+        "U094ACC5CHY",
+        "U094PL1V9MX",
+        "U095RDELW0P",
+        "U09RC73M5T5",
+        "U09RPMP4GSX",
+        "U09SJS25BFC",
+        "U09SQCDJMRN",
+        "U0AFJE6BQ10"
+    ],
+    "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+    },
+    "purpose": {
+        "value": "Share announcements and updates about company news, upcoming events, or teammates who deserve some kudos. ⭐",
+        "creator": "U094PL1V9MX",
+        "last_set": 1751579701
+    }
+},
+{
+    "id": "C094PL24S6M",
+    "name": "social",
+    "created": 1751579701,
+    "creator": "U094PL1V9MX",
+    "is_archived": false,
+    "is_general": false,
+    "members": [
+        "U094ACB5A66",
+        "U094ACC5CHY",
+        "U094PL1V9MX",
+        "U095RDELW0P",
+        "U09RC73M5T5",
+        "U09SJS25BFC",
+        "U09SQCDJMRN",
+        "U0AFJE6BQ10"
+    ],
+    "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+    },
+    "purpose": {
+        "value": "Other channels are for work. This one’s just for fun. Get to know your teammates and show your lighter side. 🎈",
+        "creator": "U094PL1V9MX",
+        "last_set": 1751579701
+    }
+},
+{
+    "id": "C094ACKD742",
+    "name": "new-channel",
+    "created": 1751579800,
+    "creator": "U094PL1V9MX",
+    "is_archived": false,
+    "is_general": false,
+    "members": [
+        "U094ACB5A66",
+        "U094ACC5CHY",
+        "U094PL1V9MX",
+        "U095RDELW0P",
+        "U09RC73M5T5",
+        "U09SJS25BFC",
+        "U09SQCDJMRN",
+        "U0AFJE6BQ10"
+    ],
+    "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+    },
+    "purpose": {
+        "value": "This channel is for everything #new-channel. Hold meetings, share docs, and make decisions together with your team.",
+        "creator": "U094PL1V9MX",
+        "last_set": 1751579800
+    }
+},
+{
+    "id": "C09U7EAHFL6",
+    "name": "holochain",
+    "created": 1763658076,
+    "creator": "U094ACC5CHY",
+    "is_archived": false,
+    "is_general": false,
+    "members": [
+        "U094ACC5CHY",
+        "U094PL1V9MX",
+        "U09RC73M5T5",
+        "U09SJS25BFC",
+        "U09SQCDJMRN"
+    ],
+    "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+    },
+    "purpose": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+    }
+}
+]

@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "decision_modes": [
+    "Python-First",
+    "Claude-First",
+    "Hybrid"
+  ],
+  "architectures": [
+    "Pure Python",
+    "Pure Claude",
+    "Claude parse -> Python decide",
+    "Claude decide -> Python execute",
+    "Claude supervise -> Python run",
+    "Claude parse -> Python score -> Claude review exceptions"
+  ],
+  "thresholds": {
+    "dominance_margin_pct": 15,
+    "hybrid_within_top_pct": 10,
+    "high_confidence_min": 0.9,
+    "moderate_confidence_min": 0.75,
+    "low_confidence_min": 0.6
+  }
+}

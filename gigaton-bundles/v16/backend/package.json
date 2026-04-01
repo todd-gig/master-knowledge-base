@@ -1,0 +1,17 @@
+{
+  "name": "gigaton-payments-v16",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "reconcile": "node jobs/run_reconciliation.js",
+    "test:webhooks": "bash scripts/test_stripe_webhooks.sh"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5",
+    "stripe": "^18.0.0",
+    "better-sqlite3": "^11.3.0"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_name": "gigaton_client_intake_form",
+  "version": "1.3.0",
+  "required_fields": [
+    "client_name",
+    "industry",
+    "business_model",
+    "primary_revenue_motion",
+    "top_3_objectives",
+    "top_3_constraints",
+    "preferred_terminology",
+    "success_metrics",
+    "decision_rights_map",
+    "artifact_priorities",
+    "data_sources",
+    "workflow_preferences"
+  ],
+  "field_rules": {
+    "client_name": {
+      "type": "string",
+      "min_length": 2
+    },
+    "industry": {
+      "type": "string",
+      "min_length": 2
+    },
+    "preferred_terminology": {
+      "type": "object"
+    },
+    "top_3_objectives": {
+      "type": "array",
+      "min_items": 1
+    },
+    "top_3_constraints": {
+      "type": "array",
+      "min_items": 1
+    }
+  }
+}

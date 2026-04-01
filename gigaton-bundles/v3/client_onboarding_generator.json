@@ -1,0 +1,30 @@
+{
+  "generator_name": "gigaton_client_onboarding_generator",
+  "version": "1.0.0",
+  "purpose": "Create a client-specific namespace overlay, onboarding packet, and starter memory profile.",
+  "required_inputs": [
+    "client_name",
+    "industry",
+    "business_model",
+    "primary_revenue_motion",
+    "top_3_objectives",
+    "key_constraints",
+    "preferred_terminology",
+    "success_metrics",
+    "decision_rights_map"
+  ],
+  "outputs": [
+    "client_namespace.json",
+    "client_onboarding_brief.md",
+    "client_memory_overlay.md",
+    "client_scoring_weights.json"
+  ],
+  "generation_steps": [
+    "inherit_global_namespace",
+    "map_client_terminology",
+    "assign_priority_weights",
+    "select_relevant_tier_2_memories",
+    "build_client_overlay_files",
+    "emit_onboarding_checklist"
+  ]
+}

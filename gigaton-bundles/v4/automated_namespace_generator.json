@@ -1,0 +1,63 @@
+{
+  "generator_name": "automated_namespace_generator",
+  "version": "4.0.0",
+  "input_schema_ref": "client_intake_form.schema.json",
+  "outputs": [
+    "client_namespace.generated.json",
+    "client_onboarding_brief.generated.md",
+    "client_memory_overlay.generated.json",
+    "client_scoring_weights.generated.json"
+  ],
+  "rules": [
+    "inherit_from_global",
+    "never_override_foundational_doctrine",
+    "map_preferred_terminology_to_overlay",
+    "prioritize_memories_by_objectives_constraints_and_artifact_priorities",
+    "boost_categories_relevant_to_primary_revenue_motion",
+    "emit_minimum_viable_overlay"
+  ],
+  "mapping_logic": {
+    "artifact_priorities_to_category_weights": {
+      "contracts": {
+        "commercial_systems": 0.08
+      },
+      "decision_automation": {
+        "decision_systems": 0.1
+      },
+      "knowledge_systems": {
+        "knowledge_infrastructure": 0.08
+      },
+      "ops_dashboard": {
+        "platform_and_tooling": 0.08
+      },
+      "research": {
+        "ontology_and_data_models": 0.08
+      }
+    },
+    "revenue_motion_to_memory_bias": {
+      "enterprise_sales": [
+        "MEM-015",
+        "MEM-016",
+        "MEM-017",
+        "MEM-002"
+      ],
+      "services": [
+        "MEM-003",
+        "MEM-011",
+        "MEM-012",
+        "MEM-013"
+      ],
+      "licensing": [
+        "MEM-015",
+        "MEM-016",
+        "MEM-020"
+      ],
+      "platform": [
+        "MEM-002",
+        "MEM-003",
+        "MEM-013",
+        "MEM-014"
+      ]
+    }
+  }
+}

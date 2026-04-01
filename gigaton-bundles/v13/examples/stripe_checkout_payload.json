@@ -1,0 +1,9 @@
+{
+  "provider": "auto",
+  "amount_cents": 50000,
+  "currency": "usd",
+  "order_id": "ORD-001",
+  "customer_email": "test@example.com",
+  "success_url": "https://example.com/success",
+  "cancel_url": "https://example.com/cancel"
+}

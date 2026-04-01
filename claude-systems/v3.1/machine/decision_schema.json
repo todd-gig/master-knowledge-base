@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision Payload",
+  "type": "object",
+  "required": [
+    "confidence_score",
+    "decision_type",
+    "exception_flags",
+    "normalized_variables",
+    "recommended_action",
+    "recommended_architecture",
+    "review_required",
+    "routing_classification"
+  ],
+  "properties": {
+    "decision_type": {
+      "type": "string"
+    },
+    "normalized_variables": {
+      "type": "object"
+    },
+    "routing_classification": {
+      "enum": [
+        "Python-First",
+        "Claude-First",
+        "Hybrid"
+      ]
+    },
+    "recommended_architecture": {
+      "type": "string"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "exception_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "review_required": {
+      "type": "boolean"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prompt_id": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "code_version": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "codification_candidate_score": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "additionalProperties": true
+}

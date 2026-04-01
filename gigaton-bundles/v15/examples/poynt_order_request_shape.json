@@ -1,0 +1,10 @@
+{
+  "token_endpoint": "https://services.poynt.net/token",
+  "order_endpoint": "https://services.poynt.net/businesses/{businessId}/orders",
+  "headers": {
+    "Api-Version": "1.2",
+    "Authorization": "Bearer <access_token>",
+    "Content-Type": "application/json",
+    "POYNT-REQUEST-ID": "<unique-id>"
+  }
+}

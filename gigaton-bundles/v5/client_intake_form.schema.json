@@ -1,0 +1,18 @@
+{
+  "schema_name": "gigaton_client_intake_form",
+  "version": "1.1.0",
+  "required_fields": [
+    "client_name",
+    "industry",
+    "business_model",
+    "primary_revenue_motion",
+    "top_3_objectives",
+    "top_3_constraints",
+    "preferred_terminology",
+    "success_metrics",
+    "decision_rights_map",
+    "artifact_priorities",
+    "data_sources",
+    "workflow_preferences"
+  ]
+}

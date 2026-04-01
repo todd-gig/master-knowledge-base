@@ -1,0 +1,355 @@
+{
+  "registry_meta": {
+    "registry_name": "gigaton_project_memory_registry",
+    "version": "9.0.0",
+    "canonical": true,
+    "project": "Gigaton",
+    "last_updated_utc": "2026-03-25T21:20:03+00:00"
+  },
+  "memory_objects": [
+    {
+      "memory_id": "MEM-001",
+      "title": "Trust Matrix + Value Matrix Integration",
+      "tier": 1,
+      "category": "decision_systems",
+      "type": "foundational_logic",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.96,
+      "weighted_base_score": 0.9736,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-001",
+        "SRC-008"
+      ]
+    },
+    {
+      "memory_id": "MEM-002",
+      "title": "Executive Decision Engine",
+      "tier": 1,
+      "category": "decision_systems",
+      "type": "system_architecture",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.95,
+      "weighted_base_score": 0.9704,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-002"
+      ]
+    },
+    {
+      "memory_id": "MEM-003",
+      "title": "Decision Execution Engine",
+      "tier": 1,
+      "category": "decision_systems",
+      "type": "service_layer",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.93,
+      "weighted_base_score": 0.964,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-002"
+      ]
+    },
+    {
+      "memory_id": "MEM-004",
+      "title": "First Principles Variable Registry",
+      "tier": 1,
+      "category": "ontology_and_data_models",
+      "type": "input_schema",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.94,
+      "weighted_base_score": 0.9536,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-001",
+        "SRC-006"
+      ]
+    },
+    {
+      "memory_id": "MEM-005",
+      "title": "EO System",
+      "tier": 1,
+      "category": "ontology_and_data_models",
+      "type": "self_improving_intelligence_system",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.92,
+      "weighted_base_score": 0.9472,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-009"
+      ]
+    },
+    {
+      "memory_id": "MEM-006",
+      "title": "Value of Human Contribution Matrix",
+      "tier": 1,
+      "category": "commercial_systems",
+      "type": "valuation_model",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.94,
+      "weighted_base_score": 0.9468,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-010"
+      ]
+    },
+    {
+      "memory_id": "MEM-007",
+      "title": "Probabilistic Simulation Models",
+      "tier": 2,
+      "category": "simulation_and_financial_models",
+      "type": "forecasting_system",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.9,
+      "weighted_base_score": 0.8694,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-007"
+      ]
+    },
+    {
+      "memory_id": "MEM-008",
+      "title": "Experience Engineering Equation",
+      "tier": 2,
+      "category": "simulation_and_financial_models",
+      "type": "economic_model",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.91,
+      "weighted_base_score": 0.8726,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-005"
+      ]
+    },
+    {
+      "memory_id": "MEM-009",
+      "title": "Organizational Intelligence Structure",
+      "tier": 2,
+      "category": "organizational_models",
+      "type": "org_template",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.89,
+      "weighted_base_score": 0.8356,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-003"
+      ]
+    },
+    {
+      "memory_id": "MEM-010",
+      "title": "Structure vs Framework vs Harness Model",
+      "tier": 3,
+      "category": "organizational_models",
+      "type": "conceptual_architecture",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.86,
+      "weighted_base_score": 0.7648,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-003"
+      ]
+    },
+    {
+      "memory_id": "MEM-011",
+      "title": "Obsidian MD System Standard",
+      "tier": 1,
+      "category": "knowledge_infrastructure",
+      "type": "documentation_standard",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.97,
+      "weighted_base_score": 0.97,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-004"
+      ]
+    },
+    {
+      "memory_id": "MEM-012",
+      "title": "Universal MD Response Contract",
+      "tier": 1,
+      "category": "knowledge_infrastructure",
+      "type": "output_standard",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.96,
+      "weighted_base_score": 0.9668,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-004"
+      ]
+    },
+    {
+      "memory_id": "MEM-013",
+      "title": "MD Transformation Engine",
+      "tier": 2,
+      "category": "platform_and_tooling",
+      "type": "productizable_tool",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.88,
+      "weighted_base_score": 0.846,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-004"
+      ]
+    },
+    {
+      "memory_id": "MEM-014",
+      "title": "Claude + External Systems Integration",
+      "tier": 2,
+      "category": "platform_and_tooling",
+      "type": "integration_pattern",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.87,
+      "weighted_base_score": 0.8428,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-004"
+      ]
+    },
+    {
+      "memory_id": "MEM-015",
+      "title": "Gigaton Value Matrix",
+      "tier": 1,
+      "category": "commercial_systems",
+      "type": "core_ip",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.97,
+      "weighted_base_score": 0.9564,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-008"
+      ]
+    },
+    {
+      "memory_id": "MEM-016",
+      "title": "Cross-Licensing + Term Sheet Structures",
+      "tier": 2,
+      "category": "commercial_systems",
+      "type": "deal_framework",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.9,
+      "weighted_base_score": 0.8728,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-007"
+      ]
+    },
+    {
+      "memory_id": "MEM-017",
+      "title": "Negotiation + Operator Playbook",
+      "tier": 2,
+      "category": "commercial_systems",
+      "type": "execution_playbook",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.89,
+      "weighted_base_score": 0.8696,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-007"
+      ]
+    },
+    {
+      "memory_id": "MEM-018",
+      "title": "Gigaton Axiom Registry + Constitution",
+      "tier": 1,
+      "category": "foundational_doctrine",
+      "type": "doctrinal_system",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.98,
+      "weighted_base_score": 0.9936,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-006",
+        "SRC-011"
+      ]
+    },
+    {
+      "memory_id": "MEM-019",
+      "title": "Human-Tech Co-Evolution Framework",
+      "tier": 1,
+      "category": "foundational_doctrine",
+      "type": "guiding_framework",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.98,
+      "weighted_base_score": 0.9936,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-006"
+      ]
+    },
+    {
+      "memory_id": "MEM-020",
+      "title": "Portable System Prompt Contract",
+      "tier": 1,
+      "category": "knowledge_infrastructure",
+      "type": "root_control_layer",
+      "status": "active",
+      "lifecycle_state": "validated",
+      "namespace": "global",
+      "confidence_score": 0.97,
+      "weighted_base_score": 0.97,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_link_ids": [
+        "SRC-004",
+        "SRC-006"
+      ]
+    }
+  ]
+}

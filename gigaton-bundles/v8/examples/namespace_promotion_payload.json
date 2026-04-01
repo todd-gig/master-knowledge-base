@@ -1,0 +1,14 @@
+{
+  "namespace_id": "client_acme_template",
+  "client_name": "ACME Template",
+  "industry": "template",
+  "payload_json": {
+    "inherits_from": "global",
+    "preferred_terminology": {
+      "customer": "stakeholder"
+    },
+    "workflow_variants": [
+      "research_first"
+    ]
+  }
+}

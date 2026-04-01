@@ -1,0 +1,10 @@
+{
+  "default_provider": "stripe",
+  "tenant_overrides": [
+    {
+      "tenant_id": "tenant_liquefex",
+      "preferred_provider": "stripe",
+      "fallback_provider": "godaddy_poynt"
+    }
+  ]
+}

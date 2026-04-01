@@ -1,0 +1,6 @@
+{
+  "provider": "stripe",
+  "success_count": 92,
+  "failure_count": 8,
+  "failure_rate": 0.08
+}

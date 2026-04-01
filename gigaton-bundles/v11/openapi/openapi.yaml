@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Gigaton Payments Orchestration API
+  version: 1.1.0
+paths:
+  /api/payments/create-session:
+    post:
+      summary: Create a payment session through the selected provider
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentSessionRequest'
+      responses:
+        '200':
+          description: Payment session created
+  /api/payments/create-intent:
+    post:
+      summary: Create a lower-level payment intent through the selected provider
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentIntentRequest'
+      responses:
+        '200':
+          description: Payment intent created
+  /api/payments/webhooks/{provider}:
+    post:
+      summary: Receive provider webhook and normalize event
+      parameters:
+        - in: path
+          name: provider
+          required: true
+          schema:
+            type: string
+            enum: [stripe, godaddy_poynt]
+      responses:
+        '200':
+          description: Webhook accepted
+components:
+  schemas:
+    CreatePaymentSessionRequest:
+      type: object
+      required: [provider, amount_cents, currency, order_id]
+      properties:
+        provider:
+          type: string
+          enum: [stripe, godaddy_poynt, auto]
+        amount_cents:
+          type: integer
+          minimum: 0
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+        order_id:
+          type: string
+        customer_email:
+          type: string
+        success_url:
+          type: string
+        cancel_url:
+          type: string
+        metadata:
+          type: object
+    CreatePaymentIntentRequest:
+      type: object
+      required: [provider, amount_cents, currency, order_id]
+      properties:
+        provider:
+          type: string
+          enum: [stripe, godaddy_poynt, auto]
+        amount_cents:
+          type: integer
+          minimum: 0
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+        order_id:
+          type: string
+        capture_mode:
+          type: string
+          enum: [automatic, manual]
+        metadata:
+          type: object

@@ -1,0 +1,184 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "35210ac18a4ece077dc0c1986f750818b96d80a526e1150479cd4e9aeb3182db",
+      "bytes": 665
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "9acdb2f48e336c63e789d4efed83cbc96c2c546d3757dfa39e491924e588f707",
+      "bytes": 404
+    },
+    {
+      "name": "backend/lib/db.js",
+      "sha256": "be16acee6d63db377c563b7d5e27ebaf40c180893a2129b2a72c122632b2975b",
+      "bytes": 1408
+    },
+    {
+      "name": "backend/lib/payments/billing_bridge.js",
+      "sha256": "4909e3cc8ba7c214488ab46d09cad6a0364b8ef6f6bc29a000cc503b739b2416",
+      "bytes": 254
+    },
+    {
+      "name": "backend/lib/payments/payment_service.js",
+      "sha256": "4be46e744d3951bf1379a8fc953b55115edf4488bd7a989bf373eb58794c1db2",
+      "bytes": 2536
+    },
+    {
+      "name": "backend/lib/payments/provider_selector.js",
+      "sha256": "f361d460319ac41d41a97603855272d78ed2ad5569bb36593a80dfb4a398b4ed",
+      "bytes": 1079
+    },
+    {
+      "name": "backend/lib/payments/providers/godaddy_poynt_adapter.js",
+      "sha256": "09b3becfdc8bd5be4ea0f211fdeeb3b67c3cfac559a37c5e2fe5521fa1f4fa00",
+      "bytes": 2623
+    },
+    {
+      "name": "backend/lib/payments/providers/stripe_adapter.js",
+      "sha256": "b4c0fea894366b980afec5b35f8926370188808c1b13dc3cd23dabae60adcaf0",
+      "bytes": 3822
+    },
+    {
+      "name": "backend/lib/payments/sql_repository.js",
+      "sha256": "9293be4bc2e88a27f0d067073bf8de033303f408cdf75d0565f2cd6b75d7cf73",
+      "bytes": 2571
+    },
+    {
+      "name": "backend/lib/payments/tenant_policy_repository.js",
+      "sha256": "ec1316559de2add6255c3d925660c35f086ffbd4ee740af703f62e49a61c3ad4",
+      "bytes": 782
+    },
+    {
+      "name": "backend/lib/payments/types.js",
+      "sha256": "09f1d6baf000cd5fb642febf738c5be2d2df3dd1e6bc4884592e8f9544740d57",
+      "bytes": 471
+    },
+    {
+      "name": "backend/lib/tenant.js",
+      "sha256": "97d65d6869d13cfec0005902d733ead445fee74272c3177ced130934bb210bb2",
+      "bytes": 213
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "a507ebe714270810ecc0645b4b8ec853643988cf767ec8e13ca71a622f9dbe66",
+      "bytes": 286
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "7808003680c00842a466801a6b37dba1dd3ccd82a9f0f892f2a306a0f4ae8513",
+      "bytes": 2566
+    },
+    {
+      "name": "config/retry_policy.json",
+      "sha256": "213341550414d43940e531adf1fc9c7bcd701ad27821cea4d1cc5cd2432acb96",
+      "bytes": 259
+    },
+    {
+      "name": "config/telemetry_events.json",
+      "sha256": "0748186d63bcf7a65ef197596009a82a2f52b31329ff38b19ca4554999fd9e78",
+      "bytes": 263
+    },
+    {
+      "name": "config/tenant_payment_policy.json",
+      "sha256": "ac5d38cd588a194e02932c93e5749049be60f0e4a68b26e4febcf1a09c4670a7",
+      "bytes": 444
+    },
+    {
+      "name": "dashboard_app/.env.example",
+      "sha256": "03d46f356622ce9593983022a56019c51130c68175517b864a5925d8f6669ca3",
+      "bytes": 92
+    },
+    {
+      "name": "dashboard_app/README.md",
+      "sha256": "9a94cf5dc9f293e0cd8c7d5e392498eff169f2a9c200ed164f384dc3f4d20849",
+      "bytes": 84
+    },
+    {
+      "name": "dashboard_app/index.html",
+      "sha256": "027a62eb9d01ef6eaf3462dea3492274a51be0099871bee3c6d73e99afee5d4c",
+      "bytes": 254
+    },
+    {
+      "name": "dashboard_app/main.jsx",
+      "sha256": "c545696e3a947249f3218b38659eab8f8c2f6d329919340258129ae68749158b",
+      "bytes": 229
+    },
+    {
+      "name": "dashboard_app/package.json",
+      "sha256": "eaef3a4d1619521e341fb299ab48d4db0e22ca576b019f6ad5afcb40020963b0",
+      "bytes": 343
+    },
+    {
+      "name": "dashboard_app/src/App.jsx",
+      "sha256": "f38015ac9411c4bde39a1b508fa27a997eb85ee93bdc1fd886f4f77fa51f9583",
+      "bytes": 4326
+    },
+    {
+      "name": "dashboard_app/src/api.js",
+      "sha256": "eeb622d4a608cb5500624e2d96fed4526d290f2bf72b01f41fd43ddd7e22350c",
+      "bytes": 1159
+    },
+    {
+      "name": "dashboard_app/src/index.css",
+      "sha256": "6fed9f2351da42e99640dcf022c46e61729367b92459534771c135941e585816",
+      "bytes": 615
+    },
+    {
+      "name": "dashboard_app/vite.config.js",
+      "sha256": "c5ac000d65adcb7fc7d641e09e067588db3e3e3773af5006c8c499b915656fae",
+      "bytes": 129
+    },
+    {
+      "name": "database/migrations/001_payments_core.sql",
+      "sha256": "c8a4d699c0b8dd3473435a12cb542c4188dc0b048c79fa9ea1cf3f6b57717c5f",
+      "bytes": 615
+    },
+    {
+      "name": "database/migrations/002_tenant_policy_and_telemetry.sql",
+      "sha256": "35a6a763ae18a758df065c9223ca12f3ce7cca723aeec5e22b30f52eca6901d6",
+      "bytes": 664
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "4df5564865d00f056bc4de67fc36d34401b3b7951dc33de8c2f58825e10a8c3c",
+      "bytes": 1315
+    },
+    {
+      "name": "deploy/v14_rollout_checklist.md",
+      "sha256": "7897c5808cf8fbcbcd9c00697864bf6c3b1e07b8288347d024ba261d3e6ee571",
+      "bytes": 345
+    },
+    {
+      "name": "examples/poynt_token_flow_example.json",
+      "sha256": "89b99e827656227db8e50066eea2de63d7fcfa34c676bca871f3aa498cc290c0",
+      "bytes": 145
+    },
+    {
+      "name": "examples/stripe_webhook_event_example.json",
+      "sha256": "fa6e8c62e65ae09292608b0c132f9ad7de403be5be9c9b61f7484b56970709c3",
+      "bytes": 107
+    },
+    {
+      "name": "examples/tenant_policy_update.json",
+      "sha256": "1e814c47b85e9ad0ef796b7f36627c7b87ebc2100247292c60c26fec2d52d683",
+      "bytes": 286
+    },
+    {
+      "name": "openapi/openapi.yaml",
+      "sha256": "d4284253f3a6ae0d11d79f65a63f7a9ddfa146715ef162d5fc4b93806a5936a5",
+      "bytes": 2707
+    },
+    {
+      "name": "tests/v14_test_plan.md",
+      "sha256": "65411dd4db12e6b1fc494e41b00f7670223355d11fa5506ecea3107a41aa9665",
+      "bytes": 408
+    },
+    {
+      "name": "v14_execution_guide.md",
+      "sha256": "7a1d8cc7cd9f2fe2b0cef627521161d24b115ae9a371ad7acdc0e02a44df1a24",
+      "bytes": 799
+    }
+  ]
+}

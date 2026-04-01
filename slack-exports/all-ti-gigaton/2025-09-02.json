@@ -1,0 +1,56 @@
+[
+    {
+        "subtype": "channel_join",
+        "user": "U094ACB5A66",
+        "text": "<@U094ACB5A66> has joined the channel",
+        "type": "message",
+        "ts": "1756841873.640789"
+    },
+    {
+        "user": "U094ACB5A66",
+        "type": "message",
+        "ts": "1756843070.849799",
+        "client_msg_id": "86618613-4a7b-46bc-a06f-df94bab2b10c",
+        "text": "Hola I've made it",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "gebbfffde4fb",
+            "image_72": "https:\/\/secure.gravatar.com\/avatar\/ebbfffde4fba9bd6613837e18d21988b.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0012-72.png",
+            "first_name": "peterish",
+            "real_name": "peterish",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "peter",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "cvyy4",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "Hola I've made it"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "reactions": [
+            {
+                "name": "+1",
+                "users": [
+                    "U094PL1V9MX"
+                ],
+                "count": 1
+            }
+        ]
+    }
+]

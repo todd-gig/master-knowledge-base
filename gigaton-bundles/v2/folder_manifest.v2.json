@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "dffb295bec18393d837313c6898809a75295c6c9d27ec63f03e0ed04703996c2",
+      "bytes": 1064
+    },
+    {
+      "name": "claude_bootstrap.v2.md",
+      "sha256": "0047d8581dbd79e8f1593d9d673785087d0609f9e51ed6d0bcc9cc6071520e75",
+      "bytes": 1112
+    },
+    {
+      "name": "client_namespace.template.json",
+      "sha256": "7956d445f71e9de5ccb92132b738cabcbcb75152ccc05704cb47f4d76fed6916",
+      "bytes": 562
+    },
+    {
+      "name": "governance_policy.v2.md",
+      "sha256": "3d18b2085edd72310e3b215d81915a7dcb029b0c43b58c9e6ed9d61868230aef",
+      "bytes": 918
+    },
+    {
+      "name": "memory_registry.v2.json",
+      "sha256": "48be68d566e8247d4871fab618b1131ed7df3ebf0764943e442687cec05adeab",
+      "bytes": 41401
+    },
+    {
+      "name": "memory_registry.v2.md",
+      "sha256": "72c219e2cf9695df1278a59c298bd08a3164e4fa44f29275d011ce2ee032545f",
+      "bytes": 11921
+    },
+    {
+      "name": "project_operating_manual.v2.md",
+      "sha256": "255dfa7f97f9c5330569ecfeff67e191c14f72eb0fb58dc32e4811421efe417f",
+      "bytes": 1035
+    },
+    {
+      "name": "retrieval_policy.v2.json",
+      "sha256": "60409771368f73b56d3c455aee08d6cd0491a22e62462518b7b94f16802db60b",
+      "bytes": 924
+    },
+    {
+      "name": "system_prompt_contract.v2.md",
+      "sha256": "bac981f6a7997b209ebc40d21ca78fe1094bd5d58359102027a10e2b15fe9ac5",
+      "bytes": 1437
+    }
+  ]
+}

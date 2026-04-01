@@ -1,0 +1,4 @@
+{
+  "event_id": "evt_123456",
+  "operator_note": "replay after downstream failure"
+}

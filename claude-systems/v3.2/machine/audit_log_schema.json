@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Audit Log Record",
+  "type": "object",
+  "required": [
+    "chosen_architecture",
+    "code_version",
+    "confidence_score",
+    "decision_id",
+    "prompt_id",
+    "prompt_version",
+    "recommended_action",
+    "request_type",
+    "routing_classification",
+    "schema_version",
+    "timestamp"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "request_type": {
+      "type": "string"
+    },
+    "input_snapshot": {
+      "type": [
+        "object",
+        "string"
+      ]
+    },
+    "normalized_variables": {
+      "type": "object"
+    },
+    "routing_classification": {
+      "type": "string"
+    },
+    "chosen_architecture": {
+      "type": "string"
+    },
+    "python_score": {
+      "type": "number"
+    },
+    "claude_score": {
+      "type": "number"
+    },
+    "hybrid_score": {
+      "type": "number"
+    },
+    "confidence_score": {
+      "type": "number"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exception_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "actual_action": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "human_review_outcome": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "estimated_unit_cost": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "estimated_failure_cost": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "codification_candidate": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "outcome_quality": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "prompt_id": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "code_version": {
+      "type": "string"
+    },
+    "codification_candidate_score": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "execution_latency_ms": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

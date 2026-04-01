@@ -1,0 +1,16 @@
+[
+    {
+        "subtype": "channel_join",
+        "user": "U09SQCDJMRN",
+        "text": "<@U09SQCDJMRN> has joined the channel",
+        "type": "message",
+        "ts": "1762759027.800189"
+    },
+    {
+        "subtype": "channel_join",
+        "user": "U09RPMP4GSX",
+        "text": "<@U09RPMP4GSX> has joined the channel",
+        "type": "message",
+        "ts": "1762759187.770849"
+    }
+]

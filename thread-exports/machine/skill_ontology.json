@@ -1,0 +1,52 @@
+{
+  "cognitive_skills": [
+    "first_principles_reasoning",
+    "systems_thinking",
+    "probabilistic_judgment",
+    "prioritization",
+    "structured_problem_solving",
+    "pattern_recognition",
+    "scenario_analysis",
+    "causal_reasoning"
+  ],
+  "execution_skills": [
+    "planning",
+    "task_decomposition",
+    "coordination",
+    "process_control",
+    "documentation",
+    "escalation_management",
+    "quality_assurance",
+    "throughput_management"
+  ],
+  "communication_skills": [
+    "writing",
+    "stakeholder_alignment",
+    "negotiation",
+    "presentation",
+    "listening",
+    "facilitation",
+    "conflict_resolution",
+    "question_design"
+  ],
+  "leadership_skills": [
+    "decision_making",
+    "delegation",
+    "coaching",
+    "accountability_management",
+    "hiring",
+    "performance_calibration",
+    "succession_planning",
+    "culture_reinforcement"
+  ],
+  "ai_supervision_skills": [
+    "prompt_evaluation",
+    "output_validation",
+    "workflow_audit",
+    "bias_risk_detection",
+    "data_provenance_review",
+    "exception_adjudication",
+    "human_override_readiness",
+    "automation_qa"
+  ]
+}

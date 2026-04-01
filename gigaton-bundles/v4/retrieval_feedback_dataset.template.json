@@ -1,0 +1,19 @@
+{
+  "dataset_name": "retrieval_feedback_dataset_template",
+  "rows": [
+    {
+      "task_id": "TASK-001",
+      "task_type": "example",
+      "query": "example task",
+      "selected_memory_ids": [
+        "MEM-001",
+        "MEM-015"
+      ],
+      "rejected_memory_ids": [
+        "MEM-010"
+      ],
+      "operator_feedback_score": 0.9,
+      "output_success_score": 0.85
+    }
+  ]
+}

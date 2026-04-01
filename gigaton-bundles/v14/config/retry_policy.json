@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "defaults": {
+    "max_attempts": 3,
+    "backoff_ms": [
+      500,
+      2000,
+      5000
+    ]
+  },
+  "provider_overrides": {
+    "stripe": {
+      "max_attempts": 2
+    },
+    "godaddy_poynt": {
+      "max_attempts": 3
+    }
+  }
+}

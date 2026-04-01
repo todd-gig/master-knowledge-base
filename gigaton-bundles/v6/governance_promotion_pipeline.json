@@ -1,0 +1,21 @@
+{
+  "pipeline_name": "governed_promotion_pipeline",
+  "version": "1.0.0",
+  "flows": {
+    "namespace_promotion": [
+      "draft_generated",
+      "operator_review",
+      "approval_recorded",
+      "writeback_executed",
+      "audit_log_written"
+    ],
+    "calibration_promotion": [
+      "weights_proposed",
+      "holdout_eval_passed",
+      "operator_review",
+      "approval_recorded",
+      "writeback_executed",
+      "audit_log_written"
+    ]
+  }
+}

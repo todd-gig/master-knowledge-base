@@ -1,0 +1,11 @@
+{
+  "generator_name": "automated_namespace_generator",
+  "version": "6.0.0",
+  "approval_required_for_writeback": true,
+  "outputs": [
+    "namespace_draft",
+    "overlay_draft",
+    "scoring_weights_draft",
+    "onboarding_brief"
+  ]
+}

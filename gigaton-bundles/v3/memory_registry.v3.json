@@ -1,0 +1,1233 @@
+{
+  "registry_meta": {
+    "registry_name": "gigaton_project_memory_registry",
+    "version": "3.0.0",
+    "format": "json_md_hybrid",
+    "canonical": true,
+    "project": "Gigaton",
+    "last_updated_utc": "2026-03-25T20:41:16+00:00",
+    "new_in_v3": [
+      "per_memory_source_links",
+      "weighted_retrieval_scoring",
+      "namespace_inheritance_examples",
+      "client_onboarding_generator"
+    ]
+  },
+  "source_catalog": [
+    {
+      "source_id": "SRC-001",
+      "title": "Trust Matrix Design",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260323T16:05 Trust Matrix Design",
+      "link_hint": "shared_project_conversation://1",
+      "topics": [
+        "trust_matrix",
+        "value_matrix",
+        "first_principles",
+        "scoring_engine"
+      ]
+    },
+    {
+      "source_id": "SRC-002",
+      "title": "Executive Decision Model Plan",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260323T22:12 Executive Decision Model Plan",
+      "link_hint": "shared_project_conversation://2",
+      "topics": [
+        "executive_decision_engine",
+        "authority_matrix",
+        "decision_state_machine",
+        "service_layer"
+      ]
+    },
+    {
+      "source_id": "SRC-003",
+      "title": "Structure vs Framework vs Harness",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260323T17:03 Structure vs Framework vs Harness",
+      "link_hint": "shared_project_conversation://4",
+      "topics": [
+        "org_structure",
+        "framework",
+        "harness",
+        "business_architecture"
+      ]
+    },
+    {
+      "source_id": "SRC-004",
+      "title": "Obsidian Markdown Overview",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+      "link_hint": "shared_project_conversation://5",
+      "topics": [
+        "obsidian",
+        "markdown_standard",
+        "templater",
+        "transformation_engine"
+      ]
+    },
+    {
+      "source_id": "SRC-005",
+      "title": "Experience Engineering Math",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260310T16 Experience Engineering Math",
+      "link_hint": "shared_project_conversation://6",
+      "topics": [
+        "experience_engineering",
+        "economic_model",
+        "dashboard",
+        "simulation"
+      ]
+    },
+    {
+      "source_id": "SRC-006",
+      "title": "First Principles in German",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260302T16 First Principles in German",
+      "link_hint": "shared_project_conversation://7",
+      "topics": [
+        "axiom_registry",
+        "constitution",
+        "multi_language_logic",
+        "proof_structure"
+      ]
+    },
+    {
+      "source_id": "SRC-007",
+      "title": "Onboarding and API Key",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260302T23 Onboarding and API Key",
+      "link_hint": "shared_project_conversation://8",
+      "topics": [
+        "term_sheet",
+        "operator_playbook",
+        "monte_carlo",
+        "commercial_models"
+      ]
+    },
+    {
+      "source_id": "SRC-008",
+      "title": "Gigaton Value Matrix",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260217T22 Gigaton Value Matrix",
+      "link_hint": "shared_project_conversation://10",
+      "topics": [
+        "gigaton_value_matrix",
+        "partnerships",
+        "core_ip"
+      ]
+    },
+    {
+      "source_id": "SRC-009",
+      "title": "Ethnographic Research and Optimization",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260210T16 Ethnographic Research and Optimization",
+      "link_hint": "shared_project_conversation://12",
+      "topics": [
+        "EO",
+        "research_tasks",
+        "confidence_engine",
+        "router_table"
+      ]
+    },
+    {
+      "source_id": "SRC-010",
+      "title": "Valuing Human Contributions",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260225T13 Valuing Human Contributions",
+      "link_hint": "shared_project_conversation://13",
+      "topics": [
+        "human_value_matrix",
+        "equity",
+        "valuation",
+        "compensation"
+      ]
+    },
+    {
+      "source_id": "SRC-011",
+      "title": "Attractor Dynamix Constitution",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260223T21 Attractor Dynamix Constitution",
+      "link_hint": "shared_project_conversation://16",
+      "topics": [
+        "constitution",
+        "governance",
+        "founder_decisions"
+      ]
+    }
+  ],
+  "retrieval_weights": {
+    "tier_weight": {
+      "1": 1.0,
+      "2": 0.82,
+      "3": 0.64
+    },
+    "category_weight": {
+      "foundational_doctrine": 1.0,
+      "decision_systems": 0.96,
+      "knowledge_infrastructure": 0.94,
+      "ontology_and_data_models": 0.92,
+      "simulation_and_financial_models": 0.89,
+      "commercial_systems": 0.9,
+      "platform_and_tooling": 0.84,
+      "organizational_models": 0.8
+    },
+    "tag_match_weight": 0.38,
+    "apply_when_match_weight": 0.22,
+    "dependency_bonus": 0.08,
+    "confidence_weight": 0.32,
+    "recency_weight": 0.08,
+    "namespace_overlay_bonus": 0.1,
+    "deprecation_penalty": -0.75,
+    "superseded_penalty": -0.4
+  },
+  "namespaces": {
+    "global": {
+      "description": "Root doctrine and shared project memory.",
+      "inherits_from": null,
+      "can_override": [],
+      "cannot_override": []
+    },
+    "client_template": {
+      "description": "Client overlay namespace inheriting all global memories but only allowed to refine non-doctrinal fields.",
+      "inherits_from": "global",
+      "can_override": [
+        "terminology",
+        "scoring_weights",
+        "templates",
+        "data_mappings",
+        "workflow_variants"
+      ],
+      "cannot_override": [
+        "foundational_doctrine",
+        "ethics",
+        "human_centered_technology_principle"
+      ]
+    }
+  },
+  "memory_objects": [
+    {
+      "memory_id": "MEM-001",
+      "title": "Trust Matrix + Value Matrix Integration",
+      "tier": 1,
+      "category": "decision_systems",
+      "type": "foundational_logic",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Core scoring and validation primitive combining trust qualification logic with the value matrix.",
+      "retrieval_tags": [
+        "trust_matrix",
+        "value_matrix",
+        "qualification",
+        "certification",
+        "validation_engine"
+      ],
+      "apply_when": [
+        "building scoring engines",
+        "evaluating evidence",
+        "designing trust certificates",
+        "structuring decision workflows"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "rule_of_7s",
+        "smooth_numbers",
+        "first_principles_validation",
+        "trust_scoring"
+      ],
+      "confidence_score": 0.96,
+      "weighted_base_score": 0.9736,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-001",
+          "title": "Trust Matrix Design",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260323T16:05 Trust Matrix Design",
+          "link_hint": "shared_project_conversation://1",
+          "topics": [
+            "trust_matrix",
+            "value_matrix",
+            "first_principles",
+            "scoring_engine"
+          ]
+        },
+        {
+          "source_id": "SRC-008",
+          "title": "Gigaton Value Matrix",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260217T22 Gigaton Value Matrix",
+          "link_hint": "shared_project_conversation://10",
+          "topics": [
+            "gigaton_value_matrix",
+            "partnerships",
+            "core_ip"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-002",
+      "title": "Executive Decision Engine",
+      "tier": 1,
+      "category": "decision_systems",
+      "type": "system_architecture",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Claude-oriented frontier decision engine for trust certificate to decision execution automation.",
+      "retrieval_tags": [
+        "executive_decision_model",
+        "authority_matrix",
+        "decision_state_machine",
+        "trust_certificate"
+      ],
+      "apply_when": [
+        "building autonomous decision systems",
+        "designing approval logic",
+        "architecting execution governance"
+      ],
+      "dependencies": [
+        "MEM-001",
+        "MEM-003",
+        "MEM-005"
+      ],
+      "key_constructs": [
+        "authority_matrix",
+        "evidence_taxonomy",
+        "scoring_weights",
+        "exception_policy",
+        "decision_state_machine"
+      ],
+      "confidence_score": 0.95,
+      "weighted_base_score": 0.9704,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-002",
+          "title": "Executive Decision Model Plan",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260323T22:12 Executive Decision Model Plan",
+          "link_hint": "shared_project_conversation://2",
+          "topics": [
+            "executive_decision_engine",
+            "authority_matrix",
+            "decision_state_machine",
+            "service_layer"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-003",
+      "title": "Decision Execution Engine",
+      "tier": 1,
+      "category": "decision_systems",
+      "type": "service_layer",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Service layer that converts validated intelligence into actions, workflows, and outputs.",
+      "retrieval_tags": [
+        "decision_execution",
+        "service_layer",
+        "workflow_execution",
+        "action_engine"
+      ],
+      "apply_when": [
+        "turning decisions into workflows",
+        "building service orchestration",
+        "mapping outputs to action"
+      ],
+      "dependencies": [
+        "MEM-002"
+      ],
+      "key_constructs": [
+        "actions",
+        "workflows",
+        "outputs"
+      ],
+      "confidence_score": 0.93,
+      "weighted_base_score": 0.964,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-002",
+          "title": "Executive Decision Model Plan",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260323T22:12 Executive Decision Model Plan",
+          "link_hint": "shared_project_conversation://2",
+          "topics": [
+            "executive_decision_engine",
+            "authority_matrix",
+            "decision_state_machine",
+            "service_layer"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-004",
+      "title": "First Principles Variable Registry",
+      "tier": 1,
+      "category": "ontology_and_data_models",
+      "type": "input_schema",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Universal categorized input schema for surveys, org modeling, and decision inputs.",
+      "retrieval_tags": [
+        "first_principles",
+        "input_schema",
+        "survey_model",
+        "org_inputs"
+      ],
+      "apply_when": [
+        "creating templates",
+        "building data collection systems",
+        "modeling organizations",
+        "structuring decision inputs"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "survey_inputs",
+        "org_modeling",
+        "decision_variables"
+      ],
+      "confidence_score": 0.94,
+      "weighted_base_score": 0.9536,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-001",
+          "title": "Trust Matrix Design",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260323T16:05 Trust Matrix Design",
+          "link_hint": "shared_project_conversation://1",
+          "topics": [
+            "trust_matrix",
+            "value_matrix",
+            "first_principles",
+            "scoring_engine"
+          ]
+        },
+        {
+          "source_id": "SRC-006",
+          "title": "First Principles in German",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T16 First Principles in German",
+          "link_hint": "shared_project_conversation://7",
+          "topics": [
+            "axiom_registry",
+            "constitution",
+            "multi_language_logic",
+            "proof_structure"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-005",
+      "title": "EO System",
+      "tier": 1,
+      "category": "ontology_and_data_models",
+      "type": "self_improving_intelligence_system",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Ethnographic Object system with confidence scoring, self-healing question loops, research tasks, and router/code generation.",
+      "retrieval_tags": [
+        "EO",
+        "ethnographic_object",
+        "confidence_engine",
+        "self_healing_system",
+        "research_tasks"
+      ],
+      "apply_when": [
+        "designing adaptive interviews",
+        "building recursive learning systems",
+        "creating research-backed routing logic"
+      ],
+      "dependencies": [
+        "MEM-004"
+      ],
+      "key_constructs": [
+        "eo_schema",
+        "confidence_scoring",
+        "self_healing_questions",
+        "research_task_integration",
+        "router_table",
+        "code_generation"
+      ],
+      "confidence_score": 0.92,
+      "weighted_base_score": 0.9472,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-009",
+          "title": "Ethnographic Research and Optimization",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260210T16 Ethnographic Research and Optimization",
+          "link_hint": "shared_project_conversation://12",
+          "topics": [
+            "EO",
+            "research_tasks",
+            "confidence_engine",
+            "router_table"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-006",
+      "title": "Value of Human Contribution Matrix",
+      "tier": 1,
+      "category": "commercial_systems",
+      "type": "valuation_model",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Valuation model for time, effort, uniqueness, quality, network, and risk reduction across compensation and partnership contexts.",
+      "retrieval_tags": [
+        "human_value_matrix",
+        "compensation",
+        "equity",
+        "valuation",
+        "contribution_scoring"
+      ],
+      "apply_when": [
+        "designing compensation",
+        "allocating equity",
+        "valuing partnerships",
+        "evaluating contributor impact"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "time",
+        "effort",
+        "uniqueness",
+        "quality",
+        "relationships_network",
+        "risk_reduction",
+        "increased_probability_of_success"
+      ],
+      "confidence_score": 0.94,
+      "weighted_base_score": 0.9468,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-010",
+          "title": "Valuing Human Contributions",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260225T13 Valuing Human Contributions",
+          "link_hint": "shared_project_conversation://13",
+          "topics": [
+            "human_value_matrix",
+            "equity",
+            "valuation",
+            "compensation"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-007",
+      "title": "Probabilistic Simulation Models",
+      "tier": 2,
+      "category": "simulation_and_financial_models",
+      "type": "forecasting_system",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Monte Carlo and probabilistic modeling for adoption, retention, growth, and partner value.",
+      "retrieval_tags": [
+        "monte_carlo",
+        "forecasting",
+        "retention",
+        "adoption",
+        "portfolio_growth"
+      ],
+      "apply_when": [
+        "forecasting growth",
+        "simulating deal outcomes",
+        "testing scenarios"
+      ],
+      "dependencies": [
+        "MEM-006"
+      ],
+      "key_constructs": [
+        "adoption_forecasting",
+        "retention_modeling",
+        "portfolio_growth",
+        "partner_value_analysis"
+      ],
+      "confidence_score": 0.9,
+      "weighted_base_score": 0.8694,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-007",
+          "title": "Onboarding and API Key",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T23 Onboarding and API Key",
+          "link_hint": "shared_project_conversation://8",
+          "topics": [
+            "term_sheet",
+            "operator_playbook",
+            "monte_carlo",
+            "commercial_models"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-008",
+      "title": "Experience Engineering Equation",
+      "tier": 2,
+      "category": "simulation_and_financial_models",
+      "type": "economic_model",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Core equation linking brand and interaction management to revenue and predictable profitability.",
+      "retrieval_tags": [
+        "experience_engineering",
+        "brand_interaction",
+        "profitability_model",
+        "scenario_analysis"
+      ],
+      "apply_when": [
+        "building dashboards",
+        "modeling revenue",
+        "designing CX systems"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "brand_plus_interaction",
+        "experience_engineering",
+        "revenue_generation",
+        "predictable_profitability"
+      ],
+      "confidence_score": 0.91,
+      "weighted_base_score": 0.8726,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-005",
+          "title": "Experience Engineering Math",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260310T16 Experience Engineering Math",
+          "link_hint": "shared_project_conversation://6",
+          "topics": [
+            "experience_engineering",
+            "economic_model",
+            "dashboard",
+            "simulation"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-009",
+      "title": "Organizational Intelligence Structure",
+      "tier": 2,
+      "category": "organizational_models",
+      "type": "org_template",
+      "status": "active",
+      "namespace": "global",
+      "summary": "CEO plus 6 C-suite functional model with structured sub-entities and support agents.",
+      "retrieval_tags": [
+        "org_structure",
+        "c_suite_model",
+        "resource_template",
+        "entity_architecture"
+      ],
+      "apply_when": [
+        "designing org charts",
+        "mapping responsibilities",
+        "identifying structural gaps"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "executive_count_7",
+        "sub_entities_per_executive_7",
+        "support_agents_max_3"
+      ],
+      "confidence_score": 0.89,
+      "weighted_base_score": 0.8356,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-003",
+          "title": "Structure vs Framework vs Harness",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260323T17:03 Structure vs Framework vs Harness",
+          "link_hint": "shared_project_conversation://4",
+          "topics": [
+            "org_structure",
+            "framework",
+            "harness",
+            "business_architecture"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-010",
+      "title": "Structure vs Framework vs Harness Model",
+      "tier": 3,
+      "category": "organizational_models",
+      "type": "conceptual_architecture",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Model defining the difference between static organization, reusable system logic, and execution control layers.",
+      "retrieval_tags": [
+        "structure",
+        "framework",
+        "harness",
+        "system_design"
+      ],
+      "apply_when": [
+        "explaining architecture",
+        "defining system layers",
+        "mapping business components"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "structure",
+        "framework",
+        "harness"
+      ],
+      "confidence_score": 0.86,
+      "weighted_base_score": 0.7648,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-003",
+          "title": "Structure vs Framework vs Harness",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260323T17:03 Structure vs Framework vs Harness",
+          "link_hint": "shared_project_conversation://4",
+          "topics": [
+            "org_structure",
+            "framework",
+            "harness",
+            "business_architecture"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-011",
+      "title": "Obsidian MD System Standard",
+      "tier": 1,
+      "category": "knowledge_infrastructure",
+      "type": "documentation_standard",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Project-wide markdown system requiring YAML frontmatter, Templater readiness, and maximum data capture with minimum leakage.",
+      "retrieval_tags": [
+        "obsidian",
+        "markdown_standard",
+        "templater",
+        "knowledge_capture"
+      ],
+      "apply_when": [
+        "creating markdown files",
+        "building project docs",
+        "structuring reusable notes"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "yaml_frontmatter",
+        "obsidian_templater_ready",
+        "structured_sections",
+        "maximum_information_capture",
+        "minimum_data_leakage"
+      ],
+      "confidence_score": 0.97,
+      "weighted_base_score": 0.97,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-004",
+          "title": "Obsidian Markdown Overview",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+          "link_hint": "shared_project_conversation://5",
+          "topics": [
+            "obsidian",
+            "markdown_standard",
+            "templater",
+            "transformation_engine"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-012",
+      "title": "Universal MD Response Contract",
+      "tier": 1,
+      "category": "knowledge_infrastructure",
+      "type": "output_standard",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Universal output contract requiring structure, reusability, and machine-ingestibility in markdown.",
+      "retrieval_tags": [
+        "md_contract",
+        "output_standard",
+        "machine_ingestible",
+        "structured_output"
+      ],
+      "apply_when": [
+        "responding with files",
+        "creating artifacts",
+        "designing reusable outputs"
+      ],
+      "dependencies": [
+        "MEM-011"
+      ],
+      "key_constructs": [
+        "structure",
+        "reusability",
+        "machine_ingestibility"
+      ],
+      "confidence_score": 0.96,
+      "weighted_base_score": 0.9668,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-004",
+          "title": "Obsidian Markdown Overview",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+          "link_hint": "shared_project_conversation://5",
+          "topics": [
+            "obsidian",
+            "markdown_standard",
+            "templater",
+            "transformation_engine"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-013",
+      "title": "MD Transformation Engine",
+      "tier": 2,
+      "category": "platform_and_tooling",
+      "type": "productizable_tool",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Firebase-based app that transforms raw markdown into optimized Obsidian-ready markdown through a Python pipeline.",
+      "retrieval_tags": [
+        "firebase",
+        "markdown_transformer",
+        "obsidian_optimizer",
+        "python_pipeline"
+      ],
+      "apply_when": [
+        "designing FE tools",
+        "automating markdown cleanup",
+        "productizing knowledge workflows"
+      ],
+      "dependencies": [
+        "MEM-011",
+        "MEM-012"
+      ],
+      "key_constructs": [
+        "raw_markdown",
+        "optimized_markdown"
+      ],
+      "confidence_score": 0.88,
+      "weighted_base_score": 0.846,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-004",
+          "title": "Obsidian Markdown Overview",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+          "link_hint": "shared_project_conversation://5",
+          "topics": [
+            "obsidian",
+            "markdown_standard",
+            "templater",
+            "transformation_engine"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-014",
+      "title": "Claude + External Systems Integration",
+      "tier": 2,
+      "category": "platform_and_tooling",
+      "type": "integration_pattern",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Integration logic for Firebase, deployment pipelines, and connector-based intelligence workflows.",
+      "retrieval_tags": [
+        "claude_integration",
+        "firebase",
+        "deployment",
+        "connectors"
+      ],
+      "apply_when": [
+        "connecting AI to platforms",
+        "building deployment flows",
+        "architecting automation"
+      ],
+      "dependencies": [
+        "MEM-013"
+      ],
+      "key_constructs": [
+        "firebase",
+        "deployment_pipelines",
+        "connector_workflows"
+      ],
+      "confidence_score": 0.87,
+      "weighted_base_score": 0.8428,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-004",
+          "title": "Obsidian Markdown Overview",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+          "link_hint": "shared_project_conversation://5",
+          "topics": [
+            "obsidian",
+            "markdown_standard",
+            "templater",
+            "transformation_engine"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-015",
+      "title": "Gigaton Value Matrix",
+      "tier": 1,
+      "category": "commercial_systems",
+      "type": "core_ip",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Core monetization logic driving partnerships, contracts, and performance engineering.",
+      "retrieval_tags": [
+        "gigaton_value_matrix",
+        "core_ip",
+        "partnerships",
+        "performance_logic"
+      ],
+      "apply_when": [
+        "structuring deals",
+        "building contracts",
+        "evaluating commercial value"
+      ],
+      "dependencies": [
+        "MEM-001",
+        "MEM-006"
+      ],
+      "key_constructs": [
+        "partnerships",
+        "contracts",
+        "performance"
+      ],
+      "confidence_score": 0.97,
+      "weighted_base_score": 0.9564,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-008",
+          "title": "Gigaton Value Matrix",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260217T22 Gigaton Value Matrix",
+          "link_hint": "shared_project_conversation://10",
+          "topics": [
+            "gigaton_value_matrix",
+            "partnerships",
+            "core_ip"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-016",
+      "title": "Cross-Licensing + Term Sheet Structures",
+      "tier": 2,
+      "category": "commercial_systems",
+      "type": "deal_framework",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Commercial structures for investor, SMB, operator, and Blue Ocean deal variants.",
+      "retrieval_tags": [
+        "cross_licensing",
+        "term_sheet",
+        "deal_structure",
+        "commercial_framework"
+      ],
+      "apply_when": [
+        "drafting commercial terms",
+        "structuring partner agreements",
+        "designing licensing models"
+      ],
+      "dependencies": [
+        "MEM-015"
+      ],
+      "key_constructs": [
+        "investor",
+        "smb",
+        "operator",
+        "blue_ocean"
+      ],
+      "confidence_score": 0.9,
+      "weighted_base_score": 0.8728,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-007",
+          "title": "Onboarding and API Key",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T23 Onboarding and API Key",
+          "link_hint": "shared_project_conversation://8",
+          "topics": [
+            "term_sheet",
+            "operator_playbook",
+            "monte_carlo",
+            "commercial_models"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-017",
+      "title": "Negotiation + Operator Playbook",
+      "tier": 2,
+      "category": "commercial_systems",
+      "type": "execution_playbook",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Simulation-backed negotiation framework for operator deals and value-based structuring.",
+      "retrieval_tags": [
+        "negotiation",
+        "operator_playbook",
+        "deal_strategy",
+        "simulation_backed_terms"
+      ],
+      "apply_when": [
+        "preparing negotiations",
+        "optimizing commercial leverage",
+        "running deal scenarios"
+      ],
+      "dependencies": [
+        "MEM-007",
+        "MEM-016"
+      ],
+      "key_constructs": [
+        "negotiation",
+        "operator",
+        "simulations"
+      ],
+      "confidence_score": 0.89,
+      "weighted_base_score": 0.8696,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-007",
+          "title": "Onboarding and API Key",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T23 Onboarding and API Key",
+          "link_hint": "shared_project_conversation://8",
+          "topics": [
+            "term_sheet",
+            "operator_playbook",
+            "monte_carlo",
+            "commercial_models"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-018",
+      "title": "Gigaton Axiom Registry + Constitution",
+      "tier": 1,
+      "category": "foundational_doctrine",
+      "type": "doctrinal_system",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Foundational philosophical and logical core of the ecosystem, including first principles, constitutions, multi-language logic expansion, and proof-oriented structure.",
+      "retrieval_tags": [
+        "axiom_registry",
+        "constitution",
+        "first_principles",
+        "doctrine",
+        "proof_structure"
+      ],
+      "apply_when": [
+        "deriving principles",
+        "resolving conflicts",
+        "building foundational systems"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "axioms",
+        "constitutions",
+        "multi_language_logic",
+        "proof_oriented_structure"
+      ],
+      "confidence_score": 0.98,
+      "weighted_base_score": 0.9936,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-006",
+          "title": "First Principles in German",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T16 First Principles in German",
+          "link_hint": "shared_project_conversation://7",
+          "topics": [
+            "axiom_registry",
+            "constitution",
+            "multi_language_logic",
+            "proof_structure"
+          ]
+        },
+        {
+          "source_id": "SRC-011",
+          "title": "Attractor Dynamix Constitution",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260223T21 Attractor Dynamix Constitution",
+          "link_hint": "shared_project_conversation://16",
+          "topics": [
+            "constitution",
+            "governance",
+            "founder_decisions"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-019",
+      "title": "Human-Tech Co-Evolution Framework",
+      "tier": 1,
+      "category": "foundational_doctrine",
+      "type": "guiding_framework",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Connect, Create, Thrive, Evolve framework embedded across all systems.",
+      "retrieval_tags": [
+        "connect_create_thrive_evolve",
+        "human_tech_coevolution",
+        "guiding_framework"
+      ],
+      "apply_when": [
+        "framing strategy",
+        "aligning systems",
+        "evaluating mission fit"
+      ],
+      "dependencies": [],
+      "key_constructs": [
+        "connect",
+        "create",
+        "thrive",
+        "evolve"
+      ],
+      "confidence_score": 0.98,
+      "weighted_base_score": 0.9936,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-006",
+          "title": "First Principles in German",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T16 First Principles in German",
+          "link_hint": "shared_project_conversation://7",
+          "topics": [
+            "axiom_registry",
+            "constitution",
+            "multi_language_logic",
+            "proof_structure"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "MEM-020",
+      "title": "Portable System Prompt Contract",
+      "tier": 1,
+      "category": "knowledge_infrastructure",
+      "type": "root_control_layer",
+      "status": "active",
+      "namespace": "global",
+      "summary": "Portable control layer encoding project logic, constraints, frameworks, and behavior into reusable system prompts.",
+      "retrieval_tags": [
+        "system_prompt_contract",
+        "portable_prompt",
+        "root_control_layer",
+        "behavioral_logic"
+      ],
+      "apply_when": [
+        "creating AI prompt layers",
+        "encoding behavior",
+        "porting system logic between models"
+      ],
+      "dependencies": [
+        "MEM-011",
+        "MEM-012",
+        "MEM-018",
+        "MEM-019"
+      ],
+      "key_constructs": [
+        "project_logic",
+        "constraints",
+        "frameworks",
+        "behavior"
+      ],
+      "confidence_score": 0.97,
+      "weighted_base_score": 0.97,
+      "deprecated": false,
+      "superseded_by": null,
+      "source_links": [
+        {
+          "source_id": "SRC-004",
+          "title": "Obsidian Markdown Overview",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+          "link_hint": "shared_project_conversation://5",
+          "topics": [
+            "obsidian",
+            "markdown_standard",
+            "templater",
+            "transformation_engine"
+          ]
+        },
+        {
+          "source_id": "SRC-006",
+          "title": "First Principles in German",
+          "source_type": "project_conversation",
+          "project_thread_ref": "20260302T16 First Principles in German",
+          "link_hint": "shared_project_conversation://7",
+          "topics": [
+            "axiom_registry",
+            "constitution",
+            "multi_language_logic",
+            "proof_structure"
+          ]
+        }
+      ]
+    }
+  ]
+}

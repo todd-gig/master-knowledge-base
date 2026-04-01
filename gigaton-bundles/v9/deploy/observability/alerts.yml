@@ -1,0 +1,17 @@
+groups:
+  - name: gigaton-alerts
+    rules:
+      - alert: BackendDown
+        expr: up{job="gigaton-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Backend target is down
+      - alert: HighErrorRate
+        expr: errors_total > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Error counter exceeded threshold

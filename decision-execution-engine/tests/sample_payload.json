@@ -1,0 +1,42 @@
+{
+  "decision": {
+    "decision_id": "dec-001",
+    "title": "Automate weekly client-status digest",
+    "decision_class": "D1",
+    "current_state": "draft",
+    "actor_role": "AI_Domain_Agent",
+    "trust_tier": "T3",
+    "positive_dimensions": {
+      "revenue_impact": 2,
+      "cost_efficiency": 4,
+      "time_leverage": 5,
+      "strategic_alignment": 4,
+      "customer_benefit": 3,
+      "knowledge_creation": 3,
+      "compounding_potential": 4,
+      "reversibility": 5
+    },
+    "penalty_dimensions": {
+      "downside_risk": 1,
+      "execution_drag": 1,
+      "uncertainty": 1,
+      "ethical_misalignment": 0
+    },
+    "trust_inputs": {
+      "evidence_quality": 4,
+      "logic_integrity": 4,
+      "outcome_history": 3,
+      "context_fit": 4,
+      "stakeholder_clarity": 4,
+      "risk_containment": 4,
+      "auditability": 5
+    },
+    "evidence_refs": [
+      "metric:weekly_manual_hours",
+      "pilot:client_digest_v1"
+    ],
+    "ethical_conflict": false,
+    "has_missing_data": false,
+    "reversibility": "R1"
+  }
+}

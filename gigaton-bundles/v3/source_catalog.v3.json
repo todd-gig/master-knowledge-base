@@ -1,0 +1,146 @@
+{
+  "version": "3.0.0",
+  "sources": [
+    {
+      "source_id": "SRC-001",
+      "title": "Trust Matrix Design",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260323T16:05 Trust Matrix Design",
+      "link_hint": "shared_project_conversation://1",
+      "topics": [
+        "trust_matrix",
+        "value_matrix",
+        "first_principles",
+        "scoring_engine"
+      ]
+    },
+    {
+      "source_id": "SRC-002",
+      "title": "Executive Decision Model Plan",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260323T22:12 Executive Decision Model Plan",
+      "link_hint": "shared_project_conversation://2",
+      "topics": [
+        "executive_decision_engine",
+        "authority_matrix",
+        "decision_state_machine",
+        "service_layer"
+      ]
+    },
+    {
+      "source_id": "SRC-003",
+      "title": "Structure vs Framework vs Harness",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260323T17:03 Structure vs Framework vs Harness",
+      "link_hint": "shared_project_conversation://4",
+      "topics": [
+        "org_structure",
+        "framework",
+        "harness",
+        "business_architecture"
+      ]
+    },
+    {
+      "source_id": "SRC-004",
+      "title": "Obsidian Markdown Overview",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260318T11:23 Obsidian Markdown Overview",
+      "link_hint": "shared_project_conversation://5",
+      "topics": [
+        "obsidian",
+        "markdown_standard",
+        "templater",
+        "transformation_engine"
+      ]
+    },
+    {
+      "source_id": "SRC-005",
+      "title": "Experience Engineering Math",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260310T16 Experience Engineering Math",
+      "link_hint": "shared_project_conversation://6",
+      "topics": [
+        "experience_engineering",
+        "economic_model",
+        "dashboard",
+        "simulation"
+      ]
+    },
+    {
+      "source_id": "SRC-006",
+      "title": "First Principles in German",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260302T16 First Principles in German",
+      "link_hint": "shared_project_conversation://7",
+      "topics": [
+        "axiom_registry",
+        "constitution",
+        "multi_language_logic",
+        "proof_structure"
+      ]
+    },
+    {
+      "source_id": "SRC-007",
+      "title": "Onboarding and API Key",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260302T23 Onboarding and API Key",
+      "link_hint": "shared_project_conversation://8",
+      "topics": [
+        "term_sheet",
+        "operator_playbook",
+        "monte_carlo",
+        "commercial_models"
+      ]
+    },
+    {
+      "source_id": "SRC-008",
+      "title": "Gigaton Value Matrix",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260217T22 Gigaton Value Matrix",
+      "link_hint": "shared_project_conversation://10",
+      "topics": [
+        "gigaton_value_matrix",
+        "partnerships",
+        "core_ip"
+      ]
+    },
+    {
+      "source_id": "SRC-009",
+      "title": "Ethnographic Research and Optimization",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260210T16 Ethnographic Research and Optimization",
+      "link_hint": "shared_project_conversation://12",
+      "topics": [
+        "EO",
+        "research_tasks",
+        "confidence_engine",
+        "router_table"
+      ]
+    },
+    {
+      "source_id": "SRC-010",
+      "title": "Valuing Human Contributions",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260225T13 Valuing Human Contributions",
+      "link_hint": "shared_project_conversation://13",
+      "topics": [
+        "human_value_matrix",
+        "equity",
+        "valuation",
+        "compensation"
+      ]
+    },
+    {
+      "source_id": "SRC-011",
+      "title": "Attractor Dynamix Constitution",
+      "source_type": "project_conversation",
+      "project_thread_ref": "20260223T21 Attractor Dynamix Constitution",
+      "link_hint": "shared_project_conversation://16",
+      "topics": [
+        "constitution",
+        "governance",
+        "founder_decisions"
+      ]
+    }
+  ]
+}

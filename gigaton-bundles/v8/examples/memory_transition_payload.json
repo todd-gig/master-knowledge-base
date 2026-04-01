@@ -1,0 +1,6 @@
+{
+  "memory_id": "MEM-001",
+  "from_state": "validated",
+  "to_state": "active",
+  "reason": "production promotion"
+}

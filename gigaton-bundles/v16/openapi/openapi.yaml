@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: Gigaton Payments Ops API
+  version: 1.6.0
+paths:
+  /api/payments:
+    get:
+      summary: List payments with search and filter
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+        - in: query
+          name: provider
+          schema: {type: string}
+        - in: query
+          name: normalized_status
+          schema: {type: string}
+        - in: query
+          name: order_id
+          schema: {type: string}
+        - in: query
+          name: q
+          schema: {type: string}
+      responses:
+        '200': {description: Payments list}
+  /api/payment-events:
+    get:
+      summary: List payment events
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+      responses:
+        '200': {description: Payment events}
+  /api/payments/reconcile:
+    post:
+      summary: Run reconciliation job
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+      responses:
+        '200': {description: Reconciliation result}
+  /api/payments/webhook-replay:
+    post:
+      summary: Replay a stored webhook event
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+      responses:
+        '200': {description: Replay result}
+  /api/payments/provider-health:
+    get:
+      summary: Provider health and failure-rate metrics
+      parameters:
+        - in: header
+          name: x-tenant-id
+          required: true
+          schema: {type: string}
+      responses:
+        '200': {description: Provider health summary}

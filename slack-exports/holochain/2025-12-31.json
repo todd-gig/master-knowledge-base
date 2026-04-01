@@ -1,0 +1,170 @@
+[
+    {
+        "user": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1767212494.391639",
+        "client_msg_id": "5d444738-ac22-44ef-a68c-49dc1762062b",
+        "text": "<@U09RC73M5T5> if you have 't seen this video it's worth your time to hear the latest holochain, holo, and <https:\/\/unyt.co\/|unit>. <https:\/\/www.youtube.com\/watch?v=5CT5Q6TFETA>",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "773edd8a9d92",
+            "image_72": "https:\/\/avatars.slack-edge.com\/2025-07-11\/9185561499972_773edd8a9d92c3d1c225_72.jpg",
+            "first_name": "Matt",
+            "real_name": "Matt Foster",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "matt",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "thread_ts": "1767212494.391639",
+        "reply_count": 5,
+        "reply_users_count": 3,
+        "latest_reply": "1768238984.665019",
+        "reply_users": [
+            "U094PL1V9MX",
+            "U094ACC5CHY",
+            "U09RC73M5T5"
+        ],
+        "replies": [
+            {
+                "user": "U094PL1V9MX",
+                "ts": "1767213884.069189"
+            },
+            {
+                "user": "U094ACC5CHY",
+                "ts": "1768005453.094729"
+            },
+            {
+                "user": "U09RC73M5T5",
+                "ts": "1768177427.921859"
+            },
+            {
+                "user": "U09RC73M5T5",
+                "ts": "1768177434.731299"
+            },
+            {
+                "user": "U094PL1V9MX",
+                "ts": "1768238984.665019"
+            }
+        ],
+        "is_locked": false,
+        "subscribed": true,
+        "last_read": "1768238984.665019",
+        "attachments": [
+            {
+                "from_url": "https:\/\/unyt.co\/",
+                "id": 1,
+                "original_url": "https:\/\/unyt.co\/",
+                "fallback": "UNYT: Unyt Accounting",
+                "text": "Accounting Software for a Decentralized Era.",
+                "title": "Unyt Accounting",
+                "title_link": "https:\/\/unyt.co\/",
+                "service_name": "UNYT"
+            },
+            {
+                "from_url": "https:\/\/www.youtube.com\/watch?v=5CT5Q6TFETA",
+                "thumb_url": "https:\/\/i.ytimg.com\/vi\/5CT5Q6TFETA\/hqdefault.jpg",
+                "thumb_width": 480,
+                "thumb_height": 360,
+                "video_html": "<iframe width=\"400\" height=\"225\" src=\"https:\/\/www.youtube.com\/embed\/5CT5Q6TFETA?feature=oembed&autoplay=1&iv_load_policy=3\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Strategic Update: Holochain, Holo Hosting &amp; Unyt\"><\/iframe>",
+                "video_html_width": 400,
+                "video_html_height": 225,
+                "service_icon": "https:\/\/a.slack-edge.com\/80588\/img\/unfurl_icons\/youtube.png",
+                "id": 2,
+                "original_url": "https:\/\/www.youtube.com\/watch?v=5CT5Q6TFETA",
+                "fallback": "YouTube Video: Strategic Update: Holochain, Holo Hosting & Unyt",
+                "title": "Strategic Update: Holochain, Holo Hosting &amp; Unyt",
+                "title_link": "https:\/\/www.youtube.com\/watch?v=5CT5Q6TFETA",
+                "author_name": "Holochain",
+                "author_link": "https:\/\/www.youtube.com\/@Holochain",
+                "service_name": "YouTube",
+                "service_url": "https:\/\/www.youtube.com\/"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "FSi59",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "user",
+                                "user_id": "U09RC73M5T5"
+                            },
+                            {
+                                "type": "text",
+                                "text": " if you have 't seen this video it's worth your time to hear the latest holochain, holo, and "
+                            },
+                            {
+                                "type": "link",
+                                "url": "https:\/\/unyt.co\/",
+                                "text": "unit"
+                            },
+                            {
+                                "type": "text",
+                                "text": ". "
+                            },
+                            {
+                                "type": "link",
+                                "url": "https:\/\/www.youtube.com\/watch?v=5CT5Q6TFETA"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "user": "U094PL1V9MX",
+        "type": "message",
+        "ts": "1767213884.069189",
+        "client_msg_id": "7678f9b5-dc15-4f0e-9420-08497dae2c39",
+        "text": "I skimmed it and there's definitely some overlap in other discussions, but WHAT specifically do you think is relevant <@U094ACC5CHY>?\n\nWhat is required to actually BUILD on holochain?",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "gecba38c6438",
+            "image_72": "https:\/\/secure.gravatar.com\/avatar\/ecba38c6438785b8696066b83294e7fe.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0012-72.png",
+            "first_name": "todd.​cx",
+            "real_name": "todd.​cx",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "todd.cx",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "thread_ts": "1767212494.391639",
+        "parent_user_id": "U094ACC5CHY",
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "Gcgtx",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "I skimmed it and there's definitely some overlap in other discussions, but WHAT specifically do you think is relevant "
+                            },
+                            {
+                                "type": "user",
+                                "user_id": "U094ACC5CHY"
+                            },
+                            {
+                                "type": "text",
+                                "text": "?\n\nWhat is required to actually BUILD on holochain?"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

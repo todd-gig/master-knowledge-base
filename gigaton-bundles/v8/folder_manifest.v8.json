@@ -1,0 +1,334 @@
+{
+  "files": [
+    {
+      "name": ".github/workflows/ci.yml",
+      "sha256": "53671013dcb33ae7893a092efc0f48fa828be29c764defbea1a831095150aeb4",
+      "bytes": 390
+    },
+    {
+      "name": "README.md",
+      "sha256": "60fc5439bf5f9a947c50305586a15dd25c7b53c8083052e8f0802dfced5d497f",
+      "bytes": 860
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "2ffd1a7a7a28774a8c2c7965079921d9d4ea83cb48375eb40cf6b81823961e86",
+      "bytes": 139
+    },
+    {
+      "name": "backend/README.md",
+      "sha256": "903a4413ebd5a605a0d65a6f999719914454c9dcce9a04ab417cf431cd46701a",
+      "bytes": 434
+    },
+    {
+      "name": "backend/auth_rbac.md",
+      "sha256": "4872fa11668f502b959b0c94fc31c76fbeacee2bb817622c572bf52d0b668508",
+      "bytes": 502
+    },
+    {
+      "name": "backend/lib/db.js",
+      "sha256": "d6464f2e13fb72194be0422fe2050f65d8591dc43f9677af2e12ceeec652a72e",
+      "bytes": 206
+    },
+    {
+      "name": "backend/lib/metrics.js",
+      "sha256": "074f572f7f386bd1d9e4bf433cf0c2e6be80726df0887a133b075f32b834832c",
+      "bytes": 536
+    },
+    {
+      "name": "backend/lib/services.js",
+      "sha256": "181d0ebb56627f56bb33179f17449a6f3a9832455719c812ab944a7eeb2d81f8",
+      "bytes": 2109
+    },
+    {
+      "name": "backend/lib/transactions.js",
+      "sha256": "65a4b3a87855691636715683afa69a22fbf70ebd2b461ff7786372b24a727825",
+      "bytes": 124
+    },
+    {
+      "name": "backend/lib/validation.js",
+      "sha256": "9401f8656af852822d2eb39d4fd99e79ddc9b229c29b59a459b54a49ef20f716",
+      "bytes": 624
+    },
+    {
+      "name": "backend/lib/validation_schemas.js",
+      "sha256": "c923b2a4d6cacf2aa5086cfbbf4f79cb080e6e0b2c0817ae87c4091f9ae3f769",
+      "bytes": 1106
+    },
+    {
+      "name": "backend/observability.md",
+      "sha256": "e5120faf88f84da2f9b649e90d2a38cbcbd3caebed4e6e6e4759df742decf1c8",
+      "bytes": 298
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "ef9eb1b09b9655aa4dc16ee37ed7bde0e479bddadcd12400ba41a6501b9344f1",
+      "bytes": 322
+    },
+    {
+      "name": "backend/secrets_handling.md",
+      "sha256": "b3a27d76771afcdb633cf6b40134b785c21dbc217d6f1a4486abd5f55be1a1a0",
+      "bytes": 417
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "bae11b6d8d26b184ceb33c7a7c5a72495e82166e4371463beaba7233c91a9df0",
+      "bytes": 3973
+    },
+    {
+      "name": "claude_bootstrap.v8.md",
+      "sha256": "42648c0fc885cefa9a443f82cdad9756bb2cac28b4d7029131592b77b5789eb6",
+      "bytes": 681
+    },
+    {
+      "name": "client_intake_form.schema.json",
+      "sha256": "b92702c37a630039abd347aef934c251acb91b705cf61862ab59c2c6475e4924",
+      "bytes": 1261
+    },
+    {
+      "name": "dashboard_app/.env.example",
+      "sha256": "00d1f99adf0d9258dbbad0a3fe0ec252a65cb98cf9c26677a8b41a44b0fd1df3",
+      "bytes": 40
+    },
+    {
+      "name": "dashboard_app/README.md",
+      "sha256": "e298340739901102ca889e4eaf8d6962bcc1ae354c4feef2fd9c103161f5f34a",
+      "bytes": 269
+    },
+    {
+      "name": "dashboard_app/index.html",
+      "sha256": "eb6635e299ce23556de59ab36599f7b1a1c14923a98ae18b85393a7d847ef7be",
+      "bytes": 248
+    },
+    {
+      "name": "dashboard_app/main.jsx",
+      "sha256": "c545696e3a947249f3218b38659eab8f8c2f6d329919340258129ae68749158b",
+      "bytes": 229
+    },
+    {
+      "name": "dashboard_app/package.json",
+      "sha256": "aa7bddfbb9850e9a5ebaf71f2c379308920da8c291f4b46fa56557e271e62260",
+      "bytes": 345
+    },
+    {
+      "name": "dashboard_app/src/App.jsx",
+      "sha256": "58ee9124b017da573bfbdb2b09723eaf1b567e92df3ec23078aa7663ddce676c",
+      "bytes": 4567
+    },
+    {
+      "name": "dashboard_app/src/api.js",
+      "sha256": "0b2078b988a5ef9b2a304864a983da9f3268aef15af12d96332d533124e0da51",
+      "bytes": 909
+    },
+    {
+      "name": "dashboard_app/src/index.css",
+      "sha256": "445dfd08d098a4c9a94e82baf84ef673875a7daf70209c64c078893e4511830a",
+      "bytes": 1096
+    },
+    {
+      "name": "dashboard_app/vite.config.js",
+      "sha256": "c5ac000d65adcb7fc7d641e09e067588db3e3e3773af5006c8c499b915656fae",
+      "bytes": 129
+    },
+    {
+      "name": "database/README.md",
+      "sha256": "ba270999c584fda79ab3b33d6f987de9cda27d5aa6000625147b358e3a1cde92",
+      "bytes": 79
+    },
+    {
+      "name": "database/migrations/001_initial.sql",
+      "sha256": "0eb51b80f37739ad8ca999a4048f0ff0275a45e0e2385df6576e9fc38dd38cf8",
+      "bytes": 953
+    },
+    {
+      "name": "database/migrations/002_registry_and_calibration.sql",
+      "sha256": "f3f7246751b30036136fe4d869a1e2d9f8eb744540b1b451d2291232940c8ba3",
+      "bytes": 773
+    },
+    {
+      "name": "database/migrations/003_indexes_and_constraints.sql",
+      "sha256": "c26d3a4c2e6d23620e7a2b3e71844e7ed8a44718a78837bf1da7832acd58d4d0",
+      "bytes": 144
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "8a0d10027916a21405bcc1c66b8227fa17fbcbb760715f82f6e8ac3ad4cceb78",
+      "bytes": 1765
+    },
+    {
+      "name": "database/seed.json",
+      "sha256": "b27b901756a62c60e84eff0a49394dded094059495107ef0c58f769367730b9e",
+      "bytes": 1017
+    },
+    {
+      "name": "deploy/README.md",
+      "sha256": "cb01da2d9f00e65cafc19a244819946d4a781c8df35aef4ebeb10034b1e00d82",
+      "bytes": 136
+    },
+    {
+      "name": "deploy/blue-green/README.md",
+      "sha256": "a0315381c87fff2a07951057b8590ff9b73c81e5dc1e17300faf0eb6f11413d7",
+      "bytes": 350
+    },
+    {
+      "name": "deploy/blue-green/rollback_playbook.md",
+      "sha256": "a351195885c1e3bff8669570a96e3ecee3f0d5095e77190e5c5b4fbbadceca18",
+      "bytes": 226
+    },
+    {
+      "name": "deploy/blue-green/rollout_playbook.md",
+      "sha256": "fe10af41cdd01e80ea4980024c0a186a5abff1da03d50f98b670df00de1e3bf9",
+      "bytes": 271
+    },
+    {
+      "name": "deploy/docker-compose.observability.yml",
+      "sha256": "e64af8d28a17ae0293f77dff2f236902a94303d3141e99519f66f95a8d4c454e",
+      "bytes": 302
+    },
+    {
+      "name": "deploy/docker-compose.yml",
+      "sha256": "e4b32d37929d84206787c57b7a30b908402366fa1db55c1db934e976a9e22cb2",
+      "bytes": 672
+    },
+    {
+      "name": "deploy/k8s/backend-blue.yaml",
+      "sha256": "bd33d8b86659fada4a0867324b2f79d41aa5984ac2d9a50f675ea5dfb9b9c143",
+      "bytes": 606
+    },
+    {
+      "name": "deploy/k8s/backend-green.yaml",
+      "sha256": "f64306bc9da50ee74b98efefb0a2d36b2072273ea44aa6375340924928ff5e26",
+      "bytes": 610
+    },
+    {
+      "name": "deploy/k8s/dashboard-deployment.yaml",
+      "sha256": "f46eda29db74d20ec1b71fc38256e8b61c62bc430c9227b8c04d2208255aa8a4",
+      "bytes": 369
+    },
+    {
+      "name": "deploy/observability/README.md",
+      "sha256": "0bf9789f981763846d23b6409ffdf661ae8573dcb77827d4f203563208bf445f",
+      "bytes": 84
+    },
+    {
+      "name": "deploy/observability/prometheus.yml",
+      "sha256": "760b185b25c3bdcb3882a6e9da6e5b52760b45fe19a4c0f192c5097b1b2fe8ef",
+      "bytes": 131
+    },
+    {
+      "name": "deployment_guide.v8.md",
+      "sha256": "c6ff82469e1f75f0ff368ce3672d4e4e574f60e1be97a0ff4311f203a79329d9",
+      "bytes": 1213
+    },
+    {
+      "name": "docker/backend/Dockerfile",
+      "sha256": "4e33c18403760995a951eee26a30f137fe8ae6a41ed76b4ebd7a089032ba0f9f",
+      "bytes": 133
+    },
+    {
+      "name": "docker/dashboard/Dockerfile",
+      "sha256": "18e83d29d87a997ba13a508db1a61d39263fd59f7b8704989831298ed7847710",
+      "bytes": 172
+    },
+    {
+      "name": "examples/memory_transition_payload.json",
+      "sha256": "9d3cf677b9b302825a41a68820ca41901244bd7869b790ebe4f1bb1965b27c3c",
+      "bytes": 117
+    },
+    {
+      "name": "examples/namespace_promotion_payload.json",
+      "sha256": "b8584dd6ac5c56349e5c1b009f8c3b6c1bf45ca948be1f76e68187b7f8c7b89e",
+      "bytes": 286
+    },
+    {
+      "name": "governance_promotion_pipeline.json",
+      "sha256": "af798c1435ac1013a3fa37e73fced315cd397ed78f8848e572849164649e9a5f",
+      "bytes": 588
+    },
+    {
+      "name": "memory_lifecycle_state_machine.json",
+      "sha256": "fa2660f5bc744be411bcba301cdcc9c67c96d84f87c8a8e24fe9eba23af94ed8",
+      "bytes": 516
+    },
+    {
+      "name": "memory_registry.v8.json",
+      "sha256": "0d21eb9dfd7f3c315bb357f892f36c11faeb57188ba70180209b0216e4324056",
+      "bytes": 9484
+    },
+    {
+      "name": "memory_registry.v8.md",
+      "sha256": "12221a8ca3a191b8a7a5915b08067f804f960e6bd3c8bd6b48816befb7d0ae5f",
+      "bytes": 4556
+    },
+    {
+      "name": "namespace_generator.config.json",
+      "sha256": "e191c379f432def1052543a9e8a36ba0d28bd1b00c058f69f55f17699fb9af8c",
+      "bytes": 357
+    },
+    {
+      "name": "openapi/README.md",
+      "sha256": "87a1d614192065638767fe92d1bd00bf6d0d59155320ca3e22037b00d4719111",
+      "bytes": 90
+    },
+    {
+      "name": "openapi/openapi.yaml",
+      "sha256": "dc3bdff372f96d509ab4f4b379e355fbc2389b56d783ac95df2a539c9f98eadd",
+      "bytes": 2742
+    },
+    {
+      "name": "retrieval_scoring_calibration.json",
+      "sha256": "77242cc7223f4e504cf0eb20895d109076abbcf5b78f5f1aecf2e9241465eb8b",
+      "bytes": 973
+    },
+    {
+      "name": "scripts/init_db_from_migrations.py",
+      "sha256": "2bb4da69f5e55a3aa420394b30a98b238f3ba43bd25b7906493435ddea4a4680",
+      "bytes": 1718
+    },
+    {
+      "name": "scripts/run_backend_tests.sh",
+      "sha256": "24359c393b0905eeea8f30f8f8a7ba333efb1c9e8c1fa9dd98e85956e8fbbbf5",
+      "bytes": 79
+    },
+    {
+      "name": "scripts/validate_openapi_checklist.md",
+      "sha256": "59c646b7696c30d6a861896e4386185fdf551e868fd7870330a21f8a8c51c8c6",
+      "bytes": 305
+    },
+    {
+      "name": "source_catalog.v8.json",
+      "sha256": "d507f428cf8e0f8ee0b88341cd3b656e0a90a894a81a9df06463b7477acea643",
+      "bytes": 2453
+    },
+    {
+      "name": "system_prompt_contract.v8.md",
+      "sha256": "7a662e8d690ba0a756d48868979ae63b572408c169df9eed016c9fc3ca4fbecd",
+      "bytes": 1281
+    },
+    {
+      "name": "tests/README.md",
+      "sha256": "f6d11ff249fecfc32954a0384aae1e58aec4a660010d9c1217c479dee0f3482f",
+      "bytes": 197
+    },
+    {
+      "name": "tests/backend/services.test.js",
+      "sha256": "11c53a9ddf21889971b5989c1c5fe02ae308f962fadab63d40c60feb60d3317e",
+      "bytes": 2435
+    },
+    {
+      "name": "tests/backend/validation.test.js",
+      "sha256": "faea9bcce76a16d9bec76868ca77bd4216d87374eaf3ded7ff6a7b9d0e763f5f",
+      "bytes": 1059
+    },
+    {
+      "name": "tests/generator/generator_contract.test.md",
+      "sha256": "f32d8bd4137b98318e8c39d0ee2b8023bbc84b384225a4b6deb536425f253f69",
+      "bytes": 296
+    },
+    {
+      "name": "tests/integration/integration_plan.md",
+      "sha256": "1426530ed0dbdaa1711998defcf04c2e4b3bcb9901d9872428ec835dd1e80bde",
+      "bytes": 550
+    }
+  ]
+}

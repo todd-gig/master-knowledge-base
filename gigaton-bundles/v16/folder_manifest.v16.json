@@ -1,0 +1,234 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "7e4846ee63ef51557828c9d7d9e9dd1d62c98caaef7c9ed95d58ff090b99099e",
+      "bytes": 557
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "f74b4a8db23d96f7c66d7f51f94ddc9e45017f390d23f422b1d757b6249b8bb2",
+      "bytes": 394
+    },
+    {
+      "name": "backend/jobs/run_reconciliation.js",
+      "sha256": "2adcc2d84cb831944ff0300c42542a261f9eb9525b24aba7a3bcac4b8b139490",
+      "bytes": 792
+    },
+    {
+      "name": "backend/lib/db.js",
+      "sha256": "66ad6d5e09b7dc49cf63e50701d2c7d6ad404bf3f4cc09d946b30f69b08857ac",
+      "bytes": 1624
+    },
+    {
+      "name": "backend/lib/payments/billing_bridge.js",
+      "sha256": "4909e3cc8ba7c214488ab46d09cad6a0364b8ef6f6bc29a000cc503b739b2416",
+      "bytes": 254
+    },
+    {
+      "name": "backend/lib/payments/payment_service.js",
+      "sha256": "03ece034f866943d937529ef23846368fde59b21334dece96ecb0fa19b1f6011",
+      "bytes": 1928
+    },
+    {
+      "name": "backend/lib/payments/provider_health_service.js",
+      "sha256": "9b10fb313f7c3a6b581cf87d7eb5cf5cd299fedd3baa89f92f0ddbd05a8eb177",
+      "bytes": 1161
+    },
+    {
+      "name": "backend/lib/payments/provider_selector.js",
+      "sha256": "29c09f317258e949f13acca211dbb3540868e3dc7d78c3be0e7fd7667814b213",
+      "bytes": 816
+    },
+    {
+      "name": "backend/lib/payments/providers/godaddy_poynt_adapter.js",
+      "sha256": "41e7f54f93125984f866db130156e9e02fdeac02764f52b5310392c291c3a0f4",
+      "bytes": 3429
+    },
+    {
+      "name": "backend/lib/payments/providers/stripe_adapter.js",
+      "sha256": "0b6241b68ef5dce5bc9b4f898a4230b9fa25354224539e8d7c27835953357353",
+      "bytes": 4788
+    },
+    {
+      "name": "backend/lib/payments/reconciliation_service.js",
+      "sha256": "1a94a542d4ca4572306dcb299d552cddcf1ddc57f81db69b694cc7738567762c",
+      "bytes": 1265
+    },
+    {
+      "name": "backend/lib/payments/sql_repository.js",
+      "sha256": "d75284279f90042584a795eba49cfe5896afccedfb5f31fdb35b205b3919b34a",
+      "bytes": 6475
+    },
+    {
+      "name": "backend/lib/payments/types.js",
+      "sha256": "09f1d6baf000cd5fb642febf738c5be2d2df3dd1e6bc4884592e8f9544740d57",
+      "bytes": 471
+    },
+    {
+      "name": "backend/lib/payments/webhook_replay_service.js",
+      "sha256": "1f77a729c80c84e41a7336940b78df829a9fa25911224b39d65855f442ab7c71",
+      "bytes": 568
+    },
+    {
+      "name": "backend/lib/tenant.js",
+      "sha256": "97d65d6869d13cfec0005902d733ead445fee74272c3177ced130934bb210bb2",
+      "bytes": 213
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "a067fb7d320dc010e0faabf69a7f9227c33643c959b37c84e4bac915b01f7b55",
+      "bytes": 388
+    },
+    {
+      "name": "backend/scripts/test_stripe_webhooks.sh",
+      "sha256": "50722ba6d80ebd456ef60d6f67588079b3ba3d7787dc4eb04ec3ef3041b98d37",
+      "bytes": 457
+    },
+    {
+      "name": "backend/scripts/webhook_replay_notes.md",
+      "sha256": "1f960a4403544dddaea4d21821d86ab353ceb2671c43713bbf6c95ac34a36410",
+      "bytes": 224
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "438e8928b5358904bb3ec0fcaf7e2548dfb19788c3e55ac859d631e524bbc632",
+      "bytes": 3412
+    },
+    {
+      "name": "config/provider_health_thresholds.json",
+      "sha256": "2eb63045fba4a2698fbb0955968b481f1f00f24289d69c39bfc5ae644b87ff03",
+      "bytes": 92
+    },
+    {
+      "name": "config/reconciliation_policy.json",
+      "sha256": "ef7b9fef6ac0f3abaab97f46b6cb79c638cd1291aa767b31a8a55cf3478fd0a4",
+      "bytes": 185
+    },
+    {
+      "name": "config/webhook_replay_policy.json",
+      "sha256": "68e8eb354050210564f479a1679359ad6c743499e8ccab39720b0e05328dee3c",
+      "bytes": 127
+    },
+    {
+      "name": "dashboard_app/.env.example",
+      "sha256": "03d46f356622ce9593983022a56019c51130c68175517b864a5925d8f6669ca3",
+      "bytes": 92
+    },
+    {
+      "name": "dashboard_app/README.md",
+      "sha256": "969211419d12aa7f52e0ba655f2f8053e09ce8e915bb78beba94a1ab84766e3d",
+      "bytes": 145
+    },
+    {
+      "name": "dashboard_app/index.html",
+      "sha256": "755eda34fb64d68b2e7f1655055d0f0c2cea4991e00b5078ae18b87855d8aca9",
+      "bytes": 254
+    },
+    {
+      "name": "dashboard_app/main.jsx",
+      "sha256": "c545696e3a947249f3218b38659eab8f8c2f6d329919340258129ae68749158b",
+      "bytes": 229
+    },
+    {
+      "name": "dashboard_app/package.json",
+      "sha256": "03e93204c6ce8eeb1cb088f214fbe6d3a122349e88cb014151b773190a298fd0",
+      "bytes": 343
+    },
+    {
+      "name": "dashboard_app/src/App.jsx",
+      "sha256": "c27e57d887fbfbac0320f8ad521597e471847195076cba2dc1c0798a140c4b05",
+      "bytes": 5654
+    },
+    {
+      "name": "dashboard_app/src/api.js",
+      "sha256": "3fdeb0e2d729e6354e1afd77be58c72b7a93c8443d4b4d19507c66cdd4358603",
+      "bytes": 1351
+    },
+    {
+      "name": "dashboard_app/src/index.css",
+      "sha256": "bca4bb6fa78f27238297848bc307394ffab10509f53c5f8e074176d37491ed8f",
+      "bytes": 885
+    },
+    {
+      "name": "dashboard_app/vite.config.js",
+      "sha256": "c5ac000d65adcb7fc7d641e09e067588db3e3e3773af5006c8c499b915656fae",
+      "bytes": 129
+    },
+    {
+      "name": "database/merge_into_main_app.md",
+      "sha256": "e8b5c69f904b8db0de4bdfa45e2f94c2ad21b421660d3addc4b5b578a33a72fa",
+      "bytes": 325
+    },
+    {
+      "name": "database/migrations/201_reconciliation_runs.sql",
+      "sha256": "2be2b28e4f10c6f9fdb3550d71b9db241e5e91872436b3bf5d0aa07e454ac906",
+      "bytes": 232
+    },
+    {
+      "name": "database/migrations/202_provider_health_metrics.sql",
+      "sha256": "6ec174dfe0426a146ac4664708c0232c1428ca4ef2bfa1c8579a853d142b5b8c",
+      "bytes": 306
+    },
+    {
+      "name": "database/migrations/203_payment_event_replayable.sql",
+      "sha256": "9108557e4d38d1156918605109714140269abed98df4c45e7e7acc9d51c1ab67",
+      "bytes": 77
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "397241649feeb75391b94b2707f78167fb3efbd9ae739f8ef4c18b1241526018",
+      "bytes": 1400
+    },
+    {
+      "name": "deploy/v16_rollout_checklist.md",
+      "sha256": "1dd0330450006f45b749bdd1b26afbe49273d9b2e176f259800ec631b64c630e",
+      "bytes": 320
+    },
+    {
+      "name": "examples/payment_search_query_examples.json",
+      "sha256": "8cfd4c1580f297cc354fa93c3737c029490ce3f3866b88adb88e46622b376fbc",
+      "bytes": 147
+    },
+    {
+      "name": "examples/provider_health_example.json",
+      "sha256": "f84b780fae5bb95d04e41276a6e9c5e3bb906c1c212e949a0627e43978bbc36e",
+      "bytes": 95
+    },
+    {
+      "name": "examples/webhook_replay_request.json",
+      "sha256": "54fe71f75517ab07f09ab755a4530498d3ad64766835989a2b1137d0867727b8",
+      "bytes": 84
+    },
+    {
+      "name": "openapi/openapi.yaml",
+      "sha256": "ca9e6f5b7a782a8a4cd12bcde754f72e06ec38ab4e415a3c5c36beccc9fef486",
+      "bytes": 1747
+    },
+    {
+      "name": "ops/poynt_http_execution_notes.md",
+      "sha256": "3cd13a43e2255250204aa7a13e2290683031f9f89ec565ce7de4a9ad9d6565bd",
+      "bytes": 371
+    },
+    {
+      "name": "ops/provider_health_notes.md",
+      "sha256": "c1da3f663a6fedb7cd843979d2c1f03e810fc1af6e656777d9ad2c093b915be0",
+      "bytes": 256
+    },
+    {
+      "name": "ops/reconciliation_job_notes.md",
+      "sha256": "8ed4fc89f4489df8e3523ecd438d852037edc5ed17f0778581bbb15686dac6b5",
+      "bytes": 242
+    },
+    {
+      "name": "tests/v16_test_plan.md",
+      "sha256": "d91d19c959ca82fe427b26d221ca7e5d7c418e856f548773762e06688291ef05",
+      "bytes": 411
+    },
+    {
+      "name": "v16_execution_guide.md",
+      "sha256": "a94acb9ca35ac73f3a72408ee339540d4fb75e0a2557f19a77c52b94127f6b18",
+      "bytes": 797
+    }
+  ]
+}

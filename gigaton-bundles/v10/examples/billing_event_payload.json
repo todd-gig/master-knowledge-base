@@ -1,0 +1,8 @@
+{
+  "event_type": "tenant_created",
+  "amount_cents": 50000,
+  "currency": "USD",
+  "metadata": {
+    "source": "example"
+  }
+}

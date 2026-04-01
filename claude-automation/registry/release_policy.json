@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "minimum_required_approvals": 2,
+  "required_checks": [
+    "tests_passed",
+    "diff_generated",
+    "registry_updated",
+    "rollback_defined"
+  ]
+}

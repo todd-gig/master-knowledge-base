@@ -1,0 +1,46 @@
+{
+  "policy_name": "gigaton_retrieval_policy_v3",
+  "version": "3.0.0",
+  "scoring_formula": {
+    "description": "Weighted retrieval score for ranking candidate memories for a task.",
+    "formula_pseudocode": "score = tier_component + category_component + confidence_component + tag_match_component + apply_when_component + dependency_bonus + namespace_bonus + recency_component + penalties",
+    "components": {
+      "tier_weight": {
+        "1": 1.0,
+        "2": 0.82,
+        "3": 0.64
+      },
+      "category_weight": {
+        "foundational_doctrine": 1.0,
+        "decision_systems": 0.96,
+        "knowledge_infrastructure": 0.94,
+        "ontology_and_data_models": 0.92,
+        "simulation_and_financial_models": 0.89,
+        "commercial_systems": 0.9,
+        "platform_and_tooling": 0.84,
+        "organizational_models": 0.8
+      },
+      "tag_match_weight": 0.38,
+      "apply_when_match_weight": 0.22,
+      "dependency_bonus": 0.08,
+      "confidence_weight": 0.32,
+      "recency_weight": 0.08,
+      "namespace_overlay_bonus": 0.1,
+      "deprecation_penalty": -0.75,
+      "superseded_penalty": -0.4
+    }
+  },
+  "execution_order": [
+    "load_all_global_tier_1",
+    "score_candidate_memories_against_task",
+    "overlay_relevant_client_namespace_objects",
+    "remove_deprecated_or_superseded_objects",
+    "select_top_ranked_bundle",
+    "generate_artifact_with_stable_ids"
+  ],
+  "blocking_rules": [
+    "client_namespace_cannot_override_foundational_doctrine",
+    "deprecated_memories_are_excluded_by_default",
+    "superseded_memories_are_hidden_by_default"
+  ]
+}

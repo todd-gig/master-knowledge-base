@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "plans": [
+    {
+      "plan_id": "starter",
+      "price_cents": 50000,
+      "interval": "month"
+    },
+    {
+      "plan_id": "growth",
+      "price_cents": 150000,
+      "interval": "month"
+    },
+    {
+      "plan_id": "enterprise",
+      "price_cents": 500000,
+      "interval": "month"
+    }
+  ],
+  "event_types": [
+    "tenant_created",
+    "onboarding_started",
+    "namespace_activated",
+    "usage_recorded",
+    "renewal_due",
+    "renewal_paid"
+  ],
+  "hook_contract": {
+    "path": "/api/billing/events",
+    "tenant_scoped": true
+  }
+}

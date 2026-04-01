@@ -1,0 +1,17 @@
+{
+  "namespaces": [
+    {
+      "namespace_id": "client_liquefex_demo",
+      "client_name": "Liquefex Example",
+      "industry": "insurance",
+      "selected_memory_ids": [
+        "MEM-018",
+        "MEM-019",
+        "MEM-002",
+        "MEM-003",
+        "MEM-015",
+        "MEM-016"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "levels": [
+    "CEO",
+    "Chief",
+    "VP",
+    "Manager",
+    "Lead",
+    "Specialist"
+  ],
+  "span_of_control": {
+    "executive": 7,
+    "mid_layer_min": 3,
+    "mid_layer_max": 5,
+    "lead_max": 3
+  },
+  "principles": [
+    "fewest_roles_necessary",
+    "preserve_human_supervision",
+    "assign_executive_owner",
+    "separate_automation_from_human_critical_work"
+  ]
+}

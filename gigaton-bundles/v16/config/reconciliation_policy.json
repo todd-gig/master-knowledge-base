@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "interval_minutes": 15,
+  "max_records_per_run": 200,
+  "recheck_statuses": [
+    "processing",
+    "requires_action"
+  ],
+  "provider_time_window_hours": 72
+}

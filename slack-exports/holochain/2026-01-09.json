@@ -1,0 +1,81 @@
+[
+    {
+        "user": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1768005453.094729",
+        "client_msg_id": "7DB4751E-5364-4292-B832-E86B4A74C097",
+        "text": "thanks for asking, two important points to listen for. \n\n1. standardized container deployment. this is good new for distribution \n2. unyt as payment rails. listening to how they're talking about unyt, and thinking how unyt might apply for a node_0 implementation",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "773edd8a9d92",
+            "image_72": "https:\/\/avatars.slack-edge.com\/2025-07-11\/9185561499972_773edd8a9d92c3d1c225_72.jpg",
+            "first_name": "Matt",
+            "real_name": "Matt Foster",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "matt",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "thread_ts": "1767212494.391639",
+        "parent_user_id": "U094ACC5CHY",
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "uHVmw",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "thanks for asking, two important points to listen for. \n\n"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "rich_text_list",
+                        "elements": [
+                            {
+                                "type": "rich_text_section",
+                                "elements": [
+                                    {
+                                        "type": "text",
+                                        "text": "standardized container deployment. this is good new for distribution "
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "rich_text_section",
+                                "elements": [
+                                    {
+                                        "type": "text",
+                                        "text": "unyt"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": " as payment rails. listening to how they're talking about unyt"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": ","
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": " and thinking how unyt might apply for a node_0 implementation"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "ordered",
+                        "indent": 0,
+                        "offset": 0,
+                        "border": 0
+                    }
+                ]
+            }
+        ]
+    }
+]

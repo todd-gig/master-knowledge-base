@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Audit Log Record",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "timestamp",
+    "request_type",
+    "routing_classification",
+    "chosen_architecture",
+    "confidence_score",
+    "recommended_action",
+    "prompt_id",
+    "prompt_version",
+    "schema_version",
+    "code_version"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "request_type": {
+      "type": "string"
+    },
+    "routing_classification": {
+      "type": "string"
+    },
+    "chosen_architecture": {
+      "type": "string"
+    },
+    "confidence_score": {
+      "type": "number"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "prompt_id": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "code_version": {
+      "type": "string"
+    },
+    "exception_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "codification_candidate_score": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "payload_json": {
+      "type": [
+        "string",
+        "object"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

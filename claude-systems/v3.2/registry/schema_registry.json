@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "schemas": [
+    {
+      "name": "decision_schema",
+      "version": "3.1",
+      "path": "machine/decision_schema.json"
+    },
+    {
+      "name": "audit_log_schema",
+      "version": "3.1",
+      "path": "machine/audit_log_schema.json"
+    },
+    {
+      "name": "output_contract",
+      "version": "3.1",
+      "path": "machine/output_contract.schema.json"
+    }
+  ]
+}

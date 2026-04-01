@@ -1,0 +1,88 @@
+{
+  "machine_name": "memory_lifecycle_state_machine",
+  "version": "1.0.0",
+  "states": [
+    "candidate",
+    "draft",
+    "validated",
+    "active",
+    "watchlist",
+    "deprecated",
+    "superseded",
+    "archived"
+  ],
+  "transitions": [
+    {
+      "from": "candidate",
+      "to": "draft",
+      "trigger": "memory_captured"
+    },
+    {
+      "from": "draft",
+      "to": "validated",
+      "trigger": "human_review_complete"
+    },
+    {
+      "from": "validated",
+      "to": "active",
+      "trigger": "included_in_registry_release"
+    },
+    {
+      "from": "active",
+      "to": "watchlist",
+      "trigger": "confidence_drop_or_conflict_detected"
+    },
+    {
+      "from": "watchlist",
+      "to": "active",
+      "trigger": "issue_resolved"
+    },
+    {
+      "from": "active",
+      "to": "deprecated",
+      "trigger": "no_longer_recommended"
+    },
+    {
+      "from": "active",
+      "to": "superseded",
+      "trigger": "replacement_memory_approved"
+    },
+    {
+      "from": "deprecated",
+      "to": "archived",
+      "trigger": "historical_only"
+    },
+    {
+      "from": "superseded",
+      "to": "archived",
+      "trigger": "historical_only"
+    }
+  ],
+  "state_rules": {
+    "candidate": {
+      "retrievable": false
+    },
+    "draft": {
+      "retrievable": false
+    },
+    "validated": {
+      "retrievable": true
+    },
+    "active": {
+      "retrievable": true
+    },
+    "watchlist": {
+      "retrievable": true,
+      "penalty": -0.15
+    },
+    "deprecated": {
+      "retrievable": false
+    },
+    "superseded": {
+      "retrievable": false
+    },
+    "archived": {
+      "retrievable": false
+    }
+  }
+}

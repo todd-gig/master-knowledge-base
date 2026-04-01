@@ -1,0 +1,63 @@
+{
+  "schema_name": "gigaton_client_intake_form",
+  "version": "1.4.0",
+  "required_fields": [
+    "client_name",
+    "industry",
+    "business_model",
+    "primary_revenue_motion",
+    "top_3_objectives",
+    "top_3_constraints",
+    "preferred_terminology",
+    "success_metrics",
+    "decision_rights_map",
+    "artifact_priorities",
+    "data_sources",
+    "workflow_preferences"
+  ],
+  "field_rules": {
+    "client_name": {
+      "type": "string",
+      "min_length": 2,
+      "max_length": 120
+    },
+    "industry": {
+      "type": "string",
+      "min_length": 2,
+      "max_length": 120
+    },
+    "business_model": {
+      "type": "string",
+      "min_length": 2,
+      "max_length": 240
+    },
+    "primary_revenue_motion": {
+      "type": "string",
+      "enum": [
+        "enterprise_sales",
+        "services",
+        "licensing",
+        "platform",
+        "other"
+      ]
+    },
+    "preferred_terminology": {
+      "type": "object"
+    },
+    "top_3_objectives": {
+      "type": "array",
+      "min_items": 1,
+      "max_items": 10
+    },
+    "top_3_constraints": {
+      "type": "array",
+      "min_items": 1,
+      "max_items": 10
+    },
+    "success_metrics": {
+      "type": "array",
+      "min_items": 1,
+      "max_items": 20
+    }
+  }
+}

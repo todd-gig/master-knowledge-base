@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rendered Response Contract",
+  "type": "object",
+  "required": [
+    "decision_classification",
+    "executive_rationale",
+    "unit_economics",
+    "decision_variables",
+    "recommended_architecture",
+    "confidence_and_failure_risk",
+    "codification_plan",
+    "roi_recommendation",
+    "next_step_deliverables"
+  ],
+  "properties": {
+    "decision_classification": {
+      "type": "string"
+    },
+    "executive_rationale": {
+      "type": "string"
+    },
+    "unit_economics": {
+      "type": "object"
+    },
+    "decision_variables": {
+      "type": "object"
+    },
+    "recommended_architecture": {
+      "type": "string"
+    },
+    "confidence_and_failure_risk": {
+      "type": "object"
+    },
+    "codification_plan": {
+      "type": "object"
+    },
+    "roi_recommendation": {
+      "type": "string"
+    },
+    "next_step_deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

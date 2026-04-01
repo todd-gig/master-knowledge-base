@@ -1,0 +1,10 @@
+{
+  "version": "3.1",
+  "default_backend": "sqlite",
+  "sqlite_path": "runtime/claude_decisions.db",
+  "postgres_env_var": "DATABASE_URL",
+  "validate_payloads": true,
+  "validate_audit_records": true,
+  "exception_analytics_window_days": 30,
+  "codification_candidate_threshold": 0.8
+}

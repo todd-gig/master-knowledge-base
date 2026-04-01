@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "migrations": [
+    {
+      "id": "001",
+      "file": "001_initial_schema.sql",
+      "description": "Baseline audit schema"
+    },
+    {
+      "id": "002",
+      "file": "002_prompt_release_tables.sql",
+      "description": "Prompt release governance tables"
+    },
+    {
+      "id": "003",
+      "file": "003_benchmark_runs.sql",
+      "description": "Benchmark result storage"
+    },
+    {
+      "id": "004",
+      "file": "004_dashboard_views.sql",
+      "description": "Dashboard-ready analytics views"
+    }
+  ]
+}

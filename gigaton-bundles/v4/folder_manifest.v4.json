@@ -1,0 +1,109 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "fd7666e14bea3b544bc430a37b6cb30d01e52bf1d60f720eb54e5a3dbeaf8d5c",
+      "bytes": 579
+    },
+    {
+      "name": "automated_namespace_generator.json",
+      "sha256": "ab9b2b978c9ec718fd68e2ffb5af8ceecfd2fb0a6299533b1b26f693dc6f2e12",
+      "bytes": 1515
+    },
+    {
+      "name": "claude_bootstrap.v4.md",
+      "sha256": "607df8f8b32cbd38154458928bcdb48e841edd330ccc8932cecfbb4fb2b5985d",
+      "bytes": 413
+    },
+    {
+      "name": "client_intake_form.schema.json",
+      "sha256": "4fd054fbade9964e6d4bebd946593af44f60c28878eb2c676754bd1a93fe830a",
+      "bytes": 857
+    },
+    {
+      "name": "dashboard_scaffold/README.md",
+      "sha256": "fad453eafd856106cd5f7043bcb52fa9174d08e44db48cee7e44d3d2e22e7c8d",
+      "bytes": 299
+    },
+    {
+      "name": "dashboard_scaffold/index.html",
+      "sha256": "476d2752f1d484cd8b441c299529675033e9dcc76615c2768293ab46f8f4b66c",
+      "bytes": 287
+    },
+    {
+      "name": "dashboard_scaffold/main.jsx",
+      "sha256": "9eead238180097c05525f16e86569c85426e61bef160b29c1104052656ac80c7",
+      "bytes": 242
+    },
+    {
+      "name": "dashboard_scaffold/package.json",
+      "sha256": "bef8055d64fc84dc375361c0b475c831f18cc3abc9d3aa3e2be778191906ee11",
+      "bytes": 404
+    },
+    {
+      "name": "dashboard_scaffold/src/App.jsx",
+      "sha256": "6d777f6ff084f5aed19efa0250b0abc842ae80b78849c51efb6915947744c583",
+      "bytes": 5549
+    },
+    {
+      "name": "dashboard_scaffold/src/data/placeholder.json",
+      "sha256": "9a383b8bc29d93ea97d5169acc8b18a5220029b2bf908345a50efc004a672c96",
+      "bytes": 373
+    },
+    {
+      "name": "dashboard_scaffold/src/index.css",
+      "sha256": "c6a5051b2bfbf8abe04ff226d166b6eb44ca63ccc771c586d6076ad54a1e7959",
+      "bytes": 2353
+    },
+    {
+      "name": "dashboard_scaffold/vite.config.js",
+      "sha256": "6dc0ce25c4170ac9fbadb4dbd19ca5c2ceb57b9c5efc5090b82e2923f53dd679",
+      "bytes": 133
+    },
+    {
+      "name": "deployment_guide.v4.md",
+      "sha256": "348b832df36c98054f762a588c7e54b7267f23634a2bcf6a48cb35d9e9eb60f1",
+      "bytes": 900
+    },
+    {
+      "name": "memory_lifecycle_state_machine.json",
+      "sha256": "d4b8d553e78d1ef884d626c48c904851b12f851727e288c3619ea7e89fb988d3",
+      "bytes": 1645
+    },
+    {
+      "name": "memory_registry.v4.json",
+      "sha256": "e192a578d5081915053f54711a410cb519909965d28588d6f2bc75eba362f117",
+      "bytes": 21677
+    },
+    {
+      "name": "memory_registry.v4.md",
+      "sha256": "e520ec023f9b96a2b4c9df520c5075fc05b48f2ccd38656f6d8521edb4ccf71c",
+      "bytes": 4596
+    },
+    {
+      "name": "namespace_inheritance_examples.v4.json",
+      "sha256": "097d4aef1f314eb44f12fd1b0905d5c5218e99f4eadfc03e2c863765ceef4cb5",
+      "bytes": 862
+    },
+    {
+      "name": "retrieval_feedback_dataset.template.json",
+      "sha256": "588ef1c40497f089cfa84e41cec7c1595b1a27f7ce90ce378e5a5ca14e3bca3e",
+      "bytes": 386
+    },
+    {
+      "name": "retrieval_scoring_calibration.json",
+      "sha256": "3c79c7830b379f1262f8ad037a971c1aecf0b731ffc3c2222df540e1e2a524ba",
+      "bytes": 1354
+    },
+    {
+      "name": "source_catalog.v4.json",
+      "sha256": "683e1eb7e1812a9effc2d4aed271a5ce79e3b12a70ab6cf046c28c1eecb4bc5d",
+      "bytes": 3817
+    },
+    {
+      "name": "system_prompt_contract.v4.md",
+      "sha256": "fd6dacb95f8c3637e85146068629dd7f9c08548c08a263ecc32a22eceb0e0207",
+      "bytes": 838
+    }
+  ]
+}

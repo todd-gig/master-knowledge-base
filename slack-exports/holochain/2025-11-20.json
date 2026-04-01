@@ -1,0 +1,143 @@
+[
+    {
+        "subtype": "channel_join",
+        "user": "U094ACC5CHY",
+        "text": "<@U094ACC5CHY> has joined the channel",
+        "type": "message",
+        "ts": "1763658076.816199"
+    },
+    {
+        "subtype": "channel_join",
+        "user": "U094PL1V9MX",
+        "text": "<@U094PL1V9MX> has joined the channel",
+        "inviter": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1763658289.750399"
+    },
+    {
+        "subtype": "channel_join",
+        "user": "U09SJS25BFC",
+        "text": "<@U09SJS25BFC> has joined the channel",
+        "inviter": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1763658289.862399"
+    },
+    {
+        "subtype": "channel_join",
+        "user": "U09RC73M5T5",
+        "text": "<@U09RC73M5T5> has joined the channel",
+        "inviter": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1763658289.942489"
+    },
+    {
+        "user": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1763659365.079459",
+        "client_msg_id": "8449D41C-E6B5-4825-930A-79CEECEF0986",
+        "text": "as we look look at using <http:\/\/webai.com|webai.com> out of the gate for endpoint compute\/intelligence it feels like some more investigation into the feasibility of using <http:\/\/holochain.org|holochain.org> as the fabric to bring all the nodes together as the next layer in the tech stack :rocket::robot_face:",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "773edd8a9d92",
+            "image_72": "https:\/\/avatars.slack-edge.com\/2025-07-11\/9185561499972_773edd8a9d92c3d1c225_72.jpg",
+            "first_name": "Matt",
+            "real_name": "Matt Foster",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "matt",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "AdDfn",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "as we look look at using "
+                            },
+                            {
+                                "type": "text",
+                                "text": "webai.com out"
+                            },
+                            {
+                                "type": "text",
+                                "text": " of the gate"
+                            },
+                            {
+                                "type": "text",
+                                "text": " for endpoint compute\/intelligence it feels like some more investigation into the feasibility of using holochain.org as the fabric to bring all the nodes together as the next layer in the tech stack "
+                            },
+                            {
+                                "type": "emoji",
+                                "name": "rocket",
+                                "unicode": "1f680"
+                            },
+                            {
+                                "type": "emoji",
+                                "name": "robot_face",
+                                "unicode": "1f916"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "user": "U094ACC5CHY",
+        "type": "message",
+        "ts": "1763659404.700169",
+        "client_msg_id": "3911AA3B-21DA-4E76-A475-72BCE245CE3C",
+        "text": "@chanel :point_up_2:",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "773edd8a9d92",
+            "image_72": "https:\/\/avatars.slack-edge.com\/2025-07-11\/9185561499972_773edd8a9d92c3d1c225_72.jpg",
+            "first_name": "Matt",
+            "real_name": "Matt Foster",
+            "display_name": "",
+            "team": "T094PL1V9KK",
+            "name": "matt",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "vX9\/I",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "@chanel "
+                            },
+                            {
+                                "type": "emoji",
+                                "name": "point_up_2",
+                                "unicode": "1f446"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "subtype": "channel_join",
+        "user": "U09SQCDJMRN",
+        "text": "<@U09SQCDJMRN> has joined the channel",
+        "type": "message",
+        "ts": "1763671190.689349"
+    }
+]

@@ -1,0 +1,19 @@
+{
+  "version": "3.1",
+  "exception_dimensions": [
+    "exception_class",
+    "request_type",
+    "routing_classification",
+    "chosen_architecture",
+    "prompt_version"
+  ],
+  "codification_weights": {
+    "decision_frequency": 0.2,
+    "pattern_repeatability": 0.2,
+    "average_confidence": 0.15,
+    "exception_rate_inverse": 0.15,
+    "estimated_savings_per_run": 0.15,
+    "implementation_feasibility": 0.1,
+    "review_agreement_rate": 0.05
+  }
+}

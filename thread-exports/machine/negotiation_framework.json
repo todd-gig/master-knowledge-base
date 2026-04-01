@@ -1,0 +1,25 @@
+{
+  "dimensions": [
+    "negotiation_type",
+    "parties",
+    "desired_outcome",
+    "value_exchange",
+    "leverage_assessment",
+    "risk_map",
+    "activity_plan",
+    "staffing_plan"
+  ],
+  "types": [
+    "commercial",
+    "partnership",
+    "hiring",
+    "vendor",
+    "capital",
+    "political_regulatory",
+    "internal_budget",
+    "compensation",
+    "environmental_compliance",
+    "strategic_alliance",
+    "conflict_resolution"
+  ]
+}

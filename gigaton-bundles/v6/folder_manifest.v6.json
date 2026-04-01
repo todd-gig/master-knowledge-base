@@ -1,0 +1,164 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "714d69b22fe1ead385400a9eb167d872fc5ecf666e7d94a2695969c124f87756",
+      "bytes": 1013
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "a59309a3e24bc72b42ec70c0bf5ee58caa7a502c0e4b451b1d7be583386a3fe3",
+      "bytes": 79
+    },
+    {
+      "name": "backend/README.md",
+      "sha256": "cb31b9ff1aa305182c2b658b3b120cb0f3fb5a04fa52164bdf9aefd2701097fb",
+      "bytes": 470
+    },
+    {
+      "name": "backend/auth_rbac.md",
+      "sha256": "0b25940886bf5895677a0a47726a08c9be2447a878fb00035a9fb34eca697ec4",
+      "bytes": 422
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "4490f24f467216112a0a6702c61b6b9178544ffbdf7b2687a187bb103378a70d",
+      "bytes": 279
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "5fc16104ff3bac861c476742d1edbac630ed8c8b22e8649999ffba61f27c1028",
+      "bytes": 4124
+    },
+    {
+      "name": "claude_bootstrap.v6.md",
+      "sha256": "db45f3f8cbe4f97aee93d121973f8ca01a5566997104d40db1bb679abd6a271a",
+      "bytes": 576
+    },
+    {
+      "name": "client_intake_form.schema.json",
+      "sha256": "dd0f14028b9bf7f6d5ca9c270b2302141ba1115ea2295b6337a59acf51d6f644",
+      "bytes": 388
+    },
+    {
+      "name": "dashboard_app/.env.example",
+      "sha256": "00d1f99adf0d9258dbbad0a3fe0ec252a65cb98cf9c26677a8b41a44b0fd1df3",
+      "bytes": 40
+    },
+    {
+      "name": "dashboard_app/README.md",
+      "sha256": "07710cde2a799063fb97ff4f899169c403ac3d26a4d90d8fbfad2f54dbb60fe9",
+      "bytes": 299
+    },
+    {
+      "name": "dashboard_app/index.html",
+      "sha256": "dbbbf7a0b13c381a1fe0afd33e093e4f7509f1405c67b39e1b83061fec19cb3d",
+      "bytes": 249
+    },
+    {
+      "name": "dashboard_app/main.jsx",
+      "sha256": "c545696e3a947249f3218b38659eab8f8c2f6d329919340258129ae68749158b",
+      "bytes": 229
+    },
+    {
+      "name": "dashboard_app/package.json",
+      "sha256": "c9a07404346c848681648c397da4f7368218b5887b631b118a6ebaf579c07ace",
+      "bytes": 404
+    },
+    {
+      "name": "dashboard_app/src/App.jsx",
+      "sha256": "3903791adc67df9aa51da5783bf24464ad77f831b486e58c82718ea2e4736a7f",
+      "bytes": 5175
+    },
+    {
+      "name": "dashboard_app/src/api.js",
+      "sha256": "d4c2ce2efbb11d353fb0b09e254cfcc277c042ef3c3e6aa7d77e6ed00e310233",
+      "bytes": 993
+    },
+    {
+      "name": "dashboard_app/src/index.css",
+      "sha256": "c0a9a9a4fc3622f98091242ab0cf058053c61f2a629ce2c351672064dd9d434e",
+      "bytes": 1652
+    },
+    {
+      "name": "dashboard_app/vite.config.js",
+      "sha256": "c5ac000d65adcb7fc7d641e09e067588db3e3e3773af5006c8c499b915656fae",
+      "bytes": 129
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "8a0d10027916a21405bcc1c66b8227fa17fbcbb760715f82f6e8ac3ad4cceb78",
+      "bytes": 1765
+    },
+    {
+      "name": "database/seed.json",
+      "sha256": "5d5b725000de199f5d65060546c69c9e536b6ce0b04a3930574bdfdd3540c8a9",
+      "bytes": 869
+    },
+    {
+      "name": "deployment_guide.v6.md",
+      "sha256": "3972dd5292146942048e26d2fb8e9179502e67e3cc46cc2cd9ef70388c2a37a0",
+      "bytes": 991
+    },
+    {
+      "name": "examples/memory_transition_payload.json",
+      "sha256": "9d3cf677b9b302825a41a68820ca41901244bd7869b790ebe4f1bb1965b27c3c",
+      "bytes": 117
+    },
+    {
+      "name": "examples/namespace_promotion_payload.json",
+      "sha256": "b8584dd6ac5c56349e5c1b009f8c3b6c1bf45ca948be1f76e68187b7f8c7b89e",
+      "bytes": 286
+    },
+    {
+      "name": "governance_promotion_pipeline.json",
+      "sha256": "5afea46e6e265208d2103ac8cfbf31105c9ae56053da16bf248c591a41218522",
+      "bytes": 457
+    },
+    {
+      "name": "memory_lifecycle_state_machine.json",
+      "sha256": "6b53edd106dd6d0f98bf658a5d13132dc8cb0ae275089a5ce69068e03a5358fa",
+      "bytes": 340
+    },
+    {
+      "name": "memory_registry.v6.json",
+      "sha256": "d1e79d738f1936f79ad48fc6ce5be6e7b66fa152886dd59ffb99535f20d1683b",
+      "bytes": 9484
+    },
+    {
+      "name": "memory_registry.v6.md",
+      "sha256": "bf6d49e12a6f3f48ffc2c1d48c57516a8fcef15a9db2ba095da84b35e159611c",
+      "bytes": 4556
+    },
+    {
+      "name": "namespace_generator.config.json",
+      "sha256": "b1d846923a905d3ab14c63d2a9c29c4d7b71ec2a325ea012899e96360e1c31e3",
+      "bytes": 236
+    },
+    {
+      "name": "retrieval_scoring_calibration.json",
+      "sha256": "bfddbbab426065744b7c394bde7946d78a3a3e0839de83150f2b77c8d8920032",
+      "bytes": 857
+    },
+    {
+      "name": "scripts/init_db.py",
+      "sha256": "905ee730204c6ca6b2a9deccd46bb98336fd613c144ce449992e6eac5a21a26f",
+      "bytes": 1164
+    },
+    {
+      "name": "scripts/promote_namespace_example.py",
+      "sha256": "4f580db1ee1c88c5ec0465871ec0fa70c310ef78a12ee0b3b4363f9e3cfe9488",
+      "bytes": 524
+    },
+    {
+      "name": "source_catalog.v6.json",
+      "sha256": "30b41cd52063c34cebd150d7e4f2286a5f0574c4b0ffd63482e328f5ae651a9f",
+      "bytes": 2453
+    },
+    {
+      "name": "system_prompt_contract.v6.md",
+      "sha256": "a1e039ce434a66bb7bfd3b547d6f6a8fcbe69583cc027346e445f6c801816433",
+      "bytes": 974
+    }
+  ]
+}

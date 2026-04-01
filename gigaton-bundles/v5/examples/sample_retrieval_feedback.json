@@ -1,0 +1,35 @@
+{
+  "dataset_name": "retrieval_feedback_dataset",
+  "rows": [
+    {
+      "task_id": "TASK-001",
+      "task_type": "commercial_terms",
+      "query": "Draft operator deal structure",
+      "selected_memory_ids": [
+        "MEM-015",
+        "MEM-016",
+        "MEM-017"
+      ],
+      "rejected_memory_ids": [
+        "MEM-010"
+      ],
+      "operator_feedback_score": 0.94,
+      "output_success_score": 0.91
+    },
+    {
+      "task_id": "TASK-002",
+      "task_type": "knowledge_system",
+      "query": "Create markdown contract for client memory",
+      "selected_memory_ids": [
+        "MEM-011",
+        "MEM-012",
+        "MEM-020"
+      ],
+      "rejected_memory_ids": [
+        "MEM-009"
+      ],
+      "operator_feedback_score": 0.89,
+      "output_success_score": 0.87
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "decision_payload_example": {
+    "decision_type": "lead_scoring",
+    "normalized_variables": {
+      "employee_count": 120,
+      "industry": "insurance",
+      "engagement_score": 78
+    },
+    "routing_classification": "Hybrid",
+    "recommended_architecture": "Claude parse -> Python decide",
+    "confidence_score": 0.91,
+    "exception_flags": [],
+    "recommended_action": "score_and_rank",
+    "review_required": false,
+    "assumptions": [
+      "CRM values are current"
+    ],
+    "failure_modes": [
+      "misclassified industry"
+    ]
+  },
+  "audit_record_example": {
+    "decision_id": "dec_0001",
+    "timestamp": "2026-03-26T12:00:00Z",
+    "request_type": "lead_scoring",
+    "routing_classification": "Hybrid",
+    "chosen_architecture": "Claude parse -> Python decide",
+    "confidence_score": 0.91,
+    "recommended_action": "score_and_rank",
+    "human_review_required": false
+  }
+}

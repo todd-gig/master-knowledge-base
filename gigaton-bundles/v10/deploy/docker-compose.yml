@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ../docker/backend
+    environment:
+      PORT: 3001
+      JWT_SECRET: replace-me
+      DB_PATH: /app/data/gigaton.db
+      ALLOW_DEMO_AUTH: "true"
+      PROMETHEUS_ENABLED: "true"
+    ports:
+      - "3001:3001"
+    volumes:
+      - backend_data:/app/data
+
+  dashboard:
+    build:
+      context: ../docker/dashboard
+    environment:
+      VITE_API_BASE_URL: http://backend:3001
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+volumes:
+  backend_data:

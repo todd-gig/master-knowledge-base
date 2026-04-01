@@ -1,0 +1,5 @@
+{
+  "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+  "api_version": "1.2",
+  "token_endpoint": "https://services.poynt.net/token"
+}

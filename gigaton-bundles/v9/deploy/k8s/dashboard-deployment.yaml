@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gigaton-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gigaton-dashboard
+  template:
+    metadata:
+      labels:
+        app: gigaton-dashboard
+    spec:
+      containers:
+        - name: dashboard
+          image: gigaton/dashboard:latest
+          ports:
+            - containerPort: 5173

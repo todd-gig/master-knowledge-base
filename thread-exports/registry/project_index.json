@@ -1,0 +1,38 @@
+{
+  "root_file": "CLAUDE.md",
+  "reasoning_chain": [
+    "problem",
+    "capability_gap",
+    "skill_requirements",
+    "role_requirements",
+    "team_structure",
+    "supervision_model",
+    "negotiation_activities",
+    "roi_ranked_recommendation"
+  ],
+  "routing": {
+    "skills": [
+      "CLAUDE.md",
+      "machine/skill_ontology.json",
+      "machine/output_template.json"
+    ],
+    "team_structure": [
+      "CLAUDE.md",
+      "machine/team_structure_rules.json",
+      "machine/skill_ontology.json",
+      "machine/output_template.json"
+    ],
+    "negotiation": [
+      "CLAUDE.md",
+      "machine/negotiation_framework.json",
+      "machine/output_template.json"
+    ],
+    "mixed": [
+      "CLAUDE.md",
+      "machine/skill_ontology.json",
+      "machine/team_structure_rules.json",
+      "machine/negotiation_framework.json",
+      "machine/output_template.json"
+    ]
+  }
+}

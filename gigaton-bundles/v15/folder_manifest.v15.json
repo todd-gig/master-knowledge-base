@@ -1,0 +1,194 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "e96c75c32aa2e205e3371d693b5f7944433d9cbed6d4effa6ffbe33f41b182e6",
+      "bytes": 581
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "f74b4a8db23d96f7c66d7f51f94ddc9e45017f390d23f422b1d757b6249b8bb2",
+      "bytes": 394
+    },
+    {
+      "name": "backend/lib/db.js",
+      "sha256": "aea86fac6a5fa00560071b931bd1befab0d13722f048d6530c7e885a64e3027f",
+      "bytes": 965
+    },
+    {
+      "name": "backend/lib/payments/billing_bridge.js",
+      "sha256": "4909e3cc8ba7c214488ab46d09cad6a0364b8ef6f6bc29a000cc503b739b2416",
+      "bytes": 254
+    },
+    {
+      "name": "backend/lib/payments/payment_service.js",
+      "sha256": "5e70292d7e52fd5f64d26bdfa7671b035dfcb7013ef33adc7712c30544e56daa",
+      "bytes": 1566
+    },
+    {
+      "name": "backend/lib/payments/provider_selector.js",
+      "sha256": "29c09f317258e949f13acca211dbb3540868e3dc7d78c3be0e7fd7667814b213",
+      "bytes": 816
+    },
+    {
+      "name": "backend/lib/payments/providers/godaddy_poynt_adapter.js",
+      "sha256": "beb306bfb95918869a1f938664343360218f5dbc2ef3331c6e9e6008a044acc3",
+      "bytes": 3189
+    },
+    {
+      "name": "backend/lib/payments/providers/stripe_adapter.js",
+      "sha256": "f5ac3875de0f37da288eb616a1687532940cfa6690a996988aa9f7fbc0c43c17",
+      "bytes": 3889
+    },
+    {
+      "name": "backend/lib/payments/sql_repository.js",
+      "sha256": "fa99cd1b7262cd5fdbf6478ad7ac7dc6cb3cf977dd04ba9deba97d058bc990b3",
+      "bytes": 3356
+    },
+    {
+      "name": "backend/lib/payments/types.js",
+      "sha256": "09f1d6baf000cd5fb642febf738c5be2d2df3dd1e6bc4884592e8f9544740d57",
+      "bytes": 471
+    },
+    {
+      "name": "backend/lib/tenant.js",
+      "sha256": "97d65d6869d13cfec0005902d733ead445fee74272c3177ced130934bb210bb2",
+      "bytes": 213
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "cd3517494061f45edaf8164d7030d1d115163d76d364b0c21b20f3ef98a3f040",
+      "bytes": 336
+    },
+    {
+      "name": "backend/scripts/stripe_webhook_harness.md",
+      "sha256": "04132cc6d7e0ab4e0050b2381b15c8caf718924922413010c36030afabaeeabf",
+      "bytes": 425
+    },
+    {
+      "name": "backend/scripts/test_stripe_webhooks.sh",
+      "sha256": "5295cfd42f4a8c0206a228fee8d70fb8a109a6be0f84ceb09b5072725a453bca",
+      "bytes": 485
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "435c261ff9b41e7ae3659cec3ec7b8e1049f15ba46a07b22d9460850886c9b6c",
+      "bytes": 2286
+    },
+    {
+      "name": "config/payment_provider_registry.json",
+      "sha256": "8d3c1d6c131c4e4ab6ec78c017f44bf82b64b242be25ae29bf191004f4afff8f",
+      "bytes": 382
+    },
+    {
+      "name": "config/tenant_payment_policy.json",
+      "sha256": "ac5d38cd588a194e02932c93e5749049be60f0e4a68b26e4febcf1a09c4670a7",
+      "bytes": 444
+    },
+    {
+      "name": "dashboard_app/.env.example",
+      "sha256": "03d46f356622ce9593983022a56019c51130c68175517b864a5925d8f6669ca3",
+      "bytes": 92
+    },
+    {
+      "name": "dashboard_app/README.md",
+      "sha256": "1785ceec6291a1ed3b2b9515d458578c1c97de700acf430878bcb83159aa4ac2",
+      "bytes": 86
+    },
+    {
+      "name": "dashboard_app/index.html",
+      "sha256": "9407b4451e2bd0e518937cf3f78e7c5ccdd811a92da2fc2c35a22a57ee56d07a",
+      "bytes": 254
+    },
+    {
+      "name": "dashboard_app/main.jsx",
+      "sha256": "c545696e3a947249f3218b38659eab8f8c2f6d329919340258129ae68749158b",
+      "bytes": 229
+    },
+    {
+      "name": "dashboard_app/package.json",
+      "sha256": "63b85042681719b971cfb12ec91de3449cbc46a8c8ff039b1c6bae272f97b29f",
+      "bytes": 343
+    },
+    {
+      "name": "dashboard_app/src/App.jsx",
+      "sha256": "582f630eac63c94d9fa94d0183a020bdc6456f80567f17ff700f63b7b6b830d0",
+      "bytes": 5056
+    },
+    {
+      "name": "dashboard_app/src/api.js",
+      "sha256": "29e0201949c49a507d090c90ba339409aad457d1c3ee5077d8b436f3eb3161ee",
+      "bytes": 1050
+    },
+    {
+      "name": "dashboard_app/src/index.css",
+      "sha256": "9605a7d50cf1ed9a3b77c5caddaa08a8f5d8b22779fec3ccdbc6c2892757f236",
+      "bytes": 752
+    },
+    {
+      "name": "dashboard_app/vite.config.js",
+      "sha256": "c5ac000d65adcb7fc7d641e09e067588db3e3e3773af5006c8c499b915656fae",
+      "bytes": 129
+    },
+    {
+      "name": "database/merge_into_main_app.md",
+      "sha256": "0e456a3201a8685be4a4500c68c12d624cc06a9dd29053467b624c5422bf399b",
+      "bytes": 302
+    },
+    {
+      "name": "database/migrations/101_payments_core.sql",
+      "sha256": "47dbe047b52808169a2c72d55f57406fff9918da47798e0439aa3115c9f66b61",
+      "bytes": 362
+    },
+    {
+      "name": "database/migrations/102_payment_events.sql",
+      "sha256": "03e611c8cf2a1fb8d1acdda67cde2446a0ff438417494493f860270fb69acf5d",
+      "bytes": 252
+    },
+    {
+      "name": "database/migrations/103_payment_indexes.sql",
+      "sha256": "2daee350d979f5096f366a3f9c13a2f9b5419bda14b69f841515ced9b663d95b",
+      "bytes": 312
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "c388d33a7a50598b743c1f50624d1c77cae8022e559c28cc9adca73587b10b37",
+      "bytes": 764
+    },
+    {
+      "name": "deploy/v15_rollout_checklist.md",
+      "sha256": "caee04dff2fbbcedc90c04292b251345d34cbfd76904238a5f197f9b63415b49",
+      "bytes": 344
+    },
+    {
+      "name": "examples/poynt_order_request_shape.json",
+      "sha256": "0cc9b234fbb2b54d488f7b170d9dbd3e15b16908490dada37f3bb5bafde439a8",
+      "bytes": 309
+    },
+    {
+      "name": "examples/poynt_transaction_request_shape.json",
+      "sha256": "285903c51bec741dc9f9c53148c8cbc49b61d98adffed27a01b8e858e390de12",
+      "bytes": 265
+    },
+    {
+      "name": "examples/stripe_webhook_test_commands.json",
+      "sha256": "f83e6ae98c927771f01d7dec9a54e5c258e24826a365873045c15e78cb095b6a",
+      "bytes": 379
+    },
+    {
+      "name": "openapi/openapi.yaml",
+      "sha256": "e8d6a481634ce6a61f287d17ffaebc4885e5c876b7193ba9b3f5d04bfccc4d93",
+      "bytes": 1143
+    },
+    {
+      "name": "tests/v15_test_plan.md",
+      "sha256": "f58253435097a133b2352a2f1044c0695ebc35988b3b1f5238ab1629df9a745c",
+      "bytes": 472
+    },
+    {
+      "name": "v15_execution_guide.md",
+      "sha256": "a97d972caed56bc8aee42f27f3d890ef3946ebbe61568906dbe5479010610093",
+      "bytes": 747
+    }
+  ]
+}

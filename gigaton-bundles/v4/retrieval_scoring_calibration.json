@@ -1,0 +1,48 @@
+{
+  "config_name": "retrieval_scoring_calibration",
+  "version": "1.0.0",
+  "objective": "Tune ranking performance using observed task relevance and operator feedback.",
+  "base_weights": {
+    "tier_weight": {
+      "1": 1.0,
+      "2": 0.82,
+      "3": 0.64
+    },
+    "category_weight": {
+      "foundational_doctrine": 1.0,
+      "decision_systems": 0.96,
+      "knowledge_infrastructure": 0.94,
+      "ontology_and_data_models": 0.92,
+      "simulation_and_financial_models": 0.89,
+      "commercial_systems": 0.9,
+      "platform_and_tooling": 0.84,
+      "organizational_models": 0.8
+    },
+    "confidence_weight": 0.32,
+    "tag_match_weight": 0.38,
+    "apply_when_match_weight": 0.22,
+    "dependency_bonus": 0.08,
+    "namespace_overlay_bonus": 0.1,
+    "recency_weight": 0.08,
+    "deprecation_penalty": -0.75,
+    "superseded_penalty": -0.4
+  },
+  "calibration_inputs": [
+    "task_type",
+    "selected_memory_ids",
+    "rejected_memory_ids",
+    "operator_feedback_score",
+    "output_success_score"
+  ],
+  "calibration_methods": [
+    "manual_weight_adjustment",
+    "gradient_like_weight_updates",
+    "holdout_task_evaluation"
+  ],
+  "guardrails": [
+    "foundational_doctrine_weight_floor_0_95",
+    "tier_1_weight_floor_0_95",
+    "do_not_calibrate_on_less_than_20_tasks",
+    "require_human_review_before_promoting_new_weights"
+  ]
+}

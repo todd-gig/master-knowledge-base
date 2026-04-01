@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "62bdc7611b1d5329",
+    "type": "split",
+    "children": [
+      {
+        "id": "8e4befd6a090ed72",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d314a9d6cafc2ac3",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "675f0bfd90fd9cdd",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff25dab0cbfed3e1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f25de902e34ba06a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "98b9d8f1a170acbb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "975713d492911d35",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "681b080e23dae457",
+    "type": "split",
+    "children": [
+      {
+        "id": "ead41e903958e12d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e03994740ccd001a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "CxGuy.base",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for CxGuy"
+            }
+          },
+          {
+            "id": "b75f9d77f220453b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "CxGuy.base",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from CxGuy"
+            }
+          },
+          {
+            "id": "f6e05ab53e338a50",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "f567c1b96fe8dfa1",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "c8b152fc07e5c3fb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "CxGuy.base",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of CxGuy"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "d314a9d6cafc2ac3",
+  "lastOpenFiles": [
+    "Mike.base",
+    "Untitled.base",
+    "Untitled 4.md",
+    "Untitled 3.md",
+    "Untitled 2.md",
+    "Untitled 1.md",
+    "Untitled 5.md",
+    "Recursive_Trust_Qualification_Loop_RTQL.md",
+    "Claude_RTQL_Integration_Layer.md",
+    "ChatGPT MD -Bot build time with Vertex AI 1.md",
+    "ChatGPT MD -Bank of America Products 1.md",
+    "ChatGPT MD -Automated Rules in ChatGPT 1.md",
+    "ChatGPT MD -Auto pilot agent explanation 1.md",
+    "braintrust - 2026_01_30 16_57 EST - Notes by Gemini.docx",
+    "ChatGPT MD -Workbook download options.md",
+    "ChatGPT MD -Work products for Sheamus.md",
+    "ChatGPT MD -WhatsApp Business fees.md",
+    "ChatGPT MD -What is web.ai.md",
+    "ChatGPT MD -Water supplier partnership guide.md",
+    "ChatGPT MD -Virtuous cycle definition.md",
+    "ChatGPT MD -Valuing Human Contributions.md",
+    "ChatGPT MD -Value creation with efficiency.md",
+    "ChatGPT MD -Types of human intelligence.md",
+    "ChatGPT MD -Twilio SMS cost.md",
+    "ChatGPT MD -Twilio Flex WhatsApp cost.md",
+    "ChatGPT MD -Top diving insurance companies.md",
+    "ChatGPT MD -Todd Nelson value to Liquify.md",
+    "ChatGPT MD -Todd Nelson value to Liquify (1).md",
+    "Ti Life.base",
+    "Ti Solutions.base",
+    "LiqueFex.base",
+    "Gigaton.base",
+    "CxGuy.base",
+    "Braintrust.base",
+    "Gigaton",
+    "Untitled.canvas"
+  ]
+}

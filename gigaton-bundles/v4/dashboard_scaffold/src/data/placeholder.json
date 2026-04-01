@@ -1,0 +1,27 @@
+{
+  "clients": [
+    {
+      "name": "ACME Template",
+      "namespace": "client_acme_template",
+      "status": "draft"
+    }
+  ],
+  "retrieval_quality": [
+    {
+      "week": "W1",
+      "score": 0.71
+    },
+    {
+      "week": "W2",
+      "score": 0.76
+    },
+    {
+      "week": "W3",
+      "score": 0.82
+    },
+    {
+      "week": "W4",
+      "score": 0.88
+    }
+  ]
+}

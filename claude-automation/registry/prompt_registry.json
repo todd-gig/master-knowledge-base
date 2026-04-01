@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "active_prompt_id": "claude-thread-export",
+  "active_prompt_version": "1.0.0",
+  "entries": [
+    {
+      "prompt_id": "claude-thread-export",
+      "prompt_version": "1.0.0",
+      "status": "active",
+      "owner": "CxGuy",
+      "effective_date": "2026-03-26",
+      "linked_schema_versions": [
+        "1.0.0"
+      ],
+      "linked_code_version": "1.0.0",
+      "notes": "Initial export of thread logic into automation package."
+    }
+  ]
+}

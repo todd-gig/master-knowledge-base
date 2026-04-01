@@ -1,0 +1,17 @@
+{
+  "default_provider": "stripe",
+  "failover_rules": [
+    {
+      "tenant_id": "tenant_liquefex",
+      "use_case": "online_checkout",
+      "primary_provider": "stripe",
+      "fallback_provider": "godaddy_poynt"
+    },
+    {
+      "tenant_id": "tenant_liquefex",
+      "use_case": "poynt_connected",
+      "primary_provider": "godaddy_poynt",
+      "fallback_provider": "stripe"
+    }
+  ]
+}

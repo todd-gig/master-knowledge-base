@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "active_prompt_id": "claude-core-routing",
+  "active_prompt_version": "3.2.0",
+  "entries": [
+    {
+      "prompt_id": "claude-core-routing",
+      "prompt_version": "3.0.0",
+      "status": "deprecated",
+      "owner": "CxGuy",
+      "effective_date": "2026-03-26",
+      "linked_schema_versions": [
+        "3.0"
+      ],
+      "linked_code_version": "0.1.0",
+      "notes": "Initial full human + machine package."
+    },
+    {
+      "prompt_id": "claude-core-routing",
+      "prompt_version": "3.1.0",
+      "status": "deprecated",
+      "owner": "CxGuy",
+      "effective_date": "2026-03-26",
+      "linked_schema_versions": [
+        "3.1"
+      ],
+      "linked_code_version": "0.2.0",
+      "notes": "Adds validation, audit storage, analytics, codification scoring, CI, and registry controls."
+    },
+    {
+      "prompt_id": "claude-core-routing",
+      "prompt_version": "3.2.0",
+      "status": "active",
+      "owner": "CxGuy",
+      "effective_date": "2026-03-26",
+      "linked_schema_versions": [
+        "3.2"
+      ],
+      "linked_code_version": "0.3.0",
+      "notes": "Adds DB migrations, SQL views, prompt release governance, and benchmark fixtures."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "by_provider": "?provider=stripe",
+  "by_status": "?normalized_status=processing",
+  "by_order": "?order_id=ORD-001",
+  "free_text": "?q=pi_"
+}

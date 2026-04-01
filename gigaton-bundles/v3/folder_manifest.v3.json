@@ -1,0 +1,64 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "c75a0eb49c6acd28bbb3be026b783ea60d4bee9a09f3c119f68e3cf2b3403879",
+      "bytes": 473
+    },
+    {
+      "name": "claude_bootstrap.v3.md",
+      "sha256": "15ab91460d64b8303b9d5bb9f46e0efb85ceee9000307c01054c3e6e2e993e0e",
+      "bytes": 525
+    },
+    {
+      "name": "client_namespace.starter.json",
+      "sha256": "bc777445a699786a853b92f0b77e540e61ef814c0815c2cf2702fd261dddd9bc",
+      "bytes": 242
+    },
+    {
+      "name": "client_onboarding_generator.json",
+      "sha256": "308415869af167e6404491b7763f97e22f5786cff39a08b2801b4696d53ab881",
+      "bytes": 806
+    },
+    {
+      "name": "client_onboarding_generator.md",
+      "sha256": "3b39a58e2300742f5e496918de9018a12eddc9e913e1ac8c7fb79a0805b18285",
+      "bytes": 670
+    },
+    {
+      "name": "memory_registry.v3.json",
+      "sha256": "933644d6dae44a73bdd768d3d1993f1439f5fe33b1c0491ce5b970f66edd0781",
+      "bytes": 36396
+    },
+    {
+      "name": "memory_registry.v3.md",
+      "sha256": "4c463b70135e23d0acd3b3027dca0b82b442c40b93182923dd8ff35d094f44bc",
+      "bytes": 10844
+    },
+    {
+      "name": "namespace_inheritance_examples.json",
+      "sha256": "53fbf85e5969f41dcfd3bf852b20899faa8fdd1a4102822b6a6485fd0212dbc7",
+      "bytes": 1263
+    },
+    {
+      "name": "project_operating_manual.v3.md",
+      "sha256": "aa6cd0083df15bc56e2f0b4f76f37003e9414d1c033bd3633444459a8a86069f",
+      "bytes": 370
+    },
+    {
+      "name": "retrieval_policy.v3.json",
+      "sha256": "e90dc52b9cc738140ea65ddc49d6fcb163ff829444295262e2e50f883925780a",
+      "bytes": 1596
+    },
+    {
+      "name": "source_catalog.v3.json",
+      "sha256": "86307e03780954f06593db865fd084836c49053487b5a0635bd6b29e4f99da66",
+      "bytes": 4261
+    },
+    {
+      "name": "system_prompt_contract.v3.md",
+      "sha256": "0f0c711b70bc3bea45068e6aaef1393fd1bf4a83a7881865beeda6d5fdb1ff47",
+      "bytes": 860
+    }
+  ]
+}

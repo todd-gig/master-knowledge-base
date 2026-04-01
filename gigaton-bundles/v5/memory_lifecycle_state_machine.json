@@ -1,0 +1,14 @@
+{
+  "machine_name": "memory_lifecycle_state_machine",
+  "version": "1.1.0",
+  "states": [
+    "candidate",
+    "draft",
+    "validated",
+    "active",
+    "watchlist",
+    "deprecated",
+    "superseded",
+    "archived"
+  ]
+}

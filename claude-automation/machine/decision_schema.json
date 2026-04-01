@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision Payload",
+  "type": "object",
+  "required": [
+    "decision_type",
+    "normalized_variables",
+    "confidence_score",
+    "recommended_action"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "decision_type": {
+      "type": "string"
+    },
+    "normalized_variables": {
+      "type": "object"
+    },
+    "routing_features": {
+      "type": "object"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "exception_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "code_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: gigaton-backend-blue}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: gigaton-backend, color: blue}}
+  template:
+    metadata: {labels: {app: gigaton-backend, color: blue}}
+    spec:
+      containers:
+        - name: backend
+          image: gigaton/backend:blue
+          ports: [{containerPort: 3001}]
+          livenessProbe: {httpGet: {path: /api/health, port: 3001}}
+          readinessProbe: {httpGet: {path: /api/ready, port: 3001}}

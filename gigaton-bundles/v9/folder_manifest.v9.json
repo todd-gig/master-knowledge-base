@@ -1,0 +1,374 @@
+{
+  "files": [
+    {
+      "name": ".github/workflows/ci.yml",
+      "sha256": "53671013dcb33ae7893a092efc0f48fa828be29c764defbea1a831095150aeb4",
+      "bytes": 390
+    },
+    {
+      "name": "README.md",
+      "sha256": "d9308f9d27b33392ccaa8b001d2e2027958399fe187d1ac9e29f0b5546e195c5",
+      "bytes": 877
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "2ffd1a7a7a28774a8c2c7965079921d9d4ea83cb48375eb40cf6b81823961e86",
+      "bytes": 139
+    },
+    {
+      "name": "backend/README.md",
+      "sha256": "1d47a131900cc0860cbb96e6f0e518d5fe80dabf85dd38c57093e1f436e66af5",
+      "bytes": 444
+    },
+    {
+      "name": "backend/auth_rbac.md",
+      "sha256": "470bb9075a8ea443f74074a06c565032b1da4acc99d597835a9e315a29733667",
+      "bytes": 436
+    },
+    {
+      "name": "backend/lib/correlation.js",
+      "sha256": "027b43f20677f7fa9c731d25b3f4b63211b29ad1708bde2c15ccbf6ae817d4ac",
+      "bytes": 268
+    },
+    {
+      "name": "backend/lib/db.js",
+      "sha256": "d6464f2e13fb72194be0422fe2050f65d8591dc43f9677af2e12ceeec652a72e",
+      "bytes": 206
+    },
+    {
+      "name": "backend/lib/metrics.js",
+      "sha256": "074f572f7f386bd1d9e4bf433cf0c2e6be80726df0887a133b075f32b834832c",
+      "bytes": 536
+    },
+    {
+      "name": "backend/lib/request_validation_middleware.js",
+      "sha256": "1390dc700f5c58e2d06b60a04843dfd0a6eda0f519bd9041d7c846e0172c614b",
+      "bytes": 240
+    },
+    {
+      "name": "backend/lib/services.js",
+      "sha256": "c158a78c1eaa19413db7223aefb224e5444d22b4c725e9db2f4031584617faa0",
+      "bytes": 2211
+    },
+    {
+      "name": "backend/lib/transactions.js",
+      "sha256": "65a4b3a87855691636715683afa69a22fbf70ebd2b461ff7786372b24a727825",
+      "bytes": 124
+    },
+    {
+      "name": "backend/lib/validation.js",
+      "sha256": "9401f8656af852822d2eb39d4fd99e79ddc9b229c29b59a459b54a49ef20f716",
+      "bytes": 624
+    },
+    {
+      "name": "backend/lib/validation_schemas.js",
+      "sha256": "c923b2a4d6cacf2aa5086cfbbf4f79cb080e6e0b2c0817ae87c4091f9ae3f769",
+      "bytes": 1106
+    },
+    {
+      "name": "backend/observability.md",
+      "sha256": "5d4dbd6ca9b2822744fadeff6f8dfd57c6bf0ec68f464ec3420aacfc57e09728",
+      "bytes": 324
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "6818ed8aa09ef506be4a62cbf0b522e6b5c9ed462a051a74d02b611ed790b7d8",
+      "bytes": 322
+    },
+    {
+      "name": "backend/secrets_handling.md",
+      "sha256": "3b615823c0975e13c85b370f058feb71b37aa9dd9ddd3984ffaea80b083aa7c0",
+      "bytes": 255
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "8b1e79f5cf2ac437ab2dfb3f823aa40f586fcbe7471a43912f3b890420c1bd76",
+      "bytes": 4529
+    },
+    {
+      "name": "claude_bootstrap.v9.md",
+      "sha256": "0cff499fabff018c55fa6b31d985fe1bcea664c679928ab35047041df8ca7190",
+      "bytes": 687
+    },
+    {
+      "name": "client_intake_form.schema.json",
+      "sha256": "f084efc5b2bbd03d35a9fe41f6fe5686148d16cf483dfb2a12770bc0375c2469",
+      "bytes": 1261
+    },
+    {
+      "name": "dashboard_app/.env.example",
+      "sha256": "00d1f99adf0d9258dbbad0a3fe0ec252a65cb98cf9c26677a8b41a44b0fd1df3",
+      "bytes": 40
+    },
+    {
+      "name": "dashboard_app/README.md",
+      "sha256": "6823026bc54b2aec041f5fb1e63ecd96e441f915625735fe45495cbaf436ae38",
+      "bytes": 303
+    },
+    {
+      "name": "dashboard_app/index.html",
+      "sha256": "0a81db8e9e167d4e72a9950ada35ddb71fc648f0c42008967564d7e2539b1998",
+      "bytes": 248
+    },
+    {
+      "name": "dashboard_app/main.jsx",
+      "sha256": "c545696e3a947249f3218b38659eab8f8c2f6d329919340258129ae68749158b",
+      "bytes": 229
+    },
+    {
+      "name": "dashboard_app/package.json",
+      "sha256": "bd6e057077b8ab2d45a0efe3599ffb33127a4d54b979e45fadec34085bff54c0",
+      "bytes": 345
+    },
+    {
+      "name": "dashboard_app/src/App.jsx",
+      "sha256": "831db621234e1ed007fe95184fc9abebffed9d7070751bda8c3b933ebe085f40",
+      "bytes": 4563
+    },
+    {
+      "name": "dashboard_app/src/api.js",
+      "sha256": "0b2078b988a5ef9b2a304864a983da9f3268aef15af12d96332d533124e0da51",
+      "bytes": 909
+    },
+    {
+      "name": "dashboard_app/src/index.css",
+      "sha256": "445dfd08d098a4c9a94e82baf84ef673875a7daf70209c64c078893e4511830a",
+      "bytes": 1096
+    },
+    {
+      "name": "dashboard_app/vite.config.js",
+      "sha256": "c5ac000d65adcb7fc7d641e09e067588db3e3e3773af5006c8c499b915656fae",
+      "bytes": 129
+    },
+    {
+      "name": "database/README.md",
+      "sha256": "fcf096c277133bcfab3a873f4ad0689245f1dccf9c69b9345555a423e227fb7d",
+      "bytes": 67
+    },
+    {
+      "name": "database/migrations/001_initial.sql",
+      "sha256": "257421c0cc7cf5b2b51a2fd1a6cd31847fda2a5663a51d16d418e1938f876ce8",
+      "bytes": 976
+    },
+    {
+      "name": "database/migrations/002_registry_and_calibration.sql",
+      "sha256": "f3f7246751b30036136fe4d869a1e2d9f8eb744540b1b451d2291232940c8ba3",
+      "bytes": 773
+    },
+    {
+      "name": "database/migrations/003_indexes_and_constraints.sql",
+      "sha256": "c26d3a4c2e6d23620e7a2b3e71844e7ed8a44718a78837bf1da7832acd58d4d0",
+      "bytes": 144
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "8981c15e179966170b7f8e22da58625f7f58c9b0e27e11fb72d7837c2ca78869",
+      "bytes": 1788
+    },
+    {
+      "name": "database/seed.json",
+      "sha256": "aa5479df4b98007dff2f39be4674ed2265454c88d6561c0aa7bb272a228fb9cb",
+      "bytes": 1017
+    },
+    {
+      "name": "deploy/README.md",
+      "sha256": "4a675e6c453f44c10cd8a6199b99a209e558e5027540654946b65f5323d20c3d",
+      "bytes": 160
+    },
+    {
+      "name": "deploy/blue-green/README.md",
+      "sha256": "2c82ebcc70977311e8ae8a9b9f7c1c6800fe729eecb63c5d8f97e761c22997ef",
+      "bytes": 242
+    },
+    {
+      "name": "deploy/blue-green/cutover_gate.py",
+      "sha256": "fef2e74fa228ced9e4fc93309665b82bddade3fc47b33068217818d9646f65c2",
+      "bytes": 504
+    },
+    {
+      "name": "deploy/blue-green/rollback_playbook.md",
+      "sha256": "a4182583554d47d468571935a9485db43588f7a4d36f61d6c8a7125bde2e151f",
+      "bytes": 246
+    },
+    {
+      "name": "deploy/blue-green/rollout_playbook.md",
+      "sha256": "556c194f23c5724fbca282d3ae2741cc5d5fcb3caa938e725c0269a73876bf3d",
+      "bytes": 305
+    },
+    {
+      "name": "deploy/docker-compose.observability.yml",
+      "sha256": "a98be7e7d687a62860b526d3b37747aca7888c0f2ae365ed1bb1e22a89e11478",
+      "bytes": 367
+    },
+    {
+      "name": "deploy/docker-compose.yml",
+      "sha256": "e4b32d37929d84206787c57b7a30b908402366fa1db55c1db934e976a9e22cb2",
+      "bytes": 672
+    },
+    {
+      "name": "deploy/k8s/backend-blue.yaml",
+      "sha256": "bd33d8b86659fada4a0867324b2f79d41aa5984ac2d9a50f675ea5dfb9b9c143",
+      "bytes": 606
+    },
+    {
+      "name": "deploy/k8s/backend-green.yaml",
+      "sha256": "f64306bc9da50ee74b98efefb0a2d36b2072273ea44aa6375340924928ff5e26",
+      "bytes": 610
+    },
+    {
+      "name": "deploy/k8s/dashboard-deployment.yaml",
+      "sha256": "f46eda29db74d20ec1b71fc38256e8b61c62bc430c9227b8c04d2208255aa8a4",
+      "bytes": 369
+    },
+    {
+      "name": "deploy/observability/README.md",
+      "sha256": "36e7609aefdecef7d17423f39d4599134a3e9194f4af2bdea131c059d89edde5",
+      "bytes": 67
+    },
+    {
+      "name": "deploy/observability/alerts.yml",
+      "sha256": "0dce176e9fbb5dcba1482fbf2efde48d7e3614d6dffa4a8d6e6036c772720bf2",
+      "bytes": 434
+    },
+    {
+      "name": "deploy/observability/prometheus.yml",
+      "sha256": "f3617c0b99ec28877ef4838c0e73c060a8361facdf85e5de552829224ebfa80f",
+      "bytes": 174
+    },
+    {
+      "name": "docker/backend/Dockerfile",
+      "sha256": "4e33c18403760995a951eee26a30f137fe8ae6a41ed76b4ebd7a089032ba0f9f",
+      "bytes": 133
+    },
+    {
+      "name": "docker/dashboard/Dockerfile",
+      "sha256": "18e83d29d87a997ba13a508db1a61d39263fd59f7b8704989831298ed7847710",
+      "bytes": 172
+    },
+    {
+      "name": "examples/memory_transition_payload.json",
+      "sha256": "9d3cf677b9b302825a41a68820ca41901244bd7869b790ebe4f1bb1965b27c3c",
+      "bytes": 117
+    },
+    {
+      "name": "examples/namespace_promotion_payload.json",
+      "sha256": "b8584dd6ac5c56349e5c1b009f8c3b6c1bf45ca948be1f76e68187b7f8c7b89e",
+      "bytes": 286
+    },
+    {
+      "name": "governance_promotion_pipeline.json",
+      "sha256": "76c3e5cc4963f98cca85512faa3d216ed88685e4df7722ef5370571d8769812e",
+      "bytes": 638
+    },
+    {
+      "name": "launch_guide.v9.md",
+      "sha256": "3ee1a708fcb3affa5751da73612539a2d83aa7fd6e8dabccd1b817c4b7262916",
+      "bytes": 660
+    },
+    {
+      "name": "memory_lifecycle_state_machine.json",
+      "sha256": "f5c88cd2d693a182b2d33950090d55ffb8990d452fab31055267dad49c859062",
+      "bytes": 516
+    },
+    {
+      "name": "memory_registry.v9.json",
+      "sha256": "c8cf99b347c9aade91bf63829ce0ab36ef19de2ee30bb33d0e281c500d751ed8",
+      "bytes": 9484
+    },
+    {
+      "name": "memory_registry.v9.md",
+      "sha256": "88ed202e03813412559ec42eeaf74ae067b7808026805bf2612f23b5d7ba1da1",
+      "bytes": 4556
+    },
+    {
+      "name": "namespace_generator.config.json",
+      "sha256": "d904c1a90818f55411d53e16d59449ddb067ec0e4594b3526ac36f6fc9e4ec05",
+      "bytes": 393
+    },
+    {
+      "name": "openapi/README.md",
+      "sha256": "a85a9e733898096bf616829aeb29aa99f05cd474d52372a590ee8abc17b9921f",
+      "bytes": 46
+    },
+    {
+      "name": "openapi/openapi.yaml",
+      "sha256": "4de35cd2f78c268e6284f4bdb7f72f149765b8ba4f5451d0c19dd7489f249a7f",
+      "bytes": 3032
+    },
+    {
+      "name": "retrieval_scoring_calibration.json",
+      "sha256": "fa4838212715339db5e101afb1fb811192cfd79c5c7c963b2810d0978242c0ff",
+      "bytes": 994
+    },
+    {
+      "name": "scripts/init_db_from_migrations.py",
+      "sha256": "2bb4da69f5e55a3aa420394b30a98b238f3ba43bd25b7906493435ddea4a4680",
+      "bytes": 1718
+    },
+    {
+      "name": "scripts/run_backend_tests.sh",
+      "sha256": "24359c393b0905eeea8f30f8f8a7ba333efb1c9e8c1fa9dd98e85956e8fbbbf5",
+      "bytes": 79
+    },
+    {
+      "name": "scripts/run_integration_tests.py",
+      "sha256": "8bb53db6b804814638c9e7d24b448cfe4c6c526eba6bde4dd8d4e2f71ba40864",
+      "bytes": 1157
+    },
+    {
+      "name": "scripts/validate_openapi_checklist.md",
+      "sha256": "59c646b7696c30d6a861896e4386185fdf551e868fd7870330a21f8a8c51c8c6",
+      "bytes": 305
+    },
+    {
+      "name": "sdk/README.md",
+      "sha256": "decb0bd4ba6563a4623715fbb8513d9341e2522c30548382197b3f5ec0b8a4a0",
+      "bytes": 170
+    },
+    {
+      "name": "sdk/python/client.py",
+      "sha256": "9e46e4485262d88552063c3b34fd8198233af1ea2033b2b33d6934b962a3d561",
+      "bytes": 952
+    },
+    {
+      "name": "sdk/typescript/client.ts",
+      "sha256": "26020e613315e745ad359ecd5ae5fb1fb89cafad605b51e20a97ce13196574c8",
+      "bytes": 1285
+    },
+    {
+      "name": "source_catalog.v9.json",
+      "sha256": "6824002e20f8c4056b9fccdc3e6d57f0426b901b52e6fdcca99bbf6c008d1733",
+      "bytes": 2453
+    },
+    {
+      "name": "system_prompt_contract.v9.md",
+      "sha256": "a0ea78cbdbf71b9e9ca0954ef3d2d95be3718afdf50044fc34397518652f0d19",
+      "bytes": 1372
+    },
+    {
+      "name": "tests/README.md",
+      "sha256": "f6d4ff21e27ede17b8abffa73388a3381962d8e8db66295118a8e99e868dce30",
+      "bytes": 187
+    },
+    {
+      "name": "tests/backend/services.test.js",
+      "sha256": "35a9cc914cb513ac15c2214415af42d0bb850edc8639cb07119d039909a21edd",
+      "bytes": 2296
+    },
+    {
+      "name": "tests/backend/validation.test.js",
+      "sha256": "e0ad44170d81b7983b006d3c808221da9b5a2e9d4ff5bd422b03764f6b1f400d",
+      "bytes": 851
+    },
+    {
+      "name": "tests/generator/generator_contract.test.md",
+      "sha256": "f32d8bd4137b98318e8c39d0ee2b8023bbc84b384225a4b6deb536425f253f69",
+      "bytes": 296
+    },
+    {
+      "name": "tests/integration/integration_plan.md",
+      "sha256": "0f77c84aa9d738099a2c68a4204a74a194d787197381d138948239a8aa19630d",
+      "bytes": 580
+    }
+  ]
+}

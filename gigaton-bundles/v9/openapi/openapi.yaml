@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Gigaton Ops API
+  version: 0.9.0
+  description: Authenticated API for namespace generation, promotion, lifecycle transitions, and registry reads.
+servers:
+  - url: http://localhost:3001
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+  /api/ready:
+    get:
+      summary: Readiness check
+      responses:
+        '200':
+          description: Ready
+  /metrics:
+    get:
+      summary: Prometheus metrics
+      responses:
+        '200':
+          description: Metrics output
+  /api/memory-registry:
+    get:
+      summary: Get memory registry
+      responses:
+        '200':
+          description: Memory registry
+  /api/namespaces:
+    get:
+      summary: Get active namespaces
+      responses:
+        '200':
+          description: Namespaces
+  /api/intake/generate-namespace:
+    post:
+      summary: Generate namespace draft from intake
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntakeRequest'
+      responses:
+        '200':
+          description: Draft namespace
+  /api/namespaces/promote:
+    post:
+      summary: Promote namespace into active store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NamespacePromotionRequest'
+      responses:
+        '200':
+          description: Promotion result
+  /api/memory/transition:
+    post:
+      summary: Submit memory lifecycle transition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemoryTransitionRequest'
+      responses:
+        '200':
+          description: Transition result
+components:
+  schemas:
+    IntakeRequest:
+      type: object
+      required: [client_name, industry]
+      properties:
+        client_name:
+          type: string
+          minLength: 2
+          maxLength: 120
+        industry:
+          type: string
+          minLength: 2
+          maxLength: 120
+        preferred_terminology:
+          type: object
+          additionalProperties:
+            type: string
+        workflow_preferences:
+          type: array
+          items:
+            type: string
+    NamespacePromotionRequest:
+      type: object
+      required: [namespace_id, client_name, industry, payload_json]
+      properties:
+        namespace_id:
+          type: string
+          minLength: 3
+        client_name:
+          type: string
+          minLength: 2
+        industry:
+          type: string
+          minLength: 2
+        payload_json:
+          type: object
+    MemoryTransitionRequest:
+      type: object
+      required: [memory_id, from_state, to_state]
+      properties:
+        memory_id:
+          type: string
+          minLength: 3
+        from_state:
+          type: string
+        to_state:
+          type: string
+        reason:
+          type: string

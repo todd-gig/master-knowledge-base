@@ -1,0 +1,1584 @@
+# Systematic Claude Usage
+
+**User:** Todd Nelson (todd.cx@turtleisland.solutions)  
+**Created:** 1/14/2026 12:39:36  
+**Updated:** 1/27/2026 13:08:50  
+**Exported:** 3/19/2026 16:36:25  
+**Link:** [https://chatgpt.com/g/g-p-6882aa12c04c8191b859fd11dc4e66da-gigaton/c/6967d4c9-2b68-8329-92b4-dcccc47d412a](https://chatgpt.com/g/g-p-6882aa12c04c8191b859fd11dc4e66da-gigaton/c/6967d4c9-2b68-8329-92b4-dcccc47d412a)  
+
+## Prompt:
+explain how systematic usage would help me get more value from claude
+
+## Response:
+Systematic usage increases ROI from Claude by turning it from an ad-hoc text generator into a **repeatable cognitive asset**. Net impact: higher signal density, lower variance, faster throughput, and compounding leverage.
+
+### 1\. Standardize Inputs → Reduce Entropy
+
+Ad-hoc prompts waste cycles. Systematic usage means:
+
+*   Reusable prompt templates
+*   Fixed role definitions
+*   Explicit constraints and output schemas
+
+Result: Claude spends less compute “guessing intent” and more compute executing. This directly improves accuracy per token and reduces rework cost.
+
+### 2\. Decompose Workflows → Parallelize Thinking
+
+Instead of one monolithic prompt:
+
+*   Break work into discrete stages (analyze → synthesize → validate → format)
+*   Chain prompts deterministically
+
+Result: You convert Claude into a **pipeline**, not a chat partner. This increases speed, predictability, and auditability—critical for business use.
+
+### 3\. Persistent Context → Compounding Intelligence
+
+Systematic usage externalizes memory:
+
+*   Maintain canonical briefs, assumptions, definitions
+*   Re-inject them every session
+
+Result: Each interaction builds on prior state instead of resetting. Effective intelligence compounds even though the model itself is stateless.
+
+### 4\. Output Contracts → Machine-Usable Results
+
+Define outputs as:
+
+*   Tables
+*   JSON
+*   Bullet-proof structures
+
+Result: Claude outputs become directly consumable by downstream tools (spreadsheets, code, docs). This collapses handoff friction and increases end-to-end velocity.
+
+### 5\. Feedback Loops → Continuous Optimization
+
+Track:
+
+*   What prompts outperform
+*   Where hallucinations occur
+*   Which constraints tighten results
+
+Result: You iteratively harden your prompt system. Performance improves over time without increasing cost.
+
+### 6\. Role Specialization → Higher Marginal Quality
+
+Assign Claude narrow, explicit roles (e.g., “requirements analyst,” “devil’s advocate,” “summarizer”).
+
+Result: Role clarity reduces cognitive drift and raises quality ceiling per task.
+
+### Bottom Line
+
+Systematic usage:
+
+*   Converts Claude from a cost center into a **scalable productivity multiplier**
+*   Increases output quality without increasing spend
+*   Delivers compounding returns via reuse and refinement
+
+If you want, the next logical step is a **Claude Operating System**: a small set of standardized templates and workflows optimized for your highest-value use cases.
+
+## Prompt:
+create a story board outline used to create an animated presentation to be implemented as a web app explaining the value of human agents being educated in how to get the most value from their tools, with claude.ai being the use case used to create a case study, including expected improvements broken down into people, process, technology, and increased value of data with the last page ending as a static page used to collect business variables used to calculate actual net dollar improvement after implementation based on user provided business metrics
+
+## Response:
+Below is a **board-ready storyboard outline** engineered for an **animated, web-based presentation**. It is structured to sell the _why_, prove the _how_, and quantify the _ROI_. Claude.ai is positioned as the concrete case study, but the narrative generalizes to all human-tool leverage.
+
+* * *
+
+STORYBOARD: _Humans + Tools = Compounding Advantage_
+----------------------------------------------------
+
+### FRAME 0 — SYSTEM LOAD (Micro-Animation)
+
+**Purpose:** Prime the user cognitively  
+**Visual:** Abstract system booting → human silhouette + tool nodes  
+**Message:**
+
+> “Tools don’t create advantage. **Educated agents do.**”
+
+* * *
+
+ACT I — THE PROBLEM (FRAMES 1–4)
+--------------------------------
+
+### FRAME 1 — THE ILLUSION OF TOOL ADOPTION
+
+**Visual:** Companies buying tools → flat output graph  
+**Key Point:**
+
+*   Most organizations _adopt tools_
+*   Very few _train agents to extract value_
+
+**Narration:**
+
+> “We keep buying better tools and getting the same results.”
+
+* * *
+
+### FRAME 2 — THE VALUE LEAK
+
+**Visual:** Funnel leaking value at every stage  
+**Leak Sources:**
+
+*   Unstructured usage
+*   Inconsistent prompts
+*   No standards
+*   No feedback loops
+
+**Callout:**
+
+> “80% of potential tool value is lost to misuse.”
+
+* * *
+
+### FRAME 3 — HUMAN BOTTLENECK, NOT TECH BOTTLENECK
+
+**Visual:** Tool capacity > human usage ceiling  
+**Key Insight:**
+
+*   Tools scale exponentially
+*   Human usage scales linearly without education
+
+**Reframe:**
+
+> “The constraint is not AI. The constraint is **operator skill**.”
+
+* * *
+
+### FRAME 4 — THE PIVOT
+
+**Visual:** Education switch flips → system stabilizes  
+**Message:**
+
+> “When humans are trained to operate tools systematically, value compounds.”
+
+* * *
+
+ACT II — THE SOLUTION (FRAMES 5–9)
+----------------------------------
+
+### FRAME 5 — EDUCATED HUMAN AGENTS
+
+**Visual:** Human agents gaining structure overlays  
+**Definition:**  
+Educated agents understand:
+
+*   How tools think
+*   How to structure inputs
+*   How to design repeatable workflows
+
+* * *
+
+### FRAME 6 — CLAUDE.AI AS THE CASE STUDY
+
+**Visual:** Claude logo inside a system diagram  
+**Why Claude:**
+
+*   High reasoning quality
+*   Sensitive to structure
+*   Excellent at long-form synthesis
+
+**Positioning:**
+
+> “Claude doesn’t reward casual use. It rewards **disciplined operators**.”
+
+* * *
+
+### FRAME 7 — BEFORE VS AFTER (ANIMATED SPLIT)
+
+**Before:**
+
+*   One-off prompts
+*   Inconsistent outputs
+*   High rework
+
+**After (Systematic Usage):**
+
+*   Prompt templates
+*   Role specialization
+*   Output contracts
+
+**Result:**
+
+> “Same tool. Radically different outcomes.”
+
+* * *
+
+### FRAME 8 — SYSTEMATIC USAGE MODEL
+
+**Visual:** Pipeline animation
+
+1.  Intent definition
+2.  Structured prompt
+3.  Role assignment
+4.  Output schema
+5.  Feedback loop
+
+**Key Message:**
+
+> “This is not training on Claude. This is training on **thinking with tools**.”
+
+* * *
+
+### FRAME 9 — COMPOUNDING EFFECT
+
+**Visual:** Small gains → exponential curve  
+**Narration:**
+
+> “Each interaction improves the next. Intelligence compounds without adding headcount.”
+
+* * *
+
+ACT III — MEASURABLE IMPROVEMENTS (FRAMES 10–13)
+------------------------------------------------
+
+### FRAME 10 — PEOPLE (Human Capital)
+
+**Improvements:**
+
+*   Faster task execution (20–50%)
+*   Higher confidence & autonomy
+*   Reduced cognitive load
+
+**Outcome:**
+
+> “Your people operate like senior talent faster.”
+
+* * *
+
+### FRAME 11 — PROCESS (Operational Efficiency)
+
+**Improvements:**
+
+*   Standardized workflows
+*   Reduced variance
+*   Lower error rates
+
+**Outcome:**
+
+> “Execution becomes predictable and scalable.”
+
+* * *
+
+### FRAME 12 — TECHNOLOGY (Tool ROI)
+
+**Improvements:**
+
+*   Higher accuracy per interaction
+*   Fewer retries
+*   Better tool utilization
+
+**Outcome:**
+
+> “You extract more value from tools you already pay for.”
+
+* * *
+
+### FRAME 13 — DATA (Strategic Asset Creation)
+
+**Improvements:**
+
+*   Structured outputs
+*   Reusable knowledge
+*   Institutional memory
+
+**Outcome:**
+
+> “Every interaction creates durable business data.”
+
+* * *
+
+ACT IV — THE VALUE TRANSLATION (FRAMES 14–15)
+---------------------------------------------
+
+### FRAME 14 — FROM IMPROVEMENT TO DOLLARS
+
+**Visual:** Improvements flowing into $  
+**Translation Logic:**
+
+*   Time saved → labor cost
+*   Error reduction → risk avoidance
+*   Better decisions → revenue lift
+
+**Message:**
+
+> “This is not productivity theater. This is financial impact.”
+
+* * *
+
+FINAL FRAME — ROI CALCULATOR (STATIC PAGE)
+------------------------------------------
+
+### FRAME 15 — BUSINESS INPUT PAGE (STATIC)
+
+**Purpose:** Convert belief into proof
+
+**User Inputs (Form Fields):**
+
+*   Number of employees using Claude
+*   Avg hourly fully-loaded cost
+*   Hours/week using AI tools
+*   % efficiency improvement (slider or benchmarked default)
+*   Error/rework reduction %
+*   Revenue impact (optional)
+
+**Outputs (Auto-Calculated):**
+
+*   Annual labor savings
+*   Annual productivity gain
+*   Tool ROI multiple
+*   Net dollar improvement
+
+**CTA:**
+
+> “See what systematic education unlocks in _your_ business.”
+
+* * *
+
+EXEC SUMMARY (FOR BUILD TEAM)
+-----------------------------
+
+*   Narrative: Human leverage > tool adoption
+*   Case study: Claude.ai as proof, not the product
+*   End goal: Quantified ROI → executive buy-in
+*   Monetization path: Training, enablement, systems
+
+* * *
+
+If you want next steps:
+
+*   Convert this into **UX wireframes**
+*   Write **animation scripts per frame**
+*   Build the **ROI math model**
+*   Package as a **repeatable sales asset**
+
+This storyboard is designed to close, not educate for free.
+
+## Prompt:
+build the roi model provided as a Google Sheets calculator
+
+## Response:
+claude\_tool\_education\_roi\_calculator.xlsx
+
+![](data:image/png;base64,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rzh6l/WzZB3kayBfA/kayNdAvgbyNTDXXwMdunTpEu1ZFuo2f2y05vJZsg6m/xrIuptjdbdmQ6/YaLVF4ysbLJ5lLtFBn+V7Rjqv+e9ylv1d0i/x7Fxs/iL+dv0fY4XFujXKeqv0nqG+Rz327+g0/s3GNtZYdtHGsD5ntizSeWLc+9drp+pjwzWWi1WWWmiq9Jndf217XSa8Hc89fH+b+qWv4ffcMlWderrsgK3r2rVrtEcxtoUWWij69OmTJesgXwOfwWtggQUWiB7dOkbDEp2zzCU66NK5COe1z2fwev605ky/RH/LL798dOzYMb785S83yuc///m0Ebx9Rs8444x47rnn0qcIL7jggjjllFPiyiuvDJvFqz9u3Lg455xz4tRTT41hw4bFs88+m8r//e9/j4svvjjJn/70p+jdu3e6R7/wwgtpmyzlb7vttsZ2zjrrrHjkkUdCf7bR6tSpUyqvj1KM8/zzz099/fGPf4xFFlkkllxyyfR5x/Hjx6e+4IKy/MILLxzKib/yyitx8803x+9///vUxzvvvBM33XRTasvnIVdYYYXUn3E8+eSTqYyxfPTRRyl9iSWWCPMwf/NdcMEFU7oxXHLJJUkvvmr03nvvxd133x2jRo1K41HOuMtxa2O55ZZLdY3ZXOlixIgR0blz55RuvGTkyJF1dZmAmYlmyRrIGsgayBrIGsgamPs0MHHixLj//vuT/Pe//00T/N///heA01FHHRX9+vWLMWPGxIABA8JnFV9//fUEcpT55S9/Gbvvvnv84Q9/iA022CC23HLLQJh85StfiR/84Adx+OGHBzD24YcfxkMPPRSXXnppfP/734/f/va38eqrr6Z6OgSUABXtrbrqqglASS/l7bffjp/97Gfxta99LdUBDI8//vhYdNFF4xvf+EYij/S32mqrlVVCn2++OfkLQADTY489FubzrW99KwCwZZZZJn71q18l8HPXXXelesZhXtLN4Ywzzgj6MecvfOELce655wZgBWipYExA3ZAhQ2LHHXeMNddcM9Zff/2QZjw21FfGuC+88MI0XnXfeuutOO2008JnKYFFbWqvWuTV02UGZtVayuGsgayBrIGsgYjISpjbNIA9IgBaOTdAwycTe/Tokdi0hoaGBLKABUANw2XT+E022SS5PPmyDyYO2wWQ9OrVKxZbbLGyufj3v/8da6+9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)
+
+ROI CalculatorREADME
+
+**Use it as a Google Sheets calculator**
+
+1.  In Google Drive: **New → File upload** → select the `.xlsx`
+2.  Open it with Google Sheets (or **File → Import → Upload** inside Sheets).
+3.  Edit only the **blue/yellow input cells** on the **ROI Calculator** tab.  
+    The right-side panel updates **Net Benefit, ROI, Payback, and NPV** automatically.
+
+The model breaks improvements into **People / Process / Technology / Data reuse**, and the last section translates those gains into **net dollar impact** using your business inputs.
+
+## Prompt:
+convert the storyline to UX wireframes with the goal of motivating the user to provide all business metrics required to create accurate business improvement forecast calculations based on the math in the calculator "claude_tool_education_roi_calculator.xlsx"
+
+## Response:
+Claude Tool Education Roi – Ux Wireframes
+
+The UX wireframes have been fully translated and laid out in the canvas as a **conversion-driven product spec**, not a loose concept deck.
+
+This design is intentionally engineered to:
+
+*   Remove friction from providing sensitive business metrics
+*   Educate _while_ asking for inputs (confidence scaffolding)
+*   Tie every field directly to dollar impact
+*   End with an executive-credible output that justifies action
+
+**Net effect:** users feel like they are building a financial model _with_ the system, not filling out a form _for_ it—maximizing completion rates and forecast accuracy.
+
+If you want next:
+
+*   Map each input to exact spreadsheet cell references
+*   Convert this into low-fi Figma wireframes
+*   Define copy + micro-animations per screen
+*   Design the executive summary PDF output
+
+Tell me which layer to build next.
+
+## Prompt:
+use this wireframe to create a design and then create the react code so I can easily inject it into google studio
+
+## Response:
+Thought for 52s
+
+**Claude Tool Education Roi – Ux Wireframes**
+
+// Claude Tool Education ROI – Web App (React)
+// Single-file component designed for easy injection into Google AI Studio / "vibe coding" environments.
+// Uses Tailwind + shadcn/ui + framer-motion + recharts.
+
+import React, { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Info, ChevronLeft, ChevronRight, Download, Copy } from "lucide-react";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as ReTooltip,
+} from "recharts";
+
+// -----------------------------
+// Helpers
+// -----------------------------
+
+const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+
+const fmtCurrency = (n) => {
+  const v = Number.isFinite(n) ? n : 0;
+  return v.toLocaleString(undefined, { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+};
+
+const fmtNumber = (n, digits = 0) => {
+  const v = Number.isFinite(n) ? n : 0;
+  return v.toLocaleString(undefined, { maximumFractionDigits: digits });
+};
+
+const fmtPct = (n, digits = 0) => {
+  const v = Number.isFinite(n) ? n : 0;
+  return `${(v * 100).toFixed(digits)}%`;
+};
+
+const safeNum = (x, fallback = 0) => {
+  const n = typeof x === "string" ? Number(x.replace(/[^0-9.-]/g, "")) : Number(x);
+  return Number.isFinite(n) ? n : fallback;
+};
+
+const stepVariants = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -16 },
+};
+
+// -----------------------------
+// Model (mirrors claude_tool_education_roi_calculator.xlsx)
+// -----------------------------
+
+function computeModel(inputs) {
+  // Workbook mapping (ROI Calculator sheet)
+  // B6 agents
+  // B7 hourly
+  // B8 workWeeks
+  // B9 impactedHoursPerWeek
+  // B10 adoption
+  // B11 year1Ramp
+  // B14 reworkRate
+  // B15 toolInteractionShare
+  // B16 annualQualityCost
+  // B17 qualityCostReduction
+  // B20 peopleGain
+  // B21 processGain
+  // B22 techGain
+  // B23 dataReuseHoursPerWeek
+  // B26 annualRevenueInfluenced
+  // B27 grossMargin
+  // B28 revenueUplift
+  // B31 trainingHoursPerAgent
+  // B32 externalVendorCost
+  // B33 internalBuildCost
+  // B34 ongoingAnnualProgramCost
+  // B37 horizonYears
+  // B38 discountRate
+  // B39 annualBenefitGrowth
+
+  const agents = clamp(safeNum(inputs.agents, 0), 0, 1e9);
+  const hourly = clamp(safeNum(inputs.hourly, 0), 0, 1e6);
+  const workWeeks = clamp(safeNum(inputs.workWeeks, 48), 0, 60);
+  const impactedHrsWk = clamp(safeNum(inputs.impactedHrsWk, 10), 0, 60);
+  const adoption = clamp(safeNum(inputs.adoption, 0.8), 0, 1);
+  const year1Ramp = clamp(safeNum(inputs.year1Ramp, 0.7), 0, 1);
+
+  const reworkRate = clamp(safeNum(inputs.reworkRate, 0.2), 0, 1);
+  const toolShare = clamp(safeNum(inputs.toolShare, 0.25), 0, 1);
+  const annualQualityCost = clamp(safeNum(inputs.annualQualityCost, 50000), 0, 1e12);
+  const qualityReduction = clamp(safeNum(inputs.qualityReduction, 0.3), 0, 1);
+
+  const peopleGain = clamp(safeNum(inputs.peopleGain, 0.25), 0, 1);
+  const processGain = clamp(safeNum(inputs.processGain, 0.2), 0, 1);
+  const techGain = clamp(safeNum(inputs.techGain, 0.15), 0, 1);
+  const dataReuseHrsWk = clamp(safeNum(inputs.dataReuseHrsWk, 1), 0, 60);
+
+  const annualRevenueInfluenced = clamp(safeNum(inputs.annualRevenueInfluenced, 0), 0, 1e15);
+  const grossMargin = clamp(safeNum(inputs.grossMargin, 0.6), 0, 1);
+  const revenueUplift = clamp(safeNum(inputs.revenueUplift, 0.02), 0, 1);
+
+  const trainingHoursPerAgent = clamp(safeNum(inputs.trainingHoursPerAgent, 6), 0, 200);
+  const externalVendorCost = clamp(safeNum(inputs.externalVendorCost, 15000), 0, 1e12);
+  const internalBuildCost = clamp(safeNum(inputs.internalBuildCost, 10000), 0, 1e12);
+  const ongoingAnnualProgramCost = clamp(safeNum(inputs.ongoingAnnualProgramCost, 8000), 0, 1e12);
+
+  const horizonYears = clamp(Math.round(safeNum(inputs.horizonYears, 3)), 1, 6);
+  const discountRate = clamp(safeNum(inputs.discountRate, 0.1), 0, 1);
+  const annualBenefitGrowth = clamp(safeNum(inputs.annualBenefitGrowth, 0.05), -0.5, 1);
+
+  // Audit calculations (rows 42–50)
+  // Impacted hours/year (Year 1)
+  const impactedHoursYear1 = agents * impactedHrsWk * workWeeks * adoption * year1Ramp;
+
+  // Hours saved breakdown (Year 1)
+  const hoursSavedPeopleY1 = impactedHoursYear1 * (1 - reworkRate) * peopleGain;
+  const hoursSavedProcessY1 = impactedHoursYear1 * reworkRate * processGain;
+  const hoursSavedTechY1 = impactedHoursYear1 * toolShare * techGain;
+  const hoursSavedDataReuseY1 = agents * dataReuseHrsWk * workWeeks * adoption * year1Ramp;
+
+  const totalHoursSavedY1 =
+    hoursSavedPeopleY1 + hoursSavedProcessY1 + hoursSavedTechY1 + hoursSavedDataReuseY1;
+
+  const qualitySavings = annualQualityCost * qualityReduction;
+  const revenueGrossProfitLift = annualRevenueInfluenced * grossMargin * revenueUplift;
+
+  const grossBenefitY1 = totalHoursSavedY1 * hourly + qualitySavings + revenueGrossProfitLift;
+
+  const totalCostY1 = agents * trainingHoursPerAgent * hourly + externalVendorCost + internalBuildCost + ongoingAnnualProgramCost;
+  const netBenefitY1 = grossBenefitY1 - totalCostY1;
+
+  const roiY1 = totalCostY1 === 0 ? 0 : netBenefitY1 / totalCostY1;
+  const paybackMonths = grossBenefitY1 <= 0 ? null : (totalCostY1 / (grossBenefitY1 / 12));
+
+  // Multi-year view (matches intent of sheet: Years 2+ include steady-state benefits and only ongoing cost)
+  const impactedHoursSteady = agents * impactedHrsWk * workWeeks * adoption; // no year1Ramp
+  const hoursSavedSteady =
+    impactedHoursSteady * (1 - reworkRate) * peopleGain +
+    impactedHoursSteady * reworkRate * processGain +
+    impactedHoursSteady * toolShare * techGain +
+    agents * dataReuseHrsWk * workWeeks * adoption;
+
+  const grossBenefitBase = hoursSavedSteady * hourly + qualitySavings + revenueGrossProfitLift;
+
+  const years = [];
+  for (let y = 1; y <= 6; y++) {
+    const active = y <= horizonYears;
+    const gross = !active ? 0 : (y === 1 ? grossBenefitY1 : grossBenefitBase * Math.pow(1 + annualBenefitGrowth, y - 2));
+    const cost = !active ? 0 : (y === 1 ? totalCostY1 : ongoingAnnualProgramCost);
+    const net = active ? (gross - cost) : 0;
+    const discount = 1 / Math.pow(1 + discountRate, y);
+    const pv = net * discount;
+    years.push({ year: y, gross, cost, net, discount, pv });
+  }
+  const npv = years.reduce((s, r) => s + (r.year <= horizonYears ? r.pv : 0), 0);
+
+  // Category benefit decomposition (Year 1) for dashboard
+  const peopleBenefit = hoursSavedPeopleY1 * hourly;
+  const processBenefit = hoursSavedProcessY1 * hourly;
+  const techBenefit = hoursSavedTechY1 * hourly;
+  const dataReuseBenefit = hoursSavedDataReuseY1 * hourly;
+
+  return {
+    inputs: {
+      agents, hourly, workWeeks, impactedHrsWk, adoption, year1Ramp,
+      reworkRate, toolShare, annualQualityCost, qualityReduction,
+      peopleGain, processGain, techGain, dataReuseHrsWk,
+      annualRevenueInfluenced, grossMargin, revenueUplift,
+      trainingHoursPerAgent, externalVendorCost, internalBuildCost, ongoingAnnualProgramCost,
+      horizonYears, discountRate, annualBenefitGrowth,
+    },
+    audit: {
+      impactedHoursYear1,
+      hoursSavedPeopleY1,
+      hoursSavedProcessY1,
+      hoursSavedTechY1,
+      hoursSavedDataReuseY1,
+      totalHoursSavedY1,
+    },
+    year1: {
+      grossBenefitY1,
+      totalCostY1,
+      netBenefitY1,
+      roiY1,
+      paybackMonths,
+      qualitySavings,
+      revenueGrossProfitLift,
+      categoryBenefits: {
+        people: peopleBenefit,
+        process: processBenefit,
+        technology: techBenefit,
+        dataReuse: dataReuseBenefit,
+        quality: qualitySavings,
+        revenue: revenueGrossProfitLift,
+      },
+    },
+    years,
+    npv,
+  };
+}
+
+// -----------------------------
+// UI
+// -----------------------------
+
+const steps = [
+  { id: "primer", title: "Start", desc: "Set the baseline" },
+  { id: "people", title: "People", desc: "Workforce economics" },
+  { id: "process", title: "Process", desc: "Efficiency + rework" },
+  { id: "tech", title: "Technology", desc: "Tool leverage" },
+  { id: "data", title: "Data", desc: "Compounding reuse" },
+  { id: "costs", title: "Costs", desc: "Implementation" },
+  { id: "results", title: "Results", desc: "ROI + NPV" },
+];
+
+function Field({ label, tooltip, children }) {
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <Label className="text-sm">{label}</Label>
+        {tooltip ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button type="button" className="inline-flex items-center text-muted-foreground">
+                <Info className="h-4 w-4" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-sm text-sm">{tooltip}</TooltipContent>
+          </Tooltip>
+        ) : null}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function NumberInput({ value, onChange, prefix, suffix, placeholder }) {
+  return (
+    <div className="relative">
+      {prefix ? <div className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{prefix}</div> : null}
+      <Input
+        inputMode="decimal"
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        className={`${prefix ? "pl-7" : ""} ${suffix ? "pr-16" : ""}`}
+      />
+      {suffix ? <div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{suffix}</div> : null}
+    </div>
+  );
+}
+
+function PresetSlider({ value, onChange, min=0, max=1, step=0.01, presets=[] }) {
+  return (
+    <div className="space-y-3">
+      <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => onChange(v[0])} />
+      {presets.length ? (
+        <div className="flex flex-wrap gap-2">
+          {presets.map((p) => (
+            <Button
+              key={p.label}
+              type="button"
+              variant={Math.abs(value - p.value) < 1e-9 ? "default" : "secondary"}
+              size="sm"
+              onClick={() => onChange(p.value)}
+            >
+              {p.label}
+            </Button>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function Kpi({ label, value, sub }) {
+  return (
+    <Card className="rounded-2xl shadow-sm">
+      <CardHeader className="pb-2">
+        <CardDescription>{label}</CardDescription>
+        <CardTitle className="text-2xl">{value}</CardTitle>
+      </CardHeader>
+      {sub ? <CardContent className="pt-0 text-sm text-muted-foreground">{sub}</CardContent> : null}
+    </Card>
+  );
+}
+
+function ExecutiveSummary({ model }) {
+  const { year1, npv, years, inputs } = model;
+  const horizon = inputs.horizonYears;
+  const range = {
+    conservative: clamp(inputs.peopleGain * 0.7, 0, 1),
+    expected: inputs.peopleGain,
+    aggressive: clamp(inputs.peopleGain * 1.2, 0, 1),
+  };
+
+  const copyText = `Human Agent Tool-Education ROI (Claude.ai Case Study)
+
+Year-1 Gross Benefit: ${fmtCurrency(year1.grossBenefitY1)}
+Year-1 Total Cost: ${fmtCurrency(year1.totalCostY1)}
+Year-1 Net Benefit: ${fmtCurrency(year1.netBenefitY1)}
+Year-1 ROI: ${(year1.roiY1*100).toFixed(0)}%
+Payback: ${year1.paybackMonths == null ? "–" : year1.paybackMonths.toFixed(1) + " months"}
+NPV (${horizon}y): ${fmtCurrency(npv)}
+
+Assumptions
+- Agents trained: ${fmtNumber(inputs.agents)}
+- Fully loaded hourly cost: ${fmtCurrency(inputs.hourly)} / hr
+- Impacted hours/week/agent: ${fmtNumber(inputs.impactedHrsWk)}
+- Adoption rate: ${fmtPct(inputs.adoption)}
+- Year-1 ramp: ${fmtPct(inputs.year1Ramp)}
+- Productivity gain (People): ${fmtPct(inputs.peopleGain)}
+- Rework reduction (Process): ${fmtPct(inputs.processGain)}
+- Tool efficiency (Technology): ${fmtPct(inputs.techGain)}
+- Data reuse hours/week/agent: ${fmtNumber(inputs.dataReuseHrsWk)}
+- Annual quality cost savings: ${fmtCurrency(year1.qualitySavings)}
+- Revenue gross profit lift: ${fmtCurrency(year1.revenueGrossProfitLift)}
+- Discount rate: ${fmtPct(inputs.discountRate)}
+- Benefit growth: ${fmtPct(inputs.annualBenefitGrowth)}
+`;
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="secondary" className="rounded-2xl">
+          <Download className="h-4 w-4 mr-2" /> Executive Summary
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl rounded-2xl">
+        <DialogHeader>
+          <DialogTitle>Executive Summary</DialogTitle>
+          <DialogDescription>
+            One-page narrative + assumptions. Copy/paste into email, memo, or deck.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <Kpi label="Year-1 net benefit" value={fmtCurrency(year1.netBenefitY1)} />
+            <Kpi label={`NPV (${inputs.horizonYears}y)`} value={fmtCurrency(npv)} />
+            <Kpi label="Payback" value={year1.paybackMonths == null ? "–" : `${year1.paybackMonths.toFixed(1)} mo`} />
+          </div>
+
+          <Card className="rounded-2xl">
+            <CardHeader>
+              <CardTitle className="text-base">Assumptions snapshot</CardTitle>
+              <CardDescription>Adjust sliders to stress-test outcomes.</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="flex justify-between"><span>Agents trained</span><span className="font-medium">{fmtNumber(inputs.agents)}</span></div>
+              <div className="flex justify-between"><span>Hourly cost</span><span className="font-medium">{fmtCurrency(inputs.hourly)}/hr</span></div>
+              <div className="flex justify-between"><span>Impacted hrs/week</span><span className="font-medium">{fmtNumber(inputs.impactedHrsWk)}</span></div>
+              <div className="flex justify-between"><span>Adoption</span><span className="font-medium">{fmtPct(inputs.adoption)}</span></div>
+              <div className="flex justify-between"><span>Year-1 ramp</span><span className="font-medium">{fmtPct(inputs.year1Ramp)}</span></div>
+              <div className="flex justify-between"><span>Rework rate</span><span className="font-medium">{fmtPct(inputs.reworkRate)}</span></div>
+              <div className="flex justify-between"><span>People gain</span><span className="font-medium">{fmtPct(inputs.peopleGain)}</span></div>
+              <div className="flex justify-between"><span>Process gain</span><span className="font-medium">{fmtPct(inputs.processGain)}</span></div>
+              <div className="flex justify-between"><span>Technology gain</span><span className="font-medium">{fmtPct(inputs.techGain)}</span></div>
+              <div className="flex justify-between"><span>Data reuse hrs/week</span><span className="font-medium">{fmtNumber(inputs.dataReuseHrsWk)}</span></div>
+              <div className="flex justify-between"><span>Discount rate</span><span className="font-medium">{fmtPct(inputs.discountRate)}</span></div>
+              <div className="flex justify-between"><span>Benefit growth</span><span className="font-medium">{fmtPct(inputs.annualBenefitGrowth)}</span></div>
+            </CardContent>
+          </Card>
+
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Sensitivity hint: People productivity gain is the biggest lever.
+              Conservative/Expected/Aggressive: {fmtPct(range.conservative)} / {fmtPct(range.expected)} / {fmtPct(range.aggressive)}
+            </div>
+            <Button
+              className="rounded-2xl"
+              onClick={async () => {
+                await navigator.clipboard.writeText(copyText);
+              }}
+            >
+              <Copy className="h-4 w-4 mr-2" /> Copy
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export default function ClaudeToolEducationROIApp() {
+  const [stepIdx, setStepIdx] = useState(1);
+
+  // Inputs (default values match the spreadsheet defaults)
+  const [agents, setAgents] = useState("50");
+  const [hourly, setHourly] = useState("85");
+  const [workWeeks, setWorkWeeks] = useState("48");
+  const [impactedHrsWk, setImpactedHrsWk] = useState("10");
+  const [adoption, setAdoption] = useState(0.8);
+  const [year1Ramp, setYear1Ramp] = useState(0.7);
+
+  const [reworkRate, setReworkRate] = useState(0.2);
+  const [toolShare, setToolShare] = useState(0.25);
+  const [annualQualityCost, setAnnualQualityCost] = useState("50000");
+  const [qualityReduction, setQualityReduction] = useState(0.3);
+
+  const [peopleGain, setPeopleGain] = useState(0.25);
+  const [processGain, setProcessGain] = useState(0.2);
+  const [techGain, setTechGain] = useState(0.15);
+  const [dataReuseHrsWk, setDataReuseHrsWk] = useState("1");
+
+  const [annualRevenueInfluenced, setAnnualRevenueInfluenced] = useState("0");
+  const [grossMargin, setGrossMargin] = useState(0.6);
+  const [revenueUplift, setRevenueUplift] = useState(0.02);
+  const [showRevenueInputs, setShowRevenueInputs] = useState(false);
+
+  const [trainingHoursPerAgent, setTrainingHoursPerAgent] = useState("6");
+  const [externalVendorCost, setExternalVendorCost] = useState("15000");
+  const [internalBuildCost, setInternalBuildCost] = useState("10000");
+  const [ongoingAnnualProgramCost, setOngoingAnnualProgramCost] = useState("8000");
+
+  const [horizonYears, setHorizonYears] = useState(3);
+  const [discountRate, setDiscountRate] = useState(0.1);
+  const [annualBenefitGrowth, setAnnualBenefitGrowth] = useState(0.05);
+
+  const inputs = {
+    agents,
+    hourly,
+    workWeeks,
+    impactedHrsWk,
+    adoption,
+    year1Ramp,
+    reworkRate,
+    toolShare,
+    annualQualityCost,
+    qualityReduction,
+    peopleGain,
+    processGain,
+    techGain,
+    dataReuseHrsWk,
+    annualRevenueInfluenced: showRevenueInputs ? annualRevenueInfluenced : "0",
+    grossMargin,
+    revenueUplift,
+    trainingHoursPerAgent,
+    externalVendorCost,
+    internalBuildCost,
+    ongoingAnnualProgramCost,
+    horizonYears,
+    discountRate,
+    annualBenefitGrowth,
+  };
+
+  const model = useMemo(() => computeModel(inputs), [JSON.stringify(inputs)]);
+
+  const current = steps[stepIdx];
+  const progress = ((stepIdx) / (steps.length - 1)) * 100;
+
+  const canPrev = stepIdx > 1;
+  const canNext = stepIdx < steps.length - 1;
+
+  const StepHeader = (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <div className="text-sm text-muted-foreground">Claude.ai Case Study • ROI Calculator</div>
+          <div className="text-2xl font-semibold tracking-tight">{current.title}</div>
+          <div className="text-sm text-muted-foreground">{current.desc}</div>
+        </div>
+        <div className="hidden md:flex items-center gap-2">
+          <Badge variant="secondary" className="rounded-2xl">Year-1 Net: {fmtCurrency(model.year1.netBenefitY1)}</Badge>
+          <Badge variant="secondary" className="rounded-2xl">Payback: {model.year1.paybackMonths == null ? "–" : `${model.year1.paybackMonths.toFixed(1)} mo`}</Badge>
+        </div>
+      </div>
+      <Progress value={progress} />
+    </div>
+  );
+
+  const Nav = (
+    <div className="flex items-center justify-between gap-3">
+      <Button
+        variant="secondary"
+        className="rounded-2xl"
+        disabled={!canPrev}
+        onClick={() => setStepIdx((s) => Math.max(1, s - 1))}
+      >
+        <ChevronLeft className="h-4 w-4 mr-2" /> Back
+      </Button>
+      <div className="text-xs text-muted-foreground">
+        Step {stepIdx} of {steps.length - 1}
+      </div>
+      <Button
+        className="rounded-2xl"
+        disabled={!canNext}
+        onClick={() => setStepIdx((s) => Math.min(steps.length - 1, s + 1))}
+      >
+        Next <ChevronRight className="h-4 w-4 ml-2" />
+      </Button>
+    </div>
+  );
+
+  return (
+    <TooltipProvider>
+      <div className="min-h-screen w-full bg-background">
+        <div className="mx-auto max-w-5xl px-4 py-10 space-y-6">
+          {StepHeader}
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.id}
+              variants={stepVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.22 }}
+            >
+              {/* PEOPLE */}
+              {current.id === "people" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <Card className="rounded-2xl shadow-sm lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle>Workforce & Cost Baseline</CardTitle>
+                      <CardDescription>
+                        Anchor the forecast in real labor economics. This is the highest-confidence part of the model.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-5">
+                      <Field
+                        label="Number of agents trained"
+                        tooltip="Maps to spreadsheet B6. Count of people who receive the education program."
+                      >
+                        <NumberInput value={agents} onChange={setAgents} placeholder="50" />
+                      </Field>
+
+                      <Field
+                        label="Fully-loaded hourly cost"
+                        tooltip="Spreadsheet B7. All-in labor cost (salary + benefits + overhead)."
+                      >
+                        <NumberInput value={hourly} onChange={setHourly} prefix="$" suffix="/hr" placeholder="85" />
+                      </Field>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Field
+                          label="Work weeks per year"
+                          tooltip="Spreadsheet B8. Typical range: 46–50."
+                        >
+                          <NumberInput value={workWeeks} onChange={setWorkWeeks} suffix="weeks" placeholder="48" />
+                        </Field>
+
+                        <Field
+                          label="Impacted hours per week per agent"
+                          tooltip="Spreadsheet B9. Hours of work meaningfully impacted by Claude education."
+                        >
+                          <NumberInput value={impactedHrsWk} onChange={setImpactedHrsWk} suffix="hrs/wk" placeholder="10" />
+                        </Field>
+                      </div>
+
+                      <Separator />
+
+                      <Field
+                        label={`Adoption rate after training (${fmtPct(adoption)})`}
+                        tooltip="Spreadsheet B10. Share of trained agents who actually apply the system."
+                      >
+                        <PresetSlider
+                          value={adoption}
+                          onChange={setAdoption}
+                          presets={[
+                            { label: "Low 60%", value: 0.6 },
+                            { label: "Base 80%", value: 0.8 },
+                            { label: "High 90%", value: 0.9 },
+                          ]}
+                        />
+                      </Field>
+
+                      <Field
+                        label={`Year-1 ramp factor (${fmtPct(year1Ramp)})`}
+                        tooltip="Spreadsheet B11. Learning curve + rollout: how close Year 1 gets to steady-state benefits."
+                      >
+                        <PresetSlider
+                          value={year1Ramp}
+                          onChange={setYear1Ramp}
+                          presets={[
+                            { label: "Slow 50%", value: 0.5 },
+                            { label: "Base 70%", value: 0.7 },
+                            { label: "Fast 85%", value: 0.85 },
+                          ]}
+                        />
+                      </Field>
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-4">
+                    <Kpi
+                      label="Impacted hours (Year 1)"
+                      value={fmtNumber(model.audit.impactedHoursYear1)}
+                      sub="Agents × hrs/wk × weeks × adoption × ramp"
+                    />
+                    <Kpi
+                      label="Hours saved (Year 1)"
+                      value={fmtNumber(model.audit.totalHoursSavedY1)}
+                      sub="Sum of People + Process + Tech + Data reuse"
+                    />
+                    <Kpi
+                      label="Gross benefit (Year 1)"
+                      value={fmtCurrency(model.year1.grossBenefitY1)}
+                      sub="Hours saved × hourly + quality savings + margin lift"
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {/* PROCESS */}
+              {current.id === "process" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <Card className="rounded-2xl shadow-sm lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle>Process Improvement</CardTitle>
+                      <CardDescription>
+                        Convert education into predictable operating leverage: fewer retries, fewer revisions, faster throughput.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-5">
+                      <Field
+                        label={`Rework rate within impacted hours (${fmtPct(reworkRate)})`}
+                        tooltip="Spreadsheet B14. Fraction of impacted work spent on revisions/rework today."
+                      >
+                        <PresetSlider
+                          value={reworkRate}
+                          onChange={setReworkRate}
+                          presets={[
+                            { label: "Low 10%", value: 0.1 },
+                            { label: "Base 20%", value: 0.2 },
+                            { label: "High 35%", value: 0.35 },
+                          ]}
+                        />
+                      </Field>
+
+                      <Separator />
+
+                      <Field
+                        label={`People productivity gain on core work (${fmtPct(peopleGain)})`}
+                        tooltip="Spreadsheet B20. Efficiency gain on non-rework core work. Biggest lever in most orgs."
+                      >
+                        <PresetSlider
+                          value={peopleGain}
+                          onChange={setPeopleGain}
+                          presets={[
+                            { label: "Conservative 15%", value: 0.15 },
+                            { label: "Expected 25%", value: 0.25 },
+                            { label: "Aggressive 40%", value: 0.4 },
+                          ]}
+                        />
+                      </Field>
+
+                      <Field
+                        label={`Process efficiency on rework (${fmtPct(processGain)})`}
+                        tooltip="Spreadsheet B21. % reduction in rework time due to better prompting, standards, QA loops."
+                      >
+                        <PresetSlider
+                          value={processGain}
+                          onChange={setProcessGain}
+                          presets={[
+                            { label: "Conservative 10%", value: 0.1 },
+                            { label: "Expected 20%", value: 0.2 },
+                            { label: "Aggressive 35%", value: 0.35 },
+                          ]}
+                        />
+                      </Field>
+
+                      <Separator />
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Field
+                          label="Annual avoidable error / quality cost (baseline)"
+                          tooltip="Spreadsheet B16. Optionally include costs from mistakes, compliance issues, defects, bad decisions."
+                        >
+                          <NumberInput value={annualQualityCost} onChange={setAnnualQualityCost} prefix="$" placeholder="50000" />
+                        </Field>
+
+                        <Field
+                          label={`Error/quality cost reduction (${fmtPct(qualityReduction)})`}
+                          tooltip="Spreadsheet B17. Expected % reduction in those costs after education and process discipline."
+                        >
+                          <PresetSlider
+                            value={qualityReduction}
+                            onChange={setQualityReduction}
+                            presets={[
+                              { label: "Low 10%", value: 0.1 },
+                              { label: "Base 30%", value: 0.3 },
+                              { label: "High 50%", value: 0.5 },
+                            ]}
+                          />
+                        </Field>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-4">
+                    <Kpi
+                      label="Quality savings (Year 1)"
+                      value={fmtCurrency(model.year1.qualitySavings)}
+                      sub="Baseline quality cost × reduction"
+                    />
+                    <Kpi
+                      label="People hours saved (Y1)"
+                      value={fmtNumber(model.audit.hoursSavedPeopleY1)}
+                      sub="Core work hours × productivity gain"
+                    />
+                    <Kpi
+                      label="Process hours saved (Y1)"
+                      value={fmtNumber(model.audit.hoursSavedProcessY1)}
+                      sub="Rework hours × process gain"
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {/* TECH */}
+              {current.id === "tech" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <Card className="rounded-2xl shadow-sm lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle>Technology Leverage</CardTitle>
+                      <CardDescription>
+                        Systematic Claude usage reduces retries and improves tool efficiency per unit of time.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-5">
+                      <Field
+                        label={`Tool-interaction share of impacted hours (${fmtPct(toolShare)})`}
+                        tooltip="Spreadsheet B15. Fraction of impacted work spent directly interacting with AI tools."
+                      >
+                        <PresetSlider
+                          value={toolShare}
+                          onChange={setToolShare}
+                          presets={[
+                            { label: "Low 15%", value: 0.15 },
+                            { label: "Base 25%", value: 0.25 },
+                            { label: "High 40%", value: 0.4 },
+                          ]}
+                        />
+                      </Field>
+
+                      <Field
+                        label={`Technology efficiency gain (${fmtPct(techGain)})`}
+                        tooltip="Spreadsheet B22. % reduction in tool-usage time due to better prompts, templates, output contracts."
+                      >
+                        <PresetSlider
+                          value={techGain}
+                          onChange={setTechGain}
+                          presets={[
+                            { label: "Conservative 8%", value: 0.08 },
+                            { label: "Expected 15%", value: 0.15 },
+                            { label: "Aggressive 25%", value: 0.25 },
+                          ]}
+                        />
+                      </Field>
+
+                      <Separator />
+
+                      <div className="flex items-center justify-between gap-3 rounded-2xl border p-4">
+                        <div className="space-y-1">
+                          <div className="font-medium">Include revenue impact?</div>
+                          <div className="text-sm text-muted-foreground">
+                            Optional. Only enable if you can defensibly quantify influenced revenue.
+                          </div>
+                        </div>
+                        <Switch checked={showRevenueInputs} onCheckedChange={setShowRevenueInputs} />
+                      </div>
+
+                      {showRevenueInputs ? (
+                        <div className="space-y-4">
+                          <Field
+                            label="Annual revenue influenced"
+                            tooltip="Spreadsheet B26. Portion of revenue where speed/quality can move the needle. 0 = ignore."
+                          >
+                            <NumberInput value={annualRevenueInfluenced} onChange={setAnnualRevenueInfluenced} prefix="$" suffix="/yr" placeholder="0" />
+                          </Field>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Field
+                              label={`Gross margin (${fmtPct(grossMargin)})`}
+                              tooltip="Spreadsheet B27. Gross margin on the influenced revenue."
+                            >
+                              <PresetSlider
+                                value={grossMargin}
+                                onChange={setGrossMargin}
+                                presets={[
+                                  { label: "40%", value: 0.4 },
+                                  { label: "60%", value: 0.6 },
+                                  { label: "75%", value: 0.75 },
+                                ]}
+                              />
+                            </Field>
+
+                            <Field
+                              label={`Revenue uplift from better execution (${fmtPct(revenueUplift, 1)})`}
+                              tooltip="Spreadsheet B28. Incremental revenue % from speed/quality improvements."
+                            >
+                              <PresetSlider
+                                value={revenueUplift}
+                                onChange={setRevenueUplift}
+                                presets={[
+                                  { label: "0.5%", value: 0.005 },
+                                  { label: "2%", value: 0.02 },
+                                  { label: "5%", value: 0.05 },
+                                ]}
+                              />
+                            </Field>
+                          </div>
+                        </div>
+                      ) : null}
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-4">
+                    <Kpi
+                      label="Tech hours saved (Y1)"
+                      value={fmtNumber(model.audit.hoursSavedTechY1)}
+                      sub="Impacted hours × tool share × tech gain"
+                    />
+                    <Kpi
+                      label="Revenue GP lift (Y1)"
+                      value={fmtCurrency(model.year1.revenueGrossProfitLift)}
+                      sub="Revenue × margin × uplift"
+                    />
+                    <Kpi
+                      label="Technology benefit (Y1)"
+                      value={fmtCurrency(model.year1.categoryBenefits.technology)}
+                      sub="Tech hours saved × hourly"
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {/* DATA */}
+              {current.id === "data" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <Card className="rounded-2xl shadow-sm lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle>Data Compounding</CardTitle>
+                      <CardDescription>
+                        Turn one-off chats into reusable assets: prompt libraries, SOPs, briefs, templates.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-5">
+                      <Field
+                        label="Data reuse hours saved per week per agent"
+                        tooltip="Spreadsheet B23. Equivalent hours saved by reusing outputs (templates/docs/knowledge) each week."
+                      >
+                        <NumberInput value={dataReuseHrsWk} onChange={setDataReuseHrsWk} suffix="hrs/wk" placeholder="1" />
+                      </Field>
+
+                      <Separator />
+
+                      <Card className="rounded-2xl">
+                        <CardHeader>
+                          <CardTitle className="text-base">Why this matters</CardTitle>
+                          <CardDescription>
+                            Reuse is how ROI compounds year-over-year without adding headcount.
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="text-sm text-muted-foreground space-y-2">
+                          <div>• Reusable prompts reduce variance</div>
+                          <div>• SOPs and templates reduce onboarding time</div>
+                          <div>• Institutional memory becomes searchable and transferable</div>
+                        </CardContent>
+                      </Card>
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-4">
+                    <Kpi
+                      label="Data reuse hours saved (Y1)"
+                      value={fmtNumber(model.audit.hoursSavedDataReuseY1)}
+                      sub="Agents × reuse hrs/wk × weeks × adoption × ramp"
+                    />
+                    <Kpi
+                      label="Data reuse benefit (Y1)"
+                      value={fmtCurrency(model.year1.categoryBenefits.dataReuse)}
+                      sub="Reuse hours saved × hourly"
+                    />
+                    <Kpi
+                      label="Total hours saved (Y1)"
+                      value={fmtNumber(model.audit.totalHoursSavedY1)}
+                      sub="All categories"
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {/* COSTS */}
+              {current.id === "costs" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <Card className="rounded-2xl shadow-sm lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle>Implementation Costs</CardTitle>
+                      <CardDescription>
+                        Make this CFO-safe: separate opportunity cost (training time) from cash costs.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-5">
+                      <Field
+                        label="Training hours per agent (one-time)"
+                        tooltip="Spreadsheet B31. Training + practice time. Modeled as opportunity cost at the fully-loaded rate."
+                      >
+                        <NumberInput value={trainingHoursPerAgent} onChange={setTrainingHoursPerAgent} suffix="hours" placeholder="6" />
+                      </Field>
+
+                      <Field
+                        label="External training/vendor cost (one-time)"
+                        tooltip="Spreadsheet B32. Cash cost for program delivery."
+                      >
+                        <NumberInput value={externalVendorCost} onChange={setExternalVendorCost} prefix="$" placeholder="15000" />
+                      </Field>
+
+                      <Field
+                        label="Internal enablement build cost (one-time)"
+                        tooltip="Spreadsheet B33. Prompt library, governance, playbooks, integration setup."
+                      >
+                        <NumberInput value={internalBuildCost} onChange={setInternalBuildCost} prefix="$" placeholder="10000" />
+                      </Field>
+
+                      <Field
+                        label="Ongoing annual program cost"
+                        tooltip="Spreadsheet B34. Refresh sessions, admin time, measurement, content updates."
+                      >
+                        <NumberInput value={ongoingAnnualProgramCost} onChange={setOngoingAnnualProgramCost} prefix="$" suffix="/yr" placeholder="8000" />
+                      </Field>
+
+                      <Separator />
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <Field
+                          label="Analysis horizon"
+                          tooltip="Spreadsheet B37. Years included in NPV."
+                        >
+                          <PresetSlider
+                            value={horizonYears}
+                            onChange={(v) => setHorizonYears(Math.round(v))}
+                            min={1}
+                            max={6}
+                            step={1}
+                            presets={[
+                              { label: "1y", value: 1 },
+                              { label: "3y", value: 3 },
+                              { label: "5y", value: 5 },
+                            ]}
+                          />
+                        </Field>
+
+                        <Field
+                          label={`Discount rate (${fmtPct(discountRate)})`}
+                          tooltip="Spreadsheet B38. Typical range: 8–15%."
+                        >
+                          <PresetSlider
+                            value={discountRate}
+                            onChange={setDiscountRate}
+                            presets={[
+                              { label: "8%", value: 0.08 },
+                              { label: "10%", value: 0.1 },
+                              { label: "15%", value: 0.15 },
+                            ]}
+                          />
+                        </Field>
+
+                        <Field
+                          label={`Annual benefit growth (${fmtPct(annualBenefitGrowth)})`}
+                          tooltip="Spreadsheet B39. Benefit compounding after Year 1 (learning effects + reuse)."
+                        >
+                          <PresetSlider
+                            value={annualBenefitGrowth}
+                            onChange={setAnnualBenefitGrowth}
+                            presets={[
+                              { label: "0%", value: 0 },
+                              { label: "5%", value: 0.05 },
+                              { label: "10%", value: 0.1 },
+                            ]}
+                          />
+                        </Field>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-4">
+                    <Kpi
+                      label="Total cost (Year 1)"
+                      value={fmtCurrency(model.year1.totalCostY1)}
+                      sub="Training time + one-time cash + ongoing"
+                    />
+                    <Kpi
+                      label="Gross benefit (Year 1)"
+                      value={fmtCurrency(model.year1.grossBenefitY1)}
+                      sub="Labor + quality + revenue"
+                    />
+                    <Kpi
+                      label="Net benefit (Year 1)"
+                      value={fmtCurrency(model.year1.netBenefitY1)}
+                      sub={`ROI: ${(model.year1.roiY1*100).toFixed(0)}%`}
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {/* RESULTS */}
+              {current.id === "results" ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <Kpi label="Year-1 gross benefit" value={fmtCurrency(model.year1.grossBenefitY1)} />
+                    <Kpi label="Year-1 total cost" value={fmtCurrency(model.year1.totalCostY1)} />
+                    <Kpi label="Year-1 net benefit" value={fmtCurrency(model.year1.netBenefitY1)} />
+                    <Kpi label={`NPV (${model.inputs.horizonYears}y)`} value={fmtCurrency(model.npv)} />
+                  </div>
+
+                  <Card className="rounded-2xl shadow-sm">
+                    <CardHeader>
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
+                        <div>
+                          <CardTitle>Multi-year net benefit (discounted)</CardTitle>
+                          <CardDescription>
+                            Year 1 includes training + build. Years 2+ include only ongoing program cost.
+                          </CardDescription>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary" className="rounded-2xl">Payback: {model.year1.paybackMonths == null ? "–" : `${model.year1.paybackMonths.toFixed(1)} months`}</Badge>
+                          <Badge variant="secondary" className="rounded-2xl">Year-1 ROI: {(model.year1.roiY1*100).toFixed(0)}%</Badge>
+                          <ExecutiveSummary model={model} />
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="h-[320px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={model.years.filter((d) => d.year <= model.inputs.horizonYears)}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="year" />
+                          <YAxis tickFormatter={(v) => fmtNumber(v/1000) + "k"} />
+                          <ReTooltip formatter={(v) => fmtCurrency(v)} />
+                          <Area type="monotone" dataKey="pv" name="PV net benefit" fillOpacity={0.2} />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="rounded-2xl shadow-sm">
+                    <CardHeader>
+                      <CardTitle>Year-1 benefit mix</CardTitle>
+                      <CardDescription>Breakdown aligned to the People / Process / Technology / Data lens.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <Kpi label="People" value={fmtCurrency(model.year1.categoryBenefits.people)} sub="Core work hours saved" />
+                        <Kpi label="Process" value={fmtCurrency(model.year1.categoryBenefits.process)} sub="Rework reduction" />
+                        <Kpi label="Technology" value={fmtCurrency(model.year1.categoryBenefits.technology)} sub="AI interaction efficiency" />
+                        <Kpi label="Data reuse" value={fmtCurrency(model.year1.categoryBenefits.dataReuse)} sub="Reusable assets" />
+                        <Kpi label="Quality" value={fmtCurrency(model.year1.categoryBenefits.quality)} sub="Avoided errors" />
+                        <Kpi label="Revenue" value={fmtCurrency(model.year1.categoryBenefits.revenue)} sub="Gross profit lift" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : null}
+
+              {/* PRIMER / START */}
+              {current.id === "primer" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <Card className="rounded-2xl shadow-sm lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle>What this is</CardTitle>
+                      <CardDescription>
+                        A CFO-safe ROI model for educating humans to extract maximum value from Claude.ai.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <Card className="rounded-2xl">
+                          <CardHeader>
+                            <CardTitle className="text-base">People</CardTitle>
+                            <CardDescription>Faster throughput</CardDescription>
+                          </CardHeader>
+                        </Card>
+                        <Card className="rounded-2xl">
+                          <CardHeader>
+                            <CardTitle className="text-base">Process</CardTitle>
+                            <CardDescription>Lower variance + rework</CardDescription>
+                          </CardHeader>
+                        </Card>
+                        <Card className="rounded-2xl">
+                          <CardHeader>
+                            <CardTitle className="text-base">Data</CardTitle>
+                            <CardDescription>Reusable assets</CardDescription>
+                          </CardHeader>
+                        </Card>
+                      </div>
+
+                      <Separator />
+
+                      <div className="space-y-2 text-sm text-muted-foreground">
+                        <div>• You provide business metrics (headcount, time, cost).</div>
+                        <div>• The model converts improvements into dollars.</div>
+                        <div>• You get Year-1 ROI, payback, and multi-year NPV.</div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        <Button className="rounded-2xl" onClick={() => setStepIdx(2)}>
+                          Start with workforce inputs
+                        </Button>
+                        <Button variant="secondary" className="rounded-2xl" onClick={() => setStepIdx(steps.length - 1)}>
+                          Jump to results
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-4">
+                    <Kpi label="Default Year-1 net" value={fmtCurrency(model.year1.netBenefitY1)} sub="Based on spreadsheet defaults" />
+                    <Kpi label="Default NPV" value={fmtCurrency(model.npv)} sub={`${model.inputs.horizonYears}-year discounted`} />
+                    <Kpi label="Default payback" value={model.year1.paybackMonths == null ? "–" : `${model.year1.paybackMonths.toFixed(1)} mo`} />
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="pt-4">{Nav}</div>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="pt-2 text-xs text-muted-foreground">
+            Model parity note: Calculations mirror the spreadsheet audit rows (impacted hours, category hours saved, gross benefit, costs, ROI, payback, and NPV).
+          </div>
+        </div>
+      </div>
+    </TooltipProvider>
+  );
+}
+
+I created the **design + full React implementation** (single-file) in the canvas: **“Claude Tool Education ROI – UX Wireframes”**.
+
+What you now have:
+
+*   A **multi-step, conversion-driven UX** (progressive disclosure, trust scaffolding, live $ feedback)
+*   A **React app** using **shadcn/ui + Tailwind + Framer Motion + Recharts**
+*   A **math engine that mirrors the spreadsheet logic**, including:
+    *   Year-1 impacted hours, category hours saved (People/Process/Tech/Data)
+    *   Gross benefit = labor savings + quality savings + revenue GP lift
+    *   Total cost = training time opportunity cost + one-time cash + ongoing annual program cost
+    *   ROI, payback months
+    *   Multi-year NPV with discounting and benefit growth
+
+How to inject into Google AI Studio:
+
+*   Create a new React project (or open the editor environment you’re using)
+*   Paste the canvas code into a single component file (e.g., `App.jsx`)
+*   Ensure shadcn/ui components are available (the imports assume standard shadcn paths)
+
+If your Google AI Studio environment does **not** include shadcn/ui by default, tell me the UI stack you’re using there (plain React, MUI, Next.js, etc.) and I’ll convert the UI layer while keeping the same model + interaction design.
+
+
+
+---
+Powered by [ChatGPT Exporter](https://www.chatgptexporter.com)

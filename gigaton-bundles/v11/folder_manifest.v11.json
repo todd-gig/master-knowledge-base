@@ -1,0 +1,119 @@
+{
+  "files": [
+    {
+      "name": "README.md",
+      "sha256": "dc601f014efc0b19686e596c5432d9dcbd861931151dc3dc336b7c89463ebdbb",
+      "bytes": 812
+    },
+    {
+      "name": "backend/.env.example",
+      "sha256": "4ea7bb110d03ad0449e626d2013e1916d18958f9a9599fe666d9a2b3a600f6d3",
+      "bytes": 288
+    },
+    {
+      "name": "backend/billing_integration.md",
+      "sha256": "bdc55f3324a1137710a9723d99e7d822871cf5b816eb6bfb2c6ce168cfe1e366",
+      "bytes": 309
+    },
+    {
+      "name": "backend/lib/payments/payment_contract.md",
+      "sha256": "bef6f3fd391020966ccd77d68504f7fba1671945f6121bec8a885d775838edd6",
+      "bytes": 311
+    },
+    {
+      "name": "backend/lib/payments/payment_service.js",
+      "sha256": "e97e3bd2c370485a766a0e6a2c07c5ebcc28b881bbf7406eb29e584f4cccae69",
+      "bytes": 1027
+    },
+    {
+      "name": "backend/lib/payments/provider_selector.js",
+      "sha256": "b287c6f79a7e95cd2807ef8d8157f9eaa17ed0c14edc07d1002c266a2d440094",
+      "bytes": 524
+    },
+    {
+      "name": "backend/lib/payments/providers/godaddy_poynt_adapter.js",
+      "sha256": "9ab5a2193129026baeeb439f2e0bd4ca43fca79a143751945172df14477fb7d7",
+      "bytes": 1082
+    },
+    {
+      "name": "backend/lib/payments/providers/stripe_adapter.js",
+      "sha256": "dfd81302c804313ddf9c5d1dfe10535852ca4ee0843f3e2e2590a2041c9b4321",
+      "bytes": 1104
+    },
+    {
+      "name": "backend/lib/payments/types.js",
+      "sha256": "0b55078c73cdeed82633e9077106b17c6fe774b704ad3f7473d4bdb58a85b843",
+      "bytes": 504
+    },
+    {
+      "name": "backend/lib/payments/webhook_normalizer.js",
+      "sha256": "b42c366631b27187fef8353e683dbe761fa6be749b7fbe78df1f2aa693b85802",
+      "bytes": 564
+    },
+    {
+      "name": "backend/package.json",
+      "sha256": "381cf8f0094ad43d51c6087c2cba422ed290391006d943e6cd3ccfcbd92dd5f5",
+      "bytes": 219
+    },
+    {
+      "name": "backend/server.js",
+      "sha256": "56068ba5ee85a58ecb79822651ae430bf5aa88602a66f579913a7ae512cb911e",
+      "bytes": 1174
+    },
+    {
+      "name": "config/payment_normalization_map.json",
+      "sha256": "f47b411af3d8a94ddfe3c600435d946152842da4ac011265aab076c77adefb0f",
+      "bytes": 507
+    },
+    {
+      "name": "config/payment_provider_registry.json",
+      "sha256": "a5f808701207bf2a93e6b5f83e4ceab409f7908c54e3bdbbf7f36a4b459bfdba",
+      "bytes": 560
+    },
+    {
+      "name": "database/schema.sql",
+      "sha256": "7d5a895c797b8fd841ab16aa166e191e2694581349b4bbc7f2784379906f6c65",
+      "bytes": 709
+    },
+    {
+      "name": "database/seed.json",
+      "sha256": "e9855ebf50bc460ec388788721d089663dc065f6c4acc52517917f5015a54014",
+      "bytes": 230
+    },
+    {
+      "name": "deploy/payments_rollout_checklist.md",
+      "sha256": "e5e4685a29b1d2009150df3bc9d843f343a7534ec2f22fc6753ab4965aea3a69",
+      "bytes": 263
+    },
+    {
+      "name": "examples/godaddy_create_order_payload.json",
+      "sha256": "302cd1eae9f2eed193181705d0e8d3520d17959b471f7c5e357715059d2837ea",
+      "bytes": 149
+    },
+    {
+      "name": "examples/stripe_create_session_payload.json",
+      "sha256": "ec0df886ed6313e2144bcea66f4d5c7692539e8570035327a3cff5435951394d",
+      "bytes": 276
+    },
+    {
+      "name": "implementation_guide.v11.md",
+      "sha256": "094b5eaebcd9396b51625aa6147ebde1e2eff1d89b1748bce2fb33ded640603c",
+      "bytes": 991
+    },
+    {
+      "name": "openapi/openapi.yaml",
+      "sha256": "3e77ba23d28af5a86cdf2b54aa5ba050dfc50b04b494df1218a38f5d380fdd3d",
+      "bytes": 2581
+    },
+    {
+      "name": "provider_notes.md",
+      "sha256": "69bd343383714ec42482c1dfe848d448e69cc34db1bce541aaf2bc201da1831d",
+      "bytes": 368
+    },
+    {
+      "name": "tests/payment_abstraction_test_plan.md",
+      "sha256": "fa65fa488a42c147a8e4e199bfefa2352b425fad6387e3d77c83977a4f3b828f",
+      "bytes": 339
+    }
+  ]
+}

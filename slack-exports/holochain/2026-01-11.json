@@ -1,0 +1,82 @@
+[
+    {
+        "user": "U09RC73M5T5",
+        "type": "message",
+        "ts": "1768177427.921859",
+        "client_msg_id": "95e1f323-bf80-4503-80d3-8a1efdcba1db",
+        "text": "The alignment is incredible.  When are we speaking with holochain and unyt... I mean it so uncanny the way and thinking of things... how to go about them.... its like tit for tat",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "gc436a5c8b7a",
+            "image_72": "https:\/\/secure.gravatar.com\/avatar\/c436a5c8b7aa44fc2ae54bdc0a9fcf14.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0022-72.png",
+            "first_name": "Mike",
+            "real_name": "Mike",
+            "display_name": "Mike",
+            "team": "T094PL1V9KK",
+            "name": "meander369",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "thread_ts": "1767212494.391639",
+        "parent_user_id": "U094ACC5CHY",
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "hyFwB",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "The alignment is incredible.  When are we speaking with holochain and unyt... I mean it so uncanny the way and thinking of things... how to go about them.... its like tit for tat"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "user": "U09RC73M5T5",
+        "type": "message",
+        "ts": "1768177434.731299",
+        "client_msg_id": "ba7e4767-0b40-48c1-9fd0-886d290e2e37",
+        "text": "just finally watched it",
+        "team": "T094PL1V9KK",
+        "user_team": "T094PL1V9KK",
+        "source_team": "T094PL1V9KK",
+        "user_profile": {
+            "avatar_hash": "gc436a5c8b7a",
+            "image_72": "https:\/\/secure.gravatar.com\/avatar\/c436a5c8b7aa44fc2ae54bdc0a9fcf14.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0022-72.png",
+            "first_name": "Mike",
+            "real_name": "Mike",
+            "display_name": "Mike",
+            "team": "T094PL1V9KK",
+            "name": "meander369",
+            "is_restricted": false,
+            "is_ultra_restricted": false
+        },
+        "thread_ts": "1767212494.391639",
+        "parent_user_id": "U094ACC5CHY",
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "DrUs9",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "just finally watched it"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

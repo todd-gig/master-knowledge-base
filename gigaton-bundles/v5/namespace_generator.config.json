@@ -1,0 +1,19 @@
+{
+  "generator_name": "automated_namespace_generator",
+  "version": "5.0.0",
+  "input_schema_ref": "client_intake_form.schema.json",
+  "outputs": [
+    "client_namespace.generated.json",
+    "client_onboarding_brief.generated.md",
+    "client_memory_overlay.generated.json",
+    "client_scoring_weights.generated.json"
+  ],
+  "rules": [
+    "inherit_from_global",
+    "never_override_foundational_doctrine",
+    "map_preferred_terminology_to_overlay",
+    "prioritize_memories_by_objectives_constraints_and_artifact_priorities",
+    "boost_categories_relevant_to_primary_revenue_motion",
+    "emit_minimum_viable_overlay"
+  ]
+}

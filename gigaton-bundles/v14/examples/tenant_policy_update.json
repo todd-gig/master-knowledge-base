@@ -1,0 +1,14 @@
+{
+  "use_case_rules": [
+    {
+      "use_case": "online_checkout",
+      "primary_provider": "stripe",
+      "fallback_provider": "godaddy_poynt"
+    },
+    {
+      "use_case": "poynt_connected",
+      "primary_provider": "godaddy_poynt",
+      "fallback_provider": "stripe"
+    }
+  ]
+}
