@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.git/
+.gitignore
+.env
+*.md
+tests/
+machine/
+migrations/
+registry/
+sql/
+docs/
