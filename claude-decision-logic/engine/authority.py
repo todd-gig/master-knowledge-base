@@ -15,7 +15,6 @@ Actor roles (ordered by authority):
 
 from .models import DecisionClass, TrustTier
 from .config import EngineConfig, AuthorityRule
-from .gates import TIER_ORDER
 
 
 # Role authority hierarchy — higher number = more authority

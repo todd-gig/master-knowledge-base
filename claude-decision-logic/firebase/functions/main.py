@@ -11,7 +11,6 @@ Functions:
 """
 
 import json
-import os
 from datetime import datetime
 
 from firebase_functions import https_fn, firestore_fn, scheduler_fn, options
@@ -19,15 +18,14 @@ from firebase_admin import initialize_app, firestore
 
 # Engine imports — the engine/ package is copied into functions/
 from engine.models import (
-    DecisionObject, DecisionClass, TrustTier, ReversibilityTag,
+    DecisionObject, DecisionClass, ReversibilityTag,
     TimeHorizon, ValueScores, TrustScores, AlignmentScores,
-    ExecutionVerdict, RTQLStage, RTQLInput
+    RTQLInput
 )
 from engine.pipeline import process_decision
 from engine.config import load_config
 from engine.state_machine import advance_state
-from engine.authority import authority_check
-from engine.audit import serialize_pipeline_result, generate_executive_summary
+from engine.audit import serialize_pipeline_result
 from service.firestore_persistence import FirestorePersistence
 
 # ─────────────────────────────────────────────

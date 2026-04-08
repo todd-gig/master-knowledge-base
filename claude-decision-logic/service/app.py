@@ -16,6 +16,8 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from .routes import router
+from .ovs_routes import router as ovs_router
+from .rtql_routes import router as rtql_router
 
 
 def create_app() -> FastAPI:
@@ -45,6 +47,8 @@ def create_app() -> FastAPI:
 
     # Include routes
     app.include_router(router)
+    app.include_router(ovs_router)
+    app.include_router(rtql_router)
 
     # Custom error handler for validation errors
     @app.exception_handler(RequestValidationError)

@@ -9,13 +9,12 @@ Handles bidirectional conversion between:
 
 import json
 from typing import Any, Dict, Optional
-from datetime import datetime
 
 from engine.models import (
     DecisionObject, DecisionClass, ReversibilityTag, TimeHorizon,
     ValueScores, TrustScores, AlignmentScores,
     RTQLInput, RTQLScores, CausalChecks,
-    PipelineResult, RTQLResult, CertificateChain
+    PipelineResult
 )
 from engine.audit import serialize_pipeline_result
 

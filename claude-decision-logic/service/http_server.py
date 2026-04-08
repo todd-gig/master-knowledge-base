@@ -21,20 +21,17 @@ import sys
 import os
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime
-from typing import Optional
 
 # Ensure parent directory is on path for engine imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from engine.models import (
-    DecisionObject, DecisionClass, TrustTier, ReversibilityTag,
-    TimeHorizon, ValueScores, TrustScores, AlignmentScores,
-    ExecutionVerdict, RTQLStage
+    DecisionObject, DecisionClass, ReversibilityTag,
+    TimeHorizon, ValueScores, TrustScores, AlignmentScores
 )
 from engine.pipeline import process_decision
 from engine.config import load_config
-from engine.state_machine import advance_state, next_state_for_action
-from engine.authority import authority_check
+from engine.state_machine import advance_state
 from engine.audit import serialize_pipeline_result
 from engine.learning_loop import record_outcome, LearningStore
 

@@ -14,19 +14,18 @@ import unittest
 from engine.models import (
     DecisionObject, DecisionClass, ReversibilityTag,
     ValueScores, TrustScores, AlignmentScores, TrustTier,
-    ExecutionVerdict, CertificateChain,
+    CertificateChain,
 )
 from engine.gates import (
     gate_1_doctrine, gate_2_trust_tier, gate_3_value_threshold,
-    gate_4_reversibility, gate_5_risk_containment, gate_6_approval_routing,
-    gate_7_monitoring, run_7_gate_authorization,
+    gate_4_reversibility, gate_5_risk_containment, gate_7_monitoring, run_7_gate_authorization,
 )
 from engine.scoring import (
     calculate_trust_tier, trust_adjusted_value, check_alignment,
     calculate_priority_score,
 )
 from engine.weighted_scoring import compute_weighted_value, compute_weighted_trust
-from engine.config import EngineConfig, load_config
+from engine.config import load_config
 
 
 def _make_decision(**overrides):

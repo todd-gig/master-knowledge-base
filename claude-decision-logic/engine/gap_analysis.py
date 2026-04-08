@@ -27,7 +27,6 @@ Priority Formula:
 """
 
 from dataclasses import dataclass, field
-from typing import Optional
 from .models import RTQLStage
 
 

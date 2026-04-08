@@ -12,11 +12,9 @@ Run: python -m pytest tests/test_core_modules.py -v
 """
 
 import unittest
-from datetime import datetime
 
 from engine.models import (
-    DecisionObject, DecisionClass, ReversibilityTag, TimeHorizon,
-    ValueScores, TrustScores, AlignmentScores,
+    DecisionObject, DecisionClass, ValueScores, TrustScores, AlignmentScores,
     RTQLInput, RTQLScores, CausalChecks,
     TrustTier
 )

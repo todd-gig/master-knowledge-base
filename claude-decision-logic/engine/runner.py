@@ -12,7 +12,6 @@ Demonstrates the full decision processing pipeline with 5 test scenarios:
 Run: python -m engine.runner
 """
 
-import json
 import sys
 import os
 
@@ -26,7 +25,7 @@ from engine.models import (
 )
 from engine.config import EngineConfig
 from engine.pipeline import process_decision
-from engine.audit import result_to_json, generate_executive_summary
+from engine.audit import result_to_json
 
 
 def separator(title: str):
@@ -96,7 +95,7 @@ def scenario_1_d1_auto_execute(config):
 
     result = process_decision(decision, config)
     print(result.executive_summary)
-    print(f"\n--- Full JSON Output ---")
+    print("\n--- Full JSON Output ---")
     print(result_to_json(result))
     return result
 
@@ -150,7 +149,7 @@ def scenario_2_d3_financial_escalate(config):
 
     result = process_decision(decision, config)
     print(result.executive_summary)
-    print(f"\n--- Full JSON Output ---")
+    print("\n--- Full JSON Output ---")
     print(result_to_json(result))
     return result
 
@@ -203,7 +202,7 @@ def scenario_3_d6_blocked(config):
 
     result = process_decision(decision, config)
     print(result.executive_summary)
-    print(f"\n--- Full JSON Output ---")
+    print("\n--- Full JSON Output ---")
     print(result_to_json(result))
     return result
 
@@ -268,7 +267,7 @@ def scenario_4_rtql_degraded(config):
 
     result = process_decision(decision, config)
     print(result.executive_summary)
-    print(f"\n--- Full JSON Output ---")
+    print("\n--- Full JSON Output ---")
     print(result_to_json(result))
     return result
 
@@ -319,7 +318,7 @@ def scenario_5_needs_data(config):
 
     result = process_decision(decision, config)
     print(result.executive_summary)
-    print(f"\n--- Full JSON Output ---")
+    print("\n--- Full JSON Output ---")
     print(result_to_json(result))
     return result
 

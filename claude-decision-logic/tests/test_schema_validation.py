@@ -7,8 +7,8 @@ model and that all required/optional fields are correctly documented.
 
 import sys
 from engine.models import (
-    DecisionObject, ValueScores, TrustScores, RTQLInput, RTQLScores,
-    CausalChecks, AlignmentScores, DecisionClass, TimeHorizon, ReversibilityTag
+    DecisionObject, ValueScores, TrustScores, RTQLScores,
+    DecisionClass, TimeHorizon, ReversibilityTag
 )
 from dataclasses import fields
 
@@ -131,7 +131,7 @@ def test_decision_class_enum():
     
     for prefix, name in expected.items():
         try:
-            dc = DecisionClass[name]
+            _ = DecisionClass[name]
             print(f"  ✓ {name}")
         except KeyError:
             print(f"  ✗ MISSING: {name}")
@@ -148,7 +148,7 @@ def test_time_horizon_enum():
     
     for th in expected:
         try:
-            t = TimeHorizon[th]
+            _ = TimeHorizon[th]
             print(f"  ✓ {th}")
         except KeyError:
             print(f"  ✗ MISSING: {th}")
@@ -166,7 +166,7 @@ def test_reversibility_enum():
     
     for tag in expected:
         try:
-            r = ReversibilityTag[tag]
+            _ = ReversibilityTag[tag]
             print(f"  ✓ {tag}")
         except KeyError:
             print(f"  ✗ MISSING: {tag}")
@@ -200,7 +200,7 @@ def test_decision_object_validation():
     
     errors = decision.validate()
     if not errors:
-        print(f"  ✓ Minimal valid decision passes validation")
+        print("  ✓ Minimal valid decision passes validation")
         return True
     else:
         print(f"  ✗ Validation failed: {errors}")

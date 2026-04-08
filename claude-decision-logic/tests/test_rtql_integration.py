@@ -14,8 +14,6 @@ Coverage:
 """
 
 import unittest
-from dataclasses import dataclass
-from datetime import datetime
 
 from engine.models import (
     RTQLInput, RTQLScores, CausalChecks, RTQLResult,
@@ -24,7 +22,7 @@ from engine.models import (
 )
 from engine.rtql_filter import (
     classify_rtql, rtql_prefilter_passes,
-    TRUST_MULTIPLIERS, WRITE_TARGET_MAP
+    TRUST_MULTIPLIERS
 )
 from engine.pipeline import process_decision
 from engine.config import load_config

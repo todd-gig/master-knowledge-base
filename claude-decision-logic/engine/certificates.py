@@ -12,13 +12,11 @@ Certificate types:
 """
 
 from datetime import datetime, timedelta
-from typing import Optional
 import uuid
 
 from .models import (
     DecisionObject, DecisionClass, TrustTier,
-    Certificate, CertificateType, CertificateStatus, CertificateChain,
-    ValueScores, TrustScores, AlignmentScores
+    Certificate, CertificateType, CertificateStatus, CertificateChain
 )
 from .gates import TIER_ORDER
 
@@ -280,9 +278,9 @@ def issue_ec(decision: DecisionObject,
         cert.issued_at = _now()
         cert.expires_at = _now() + timedelta(days=CERT_EXPIRY_DAYS[CertificateType.EC])
         cert.evidence_basis = [
-            f"All 7 authorization gates passed",
+            "All 7 authorization gates passed",
             f"Trust tier: {trust_tier.value}",
-            f"Execution plan present",
+            "Execution plan present",
             f"Monitoring metric: {decision.monitoring_metric}",
             f"Rollback trigger: {decision.rollback_trigger}",
         ]

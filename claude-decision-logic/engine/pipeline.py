@@ -24,8 +24,8 @@ Single entry point: process_decision(DecisionObject, config?) → PipelineResult
 from typing import Optional
 
 from .models import (
-    DecisionObject, PipelineResult, RTQLInput, RTQLResult,
-    TrustTier, CertificateChain, ExecutionPacket, ExecutionVerdict,
+    DecisionObject, PipelineResult, RTQLResult,
+    CertificateChain, ExecutionVerdict,
     RTQLStage
 )
 from .config import EngineConfig, load_config
@@ -37,10 +37,9 @@ from .scoring import (
 from .weighted_scoring import compute_weighted_value, compute_weighted_trust
 from .authority import authority_check
 from .state_machine import next_state_for_action, advance_state
-from .certificates import build_certificate_chain
 from .gates import run_7_gate_authorization
 from .audit import (
-    AuditLogger, generate_executive_summary, serialize_pipeline_result
+    AuditLogger, generate_executive_summary
 )
 
 
@@ -141,7 +140,7 @@ def process_decision(
     weighted_result = compute_weighted_value(vs, config)
 
     # RTQL trust-adjusted net
-    adjusted_net = trust_adjusted_value(vs, rtql_result.trust_multiplier)
+    trust_adjusted_value(vs, rtql_result.trust_multiplier)
 
     logger.log_value_assessment(gross, penalty, net, classification)
     logger.log(

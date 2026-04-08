@@ -19,12 +19,10 @@ import sys
 import os
 import argparse
 import json
-from typing import Optional
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from engine.models import DecisionObject, PipelineResult
 from engine.pipeline import process_decision
 from engine.config import load_config
 from engine.gap_analysis import analyze_gaps, generate_action_items
@@ -40,7 +38,6 @@ from converters import (
     payload_to_decision,
     load_payload_from_file,
     save_result_to_file,
-    result_to_json,
 )
 
 

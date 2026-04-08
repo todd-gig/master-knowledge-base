@@ -19,7 +19,6 @@ Design Principles:
       (simplifies security rules and cross-decision queries)
 """
 
-import json
 from datetime import datetime
 from dataclasses import asdict
 from typing import Optional

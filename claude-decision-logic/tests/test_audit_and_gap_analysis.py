@@ -14,12 +14,10 @@ Run: python -m unittest tests.test_audit_and_gap_analysis -v
 """
 
 import unittest
-from datetime import datetime
 
 from engine.models import (
-    DecisionObject, DecisionClass, ValueScores, TrustScores,
     AlignmentScores, RTQLResult, RTQLStage, WriteTarget,
-    PipelineResult, AuditRecord, CertificateChain, ExecutionPacket,
+    PipelineResult, CertificateChain, ExecutionPacket,
     ExecutionVerdict, TrustTier
 )
 from engine.audit import (

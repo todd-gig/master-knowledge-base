@@ -23,7 +23,7 @@ If any gate 1-5 fails → BLOCK or ESCALATE based on severity
 from .models import (
     DecisionObject, DecisionClass, ReversibilityTag, TrustTier,
     ExecutionVerdict, ExecutionPacket, AlignmentScores,
-    CertificateChain, CertificateType
+    CertificateChain
 )
 
 

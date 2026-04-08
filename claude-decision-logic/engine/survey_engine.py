@@ -35,8 +35,8 @@ from enum import Enum
 from typing import Optional
 from collections import defaultdict
 
-from .rtql_filter import classify_rtql, TRUST_MULTIPLIERS
-from .gap_analysis import calculate_gap, calculate_priority, gap_severity, analyze_gaps, generate_action_items, ActionItem
+from .rtql_filter import classify_rtql
+from .gap_analysis import calculate_gap, analyze_gaps, generate_action_items, ActionItem
 from .models import RTQLInput, RTQLScores, CausalChecks, RTQLStage
 
 

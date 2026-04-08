@@ -14,7 +14,7 @@ Key difference:
 """
 
 from .models import ValueScores, TrustScores, TrustTier
-from .config import EngineConfig, ValueWeights, PenaltyWeights
+from .config import EngineConfig
 
 
 def compute_weighted_value(

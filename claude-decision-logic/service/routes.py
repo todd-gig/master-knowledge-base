@@ -20,15 +20,14 @@ from fastapi import APIRouter, HTTPException, status
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from engine.models import (
-    DecisionObject, DecisionClass, TrustTier, ReversibilityTag,
-    TimeHorizon, ValueScores, TrustScores, AlignmentScores, RTQLInput,
-    PipelineResult, ExecutionVerdict
+    DecisionObject, DecisionClass, ReversibilityTag,
+    TimeHorizon, ValueScores, TrustScores, AlignmentScores, PipelineResult, ExecutionVerdict
 )
 from engine.pipeline import process_decision
 from engine.config import load_config, EngineConfig
-from engine.state_machine import advance_state, can_transition, next_state_for_action
+from engine.state_machine import advance_state, next_state_for_action
 from engine.authority import authority_check
-from engine.gap_analysis import analyze_gaps, generate_action_items, GapItem as EngineGapItem
+from engine.gap_analysis import analyze_gaps
 
 from .schemas import (
     DecisionEvaluationRequest, DecisionEvaluationResponse,
@@ -36,7 +35,7 @@ from .schemas import (
     GapAnalysisRequest, GapAnalysisResponse,
     HealthResponse, ConfigResponse,
     ValueResult, TrustResult, AuthorityResult, CertificateStatus,
-    AuditEntry, ExecutionVerdictResponse
+    AuditEntry, GapItem
 )
 
 
@@ -82,15 +81,6 @@ def map_decision_input_to_engine(decision_input) -> DecisionObject:
         "R2": ReversibilityTag.R2_MODERATELY_REVERSIBLE,
         "R3": ReversibilityTag.R3_COSTLY_TO_REVERSE,
         "R4": ReversibilityTag.R4_EFFECTIVELY_IRREVERSIBLE,
-    }
-
-    # Map trust tier string to enum
-    trust_map = {
-        "T0": TrustTier.T0_UNQUALIFIED,
-        "T1": TrustTier.T1_OBSERVED,
-        "T2": TrustTier.T2_QUALIFIED,
-        "T3": TrustTier.T3_CERTIFIED,
-        "T4": TrustTier.T4_DELEGATED,
     }
 
     # Map time horizon string to enum (if provided)

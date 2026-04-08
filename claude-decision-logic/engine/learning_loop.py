@@ -17,7 +17,7 @@ Index:   JSON file at {data_dir}/learning_index.json (keyed by decision_id)
 
 import json
 import os
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
