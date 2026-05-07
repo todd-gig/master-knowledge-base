@@ -1,0 +1,19 @@
+# Default owners for everything in any repo using this template.
+# Both reviewers required for changes to: migrations, secrets, IAM,
+# custom-domain config, POLICY.md, SERVICES.md, any cloudbuild.yaml.
+#
+# Drop this file at <repo>/.github/CODEOWNERS in every production repo.
+
+* @todd-gig @bella-byte
+
+# High-sensitivity paths require both reviewers explicitly.
+/cloudbuild.yaml @todd-gig @bella-byte
+/.github/workflows/ @todd-gig @bella-byte
+/migrations/ @todd-gig @bella-byte
+/prisma/migrations/ @todd-gig @bella-byte
+/POLICY.md @todd-gig @bella-byte
+/SERVICES.md @todd-gig @bella-byte
+/PROCESS.md @todd-gig @bella-byte
+/PRINCIPLES.md @todd-gig @bella-byte
+/CODEOWNERS @todd-gig @bella-byte
+/.github/CODEOWNERS @todd-gig @bella-byte
