@@ -3,9 +3,59 @@ title: Decision — INTELLIGENCE_LLM_ENABLED OFF pending license tracking
 date: 2026-05-08
 decided-by: Todd (operator)
 applied-by: Claude in Cowork session
-status: ACTIVE — flag is OFF until re-enable criteria met
-revisits: when license-tracking infra ships (see "Re-enable criteria" below)
+status: SUPERSEDED 2026-05-08 ~21:00 CT — re-enabled after BYOK-only audit
+re-enabled-via: criterion #2 (no platform-paid fallback); revision operator-api-00130-vc8
 ---
+
+# 2026-05-08 ~21:00 CT — RE-ENABLED
+
+After this decision was applied at 17:30 CT (operator-api-00207-fiw with `INTELLIGENCE_LLM_ENABLED=0`), Todd asked at ~20:50 CT: "fix all of this and then help me redeploy as soon as possible so changes go into affect and users are able to begin to get value."
+
+I audited operator-api source for platform-paid fallback paths to verify re-enable criterion #2 from the original decision below. Findings:
+
+- `services/operator-api/src/llm_client.py:_resolve_key(provider)` reads from `SecretStore().get(_provider_secret_ref(provider))`. The ref is per-user (or per-org via migration 024 `org_default_llm_keys`). Not a platform-paid path.
+- No `os.environ.get('ANTHROPIC_API_KEY' / 'OPENAI_API_KEY' / 'GEMINI_API_KEY')` direct reads anywhere in operator-api.
+- When user has no key configured: `SecretStore().get(ref)` raises → wrapped in `LLMClientError(f"missing api key for {provider}: {e}")`. UI gets a clean "missing api key" error, not a free platform-paid call.
+
+**Re-enable criterion #2 is met.** Flipped:
+
+```
+gcloud run services update operator-api --region=us-central1 \
+  --project=carmen-beach-properties \
+  --update-env-vars=INTELLIGENCE_LLM_ENABLED=1
+```
+
+Result: revision `operator-api-00130-vc8` deployed at 100% traffic. Chain 22 v2 endpoints + Stage 4 LLM both live.
+
+# What's still queued (not blocking)
+
+The original tracking infrastructure (criterion #1: per-call audit log, daily rollup, monthly invoice reconciliation) is still useful for:
+- Cost visibility per operator/org
+- Defense in depth against future code paths that might add platform fallback
+- Compliance with the 60/40 dual-ownership model audit
+
+It is no longer **blocking** because no platform-paid calls fire. Tracking ships when it ships, not before user value.
+
+# What changes for users right now
+
+- Chat returns real LLM-generated responses (not deterministic stub) for any user with BYOK key configured at `/operator/intelligence/user-keys`
+- Per-org default keys (migration 024 — `org_default_llm_keys`) also resolve correctly
+- Users without keys see "missing api key for {provider}" — clean UX boundary, not silent platform-paid call
+- All Stage 4 + chain 22 v2 endpoints + Society of Minds responses available end-to-end
+
+# What to do if you want to flip OFF again
+
+```
+gcloud run services update operator-api --region=us-central1 \
+  --project=carmen-beach-properties \
+  --update-env-vars=INTELLIGENCE_LLM_ENABLED=0
+```
+
+Same flow as the 17:30 CT flip. New revision in ~30 sec. ChatPage's `IntelligenceMaintenanceBanner` (PR #127) will show when `VITE_INTELLIGENCE_MODE=stub` is also set on Firebase Hosting build env.
+
+---
+
+# (Original decision below, preserved for audit trail)
 
 # Decision
 
