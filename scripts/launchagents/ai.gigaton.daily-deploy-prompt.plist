@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Gigaton daily deploy prompt — fires at 19:00 America/Chicago daily.
+
+  To install:
+    cp master-knowledge-base/scripts/launchagents/ai.gigaton.daily-deploy-prompt.plist \
+       ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/ai.gigaton.daily-deploy-prompt.plist
+
+  To verify:
+    launchctl list | grep ai.gigaton.daily-deploy-prompt
+
+  To unload:
+    launchctl unload ~/Library/LaunchAgents/ai.gigaton.daily-deploy-prompt.plist
+
+  IMPORTANT: macOS converts launchd StartCalendarInterval to local time, NOT
+  to the timezone of TZ env. To fire at 19:00 America/Chicago specifically,
+  the system timezone must be America/Chicago. If running in a different TZ,
+  adjust the Hour value.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ai.gigaton.daily-deploy-prompt</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/admin/Documents/GitHub/master-knowledge-base/scripts/deploy_19_prompt.sh</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>19</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/admin/Documents/GitHub/master-knowledge-base/deploy_logs/launchd_stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/admin/Documents/GitHub/master-knowledge-base/deploy_logs/launchd_stderr.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:/Users/admin/google-cloud-sdk/bin</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>
