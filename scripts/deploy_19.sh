@@ -30,7 +30,11 @@ SERVICES=(
   "sales-operating-system|$GH_ROOT/sales-operating-system|cloudbuild"
   "intelligence-silo|$GH_ROOT/intelligence-silo|cloudbuild"
   "sovereign-influence-engine|$SIE_ROOT|sie_daily"
-  "Carmen-Beach-Properties|$GH_ROOT/Carmen-Beach-Properties|gh_workflow"
+  # DESCOPED 2026-05-08 until 2026-05-13 (Wed) — Carmen Beach needs:
+  # 6 GH secrets + Cloud SQL instance + Secret Manager entries + gh-deploy SA
+  # before deploy-prod.yml workflow can succeed. See:
+  # decisions/2026-05-08_carmen_beach_descope.md for the prereq checklist.
+  # "Carmen-Beach-Properties|$GH_ROOT/Carmen-Beach-Properties|gh_workflow"
   "Gigaton-UI-Platform|$GH_ROOT/Gigaton-UI-Platform|firebase_auto_verify"
 )
 
@@ -84,7 +88,17 @@ preflight() {
     fi
   fi
 
-  echo "✓ pre-flight clean (CT hour=$h, gcloud=ok, prev=ok)"
+  # Governance verification: refuse to deploy if canonical docs are missing or stale.
+  # publish_governance.sh emits its own manifest into deploy-log.jsonl.
+  if [[ -x "$MKB_ROOT/scripts/publish_governance.sh" ]]; then
+    if ! "$MKB_ROOT/scripts/publish_governance.sh" >&2; then
+      echo "✗ governance verification failed — see deploy-log.jsonl" >&2
+      log_event preflight _all blocked "governance verification failed"
+      return 5
+    fi
+  fi
+
+  echo "✓ pre-flight clean (CT hour=$h, gcloud=ok, prev=ok, governance=ok)"
   log_event preflight _all ok ""
   return 0
 }
@@ -96,8 +110,18 @@ deploy_cloudbuild() {
     log_event deploy_end "$svc" failed "no cloudbuild.yaml"
     return 1
   fi
-  echo "  → cloudbuild submit for $svc"
-  ( cd "$path" && gcloud builds submit --config=cloudbuild.yaml --project="$GCP_PROJECT" --quiet )
+  # cloudbuild.yamls reference $COMMIT_SHA which Cloud Build only auto-populates
+  # when triggered from a git source (Cloud Source Repositories / GitHub trigger).
+  # When invoked from a local tarball via `gcloud builds submit`, COMMIT_SHA is
+  # empty unless we pass it explicitly.
+  local sha
+  sha=$(git -C "$path" rev-parse HEAD 2>/dev/null || echo "manual-$(date +%s)")
+  echo "  → cloudbuild submit for $svc (sha=${sha:0:12})"
+  ( cd "$path" && gcloud builds submit \
+      --config=cloudbuild.yaml \
+      --project="$GCP_PROJECT" \
+      --substitutions="COMMIT_SHA=$sha" \
+      --quiet )
 }
 
 deploy_sie_daily() {
