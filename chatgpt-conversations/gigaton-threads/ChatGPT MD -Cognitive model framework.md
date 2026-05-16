@@ -593,7 +593,7 @@ If you want, I can next:
 *   Build the causal DAG for these drivers
 *   Translate it into a startup profitability prediction engine
 *   Create a scoring model you can run against any startup
-*   Or map this directly onto Carmen Beach Properties or Gigaton’s business model
+*   Or map this directly onto PDC or Gigaton’s business model
 
 
 

@@ -32,7 +32,7 @@ Infographic Concept: Gigaton Intelligence as a Virtuous Cycle for Playa del Carm
 
 ---
 
-**Title:** Omni-Intelligent Interaction Systems for Carmen Beach Properties
+**Title:** Omni-Intelligent Interaction Systems for PDC
 
 **Core Purpose:** To engineer a self-reinforcing ecosystem of human, economic, and technological growth that enhances community quality of life and operational excellence.
 

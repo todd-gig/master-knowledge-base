@@ -110,7 +110,7 @@ Todd Nelson: Yeah, it's the house. So, it's a matter of, okay, so if we have all
  
 Todd Nelson: Then based on that, I can model and math out the acquisition cost, the management cost, the and everything. clicks together or the math actually works out. You get what I'm saying?
 Matt Foster: Yep.
-Todd Nelson: Um, and then that is what fundamentally gives us the, you know, it that's what makes Carmen Beach Properties the business in a box and does what I was talking about before as far as predictably profitable startup, right?
+Todd Nelson: Um, and then that is what fundamentally gives us the, you know, it that's what makes PDC the business in a box and does what I was talking about before as far as predictably profitable startup, right?
 Matt Foster: Yep.
 Todd Nelson: Because going back to what we were talking about last night, like instead of building the MVP to see if the market accepts it, which again the MVP to me, it's not MVP unless it's profitable, right? Period. Right?
 Matt Foster: I like that. I like that.
@@ -552,7 +552,7 @@ Here’s the concrete task stack for Todd coming out of this convo, stripped dow
         *   Traits/characteristics criteria.
         *   Self-adjusting compensation structure that yields a fixed cost for a fixed output.
 6.  Generalize that structure so it can be reused for other roles (call center agents, videographers, etc.).
-7.  Build the Carmen Beach Properties causal/business model:
+7.  Build the PDC causal/business model:
     *   Model acquisition cost, management cost, tech costs, affiliate costs.
     *   Ensure the math “clicks together” so Carmen Beach is a “business-in-a-box”.
     *   Hardwire the constraint that MVP = profitable after covering Todd’s “nut” + investor return.

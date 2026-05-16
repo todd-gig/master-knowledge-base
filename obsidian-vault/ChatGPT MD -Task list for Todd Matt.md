@@ -468,11 +468,11 @@ Todd Nelson: I can have emails at multiple domains and it's still the license fe
 
 00:51:58
  
-Todd Nelson: Matt Foster at Gigaton, Matt Foster at Carmen Beach Properties, Matt Foster at b******* Domain.
+Todd Nelson: Matt Foster at Gigaton, Matt Foster at PDC, Matt Foster at b******* Domain.
 Matt Foster: Yeah.
 Todd Nelson: Your price for email isn't going to go up. Your price for nothing is going to go up. You can have multiple domains with one account. You understand what it's in?
 Matt Foster: Yes. Yes. But I'm I I know that Caleb already has has this in place. So, we can do it with that to have it all in place. All the emails, all the domains.
-Todd Nelson: telling you if you buy Carmen Beach Properties correctly, it's automatically there and it just it says, "Would you like to create a Matt Carmen Beach properties email as well?" And it doesn't charge anymore and you now have a mailbox that's matte beach properties for free. We just need the domain right?
+Todd Nelson: telling you if you buy PDC correctly, it's automatically there and it just it says, "Would you like to create a Matt Carmen Beach properties email as well?" And it doesn't charge anymore and you now have a mailbox that's matte beach properties for free. We just need the domain right?
 Matt Foster: Yeah, just need just need the domain.
 Todd Nelson: You get what I'm saying here?
 Matt Foster: I understand we need the domain.
@@ -513,7 +513,7 @@ Todd Nelson: Um. Huh. Okay. So, like here. So, go under um Okay. Go under here. 
 
 00:56:24
  
-Todd Nelson: Okay, so where it says primary email at, if you have another domain attached to this account that this account is authorized for, right, which would be Carmen Beach properties, then it would allow you instead of at gigaton, you could select at Carmen Beach Properties, right? Now that this when you if you close this and you go back to your there you would be able to click on your name or you would be able to do it and then add another one and then what ends up happening is you have one you have one license but you have multiple emails with multiple domain names. You get what I'm saying?
+Todd Nelson: Okay, so where it says primary email at, if you have another domain attached to this account that this account is authorized for, right, which would be Carmen Beach properties, then it would allow you instead of at gigaton, you could select at PDC, right? Now that this when you if you close this and you go back to your there you would be able to click on your name or you would be able to do it and then add another one and then what ends up happening is you have one you have one license but you have multiple emails with multiple domain names. You get what I'm saying?
 Matt Foster: I understand. Yeah. Yeah. If you had another domain.
 Todd Nelson: So so from a so from now it's not exactly an alias.
 Matt Foster: Yeah.
@@ -697,7 +697,7 @@ Todd Nelson: Um, realy.realy.propy.homes. homes.
 Matt Foster: Top level domains.
 Todd Nelson: Okay. So, PL Carman Realy, that one's expensive. 6,300 Mexican, but it's available. Um, homes is only 5.40. Podo Carman Homes is 5.40. And that would go with the brand because we're helping them find a quality place to call home. That's a tagline. You understand?
 Matt Foster: Okay.
-Todd Nelson: Our company mission. Okay. So, it's Carmen Beach Properties is a company name, right?
+Todd Nelson: Our company mission. Okay. So, it's PDC is a company name, right?
 Matt Foster: Okay. Okay. So, that was available. You said Oh, apply to Karman homes.
 Todd Nelson: Flyiocarman. I'll send it to you on Slack.
 Matt Foster: Okay.
@@ -705,7 +705,7 @@ Todd Nelson: Right. And keep in mind, we're I'm getting this transcript.
 
 01:14:58
  
-Todd Nelson: I have it recording for me, right? So, all of this is going to be dumped into ClickUp and it's going to spit out all kinds of s***, right? Ply Carman Homes is the domain. Carmen Beach Properties is going to be the company if we incorporate a company in Mexico. You understand?
+Todd Nelson: I have it recording for me, right? So, all of this is going to be dumped into ClickUp and it's going to spit out all kinds of s***, right? Ply Carman Homes is the domain. PDC is going to be the company if we incorporate a company in Mexico. You understand?
 Matt Foster: Okay. Sure.
 Todd Nelson: Internally within Gigaton, this is referred to as a Carmen Beach property project, right?
 Matt Foster: Yeah.
@@ -715,7 +715,7 @@ Todd Nelson: Then on the website, we're going to have a popup that says, "We hel
 
 01:16:08
  
-Todd Nelson: Right? Home is there as soon as it comes in. They see piocarman.comome. That's it. You understand? That is that is better than Carmen Beach Properties, right? But again, the company and all that is still Carmen Beach Properties. If you were going to have a if you were going to have a business card, right? That is common beach property's business card. Make sense?
+Todd Nelson: Right? Home is there as soon as it comes in. They see piocarman.comome. That's it. You understand? That is that is better than PDC, right? But again, the company and all that is still PDC. If you were going to have a if you were going to have a business card, right? That is common beach property's business card. Make sense?
 Matt Foster: Yeah. Yeah, it does.
 Todd Nelson: That works out f****** perfect and awesome, right? Um, so she's doing all the stuff for she's got to talk to her accountant still and she's got she's got a list of s*** to have the accountant for knowing the business s***, right?
 Matt Foster: Hey, what was the conversation with it? Uh, what's the headline?
@@ -888,7 +888,7 @@ _(derived from full transcript, with expected outcomes and rationale)_
 **Assigned:** Matt (execution)  
 **Tasks:**
 
-*   Register a project domain (final name TBD between “Carmen Beach Properties” and “Playacar Homes”).
+*   Register a project domain (final name TBD between “PDC” and “Playacar Homes”).
 *   Link to Google Workspace for email routing.  
     **Expected Outcome:**
 *   Domain available for hosting, client communication, and marketing.  

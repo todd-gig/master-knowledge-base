@@ -689,7 +689,7 @@ Tell me which asset you want next.
 categorize intent of potential customers contacting carmen beach properties with an interaction flow engineered to capture behavior characteristics with examples of language and qualification rules
 
 ## Response:
-Below is a **structured intent taxonomy + interaction flow + qualification logic** engineered for _predictive outbound, causal modeling, and high-yield conversion_ for Carmen Beach Properties.  
+Below is a **structured intent taxonomy + interaction flow + qualification logic** engineered for _predictive outbound, causal modeling, and high-yield conversion_ for PDC.  
 It’s built to operationalize **behavior capture → mental model classification → next-best-action routing**.
 
 This framework gives you a **scalable, machine-readable playbook** for intent identification and behavioral segmentation directly from WhatsApp, phone, email, or social DMs.

@@ -672,14 +672,14 @@ Simply say **“Generate the Figma ingest version”** or **“Produce the Gigat
 create and use a brand style guide for carmen beach properties that emphasizes luxury with video and tropical beach properties targeting a 30-50 year old European market , then create the interactive website wireframes
 
 ## Response:
-Below is a **complete brand style guide for Carmen Beach Properties** followed by **full interactive website wireframes**—engineered for Figma AI ingestion and direct translation into a high-conversion luxury site for 30–50-year-old European travelers and investors.
+Below is a **complete brand style guide for PDC** followed by **full interactive website wireframes**—engineered for Figma AI ingestion and direct translation into a high-conversion luxury site for 30–50-year-old European travelers and investors.
 
 Two image groups are included **only** to anchor visual direction (luxury tropics + brand mood).  
 Everything else is text-structured for immediate workflow integration into Figma.
 
 * * *
 
-**Carmen Beach Properties – Brand Style Guide (Lux Tropical European Edition)**
+**PDC – Brand Style Guide (Lux Tropical European Edition)**
 ===============================================================================
 
 ![https://www.exceptionalvillas.com/public/upload/listing_photos_resize/w1900xh1900-Beach-House-Riviera-Maya-Exceptional-Villas-33.jpg](https://tse4.mm.bing.net/th/id/OIP.YjUIGJ4UfZ0BoGCgWA63RgHaE8?w=474&h=379&c=7&p=0)
