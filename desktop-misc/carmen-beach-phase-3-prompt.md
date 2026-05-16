@@ -1,4 +1,4 @@
-# Carmen Beach Properties — Phase 3 Claude Code Prompt
+# PDC — Phase 3 Claude Code Prompt
 
 ## Optional execution constraints assumed
 - Do not generate broad speculative architecture documents. Inspect the existing codebase first, then implement the smallest production-safe changes that unlock the required Phase 3 capabilities.
@@ -6,7 +6,7 @@
 
 ## Prompt
 
-You are continuing development of the Carmen Beach Properties monorepo.
+You are continuing development of the PDC monorepo.
 
 Phase 3 objective:
 Productionize the platform for real-world operations on Google Cloud, integrate Google Drive and Google Workspace surfaces, and harden the system for reliability, security, observability, and maintainability.

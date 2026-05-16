@@ -2,7 +2,7 @@
 title: carmen-beach-agent-costing
 project: Carmen-Beach-Properties
 source_file: CarmenBeach_Costing_Calculator_Governed.xlsx
-description: Governed compensation model for Carmen Beach AI agent roles: Photographer, Listing Agent, Leasing Agent, Property Management Agent, Tenant Management
+description: Governed compensation model for PDC AI agent roles: Photographer, Listing Agent, Leasing Agent, Property Management Agent, Tenant Management
 extracted: 2026-04-01
 tags:
   - carmen-beach
@@ -12,7 +12,7 @@ tags:
 type: xlsx-knowledge-extract
 ---
 
-# Governed compensation model for Carmen Beach AI agent roles: Photographer, Listing Agent, Leasing Agent, Property Management Agent, Tenant Management
+# Governed compensation model for PDC AI agent roles: Photographer, Listing Agent, Leasing Agent, Property Management Agent, Tenant Management
 
 **Source**: `CarmenBeach_Costing_Calculator_Governed.xlsx`
 **Project**: `Carmen-Beach-Properties`

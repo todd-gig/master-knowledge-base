@@ -2,7 +2,7 @@
 title: carmen-beach-affiliate-model
 project: Carmen-Beach-Properties
 source_file: CarmenBeach_Affiliate_Growth_Calculator.xlsx
-description: Affiliate growth and revenue projection model for Carmen Beach STR/LTR property acquisition
+description: Affiliate growth and revenue projection model for PDC STR/LTR property acquisition
 extracted: 2026-04-01
 tags:
   - carmen-beach
@@ -13,7 +13,7 @@ tags:
 type: xlsx-knowledge-extract
 ---
 
-# Affiliate growth and revenue projection model for Carmen Beach STR/LTR property acquisition
+# Affiliate growth and revenue projection model for PDC STR/LTR property acquisition
 
 **Source**: `CarmenBeach_Affiliate_Growth_Calculator.xlsx`
 **Project**: `Carmen-Beach-Properties`

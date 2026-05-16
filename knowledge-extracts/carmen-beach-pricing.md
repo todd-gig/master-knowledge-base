@@ -2,7 +2,7 @@
 title: carmen-beach-pricing
 project: Carmen-Beach-Properties
 source_file: CarmenBeach_Pricing_Calculator.xlsx
-description: Service pricing catalog for Carmen Beach: media capture, listing optimization, Gigaton tech stack integration, property management packages
+description: Service pricing catalog for PDC: media capture, listing optimization, Gigaton tech stack integration, property management packages
 extracted: 2026-04-01
 tags:
   - carmen-beach
@@ -12,7 +12,7 @@ tags:
 type: xlsx-knowledge-extract
 ---
 
-# Service pricing catalog for Carmen Beach: media capture, listing optimization, Gigaton tech stack integration, property management packages
+# Service pricing catalog for PDC: media capture, listing optimization, Gigaton tech stack integration, property management packages
 
 **Source**: `CarmenBeach_Pricing_Calculator.xlsx`
 **Project**: `Carmen-Beach-Properties`

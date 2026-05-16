@@ -1,4 +1,4 @@
-# Carmen Beach Properties — Phase 2 Claude Code Prompt
+# PDC — Phase 2 Claude Code Prompt
 
 ## Optional execution constraints assumed
 - Before writing code, inspect the existing repo and infer Phase 1 implementation details. Then continue Phase 2 in a way that preserves current architectural patterns, naming conventions, linting rules, and package boundaries. Where existing patterns are weak, improve them minimally rather than rewriting the system.
@@ -6,7 +6,7 @@
 
 ## Prompt
 
-You are continuing development of the Carmen Beach Properties monorepo.
+You are continuing development of the PDC monorepo.
 
 Phase 1 already established:
 - monorepo structure
@@ -38,7 +38,7 @@ Do not produce placeholder strategy notes. Implement.
 BUSINESS GOAL
 ==================================================
 
-Build an intelligence and automation layer that turns Carmen Beach Properties into an acquisition, conversion, and revenue optimization engine for a small geographic market.
+Build an intelligence and automation layer that turns PDC into an acquisition, conversion, and revenue optimization engine for a small geographic market.
 
 The system must:
 - enrich listing quality automatically

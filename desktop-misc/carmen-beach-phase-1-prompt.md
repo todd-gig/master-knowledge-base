@@ -1,4 +1,4 @@
-# Carmen Beach Properties — Phase 1 Claude Code Prompt
+# PDC — Phase 1 Claude Code Prompt
 
 ## Optional execution constraints assumed
 - Reject shallow scaffolding. Prefer working vertical slices with real schema, routes, services, and admin screens over placeholder files.
@@ -10,7 +10,7 @@ You are a senior full-stack architect and systems designer.
 
 Your task is to build a production-grade monorepo for a real estate + tourism platform called:
 
-**Carmen Beach Properties**
+**PDC**
 
 This is **not** a simple listing site.
 
