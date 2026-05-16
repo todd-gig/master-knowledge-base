@@ -26,7 +26,7 @@ cd ~/Documents/GitHub/master-knowledge-base
 ./scripts/deploy_19.sh
 ```
 
-What runs (Carmen Beach descoped to 2026-05-13 — 6 services tonight):
+What runs (PDC descoped to 2026-05-13 — 6 services tonight):
 
 | # | Service | Mechanism | What it does |
 |---|---|---|---|
@@ -87,8 +87,8 @@ After everything green:
 
 # What to do if something fails
 
-## Carmen Beach skipped intentionally
-Already descoped. If the deploy log marks the run failed because Carmen Beach was attempted, the comment-out in deploy_19.sh didn't take. Fix: re-edit `scripts/deploy_19.sh` and confirm the `Carmen-Beach-Properties` line begins with `#`.
+## PDC skipped intentionally
+Already descoped. If the deploy log marks the run failed because PDC was attempted, the comment-out in deploy_19.sh didn't take. Fix: re-edit `scripts/deploy_19.sh` and confirm the `Carmen-Beach-Properties` line begins with `#`.
 
 ## intelligence-silo build fails
 Probably out of build minutes or PyPI hiccup. Re-run just that service:

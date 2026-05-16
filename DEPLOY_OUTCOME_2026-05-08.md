@@ -87,7 +87,7 @@ When SIE daily_deploy.sh finishes:
 | todd-gig/sovereign-influence-engine | #193 | Phase A+B+C (951+ tests, 968/972 passing — 4 failures pre-existed) |
 | todd-gig/sovereign-influence-engine | #194 | Chain 22 v2 backend (migration 027 + endpoints + state machine) |
 | todd-gig/master-knowledge-base | #1 | Day-0 governance bundle |
-| todd-gig/master-knowledge-base | #2 | Affiliate-centralization decision + Carmen Beach descope + LLM_ENABLED off + tonight runbook |
+| todd-gig/master-knowledge-base | #2 | Affiliate-centralization decision + PDC descope + LLM_ENABLED off + tonight runbook |
 | todd-gig/intelligence-silo | #1 | Tonight's silo fixes (pyproject + vault.py) |
 | bella-byte/Gigaton-UI-Platform | #118, #121, #125, #126, #127, #128 | 6 PRs (most either already on main or queued for Bella's review) |
 
@@ -96,7 +96,7 @@ When SIE daily_deploy.sh finishes:
 1. **Enable Artifact Registry API on gigaton-platform** — see MESSAGE_TO_BELLA_2026-05-08.md (or grant todd@gigaton.ai admin on that project). Unblocks every Firebase deploy.
 2. **Review + merge silo PR #1** to land tonight's fixes onto main.
 3. **Review + merge SIE PRs #193, #194** to land Phase A+B+C (already deployed via daily_deploy tonight) and chain 22 v2 (already deployed) onto canonical master.
-4. **Carmen Beach unblock by Wednesday 2026-05-13** per `decisions/2026-05-08_carmen_beach_descope.md`.
+4. **PDC unblock by Wednesday 2026-05-13** per `decisions/2026-05-08_carmen_beach_descope.md`.
 
 # Net production impact
 
