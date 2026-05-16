@@ -58,8 +58,8 @@ purpose: single source of truth before executing the 10-day revenue plan
 | `Gigaton-UI-Platform` is **archived/deprecated** (registry, HANDOFF) | **Most active repo: 337 commits in 60 days, commit today, has CI workflows including `daily janitor for wip/sweep`, Firebase deploys, Bella's fork active.** This is the live multi-tenant product surface. | `git log Gigaton-UI-Platform` |
 | Sweep branch is at master-knowledge-base parent (HANDOFF) | Sweep branch is at `/Users/admin/Documents/GitHub/.git` (parent of all repos). master-knowledge-base is a clean submodule. | `git -C intelligence-silo status` |
 | `~/Documents/GitHub/intelligence-silo` is its own git repo | **It is NOT.** It's a tracked subdirectory of the parent monorepo. Same for `admin-turtleisland`, `bella-byte`, `toddcx-turtleisland`. | `ls -la intelligence-silo/.git` returns nonexistent |
-| Carmen Beach Phase 3 NOT STARTED (registry) | Phase 3 partially done: Cloud SQL + staging/prod pipeline + Prisma migrations merged 2026-05-07 in PR #4. | Carmen Beach `git log` |
-| Carmen Beach on branch `add-chatgpt-snippets-carmen` (registry) | Currently on `main`. PR #3 (sprints 1-8) and PR #4 (migration pipeline) both merged. | Carmen Beach `git status` |
+| PDC Phase 3 NOT STARTED (registry) | Phase 3 partially done: Cloud SQL + staging/prod pipeline + Prisma migrations merged 2026-05-07 in PR #4. | PDC `git log` |
+| PDC on branch `add-chatgpt-snippets-carmen` (registry) | Currently on `main`. PR #3 (sprints 1-8) and PR #4 (migration pipeline) both merged. | PDC `git status` |
 | Bella's GitHub username unknown (HANDOFF blocker #1) | **Confirmed `bella-byte`** (visible in merge commit "Merge branch 'main' of https://github.com/bella-byte/Gigaton-UI-Platform"). | Gigaton-UI-Platform `git log` |
 | Sales OS bridge to Gigaton Engine confirmed wired (registry) | Bridge code exists; runtime integration not verified live. | Repo state only |
 
@@ -84,17 +84,17 @@ purpose: single source of truth before executing the 10-day revenue plan
 
 | Path | Time-to-cash | Status | What's missing |
 |---|---|---|---|
-| **Carmen Beach property bookings** | 0–3 days once domains live | Code is shipped Phase 2; infra is shipped today | Custom domain (`playadelcarmen.homes`), live property data seed, payment processor go-live |
+| **PDC property bookings** | 0–3 days once domains live | Code is shipped Phase 2; infra is shipped today | Custom domain (`playadelcarmen.homes`), live property data seed, payment processor go-live |
 | **SIE Fiduciary Risk Audit campaign** | 1–7 days | Deck + landing + email + one-pager all written 2026-04-22 | Landing-page hosting, email list, SIE rebase fix to demo |
 | **Sales OS internal-then-external** | 7–14 days | Cloud Run live, 214-item catalog, 63 tests | Pricing layer (entitlements + Stripe), customer #1 commitment |
 | **Gigaton-UI-Platform billing dashboard** | 5–10 days | Bundle exists, target repo is most active | Implementation in `Gigaton-UI-Platform`, entitlements schema, Stripe webhooks |
-| **Carmen Beach affiliate tier program** | 3–5 days | 3-tier ladder coded (`feat/sprints-additive-2026-05-06`) | First 3-5 affiliates onboarded, payout test |
+| **PDC affiliate tier program** | 3–5 days | 3-tier ladder coded (`feat/sprints-additive-2026-05-06`) | First 3-5 affiliates onboarded, payout test |
 | **Ti Solutions internal SalesOS** | already revenue | Active dialer + ClickUp + HubSpot stack | SalesOS bridge wired into Ti's deal flow (existing revenue, not net-new) |
 
 # Decisions still pending from user
 
-1. **Which revenue path is Day 1 priority?** Recommend dual-track: (A) Carmen Beach domain go-live + first booking, (B) Fiduciary audit campaign launch (lowest infra burden — landing page on Vercel, email via existing Gmail).
+1. **Which revenue path is Day 1 priority?** Recommend dual-track: (A) PDC domain go-live + first booking, (B) Fiduciary audit campaign launch (lowest infra burden — landing page on Vercel, email via existing Gmail).
 2. **SIE rebase: continue or abort?** Recommend abort + plan the merge as a normal PR; the rebase is touching 40+ files and is fragile.
 3. **Sweep-branch triage cadence:** all-at-once on Day 1, or roll into Day 2 process work? Recommend all-at-once Day 1 — every dirty submodule blocks the deploy ritual.
-4. **Stripe / payment processor account:** owned by which entity (Gigaton, Carmen Beach LLC, Ti Solutions)? Determines accounting + 1099/W-9 chain for affiliates.
+4. **Stripe / payment processor account:** owned by which entity (Gigaton, PDC LLC, Ti Solutions)? Determines accounting + 1099/W-9 chain for affiliates.
 5. **Should `Gigaton-UI-Platform` move into `~/Documents/GitHub/` parent monorepo as a tracked subdir, or stay separate?** It's currently untracked at parent. Recommend: keep separate since it has its own active CI and Bella's collab; just remove from "untracked" noise by adding to parent `.gitignore`.
