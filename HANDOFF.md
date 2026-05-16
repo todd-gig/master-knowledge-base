@@ -16,7 +16,7 @@ I'm todd.cx@turtleisland.solutions / todd@gigaton.ai. I'm executing a 10-day pla
 ## Locked decisions (do not re-ask)
 
 1. **GCP owner of record:** `todd@gigaton.ai`. `todd.cx@turtleisland.solutions` is IAM Viewer only.
-2. **Domain strategy:** per-service custom domains (`api/app/decide/sales/sie/docs.gigaton.ai`, plus `carmenbeach.com` + `admin.carmenbeach.com`).
+2. **Domain strategy:** per-service custom domains (`api/app/decide/sales/sie/docs.gigaton.ai`, plus `playadelcarmen.homes` + `admin.playadelcarmen.homes`).
 3. **Docs site:** Cloud Run + mkdocs-material container. Same deploy pipeline as everything else.
 4. **Daily deploy:** **manual trigger at or by 19:00 CT.** Must complete green before any other work proceeds the next day. No cron. Past 20:00 CT = skip, deploy in the morning.
 5. **CODEOWNERS:** `@todd-gig` + `@bella-byte` (bella@gigaton.ai) on every production repo. New repos auto-provision CODEOWNERS via `scripts/init-repo.sh`.

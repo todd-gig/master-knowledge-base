@@ -34,7 +34,7 @@ sources-audited:
 | # | Decision |
 |---|----------|
 | L1 | GCP owner of record: `todd@gigaton.ai`. `todd.cx@turtleisland.solutions` is IAM Viewer only. |
-| L2 | Domain strategy: `api/app/decide/sales/sie/docs.gigaton.ai` + `carmenbeach.com` + `admin.carmenbeach.com` |
+| L2 | Domain strategy: `api/app/decide/sales/sie/docs.gigaton.ai` + `playadelcarmen.homes` + `admin.playadelcarmen.homes` |
 | L3 | Daily deploy: manual trigger at or by **19:00 CT**. Must be green before next day's work. No cron. Past 20:00 CT = skip, deploy in morning. |
 | L4 | CODEOWNERS: `@todd-gig` + `@bella-byte` on every production repo. |
 | L5 | Platform frontend emerges as `f(user, org, platform.intelligence)` — NOT spec'd up front (Engine Artifact Doctrine). B-15 deferred to Beta 2.1. |
