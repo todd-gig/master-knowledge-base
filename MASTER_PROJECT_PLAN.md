@@ -744,16 +744,16 @@ python scripts/ingest_docs.py \
 
 ---
 
-## DAY 9 — Open Blockers + Carmen Beach
+## DAY 9 — Open Blockers + PDC
 **Goal: close B-06, B-07, B-11 + transcript KB backfill**
 
-### Step 9.1 — B-06: Carmen Beach branch merge (operator decision required)
+### Step 9.1 — B-06: PDC branch merge (operator decision required)
 **Need explicit go-ahead to merge `add-chatgpt-snippets-carmen` → main.**
 main has 2 commits not in the branch. Options:
 - **Recommended:** `git merge main` into the feature branch first to pick up the 2 commits, then PR + squash merge.
 - Alternative: cherry-pick the 2 main commits onto the feature branch.
 
-### Step 9.2 — B-07: SendGrid adapter for Carmen Beach notifications (45 min)
+### Step 9.2 — B-07: SendGrid adapter for PDC notifications (45 min)
 ```bash
 # In Carmen-Beach-Properties/packages/automation/:
 # Create packages/automation/src/adapters/sendgrid.ts
@@ -779,7 +779,7 @@ slack_client.create_canvas(channel=CHANNEL, content=report_text)
 # Or simply write to Cloud Logging + send via Gmail draft
 ```
 
-**End of Day 9:** Carmen Beach blockers cleared. Drift Sentinel has full 5-source coverage. Transcript KB is backfilled.
+**End of Day 9:** PDC blockers cleared. Drift Sentinel has full 5-source coverage. Transcript KB is backfilled.
 
 ---
 
@@ -886,7 +886,7 @@ If deploy fails:
 |---|----------|--------|
 | Q1 | Has the leaked GitHub PAT (`gho_sQlm...`) been rotated? | Day 1.1 |
 | Q2 | What GCP project hosts the Gigaton API services? Is it `carmen-beach-properties` or a separate `gigaton-platform` project? | Day 3.1 |
-| Q3 | Carmen Beach: go-ahead to merge `add-chatgpt-snippets-carmen` → main? | Day 9.1 |
+| Q3 | PDC: go-ahead to merge `add-chatgpt-snippets-carmen` → main? | Day 9.1 |
 | Q4 | Stripe architecture: direct charges vs. Connect marketplace? | B-09 |
 | Q5 | bella-byte: confirm GitHub username is `@bella-byte` (for CODEOWNERS) | Day 2.1 |
 | Q6 | Sales OS: GCS FUSE mount vs. Cloud SQL migration for SQLite persistence? | Day 3.3 |
@@ -905,7 +905,7 @@ If deploy fails:
 - GCS buckets created
 
 ## 🟠 Must close by Day 8 (Beta 2.0 complete)
-- B-07: SendGrid for Carmen Beach
+- B-07: SendGrid for PDC
 - B-10: 4 remaining MAJ drift handlers (MAJ-001, -006, -009, -010)
 - B-11: Drive + ClickUp adapters for Drift Sentinel
 - B-12: GH_TOKEN in GCP
@@ -914,11 +914,11 @@ If deploy fails:
 - Transcript KB: all 9 credentials + backfill
 
 ## 🟡 Close before Beta 2.1 (post this plan)
-- B-06: Carmen Beach branch merge (waiting on operator decision)
-- B-08: Google Drive sync for Carmen Beach
+- B-06: PDC branch merge (waiting on operator decision)
+- B-08: Google Drive sync for PDC
 - B-09: Stripe Connect
-- M-01: Carmen Beach 0 tests
-- M-05/M-06/M-07: Carmen Beach Lead/Pricing/AI subsystem UIs
+- M-01: PDC 0 tests
+- M-05/M-06/M-07: PDC Lead/Pricing/AI subsystem UIs
 - M-08: Observability (Sentry/Datadog)
 - M-09: Audit log surface
 - M-11: SIE ↔ decision-engine shared schema

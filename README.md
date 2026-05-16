@@ -23,7 +23,7 @@ Centralized repository of all AI-generated intelligence — Claude and ChatGPT o
 | `decision-execution-engine/` | 19 | Decision execution engine app |
 | `for-the-group/` | 29 | Group architecture and framework documents |
 | `sales-operating-system/` | 9 | Sales OS MD system |
-| `desktop-misc/` | 19 | Loose desktop files (RTQL, Carmen Beach prompts, etc.) |
+| `desktop-misc/` | 19 | Loose desktop files (RTQL, PDC prompts, etc.) |
 
 ---
 
