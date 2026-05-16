@@ -84,7 +84,7 @@ purpose: single source of truth before executing the 10-day revenue plan
 
 | Path | Time-to-cash | Status | What's missing |
 |---|---|---|---|
-| **Carmen Beach property bookings** | 0–3 days once domains live | Code is shipped Phase 2; infra is shipped today | Custom domain (`carmenbeach.com`), live property data seed, payment processor go-live |
+| **Carmen Beach property bookings** | 0–3 days once domains live | Code is shipped Phase 2; infra is shipped today | Custom domain (`playadelcarmen.homes`), live property data seed, payment processor go-live |
 | **SIE Fiduciary Risk Audit campaign** | 1–7 days | Deck + landing + email + one-pager all written 2026-04-22 | Landing-page hosting, email list, SIE rebase fix to demo |
 | **Sales OS internal-then-external** | 7–14 days | Cloud Run live, 214-item catalog, 63 tests | Pricing layer (entitlements + Stripe), customer #1 commitment |
 | **Gigaton-UI-Platform billing dashboard** | 5–10 days | Bundle exists, target repo is most active | Implementation in `Gigaton-UI-Platform`, entitlements schema, Stripe webhooks |
