@@ -1,5 +1,5 @@
 ---
-title: Decision — Carmen Beach descoped from 19:00 CT deploys until 2026-05-13 (Wed)
+title: Decision — PDC descoped from 19:00 CT deploys until 2026-05-13 (Wed)
 date: 2026-05-08
 decided-by: Todd (operator)
 applied-by: Claude in Cowork session
@@ -11,7 +11,7 @@ revisits: 2026-05-13 (Wednesday) — re-add to deploy_19.sh after prereqs land
 
 `Carmen-Beach-Properties` is removed from `master-knowledge-base/scripts/deploy_19.sh`'s SERVICES array between 2026-05-08 and 2026-05-13. The other 6 services (decision-engine, gigaton-engine, sales-operating-system, intelligence-silo, sovereign-influence-engine, Gigaton-UI-Platform) deploy normally during this window.
 
-Code was changed via comment-out (not deletion) so re-enabling on Wednesday is a single uncomment. The decoy Carmen Beach `gh_workflow` would have failed within ~13 seconds tonight and marked the whole run as failed — blocking tomorrow's preflight.
+Code was changed via comment-out (not deletion) so re-enabling on Wednesday is a single uncomment. The decoy PDC `gh_workflow` would have failed within ~13 seconds tonight and marked the whole run as failed — blocking tomorrow's preflight.
 
 # Why
 
@@ -110,18 +110,18 @@ Test with `--check` then a single-service run:
 
 # What we lose during the descope window
 
-- No Carmen Beach code reaches production this Friday or weekend
+- No PDC code reaches production this Friday or weekend
 - The `add-chatgpt-snippets-carmen` and Phase-2/3 work merged today (PR #3, PR #4) sit unreleased until Wednesday — but: it sits on Bella's main and the staging-and-prod CI/CD config is now in place, so once secrets land it auto-deploys
 
 # What we gain
 
 - No spurious failed-deploy entries in `deploy-log.jsonl` blocking tomorrow's preflight
 - Time to set up infra carefully without 19:00 CT pressure
-- Carmen Beach can launch from a clean baseline on Wednesday
+- PDC can launch from a clean baseline on Wednesday
 
-# Rollback (if you want Carmen Beach in tonight's deploy after all)
+# Rollback (if you want PDC in tonight's deploy after all)
 
-Edit `scripts/deploy_19.sh`, uncomment the Carmen-Beach-Properties row, and ensure prereqs are in place. Or run other 6 services tonight and Carmen Beach manually:
+Edit `scripts/deploy_19.sh`, uncomment the Carmen-Beach-Properties row, and ensure prereqs are in place. Or run other 6 services tonight and PDC manually:
 ```
 gh workflow run deploy-prod.yml --repo todd-gig/Carmen-Beach-Properties
 ```

@@ -3,7 +3,7 @@ title: Decision — Centralize affiliate management at Gigaton platform (SIE cha
 date: 2026-05-08
 decided-by: Todd
 status: ACTIVE — implementation begins this deploy window
-supersedes: per-tenant affiliate models in Carmen-Beach-Properties (deprecated, see "Carmen Beach migration plan" below)
+supersedes: per-tenant affiliate models in Carmen-Beach-Properties (deprecated, see "PDC migration plan" below)
 ---
 
 # Architecture
@@ -17,7 +17,7 @@ gigaton (company)
    gignet (the platform that affiliates plug INTO)
        │ owned by SIE chain 22 (affiliate-program)
        ↓
-       └── tenants (Carmen Beach Properties, Liquefex, future clients)
+       └── tenants (PDC, Liquefex, future clients)
               └── attribute their bookings/conversions to gignet affiliates
               └── do NOT own affiliate state — they consume it
 ```
@@ -41,7 +41,7 @@ SIE adds (migration 027, this deploy window):
 
 # What tenants own (per-tenant, NOT canonicalized at SIE)
 
-Tenants like Carmen Beach own:
+Tenants like PDC own:
 - **Attribution events** — "this booking on my platform was attributed to gignet affiliate `XYZ123`"
 - **Tenant-specific commission events** — what THIS booking owes the affiliate
 - **Tenant-specific payout records** — money that flowed FROM this tenant to the affiliate
@@ -67,23 +67,23 @@ Tenants do NOT own:
 
 This means a non-Gigaton org CAN start the onboarding flow tonight, but real KYC + cryptographic signing + GCS-stored agreements activate as the integrations land.
 
-# Carmen Beach migration plan
+# PDC migration plan
 
-Carmen Beach's local affiliate models become a **thin attribution layer**. Existing models are deprecated, not deleted (preserves PR #4 / #3 work).
+PDC's local affiliate models become a **thin attribution layer**. Existing models are deprecated, not deleted (preserves PR #4 / #3 work).
 
 ## Phase 1 (this deploy window — non-breaking)
-- **Add deprecation marker** comments to Carmen Beach's `Affiliate`, `AffiliateOrganization`, `AffiliateInvite` models in `packages/db/prisma/schema.prisma`. They keep functioning, marked as transitional.
+- **Add deprecation marker** comments to PDC's `Affiliate`, `AffiliateOrganization`, `AffiliateInvite` models in `packages/db/prisma/schema.prisma`. They keep functioning, marked as transitional.
 - Architecture doc landed (this file).
 
 ## Phase 2 (next 1–2 deploys)
-- Carmen Beach `AttributionRecord` gains `gignet_affiliate_id` field — links to SIE's canonical code.
-- Carmen Beach booking creation also writes a `commission_event` to SIE's `/operator/affiliate/commission/record` endpoint (new, ships with chain 22 v3).
-- New Carmen Beach bookings start using gignet's affiliate IDs for new attribution.
+- PDC `AttributionRecord` gains `gignet_affiliate_id` field — links to SIE's canonical code.
+- PDC booking creation also writes a `commission_event` to SIE's `/operator/affiliate/commission/record` endpoint (new, ships with chain 22 v3).
+- New PDC bookings start using gignet's affiliate IDs for new attribution.
 
-## Phase 3 (Carmen Beach Wednesday deploy 2026-05-13 or later)
-- Backfill: existing `Affiliate` rows in Carmen Beach migrate to gignet (or are abandoned if low volume).
-- Carmen Beach's `Affiliate` / `AffiliateOrganization` / `AffiliateInvite` tables drop.
-- `CommissionEvent` and `Payout` in Carmen Beach become tenant-scoped attribution records that reference gignet affiliate IDs by string FK (no relational FK to gignet — different DB).
+## Phase 3 (PDC Wednesday deploy 2026-05-13 or later)
+- Backfill: existing `Affiliate` rows in PDC migrate to gignet (or are abandoned if low volume).
+- PDC's `Affiliate` / `AffiliateOrganization` / `AffiliateInvite` tables drop.
+- `CommissionEvent` and `Payout` in PDC become tenant-scoped attribution records that reference gignet affiliate IDs by string FK (no relational FK to gignet — different DB).
 
 ## Phase 4 (post-multi-tenant)
 - Liquefex onboards as tenant #2; consumes the same gignet affiliate IDs without writing any affiliate code.
@@ -92,13 +92,13 @@ Carmen Beach's local affiliate models become a **thin attribution layer**. Exist
 
 - **D-class**: D2 (reversible architectural shift; deprecation markers don't break tenant behavior)
 - **T-class required**: T2 (architectural change)
-- **Cert chain**: QC (data integrity through migration), VC (preserves all existing PR #3/#4 affiliate work), TC (Carmen Beach existing affiliates must not break)
+- **Cert chain**: QC (data integrity through migration), VC (preserves all existing PR #3/#4 affiliate work), TC (PDC existing affiliates must not break)
 
 # Open questions answered
 
 | Q | Answer |
 |---|---|
-| What about existing Carmen Beach Affiliates with active referrals? | None known to be active in production yet. Phase 3 migration covers backfill if any exist by then. |
+| What about existing PDC Affiliates with active referrals? | None known to be active in production yet. Phase 3 migration covers backfill if any exist by then. |
 | Is the per-tenant commission rate moved to SIE? | Yes — `affiliate_terms` table at SIE keyed by `(tenant_id, tier)`. Tenants advertise their rates by writing terms; SIE enforces. |
 | Can a non-Gigaton org sign up directly without an existing Gigaton invite? | Yes — that's the goal of this work. The new `/operator/affiliate/onboard/start` endpoint accepts any signed-in user; KYC happens via Stripe Connect Express; agreement happens in our UI. |
 | Where does the agreement PDF live? | Cloud Storage bucket `gigaton-affiliate-agreements`, encrypted at rest, KMS-signed metadata. Object key: `agreements/{affiliate_id}/{agreement_version}.pdf`. |
@@ -110,4 +110,4 @@ Per-piece, all reversible:
 - Migration 027 is additive — `DROP TABLE` reverts safely.
 - Frontend route `/affiliate/onboarding` can be unmounted by removing one line in `App.tsx`.
 - Chain 22 v2 endpoints can be unregistered without affecting v1 chain 22 (already in production).
-- Carmen Beach deprecation comments are documentation-only; don't change behavior.
+- PDC deprecation comments are documentation-only; don't change behavior.

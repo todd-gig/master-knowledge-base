@@ -62,7 +62,7 @@ Single function `assemble_context_bundle(user_input, user_id, intent, routing_sc
 | master_kb | master-knowledge-base search (k=3) | framework / decision docs |
 | user_profile | Firebase Auth + Firestore user doc | identity + role + RBAC |
 | org_context | ontology `/org` + Firestore org doc | tenant defaults + policies |
-| client_context | if client_id in scope | per-client substrate (Carmen Beach, Liquefex) |
+| client_context | if client_id in scope | per-client substrate (PDC, Liquefex) |
 | recent_events | feedback-service `/events?operator=&limit=20` | last N outcomes for this operator |
 
 Every fetch is wrapped in try/except — failures return `None` and are logged but don't block the bundle assembly. The bundle's `substrate_completeness` field reflects how many sources contributed.

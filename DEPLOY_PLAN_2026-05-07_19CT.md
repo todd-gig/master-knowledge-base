@@ -104,7 +104,7 @@ Gigaton-UI-Platform            firebase_auto_verify  ~/Documents/GitHub/Gigaton-
 Mechanisms:
 - **cloudbuild** — `gcloud builds submit --config=cloudbuild.yaml --project=carmen-beach-properties`
 - **sie_daily** — runs SIE's existing `daily_deploy.sh` (build + push 11 images, run migrations, redeploy services, health-check)
-- **gh_workflow** — `gh workflow run deploy-prod.yml` (triggers Carmen Beach's GH Actions deploy)
+- **gh_workflow** — `gh workflow run deploy-prod.yml` (triggers PDC's GH Actions deploy)
 - **firebase_auto_verify** — verifies last `firebase-hosting-merge.yml` run on main was green (Gigaton-UI-Platform auto-deploys on PR merge — no separate command needed)
 
 # Tonight's runbook
@@ -175,4 +175,4 @@ launchctl list | grep ai.gigaton.daily-deploy-prompt
 1. **SIE has 4 pre-existing CI failures.** They're not new and don't affect runtime, but if your branch protection requires green CI to merge, you'll have to override. The comment on PR #193 documents why.
 2. **5 PRs touch ChatPage.tsx** (#120, #123, #124 + the merged #91, #88). Conflict-resolution sequence matters — merging out of order produces avoidable rebases.
 3. **#118 has a CI failure** that's NOT investigated yet. Before merging it, look at the failure log.
-4. **Carmen Beach hasn't been touched today.** It has its own deploy pipeline; if no PR is merged tonight, deploy_19.sh's `gh workflow run deploy-prod.yml` will redeploy the existing main HEAD (no-op-ish).
+4. **PDC hasn't been touched today.** It has its own deploy pipeline; if no PR is merged tonight, deploy_19.sh's `gh workflow run deploy-prod.yml` will redeploy the existing main HEAD (no-op-ish).
