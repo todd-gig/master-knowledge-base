@@ -422,7 +422,7 @@ Product architecture (as described)
     *   Liquifex memory: product knowledge, pricing, policies, reseller deltas
     *   Media company memory: shoot-based pricing/terms
     *   Gigaton memory: core IP, governance, network rules
-    *   Carmen Beach Properties memory: leasing, property ops, investor terms
+    *   PDC memory: leasing, property ops, investor terms
 *   **Gigaton Intelligence (shared layer)**
     *   interprets memories,
     *   generates root-cause analysis,

@@ -234,14 +234,14 @@ From an ROI lens:
 *   Blockchain is justified only when **trustless coordination**, **on-chain value**, or **programmable ownership** is the core differentiator.
 *   If you don’t need those, blockchain is a cost center with no strategic upside.
 
-If you want, I can model the expected effort, cost-to-build, and ROI curve for your specific use case (e.g., Liquify, Carmen Beach Properties, Gigaton Ecosystem) based on scope tiers.
+If you want, I can model the expected effort, cost-to-build, and ROI curve for your specific use case (e.g., Liquify, PDC, Gigaton Ecosystem) based on scope tiers.
 
 ## Prompt:
 explain an instance where crustless coordination would benefit carmen beach properties
 
 ## Response:
 **Crustless coordination = trustless coordination**  
-A workflow where multiple parties operate from a shared, tamper-proof source of truth with **zero dependency on manual verification, middlemen, or reconciliations**. For Carmen Beach Properties, this is a direct lever for margin expansion and operational throughput.
+A workflow where multiple parties operate from a shared, tamper-proof source of truth with **zero dependency on manual verification, middlemen, or reconciliations**. For PDC, this is a direct lever for margin expansion and operational throughput.
 
 Here’s a high-value instance where it drives measurable ROI:
 
@@ -250,7 +250,7 @@ Here’s a high-value instance where it drives measurable ROI:
 **Use Case: Multi-Party Revenue Distribution & Booking Governance**
 -------------------------------------------------------------------
 
-Carmen Beach Properties interacts with a fragmented ecosystem:
+PDC interacts with a fragmented ecosystem:
 
 *   Property owners
 *   Cleaners/maintenance vendors
@@ -352,7 +352,7 @@ Fractional ownership or shared investment models become plug-and-play because **
 **Strategic Punchline**
 -----------------------
 
-Trustless coordination transforms Carmen Beach Properties from an operationally constrained property manager into a **tech-enabled asset operator** with:
+Trustless coordination transforms PDC from an operationally constrained property manager into a **tech-enabled asset operator** with:
 
 *   predictable margins
 *   automated financial governance

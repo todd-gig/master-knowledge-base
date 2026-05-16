@@ -268,7 +268,7 @@ Mike should be briefed on these **critical points**, drawn directly from the tra
 
 ### 7\. **Strategic Positioning**
 
-*   Gigaton’s **causal analysis modeling** is being used to define **revenue targets, adoption rates, and scale velocity** for projects like Carmen Beach Properties.
+*   Gigaton’s **causal analysis modeling** is being used to define **revenue targets, adoption rates, and scale velocity** for projects like PDC.
 *   This same logic applies to investor persuasion: the faster the ecosystem scales, the cheaper it is per-unit of value created.
 *   Gigaton’s pitch to investors should **blend data-backed modeling** with the **“powered-by” ecosystem brand architecture** to demonstrate both technical and financial leverage.
 

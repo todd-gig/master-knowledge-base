@@ -759,7 +759,7 @@ Tell me which artifact(s) you want exported first.
 use this logic to create an outline of a 30 second video explaining the gigaton value to property owner logic, branded as carmen beach property with the specific goal of creating curiosity so they've motivated to calculate how much more net their property could be guaranteed to generate monthly
 
 ## Response:
-Below is a **tight, high-impact 30-second video outline** engineered to drive **curiosity**, **FOMO**, and **self-qualification**, branded for **Carmen Beach Properties**, and anchored in Gigaton’s **data-as-an-asset + causal uplift** value logic.
+Below is a **tight, high-impact 30-second video outline** engineered to drive **curiosity**, **FOMO**, and **self-qualification**, branded for **PDC**, and anchored in Gigaton’s **data-as-an-asset + causal uplift** value logic.
 
 No fluff. Pure commercial signal.
 
@@ -768,7 +768,7 @@ No fluff. Pure commercial signal.
 **30-Second Video Outline — “How Much More Could Your Property Be Earning?”**
 =============================================================================
 
-**Brand: Carmen Beach Properties**  
+**Brand: PDC**  
 **Objective: Trigger curiosity → drive owners to calculate their guaranteed monthly net uplift**
 
 * * *
@@ -796,13 +796,13 @@ Fragmented dashboards, multiple booking channels, notifications, price mismatche
 
 * * *
 
-**0:08–0:15 — The Reveal (Gigaton Intelligence Wrapped as Carmen Beach Properties)**
+**0:08–0:15 — The Reveal (Gigaton Intelligence Wrapped as PDC)**
 ------------------------------------------------------------------------------------
 
 **Visual:**  
 Shift to clean, calm interface; causal graph nodes lighting up; automated pricing + distribution animations.  
 **Narration/Text:**  
-“Carmen Beach Properties uses **Gigaton Intelligence** to predict your property’s performance…  
+“PDC uses **Gigaton Intelligence** to predict your property’s performance…  
 and then autonomously make the decisions that increase **occupancy, ADR, and net profit**.”
 
 **Purpose:** Plant the idea that CBP has an edge others don’t.
@@ -841,9 +841,9 @@ Your exact number is waiting.”
 ------------------------------------------------
 
 **Visual:**  
-Carmen Beach Properties logo with beachfront animations, simple URL/CTA.  
+PDC logo with beachfront animations, simple URL/CTA.  
 **Narration/Text:**  
-“Run your **free profit prediction** in 30 seconds at Carmen Beach Properties.  
+“Run your **free profit prediction** in 30 seconds at PDC.  
 Your property is worth more.”
 
 **Purpose:** Clear CTA + brand authority + scarcity mindset.

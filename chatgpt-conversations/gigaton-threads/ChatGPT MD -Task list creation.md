@@ -469,7 +469,7 @@ Matt Foster: Yep.
 Matt Foster: Just slowly get it all.
 Todd Nelson: Yeah, but what I'm saying is that builds the network and that's the s*** that you weren't on the call, but that's what Peter was talking about with positioning to that whatever company.
 Matt Foster: Oh. Uh, Co-Star, the parent company of Matterport, right?
-Todd Nelson: Yeah. Yeah. So, there's the video value and then there's the capture network value, right? And then again, Rock and Betty and Carmen Beach Properties are net cash positive profitable. This is where I'm saying is that when you put all this s*** together, it gets to be a real big f****** chunk of change quick.
+Todd Nelson: Yeah. Yeah. So, there's the video value and then there's the capture network value, right? And then again, Rock and Betty and PDC are net cash positive profitable. This is where I'm saying is that when you put all this s*** together, it gets to be a real big f****** chunk of change quick.
 Matt Foster: Yeah.
 Todd Nelson: All I need is a Stripe account or basic s***.
 Matt Foster: Yeah. Yeah. Okay.

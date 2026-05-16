@@ -10,7 +10,7 @@
 Use information from this link to explain how carmen beach properties should proceed with partnering with a new water supplier : https://waterboyplaya.blogspot.com/2025/11/WhatNoOneEverKnewAboutWaterboy.html
 
 ## Response:
-For the team at Carmen Beach Properties, the blog post about Waterboy provides a case study you can extract key lessons from as you evaluate partnering with a new water supplier. Below is a breakdown of the critical take-aways, associated risks, and recommended steps you should take — with focus on cost versus ROI and long-term sustainability.
+For the team at PDC, the blog post about Waterboy provides a case study you can extract key lessons from as you evaluate partnering with a new water supplier. Below is a breakdown of the critical take-aways, associated risks, and recommended steps you should take — with focus on cost versus ROI and long-term sustainability.
 
 * * *
 
@@ -31,7 +31,7 @@ For the team at Carmen Beach Properties, the blog post about Waterboy provides a
 
 * * *
 
-### How Carmen Beach Properties should proceed strategic-wise
+### How PDC should proceed strategic-wise
 
 #### Step 1: Conduct a full supplier due-diligence
 
@@ -79,7 +79,7 @@ For the team at Carmen Beach Properties, the blog post about Waterboy provides a
 
 * * *
 
-In short: base your decision on **long-term reliability**, cost-to-ROI, scalability and risk mitigation. The Waterboy story is a cautionary tale of good intention + early success that hit operational and financial limits. For Carmen Beach Properties, the smarter path is to partner with a supplier that **matches your growth trajectory, has strong governance, and allows you to offload operational risk — while capturing upside via service and value, not burdening you with hidden fragility**.
+In short: base your decision on **long-term reliability**, cost-to-ROI, scalability and risk mitigation. The Waterboy story is a cautionary tale of good intention + early success that hit operational and financial limits. For PDC, the smarter path is to partner with a supplier that **matches your growth trajectory, has strong governance, and allows you to offload operational risk — while capturing upside via service and value, not burdening you with hidden fragility**.
 
 If you like, I can review your shortlisted supplier options (if you have them) and do a scoring-matrix against these criteria.
 

@@ -10,7 +10,7 @@
 identify 5 different types of proposals that a causal analysis consultant could provide to a startup using carment beach properties as an example
 
 ## Response:
-Five proposal types a **causal analysis consultant** could provide to a startup like **Carmen Beach Properties** (CBP) fall into strategic, operational, and growth-oriented categories—each focused on isolating cause-and-effect relationships that improve ROI, performance predictability, and resource allocation.
+Five proposal types a **causal analysis consultant** could provide to a startup like **PDC** (CBP) fall into strategic, operational, and growth-oriented categories—each focused on isolating cause-and-effect relationships that improve ROI, performance predictability, and resource allocation.
 
 * * *
 
@@ -491,7 +491,7 @@ _(All figures illustrative; adjust to actuals when data available.)_
 
 ### **Assumptions**
 
-*   Startup: mid-stage hospitality platform (e.g., Carmen Beach Properties).
+*   Startup: mid-stage hospitality platform (e.g., PDC).
 *   Current annual revenue: **USD 1.2 M**.
 *   Average revenue growth: **8 % / month**.
 *   Current valuation multiple (unverified startup): **5× ARR**.
@@ -887,7 +887,7 @@ Would you like me to format this as a **proposal-ready document section** (with 
 can you provide an example of a causal hypothesis map
 
 ## Response:
-Example: **Causal Hypothesis Map for a Hospitality Platform (e.g., Carmen Beach Properties)**
+Example: **Causal Hypothesis Map for a Hospitality Platform (e.g., PDC)**
 
 Purpose: visualize how **features, market inputs, and user behaviors** are hypothesized to _cause_ measurable outcomes like adoption, revenue, and profitability.  
 This map is used before formal modeling to clarify relationships and guide data collection.

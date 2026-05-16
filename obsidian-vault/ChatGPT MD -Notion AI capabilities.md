@@ -94,7 +94,7 @@ For the Gigaton Initiative or any property/real estate ops environment, Notion A
 
 It’s essentially **the AI-enabled operating system for the organization’s knowledge and workflow stack**, not the engine for advanced computational intelligence.
 
-If you want, I can map the exact high-ROI use cases for Carmen Beach Properties or build a Notion architecture optimized for causal-inference workflows and property-management ops.
+If you want, I can map the exact high-ROI use cases for PDC or build a Notion architecture optimized for causal-inference workflows and property-management ops.
 
 ## Prompt:
 explain the pros and cons vs clickup and how to get the maximum value of each
@@ -375,7 +375,7 @@ Team performance and outcomes get fed back into Notion to improve causal models,
 
 * * *
 
-**High-ROI Use Cases for Each (Directly Applicable to Gigaton + Carmen Beach Properties)**
+**High-ROI Use Cases for Each (Directly Applicable to Gigaton + PDC)**
 ==========================================================================================
 
 ### **Use Notion For:**
@@ -429,7 +429,7 @@ This ensures:
 *   Knowledge compounds
 *   Processes operationalize automatically
 
-If you want, I can architect the exact dual-platform structure for Gigaton and Carmen Beach Properties—including:
+If you want, I can architect the exact dual-platform structure for Gigaton and PDC—including:
 
 *   Workspaces
 *   Databases
@@ -915,7 +915,7 @@ The drive ingestion layer is the **highest leverage data infrastructure upgrade*
 For Gigaton:  
 This system directly aligns with the mandate of **human-tech co-evolution** by turning every digital artifact into structured knowledge that compounds.
 
-For Carmen Beach Properties:  
+For PDC:  
 It unlocks:
 
 *   Owner reports automation

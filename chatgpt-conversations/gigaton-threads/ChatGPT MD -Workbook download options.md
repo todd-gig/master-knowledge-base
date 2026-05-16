@@ -10,7 +10,7 @@
 can you create a data dictionary for carmen beach properties with a label, name, and description
 
 ## Response:
-Got it ✅ — let’s build a **Carmen Beach Properties Data Dictionary**.
+Got it ✅ — let’s build a **PDC Data Dictionary**.
 
 I’ll structure it with three fields for each entry:
 
@@ -22,7 +22,7 @@ Here’s a first pass tailored to property sales + predictable revenue managemen
 
 * * *
 
-📖 Carmen Beach Properties – Data Dictionary
+📖 PDC – Data Dictionary
 ============================================
 
 ### Property Details
@@ -91,7 +91,7 @@ Here’s a first pass tailored to property sales + predictable revenue managemen
 
 ⚡ This dictionary sets the foundation for:
 
-*   **Database design** (clean schema for Carmen Beach Properties system)
+*   **Database design** (clean schema for PDC system)
 *   **Predictive KPIs** (ROI, occupancy, engagement, etc.)
 *   **Omnichannel sales automation** (sync with Matterport, ClickUp, CRM, Twilio, etc.)
 
@@ -101,7 +101,7 @@ Do you want me to **expand this into a full spreadsheet** with sample values + f
 yes
 
 ## Response:
-Carmen Beach Properties – Data Dictionary (preview)
+PDC – Data Dictionary (preview)
 
 | Label | Name | Description | Data Type |
 | --- | --- | --- | --- |
