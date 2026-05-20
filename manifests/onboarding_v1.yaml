@@ -1,0 +1,1060 @@
+# Gigaton Operator Onboarding — Canonical Manifest v1.0.0
+#
+# This manifest is the SOURCE OF TRUTH for the directed onboarding workflow.
+# It is declarative data. No business logic lives here. Logic lives in:
+#   - Activation-gate endpoints (owned by each binding engine)
+#   - The generic resolver (gigaton-gateway/app/onboarding/resolver.py)
+#   - The generic FE chat-orchestrator (gigaton-ui-system ChatOnboardingOrchestrator)
+#
+# UX MODEL — chat-first orchestration:
+#   New operators land on /chat as the ONLY enabled nav circle. The
+#   ChatOnboardingOrchestrator reads this manifest, picks the next open
+#   action(s), and renders them as rich chat messages with affordances
+#   (file-drop, inline buttons, persona-extraction cards, ICP segment
+#   builder, etc.). Operator replies — typed or button-clicked — are
+#   routed through gateway /v1/onboarding/intent → mapped to HME events
+#   → activation gates flip. Side-panel reflects stage progress, tier
+#   progress, and predicted influence $.
+#
+#   Per-action `chat_intent` is the primary affordance. `action_href` is a
+#   FALLBACK for accessibility / direct-link bookmarks, not the canonical
+#   surface.
+#
+#   /wizard is DEPRECATED — redirects to /chat?onboarding=stage-0.
+#
+# Per-operator divergence happens via UAE.client_namespaces.workflow_overlays
+# JSONB — { hide: [], reorder: [], replace: {}, extend: [] }. The resolver
+# merges this manifest with the overlay at request time.
+#
+# PPIM signature applies to the manifest itself:
+#   ppim_interaction: every operator's first ~30 days on the platform
+#   ppim_economics:   est. $5-15k saved per onboarding via self-serve vs hand-held
+#   ppim_predictability: HIGH — completion of all stages = operator is in live mode
+#   ppim_brand_dimension: adoption + comprehension + activation
+#
+# Why a manifest (not embedded state-machine logic):
+#   - Per-operator override is free (workflow_overlays JSONB)
+#   - AI-editable diffs go through Axiom Registry safety checks
+#   - Same manifest drives FE banner/modal, CLI walkthrough, email drip,
+#     Slack DM sequence, Sunday digest "next step" section
+#   - Versioned audit artifact ("operator X completed manifest v1.0.0")
+#   - Aligns with decision-engine's declarative DecisionRecord pattern
+
+version: 1.0.0
+manifest_id: gigaton-operator-onboarding
+introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target
+canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
+ratified_by:
+  - todd@gigaton.ai     # assumed within triad signoff window 2026-05-14 → 2026-05-24
+  - matt@gigaton.ai
+  - bella@gigaton.ai
+
+# Capability tiers unlocked by stage completion.
+# Tier values are role-orthogonal — they layer ON TOP of UAE.capabilities_catalog
+# role_required (OWNER / AFFILIATE / OPERATOR). An operator must have BOTH the
+# role-required AND the tier unlocked to use the capability.
+capability_tiers:
+  tier_1_data:
+    unlocked_by_stages: [stage-0-trust-scope, stage-1-sources]
+    grants:
+      - gigaton.chat.with_documents
+      - gigaton.documentation.view_bundle
+  tier_2_personalized:
+    unlocked_by_stages: [stage-2-people, stage-3-brand-customer-lens]
+    grants:
+      - gigaton.communication.personalized_compose
+      - gigaton.persona.read_bft_snapshot
+  tier_3_recommend:
+    unlocked_by_stages: [stage-4-goals-kpis, stage-5-industry-processes, stage-6-org-processes]
+    grants:
+      - gigaton.decision.draft_recommendations_read_only
+  tier_4_costs:
+    unlocked_by_stages: [stage-7-assignments, stage-8-tech-stack-costs]
+    grants:
+      - gigaton.dashboard.influence_vs_cost
+  tier_5_live:
+    unlocked_by_stages: [stage-9-calibration-live]
+    grants:
+      - gigaton.decision.live_recommend
+      - gigaton.decision.live_auto_execute
+
+# Circular nav-rail gating. New operators see /chat lit and everything else
+# locked. As stages complete, tiers unlock, and the corresponding circles
+# illuminate. FE reads UAE /v1/operators/{id}/nav-tier-state to render.
+nav_circles:
+  - circle_id: chat
+    label: Chat
+    route: /chat
+    tier_required: always
+    icon: chat
+  - circle_id: sources
+    label: Sources
+    route: /sources
+    tier_required: tier_1_data
+    icon: database
+  - circle_id: dashboard
+    label: Dashboard
+    route: /dashboard
+    tier_required: tier_1_data
+    icon: gauge
+  - circle_id: people
+    label: People
+    route: /people
+    tier_required: tier_2_personalized
+    icon: users
+  - circle_id: brand
+    label: Brand
+    route: /brand
+    tier_required: tier_2_personalized
+    icon: palette
+  - circle_id: goals
+    label: Goals
+    route: /goals
+    tier_required: tier_3_recommend
+    icon: target
+  - circle_id: org-processes
+    label: Org Processes
+    route: /processes
+    tier_required: tier_3_recommend
+    icon: workflow
+  - circle_id: assignments
+    label: Assignments
+    route: /assignments
+    tier_required: tier_4_costs
+    icon: clipboard-check
+  - circle_id: influence-cost
+    label: Influence vs Cost
+    route: /influence-vs-cost
+    tier_required: tier_4_costs
+    icon: scale
+  - circle_id: calibration
+    label: Calibration
+    route: /calibration
+    tier_required: tier_5_live
+    icon: sliders
+  - circle_id: founder
+    label: Founder
+    route: /founder
+    tier_required: tier_5_live
+    icon: crown
+    additional_gate: '@gigaton.ai email domain'
+
+# Deprecated routes — redirect rules the FE App.tsx enforces.
+deprecated_routes:
+  - from: /wizard
+    to: /chat?onboarding=stage-0
+    reason: 'Wizard replaced by chat-first onboarding orchestration. Stage 0 capture happens in chat.'
+    deprecated_at: '2026-05-22T19:00:00Z'
+
+# ─────────────────────────────────────────────────────────────────────────
+# STAGES
+# Each stage is bound to ONE owning engine. The activation_gate is a query
+# that engine answers (200 OK + JSON predicate → stage advances). The
+# resolver polls activation_gates; the engine owns the rule.
+# ─────────────────────────────────────────────────────────────────────────
+
+stages:
+
+  # ─── STAGE 0 ────────────────────────────────────────────────────────────
+  - id: stage-0-trust-scope
+    order: 0
+    name: Trust & Scope Anchor
+    short_description: Declare your legal entity, jurisdictions, and the rules your operator agrees to operate under.
+    why_this_stage: |
+      Every artifact recorded after this point attaches to a scope contract.
+      Without it, ingestion creates silent compliance debt. The Axiom
+      Registry is the catalog of inviolable rules — you acknowledge which
+      apply to your operator.
+    owning_engine: user-access-engine
+    secondary_engines: [decision-engine]
+    entry_signal:
+      type: always_open  # Stage 0 is always available — it's the entry point
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/operators/{operator_id}/scope-contract'
+      predicate:
+        json_path: '$.signed_at'
+        operator: is_not_null
+      ttl_seconds: 60
+    actions:
+      - id: declare-legal-entity
+        title: Declare your legal entity
+        description: Name, jurisdiction(s) of incorporation, and regulated frameworks (HIPAA / GDPR / FINRA / etc.).
+        action_label: Open Identity step
+        action_href: '/wizard?step=identity'  # adopts existing wizard
+        verify_description: UAE has a non-null legal_entity_record for this operator
+        auto_complete_on:
+          - event_type: ScopeIdentityDeclared
+      - id: select-jurisdictions
+        title: Select jurisdictions you operate in
+        description: Used to scope every later compliance check + data residency choice.
+        action_label: Open Context step
+        action_href: '/wizard?step=context'
+        auto_complete_on:
+          - event_type: ScopeJurisdictionsSelected
+      - id: acknowledge-axioms
+        title: Review the Gigaton Axiom Registry
+        description: 20 inviolable rules the platform enforces. Acknowledge the ones in scope; flag any that conflict with your context.
+        action_label: Open Axiom Registry
+        action_href: '/onboarding/axioms'
+        verify_description: decision-engine has an acknowledgement row per CRIT-severity axiom
+        education_ref: '/docs/axiom-registry'
+        auto_complete_on:
+          - event_type: AxiomAcknowledged
+            min_count_per_severity:
+              CRIT: all
+              MAJ: all
+      - id: sign-scope-contract
+        title: Sign the scope contract
+        description: Cryptographic acknowledgement that the above declarations are accurate. Signed copy stored in your operator namespace.
+        action_label: Sign & continue
+        action_href: '/wizard?step=trust'
+        auto_complete_on:
+          - event_type: ScopeContractSigned
+    education:
+      why_1min: '/docs/why/trust-scope-1min.md'
+      what_3min: '/docs/what/trust-scope-3min.md'
+      deep_dive_10min: '/docs/deep/trust-scope-axiom-registry-10min.md'
+    events_emitted:
+      - StageStarted
+      - ScopeIdentityDeclared
+      - ScopeJurisdictionsSelected
+      - AxiomAcknowledged
+      - ScopeContractSigned
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_data  # first half — Stage 1 closes it
+    gamification:
+      badge_slug: trust-anchored
+      badge_name: Trust Anchored
+      streak_eligible: false
+      predicted_influence_usd_endpoint:
+        method: GET
+        url: '{ppeme_base}/v1/stage-influence?stage_id=stage-0-trust-scope&operator_id={operator_id}'
+      fallback_predicted_influence_usd: 4500
+    ppim_signature:
+      interaction: governance + compliance posture
+      economics: prevents avg $12k compliance retrofit cost
+      predictability: foundational
+      brand_dimension: integrity + legitimacy
+
+  # ─── STAGE 1 ────────────────────────────────────────────────────────────
+  - id: stage-1-sources
+    order: 1
+    name: Sources
+    short_description: Connect Google Drive accounts and let Gigaton ingest your documentation into one canonical NotebookLM-ready folder.
+    why_this_stage: |
+      Every later decision is grounded in your actual documentation. Without
+      sources connected, the platform falls back to generic templates. With
+      ≥1 source connected, "chat with your data" turns on.
+    owning_engine: intelligence-silo
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-0-trust-scope
+    activation_gate:
+      method: GET
+      url: '{intel_silo_base}/v1/documentation/bundle?operator_id={operator_id}'
+      predicate:
+        json_path: '$.file_count'
+        operator: gte
+        value: 20
+      ttl_seconds: 30
+    delegates_to_workflow: documentation-ingest-2026-05-20  # the existing 7-step workflow IS Stage 1's UI
+    actions: []  # see delegated workflow
+    education:
+      why_1min: '/docs/why/sources-1min.md'
+      what_3min: '/docs/what/sources-3min.md'
+      deep_dive_10min: '/docs/deep/documentation-ingest-10min.md'
+    events_emitted:
+      - StageStarted
+      - DocumentationAccountsLinked
+      - DocumentationFolderSubscribed
+      - DocumentationIngestRun
+      - DocumentationCoverageAdvanced
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_data
+    gamification:
+      badge_slug: documentation-connector-pro
+      badge_name: Documentation Connector Pro
+      streak_eligible: true
+      fallback_predicted_influence_usd: 8500
+    ppim_signature:
+      interaction: doctrine grounding for every later decision
+      economics: avg $0.50/operator/mo ingest cost; unlocks chat-with-data ($1-3k/mo founder time saved)
+      predictability: HIGH
+      brand_dimension: knowledge_coherence + auditability
+
+  # ─── STAGE 2 ────────────────────────────────────────────────────────────
+  - id: stage-2-people
+    order: 2
+    name: People & Human Data
+    short_description: Identify the humans and orgs you interact with — internal team, customers, vendors, regulators — and capture their behavioral profile.
+    why_this_stage: |
+      PPIM is "interaction management". Without people identified + a BFT
+      snapshot per person, every interaction is generic. After this stage,
+      personalized communication becomes available.
+    owning_engine: persona-engine
+    secondary_engines: [intelligence-silo, human-management-engine]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-1-sources
+    activation_gate:
+      method: GET
+      url: '{persona_base}/v1/operators/{operator_id}/persona-count'
+      predicate:
+        all_of:
+          - json_path: '$.human_persona_count'
+            operator: gte
+            value: 3
+          - json_path: '$.bft_snapshots_available_count'
+            operator: gte
+            value: 3
+      ttl_seconds: 60
+    actions:
+      - id: review-proposed-people
+        title: Review people proposed from your sources
+        description: Gigaton scans your Stage 1 sources and proposes people. Accept, edit, or reject each.
+        action_label: Review people
+        action_href: '/onboarding/people?action=review-proposed'
+        auto_complete_on:
+          - event_type: PersonaCreated
+            min_count: 3
+      - id: capture-initial-intent
+        title: Capture initial intent for each person
+        description: One sentence per person — what is this relationship FOR? Drives BFT scoring.
+        action_label: Capture intents
+        action_href: '/onboarding/people?action=intents'
+        auto_complete_on:
+          - event_type: PersonaIntentCaptured
+            min_count: 3
+      - id: classify-internal-external
+        title: Classify each person internal vs external
+        description: Internal team / customer / vendor / regulator / prospect. Each classification routes differently.
+        action_label: Classify
+        action_href: '/onboarding/people?action=classify'
+        auto_complete_on:
+          - event_type: PersonaClassified
+            min_count: 3
+    education:
+      why_1min: '/docs/why/people-1min.md'
+      what_3min: '/docs/what/people-3min.md'
+      deep_dive_10min: '/docs/deep/bft-snapshot-explainer-10min.md'
+    events_emitted:
+      - StageStarted
+      - PersonaCreated
+      - PersonaIntentCaptured
+      - PersonaClassified
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_personalized  # first half
+    gamification:
+      badge_slug: relationship-mapped
+      badge_name: Relationship Mapped
+      streak_eligible: true
+      fallback_predicted_influence_usd: 11000
+    ppim_signature:
+      interaction: every later comm is now person-targeted
+      economics: avg $2-5k/mo communication-quality lift from personalization
+      predictability: MEDIUM (depends on BFT snapshot quality)
+      brand_dimension: responsiveness + relevance
+
+  # ─── STAGE 3 ────────────────────────────────────────────────────────────
+  - id: stage-3-brand-customer-lens
+    order: 3
+    name: Brand & Customer Lens
+    short_description: Define your brand voice and Ideal Customer Profile so the platform speaks in your voice to the right audience.
+    why_this_stage: |
+      PPIM = "predictably profitable interaction management of a gigaton
+      engineered brand experience". Without brand + ICP, Penrose has no
+      target distribution to optimize against. Bound to persona-engine's
+      Variable Registry (brand_voice category, 6 vars) + org_persona ICP.
+    owning_engine: persona-engine
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-2-people
+    activation_gate:
+      method: GET
+      url: '{persona_base}/v1/operators/{operator_id}/brand-readiness'
+      predicate:
+        all_of:
+          - json_path: '$.brand_voice_variables_filled'
+            operator: gte
+            value: 6  # all 6 brand_voice category seed vars
+          - json_path: '$.icp_segments_defined'
+            operator: gte
+            value: 1
+      ttl_seconds: 60
+    actions:
+      - id: fill-brand-voice-variables
+        title: Fill the 6 brand voice variables
+        description: tone, formality, languages, archetypes, taboos, response cadence. Pre-populated from your sources where possible.
+        action_label: Fill brand voice
+        action_href: '/onboarding/brand?action=voice-variables'
+        variable_registry_filter:
+          required_for: onboarding
+          tag: brand_voice
+        auto_complete_on:
+          - event_type: VariableInstanceFilled
+            tag: brand_voice
+            min_count: 6
+      - id: declare-icp-segments
+        title: Declare your Ideal Customer Profile segments
+        description: Write into org_persona.icp_attributes JSONB. At least 1 segment; more is better.
+        action_label: Declare ICP
+        action_href: '/onboarding/brand?action=icp-segments'
+        auto_complete_on:
+          - event_type: ICPSegmentDeclared
+            min_count: 1
+      - id: define-lifecycle-stages
+        title: Define customer lifecycle stages
+        description: prospect → first-contact → qualified → converted → renewed → champion (defaults; edit to match your model).
+        action_label: Define lifecycle
+        action_href: '/onboarding/brand?action=lifecycle'
+        auto_complete_on:
+          - event_type: CustomerLifecycleDefined
+    education:
+      why_1min: '/docs/why/brand-customer-1min.md'
+      what_3min: '/docs/what/brand-customer-3min.md'
+      deep_dive_10min: '/docs/deep/ppim-doctrine-10min.md'
+    events_emitted:
+      - StageStarted
+      - VariableInstanceFilled
+      - ICPSegmentDeclared
+      - CustomerLifecycleDefined
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_personalized
+    gamification:
+      badge_slug: brand-aligned
+      badge_name: Brand Aligned
+      streak_eligible: false
+      fallback_predicted_influence_usd: 14500
+    ppim_signature:
+      interaction: every comm now in operator's voice to defined ICP
+      economics: foundational for revenue forecasting via Experience Engineering Equation
+      predictability: HIGH after ICP defined
+      brand_dimension: coherence + voice integrity
+
+  # ─── STAGE 4 ────────────────────────────────────────────────────────────
+  - id: stage-4-goals-kpis
+    order: 4
+    name: Goals, KPIs & Constraints
+    short_description: Set your north star, supporting KPIs, and inviolable constraints. Without these, the decision engine has no target.
+    why_this_stage: |
+      Penrose Falsification Scoreboard needs operator-declared targets to
+      score against. Constraints (legal / contractual / ethical) become
+      hard guardrails the Decision Execution Engine enforces.
+    owning_engine: decision-engine
+    secondary_engines: [persona-engine]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-3-brand-customer-lens
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/operators/{operator_id}/targets-readiness'
+      predicate:
+        all_of:
+          - json_path: '$.north_star_defined'
+            operator: eq
+            value: true
+          - json_path: '$.supporting_metrics_count'
+            operator: gte
+            value: 3
+          - json_path: '$.constraints_count'
+            operator: gte
+            value: 1
+      ttl_seconds: 60
+    actions:
+      - id: declare-north-star
+        title: Declare your north star metric
+        description: One metric that, if it goes up, your operator wins. Revenue, retention, NPS — your call.
+        action_label: Declare north star
+        action_href: '/onboarding/goals?action=north-star'
+        auto_complete_on:
+          - event_type: NorthStarDeclared
+      - id: pick-supporting-metrics
+        title: Pick 3+ supporting metrics
+        description: Counterweights against gaming the north star. Penrose tracks all of them.
+        action_label: Pick metrics
+        action_href: '/onboarding/goals?action=supporting-metrics'
+        auto_complete_on:
+          - event_type: SupportingMetricAdded
+            min_count: 3
+      - id: register-constraints
+        title: Register hard constraints
+        description: Things the platform must never do regardless of expected value (e.g. never email opt-outs, never undercut floor price).
+        action_label: Register constraints
+        action_href: '/onboarding/goals?action=constraints'
+        auto_complete_on:
+          - event_type: ConstraintRegistered
+            min_count: 1
+    education:
+      why_1min: '/docs/why/goals-1min.md'
+      what_3min: '/docs/what/goals-3min.md'
+      deep_dive_10min: '/docs/deep/penrose-falsification-10min.md'
+    events_emitted:
+      - StageStarted
+      - NorthStarDeclared
+      - SupportingMetricAdded
+      - ConstraintRegistered
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_recommend
+    gamification:
+      badge_slug: goal-set
+      badge_name: Goal Set
+      streak_eligible: false
+      fallback_predicted_influence_usd: 22000
+    ppim_signature:
+      interaction: all later recommendations now graded against your targets
+      economics: prevents misaligned automation (avg $30k+/yr risk avoided)
+      predictability: HIGH
+      brand_dimension: coherence + accountability
+
+  # ─── STAGE 5 ────────────────────────────────────────────────────────────
+  - id: stage-5-industry-processes
+    order: 5
+    name: Industry Processes
+    short_description: Triage industry-standard processes from a catalog — applies, doesn't apply, or needs modification.
+    why_this_stage: |
+      Industry templates (real estate, hospitality, agency, etc.) load once,
+      get triaged in minutes, save days of org-process discovery. Each
+      catalog entry binds to Variable Registry tags (industry, sub_vertical).
+    owning_engine: decision-engine
+    secondary_engines: [persona-engine]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-4-goals-kpis
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/operators/{operator_id}/industry-process-triage'
+      predicate:
+        json_path: '$.uncategorized_count'
+        operator: eq
+        value: 0
+      ttl_seconds: 60
+    actions:
+      - id: select-industry
+        title: Select your primary industry + sub-vertical
+        description: Drives which process catalog loads. Inherits from Stage 0 declarations where present.
+        action_label: Select industry
+        action_href: '/onboarding/industry?action=select'
+        auto_complete_on:
+          - event_type: IndustrySelected
+      - id: triage-catalog
+        title: Triage the loaded catalog
+        description: Each process gets Applies / Doesn't Apply / Modify. The Modify path forks the catalog entry into Stage 6.
+        action_label: Triage catalog
+        action_href: '/onboarding/industry?action=triage'
+        auto_complete_on:
+          - event_type: IndustryProcessTriaged
+            min_count_predicate: all_catalog_entries
+    education:
+      why_1min: '/docs/why/industry-processes-1min.md'
+      what_3min: '/docs/what/industry-processes-3min.md'
+    events_emitted:
+      - StageStarted
+      - IndustrySelected
+      - IndustryProcessTriaged
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_recommend
+    gamification:
+      badge_slug: industry-mapped
+      badge_name: Industry Mapped
+      streak_eligible: true
+      fallback_predicted_influence_usd: 9500
+    ppim_signature:
+      interaction: process discovery for new operator drops from days to minutes
+      economics: avg 12-30 hours of consulting equivalent
+      predictability: HIGH after catalog seeded per vertical
+      brand_dimension: coherence with industry norms
+
+  # ─── STAGE 6 ────────────────────────────────────────────────────────────
+  - id: stage-6-org-processes
+    order: 6
+    name: Organization Processes
+    short_description: Codify your operator-specific workflows, SOPs, and escalation paths. Pre-proposed from Stage 1 sources + Stage 5 modifications.
+    why_this_stage: |
+      Industry templates carry you 60-80% of the way. The remaining 20-40%
+      is operator-specific. After this stage, HME knows what your team does
+      and can automate or assign.
+    owning_engine: human-management-engine
+    secondary_engines: [intelligence-silo, decision-engine]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-5-industry-processes
+    activation_gate:
+      method: GET
+      url: '{hme_base}/v1/operators/{operator_id}/org-process-readiness'
+      predicate:
+        json_path: '$.org_initiatives_with_workflow_type'
+        operator: gte
+        value: 10
+      ttl_seconds: 60
+    actions:
+      - id: review-proposed-workflows
+        title: Review proposed workflows
+        description: Gigaton extracts candidate workflows from Stage 1 sources + meeting transcripts. Accept, edit, or reject.
+        action_label: Review workflows
+        action_href: '/onboarding/org-processes?action=review-proposed'
+        auto_complete_on:
+          - event_type: InitiativeIdentified
+            workflow_type: org_process
+            min_count: 10
+      - id: define-escalation-paths
+        title: Define escalation paths
+        description: When does a workflow escalate to a human? To whom?
+        action_label: Define escalations
+        action_href: '/onboarding/org-processes?action=escalations'
+        auto_complete_on:
+          - event_type: EscalationPathDefined
+            min_count: 3
+    education:
+      why_1min: '/docs/why/org-processes-1min.md'
+      what_3min: '/docs/what/org-processes-3min.md'
+    events_emitted:
+      - StageStarted
+      - InitiativeIdentified
+      - EscalationPathDefined
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_recommend
+    gamification:
+      badge_slug: processes-codified
+      badge_name: Processes Codified
+      streak_eligible: true
+      fallback_predicted_influence_usd: 16500
+    ppim_signature:
+      interaction: HME initiatives now reflect real org work
+      economics: foundational for Stage 7 automation candidates
+      predictability: MEDIUM (depends on source quality)
+      brand_dimension: operational coherence
+
+  # ─── STAGE 7 ────────────────────────────────────────────────────────────
+  - id: stage-7-assignments
+    order: 7
+    name: Human-assigned + Automated Processes
+    short_description: For each codified process, assign a human owner OR mark for automation. No process leaves this stage without one.
+    why_this_stage: |
+      A process without an owner is a process that doesn't run. After this
+      stage, every codified workflow has either a human accountable or an
+      automation candidate scored by Decision Execution Engine.
+    owning_engine: human-management-engine
+    secondary_engines: [decision-engine]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-6-org-processes
+    activation_gate:
+      method: GET
+      url: '{hme_base}/v1/operators/{operator_id}/assignment-readiness'
+      predicate:
+        json_path: '$.unassigned_initiative_count'
+        operator: eq
+        value: 0
+      ttl_seconds: 60
+    actions:
+      - id: assign-human-owners
+        title: Assign human owners
+        description: Drag-and-drop your Stage 2 people onto Stage 6 workflows. Multiple owners allowed.
+        action_label: Assign owners
+        action_href: '/onboarding/assignments?action=human-owners'
+        auto_complete_on:
+          - event_type: InitiativeOwnerAssigned
+            min_count_predicate: all_human_eligible_initiatives
+      - id: score-automation-candidates
+        title: Score automation candidates
+        description: Decision Execution Engine scores each unassigned workflow for automation likelihood. Approve, reject, or queue for human.
+        action_label: Score candidates
+        action_href: '/onboarding/assignments?action=automation-candidates'
+        auto_complete_on:
+          - event_type: AutomationCandidateScored
+            min_count_predicate: all_automation_eligible_initiatives
+    education:
+      why_1min: '/docs/why/assignments-1min.md'
+      what_3min: '/docs/what/assignments-3min.md'
+    events_emitted:
+      - StageStarted
+      - InitiativeOwnerAssigned
+      - AutomationCandidateScored
+      - StageCompleted
+    capability_unlocks_on_completion: tier_4_costs  # first half
+    gamification:
+      badge_slug: ownership-clear
+      badge_name: Ownership Clear
+      streak_eligible: false
+      fallback_predicted_influence_usd: 25000
+    ppim_signature:
+      interaction: every process now has accountable owner or automation queue
+      economics: avg $40k+/yr work-falls-through-cracks recovered
+      predictability: HIGH
+      brand_dimension: operational accountability
+
+  # ─── STAGE 8 ────────────────────────────────────────────────────────────
+  - id: stage-8-tech-stack-costs
+    order: 8
+    name: Tech Stack + Unit Economics + Financial Audit
+    short_description: Inventory every 3rd-party tool, connect billing, and ingest 90 days of invoices. Influence vs Cost dashboard turns on.
+    why_this_stage: |
+      PPIM = "predictably PROFITABLE" — and profitability requires knowing
+      what every atomic action actually costs. This stage backfills unit
+      economics across all prior stages.
+    owning_engine: intelligence-silo
+    secondary_engines: [gigaton-gateway]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-7-assignments
+    activation_gate:
+      method: GET
+      url: '{intel_silo_base}/v1/operators/{operator_id}/cost-coverage'
+      predicate:
+        all_of:
+          - json_path: '$.tools_with_unit_cost_pct'
+            operator: gte
+            value: 80
+          - json_path: '$.invoice_days_ingested'
+            operator: gte
+            value: 90
+      ttl_seconds: 300
+    actions:
+      - id: inventory-tools
+        title: Inventory every 3rd-party tool
+        description: Stripe, Twilio, Anthropic, Google, OTAs, Slack — everything you pay for. Catalog seed pre-fills common tools.
+        action_label: Inventory tools
+        action_href: '/onboarding/tech-stack?action=inventory'
+        auto_complete_on:
+          - event_type: ToolInventoried
+            min_count: 5
+      - id: connect-billing
+        title: Connect billing
+        description: Stripe / banking / accounting. Read-only invoice ingest, no write access requested.
+        action_label: Connect billing
+        action_href: '/onboarding/tech-stack?action=connect-billing'
+        auto_complete_on:
+          - event_type: BillingConnectorEstablished
+            min_count: 1
+      - id: review-unit-economics
+        title: Review computed unit economics
+        description: Cost-per-atomic-action across all prior stages. Adjust where Gigaton's auto-categorization missed.
+        action_label: Review unit economics
+        action_href: '/onboarding/tech-stack?action=unit-economics'
+        auto_complete_on:
+          - event_type: UnitEconomicsReviewed
+    education:
+      why_1min: '/docs/why/tech-stack-costs-1min.md'
+      what_3min: '/docs/what/tech-stack-costs-3min.md'
+      deep_dive_10min: '/docs/deep/influence-vs-cost-10min.md'
+    events_emitted:
+      - StageStarted
+      - ToolInventoried
+      - BillingConnectorEstablished
+      - UnitEconomicsReviewed
+      - StageCompleted
+    capability_unlocks_on_completion: tier_4_costs
+    gamification:
+      badge_slug: economics-illuminated
+      badge_name: Economics Illuminated
+      streak_eligible: false
+      fallback_predicted_influence_usd: 38000
+    ppim_signature:
+      interaction: Influence vs Cost dashboard turns on
+      economics: every later optimization graded by actual $ delta
+      predictability: HIGH
+      brand_dimension: financial integrity + transparency
+
+  # ─── STAGE 9 ────────────────────────────────────────────────────────────
+  - id: stage-9-calibration-live
+    order: 9
+    name: Calibration → Live Mode
+    short_description: 30-day shadow period where the platform recommends in parallel with you. Graduate to live recommend, then live auto-execute.
+    why_this_stage: |
+      Onboarding doesn't end when data lands; it ends when the system
+      produces live, trusted decisions. PPEME simulates, decision-engine
+      recommends, OVS-Calibration scores attribution. After 30 days +
+      drift_critical=0, you graduate.
+    owning_engine: decision-engine
+    secondary_engines: [ppeme, human-management-engine]
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-8-tech-stack-costs
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/operators/{operator_id}/calibration-status'
+      predicate:
+        all_of:
+          - json_path: '$.drift_critical_count'
+            operator: eq
+            value: 0
+          - json_path: '$.interactions_logged_count'
+            operator: gte
+            value: 30
+          - json_path: '$.shadow_days_elapsed'
+            operator: gte
+            value: 30
+      ttl_seconds: 600
+    actions:
+      - id: enable-shadow-mode
+        title: Enable shadow mode
+        description: Decision-engine starts recommending in parallel with your existing process. No actions taken — observation only.
+        action_label: Enable shadow
+        action_href: '/onboarding/calibration?action=enable-shadow'
+        auto_complete_on:
+          - event_type: ShadowModeEnabled
+      - id: review-shadow-recommendations
+        title: Review shadow recommendations weekly
+        description: 4 weekly reviews. Each review = drift detection + outcome attribution + variance scoring.
+        action_label: Review shadow log
+        action_href: '/onboarding/calibration?action=review-shadow'
+        auto_complete_on:
+          - event_type: ShadowReviewCompleted
+            min_count: 4
+      - id: graduate-to-live-recommend
+        title: Graduate to live recommend
+        description: Platform now surfaces recommendations to your team in real workflows. Still no auto-execute.
+        action_label: Graduate to live recommend
+        action_href: '/onboarding/calibration?action=graduate-recommend'
+        auto_complete_on:
+          - event_type: LiveRecommendActivated
+      - id: graduate-to-live-execute
+        title: Graduate to live auto-execute
+        description: Tier 5 capability unlocks. Platform now executes low-risk decisions autonomously, surfaces high-risk ones to humans.
+        action_label: Graduate to live execute
+        action_href: '/onboarding/calibration?action=graduate-execute'
+        verify_description: Sign-off matrix per /founder/signoff for first auto-execute class
+        auto_complete_on:
+          - event_type: LiveAutoExecuteActivated
+    education:
+      why_1min: '/docs/why/calibration-1min.md'
+      what_3min: '/docs/what/calibration-3min.md'
+      deep_dive_10min: '/docs/deep/ovs-calibration-10min.md'
+    events_emitted:
+      - StageStarted
+      - ShadowModeEnabled
+      - ShadowReviewCompleted
+      - LiveRecommendActivated
+      - LiveAutoExecuteActivated
+      - StageCompleted
+    capability_unlocks_on_completion: tier_5_live
+    gamification:
+      badge_slug: live-mode-graduate
+      badge_name: Live Mode Graduate
+      streak_eligible: false
+      success_celebration: '🚀 You are live. Every decision is now grounded in your doctrine, ICP, goals, processes, ownership, and economics — and the platform learns from every outcome.'
+      fallback_predicted_influence_usd: 85000
+    ppim_signature:
+      interaction: platform now produces decisions on your behalf
+      economics: full PPIM loop closed — operator is in compounding regime
+      predictability: continuously falsified by Penrose scoreboard
+      brand_dimension: full coherence + autonomy
+
+# ─────────────────────────────────────────────────────────────────────────
+# CHAT ORCHESTRATION CONTRACT
+# How ChatOnboardingOrchestrator derives chat affordances from this manifest.
+# No per-action chat_intent needed by default — derived from existing fields.
+# ─────────────────────────────────────────────────────────────────────────
+chat_orchestration:
+  default_intent_derivation:
+    question_template: '{action.title}'
+    context_template: '{action.description}'
+    button_label: '{action.action_label}'
+    fallback_route: '{action.action_href}'
+    success_template: '{action.verify_description}'
+    activation_event: '{action.auto_complete_on[0].event_type}'
+  affordance_resolution:
+    # The orchestrator picks an affordance type per action based on the
+    # event_type the activation gate is waiting on. This is auto-derived
+    # — no per-action override needed unless behavior differs.
+    file_drop:
+      trigger_events:
+        - DocumentationAccountsLinked
+        - DocumentationFolderSubscribed
+      ux: 'Drag-and-drop zone embedded in the chat bubble'
+    inline_form:
+      trigger_events:
+        - ScopeIdentityDeclared
+        - ScopeJurisdictionsSelected
+        - NorthStarDeclared
+        - SupportingMetricAdded
+        - ConstraintRegistered
+        - VariableInstanceFilled
+        - ICPSegmentDeclared
+        - CustomerLifecycleDefined
+        - ToolInventoried
+      ux: 'Inline form embedded in chat — submit returns to conversation'
+    multiple_choice:
+      trigger_events:
+        - AxiomAcknowledged
+        - PersonaClassified
+        - IndustrySelected
+        - IndustryProcessTriaged
+        - AutomationCandidateScored
+      ux: 'Button group embedded in chat bubble — one or multiple choice'
+    proposed_review_cards:
+      trigger_events:
+        - PersonaCreated
+        - InitiativeIdentified
+      ux: 'Carousel of cards in chat — each card has Accept/Edit/Reject'
+    free_text:
+      trigger_events:
+        - PersonaIntentCaptured
+        - ScopeContractSigned
+      ux: 'Conversational free-text input'
+    oauth_kickoff:
+      trigger_events:
+        - BillingConnectorEstablished
+      ux: 'Single button in chat that opens OAuth window'
+    confirmation_only:
+      trigger_events:
+        - UnitEconomicsReviewed
+        - ShadowReviewCompleted
+        - LiveRecommendActivated
+        - LiveAutoExecuteActivated
+        - EscalationPathDefined
+        - InitiativeOwnerAssigned
+      ux: 'Acknowledge button in chat — typically after operator reviews a panel'
+    shadow_mode_toggle:
+      trigger_events:
+        - ShadowModeEnabled
+      ux: 'Toggle switch in chat with explanation copy'
+  per_stage_overrides:
+    # If a stage needs custom chat behavior, override here. Empty by default
+    # — the derivation above covers all 10 stages.
+    stage-0-trust-scope:
+      opening_message: |
+        Welcome to Gigaton. I'm going to walk you through 10 stages of setup
+        — but mostly you'll just talk to me here. Let's start with who you
+        are and what rules your operator agrees to operate under.
+    stage-1-sources:
+      opening_message: |
+        Now let's connect your documentation. The fastest path: connect
+        Google Drive, and I'll ingest what's there. You can also drag-drop
+        files directly into this chat.
+    stage-2-people:
+      opening_message: |
+        I've scanned your sources and pulled out the people who appear most
+        often. Let's confirm who they are and what they do for your operator.
+    stage-9-calibration-live:
+      opening_message: |
+        Last stage. We're going to run me in shadow mode for 30 days while
+        you keep doing things your way — then graduate me to live decisions
+        once drift is clean and you're comfortable.
+
+# ─────────────────────────────────────────────────────────────────────────
+# OVERLAY SCHEMA (for client_namespaces.workflow_overlays JSONB)
+# ─────────────────────────────────────────────────────────────────────────
+overlay_schema:
+  description: |
+    Each operator can override this manifest via UAE.client_namespaces.workflow_overlays.
+    The resolver in gigaton-gateway merges the overlay with the canonical
+    manifest at request time. Overlay operations are restricted by axioms
+    to prevent operators from bypassing CRIT-severity stages.
+  shape:
+    hide:
+      description: Stage IDs to omit from this operator's workflow.
+      type: array
+      items: string
+      restricted_by_axiom: AX-???  # define an axiom that prevents hiding stages tagged inviolable
+    reorder:
+      description: New order for stage IDs (must be a permutation of remaining stages).
+      type: array
+      items: string
+    replace:
+      description: Per-stage replacement of specific fields (e.g. swap actions[].action_href for a custom UI).
+      type: object
+      additional_properties:
+        type: object
+    extend:
+      description: Operator-specific extra stages appended after canonical stages.
+      type: array
+      items:
+        $ref: '#/stages/0'  # same shape as a canonical stage
+    inviolable_stage_ids:
+      description: Stages that must always be present regardless of overlay (server-enforced).
+      type: array
+      const: [stage-0-trust-scope, stage-9-calibration-live]
+
+# ─────────────────────────────────────────────────────────────────────────
+# GATEWAY ENDPOINTS — three new endpoints land in gigaton-gateway
+# ─────────────────────────────────────────────────────────────────────────
+gateway_endpoints:
+  manifest:
+    endpoint: GET /v1/onboarding/manifest
+    query_params:
+      operator_id: required
+      include_overlay: default=true
+    headers:
+      X-Client-Namespace: required
+    response:
+      schema_ref: '#/stages'  # the merged + resolved manifest
+      cache_control: 'max-age=60, private'
+      etag: required
+    binding_engines_resolved:
+      uae_base: from gateway routing_table
+      intel_silo_base: from gateway routing_table
+      persona_base: from gateway routing_table
+      decision_engine_base: from gateway routing_table
+      ppeme_base: from gateway routing_table
+      hme_base: from gateway routing_table
+
+  state:
+    endpoint: GET /v1/onboarding/state
+    query_params:
+      operator_id: required
+    response:
+      shape:
+        current_stage_id: string
+        stages_completed: array of stage_id
+        current_stage_actions_completed: array of action_id
+        current_tier_unlocked: enum [tier_1_data, tier_2_personalized, tier_3_recommend, tier_4_costs, tier_5_live]
+        nav_circles_enabled: array of circle_id
+        predicted_influence_to_date_usd: number
+        predicted_influence_at_completion_usd: number
+    cache_control: 'max-age=10, private'
+    computed_by: 'gateway polls each stage activation_gate; aggregates'
+
+  intent:
+    endpoint: POST /v1/onboarding/intent
+    purpose: |
+      ChatOnboardingOrchestrator posts the operator's chat reply (text +
+      optional attachments + clicked affordance metadata) here. Gateway
+      routes through LLM router (app/llm_router) for intent extraction,
+      then dispatches the resulting HME event to the owning engine.
+    request_body:
+      operator_id: string (required)
+      stage_id: string (current stage from /v1/onboarding/state)
+      action_id: string (which action this reply addresses)
+      reply_kind: enum [text, button_click, file_drop, form_submission, oauth_complete]
+      payload:
+        text: string (when reply_kind=text)
+        button_value: string (when reply_kind=button_click)
+        file_ids: array (when reply_kind=file_drop — references intel-silo upload IDs)
+        form_data: object (when reply_kind=form_submission)
+        oauth_state: object (when reply_kind=oauth_complete)
+    response:
+      event_emitted: string (HME event_type that fired)
+      activation_gate_status: enum [unchanged, advanced, completed_stage]
+      next_action: object | null (the next chat affordance to render)
+      side_panel_update: object (refreshed stage progress + tier state)
+    side_effects:
+      - emits HME event matching auto_complete_on
+      - re-evaluates activation_gate for the affected stage
+      - if stage completes, advances current_stage_id and emits StageCompleted
+    safety:
+      - LLM router uses a constrained intent-extraction prompt (no free generation)
+      - extracted intent validated against the manifest's expected event_type whitelist
+      - rejection mode: orchestrator surfaces 'I didn't quite catch that — could you click one of the options?'
+
+# ─────────────────────────────────────────────────────────────────────────
+# CROSS-REFERENCES
+# ─────────────────────────────────────────────────────────────────────────
+references:
+  doctrine:
+    - foundational_goal_gigaton_engineered_brand_experience  # PPIM
+    - foundational_modular_replication_via_input_substitution
+    - feedback_directed_workflow_required_for_every_deploy
+    - feedback_always_build_user_self_serve
+    - feedback_always_include_gamification
+  patterns:
+    - directed_workflow_registry_pattern  # FE infrastructure
+    - documentation_ingest_feature_spec  # Stage 1 delegate
+  governance:
+    - decision-engine/drift_sentinel/AXIOM_REGISTRY.md
+    - master-knowledge-base/CONSTITUTION.md
+  concepts_consumed:
+    - standalone_bundle_net_new_concepts  # Concepts 2, 3, 5, 7, 8, 9, 10
+  deployments:
+    target_window: '2026-05-22T19:00:00-05:00'  # Friday 19:00 CT
