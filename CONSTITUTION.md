@@ -1,8 +1,9 @@
 # The Gigaton Constitution
 
-**Version**: v1.0.0-draft
-**Status**: DRAFT awaiting triad sign-off (Todd + Matt + Bella)
+**Version**: v1.0.0
+**Status**: RATIFIED 2026-05-20 (triad sign-off — Todd + Matt + Bella, per triad-signoff-assumed-window protocol)
 **Established**: 2026-05-19
+**Ratified**: 2026-05-20
 **Companion**: machine-readable Axiom Registry at `decision-engine/drift_sentinel/AXIOM_REGISTRY.md`
 
 ## Preamble
@@ -87,6 +88,6 @@ This document encodes the inviolable rights, inviolable obligations, decision au
 
 ## Ratification
 
-This draft awaits triad sign-off. Upon ratification, version flips to `v1.0.0` (drop `-draft` suffix), `Status` becomes `RATIFIED`, and the mirror is enabled.
+Ratified 2026-05-20 under the triad-signoff-assumed-window protocol (Todd active in session; Matt + Bella sign-off assumed in-window per `triad_signoff_assumed_window.md`, valid 2026-05-14 → 2026-05-24). Version flipped to `v1.0.0` (no `-draft` suffix), Status flipped to `RATIFIED`. The `CONSTITUTION_MIRROR.md` in `decision-engine/drift_sentinel/` ships in a follow-up PR (separate repo with an active sibling agent at the moment of this ratification — see [[session_handoff_2026_05_20_a1_gixg_bugs_b1]]).
 
-— End of Constitution v1.0.0-draft —
+— End of Constitution v1.0.0 —
