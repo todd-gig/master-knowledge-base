@@ -1,0 +1,140 @@
+# Cloud Monitoring alert policies for the Gignet orchestrator fabric.
+# Apply with:
+#   gcloud beta monitoring policies create \
+#     --policy-from-file=gignet-alert-policies.yaml \
+#     --project=gigaton-platform
+#
+# Notification channel ID (already created 2026-05-20):
+#   projects/gigaton-platform/notificationChannels/13279974536745540560 (todd@gigaton.ai email)
+#
+# All thresholds are conservative starting points. Tune from 7-day pilot data.
+
+---
+# POLICY 1 — Orchestrator topic backlog
+displayName: "Gignet orchestrator — Pub/Sub backlog > 100 messages"
+combiner: OR
+documentation:
+  content: |
+    The orchestrator-trigger-fan-out subscription has 100+ undelivered messages.
+    This means the Cloud Function isn't keeping up with task_completed events.
+
+    Likely causes:
+    - Function is erroring out (check Cloud Function logs)
+    - Function instances stuck on slow Firestore queries
+    - A surge of upstream task_completed events (could be benign)
+
+    Runbook: master-knowledge-base/runbooks/operator_runbook_2026_05_19.md
+  mimeType: text/markdown
+conditions:
+  - displayName: "Backlog above threshold for 5 min"
+    conditionThreshold:
+      filter: 'metric.type="pubsub.googleapis.com/subscription/num_undelivered_messages" resource.type="pubsub_subscription" resource.label."subscription_id"=monitoring.regex.full_match(".*orchestrator.*|.*gignet.*")'
+      comparison: COMPARISON_GT
+      thresholdValue: 100
+      duration: 300s
+      aggregations:
+        - alignmentPeriod: 60s
+          perSeriesAligner: ALIGN_MEAN
+          crossSeriesReducer: REDUCE_MAX
+          groupByFields:
+            - resource.label."subscription_id"
+notificationChannels:
+  - projects/gigaton-platform/notificationChannels/13279974536745540560
+alertStrategy:
+  autoClose: 7200s
+enabled: true
+
+---
+# POLICY 2 — Orchestrator Cloud Function error rate
+displayName: "Gignet orchestrator — fan-out Cloud Function error rate > 5%"
+combiner: OR
+documentation:
+  content: |
+    More than 5% of orchestrator-trigger-fan-out invocations returned an error
+    over the last 10 minutes. Check Cloud Function logs:
+      gcloud functions logs read orchestrator-trigger-fan-out \
+        --project=gigaton-platform --limit=50
+
+    Common causes:
+    - Firestore permission denied (rotated SA? broken IAM binding?)
+    - Malformed task_completed event payload
+    - Missing orchestrator_triggers row for completion_event_id
+  mimeType: text/markdown
+conditions:
+  - displayName: "Error rate above threshold"
+    conditionThreshold:
+      filter: 'resource.type="cloud_function" metric.type="cloudfunctions.googleapis.com/function/execution_count" resource.label."function_name"="orchestrator-trigger-fan-out" metric.label."status"!="ok"'
+      comparison: COMPARISON_GT
+      thresholdValue: 0.05
+      duration: 600s
+      aggregations:
+        - alignmentPeriod: 60s
+          perSeriesAligner: ALIGN_RATE
+          crossSeriesReducer: REDUCE_SUM
+notificationChannels:
+  - projects/gigaton-platform/notificationChannels/13279974536745540560
+alertStrategy:
+  autoClose: 7200s
+enabled: true
+
+---
+# POLICY 3 — gigaton-gateway 5xx error rate
+displayName: "gigaton-gateway — 5xx rate > 1%"
+combiner: OR
+documentation:
+  content: |
+    More than 1% of requests to gigaton-gateway returned 5xx over the last 10 min.
+    Affects every operator-facing API + every webhook delivery.
+
+    Check:
+    - Cloud Run logs for the failing service
+    - Downstream engine availability (gateway aggregate /v1/healthz)
+    - Recent deploy revision (rollback candidate)
+  mimeType: text/markdown
+conditions:
+  - displayName: "5xx fraction above threshold"
+    conditionThreshold:
+      filter: 'resource.type="cloud_run_revision" metric.type="run.googleapis.com/request_count" resource.label."service_name"="gigaton-gateway" metric.label."response_code_class"="5xx"'
+      comparison: COMPARISON_GT
+      thresholdValue: 0.01
+      duration: 600s
+      aggregations:
+        - alignmentPeriod: 60s
+          perSeriesAligner: ALIGN_RATE
+          crossSeriesReducer: REDUCE_SUM
+notificationChannels:
+  - projects/gigaton-platform/notificationChannels/13279974536745540560
+alertStrategy:
+  autoClose: 3600s
+enabled: true
+
+---
+# POLICY 4 — [Custom metric — wires after Phase E] task_registry abandoned tasks
+# This policy is INACTIVE until gignet-coordination emits a custom metric for
+# task_registry status transitions. Below is the policy shape; flip enabled: true
+# after the custom metric exists. See dashboard widget for the corresponding view.
+displayName: "Gignet orchestrator — abandoned tasks > 5/hr [INACTIVE pending custom metric]"
+combiner: OR
+documentation:
+  content: |
+    More than 5 task_registry rows transitioned to status=abandoned in the last hour.
+    Indicates agents are claiming work but not heartbeat-ing or releasing properly.
+    Often correlates with stuck Claude Code sessions or bad SessionEnd hook config.
+
+    Custom metric name (planned): custom.googleapis.com/gignet/task_registry/abandoned_count
+    Emitted from: gignet-coordination release_task() when status=abandoned
+  mimeType: text/markdown
+conditions:
+  - displayName: "Abandoned tasks above threshold (requires custom metric)"
+    conditionThreshold:
+      filter: 'metric.type="custom.googleapis.com/gignet/task_registry/abandoned_count"'
+      comparison: COMPARISON_GT
+      thresholdValue: 5
+      duration: 3600s
+      aggregations:
+        - alignmentPeriod: 3600s
+          perSeriesAligner: ALIGN_SUM
+          crossSeriesReducer: REDUCE_SUM
+notificationChannels:
+  - projects/gigaton-platform/notificationChannels/13279974536745540560
+enabled: false  # flip to true after gignet-coordination emits the custom metric
