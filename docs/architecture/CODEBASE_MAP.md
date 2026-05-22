@@ -63,10 +63,10 @@ sources:
 |---|---|---|---|
 | Decision engine | decision-engine `00034-t2s` | `decision-engine/engine/` | LIVE |
 | Penrose 8-metric falsification scoreboard | decision-engine `/v1/penrose/scoreboard` | `decision-engine/engine/penrose/` | LIVE — 8/8 metrics responsive (decision_velocity null pending real execute() flow) |
-| Decision Execution Engine | decision-engine `/v1/decisions/.../executions` | decision-engine | LIVE (in-memory v0; Cloud SQL approved per A.3 — provisioned 2026-05-21) |
+| Decision Execution Engine | decision-engine `/v1/decisions/.../executions` | decision-engine | **LIVE on Cloud SQL** rev `00037-86d` (2026-05-22T19:11Z). PR #78 Alembic adoption MERGED 2026-05-21; PR #80 follow-on baselines 0002-0006 MERGED 2026-05-22. `decision-engine-pg` RUNNABLE + bound. |
 | Doctrine + Trust/Value/Authority matrix | decision-engine `drift_sentinel/GIGATON_CANONICAL_FIRST_PRINCIPLES.md` + `axioms.yaml` (23 axioms) | decision-engine | LIVE — Constitution v1.0.0 RATIFIED |
 | Drift Sentinel | recursive scanner walking codebase + GitHub + Drive + ClickUp + Downloads | decision-engine | LIVE — nightly Cloud Scheduler `sweep-executions-daily` (verified fired 2026-05-21T09:00Z) |
-| Society of Minds / EO System | intelligence-silo `/v1/eo` | intelligence-silo | LIVE (in-memory v0; Cloud SQL provisioned 2026-05-21) |
+| Society of Minds / EO System | intelligence-silo `/v1/eo` | intelligence-silo | **LIVE on Cloud SQL** rev `00036-flc` (2026-05-22T19:13Z). PR #27 Postgres write-through + boot hydrate + Cloud SQL wiring MERGED 2026-05-20; PR #34 boot-gate (applies raw `.sql` migrations in-process at startup, NOT Alembic) MERGED 2026-05-21; PR #38 relational `memory_items` + lifecycle state machine MERGED 2026-05-22. `intelligence-silo-pg` RUNNABLE + bound. |
 | LLM router (multi-model) | gigaton-gateway `app/llm_router/` + POST `/v1/llm/call` | gigaton-gateway `00036-vxh` (incl ade445f) | LIVE — Anthropic + Gemini via Vertex AI work; OPENAI_API_KEY mount NOT live (operator paste pending) |
 | BFT Master Calculator (Framework 5.19) | ppeme `00015-zz7` | ppeme | LIVE |
 | Experience Engineering Equation | ppeme `engine/experience_engineering/` | ppeme | LIVE |
@@ -157,8 +157,8 @@ React + Vite + TypeScript SPA at `https://gigaton-platform.web.app`. Routes:
 - **Upwork package** — not started.
 - **Proposal generator** — not started.
 - **`gignet-orchestrator-fn` + `gignet-coordination`** — exist on GitHub but missing from `repo_registry.md` (drift item #1).
-- **Production storage for Decision Execution Engine + EO System** — Cloud SQL provisioned 2026-05-21 but in-memory v0 still serves; migration not yet flipped.
-- **Cross-engine event-driven storage/retrieval** — sprint 2026-05-22 in flight (13 PRs S1–S16).
+- ~~Production storage for Decision Execution Engine + EO System~~ — **SHIPPED 2026-05-22** (decision-engine PRs #78 + #80; intelligence-silo PRs #27 + #34 + #38). Both engines now on Cloud SQL.
+- **Cross-engine event-driven storage/retrieval** — sprint 2026-05-22 mostly landed (S1–S8 + S12 + S13 merged); S7+S8 deferred to wk 2026-05-25 per [[session_handoff_2026_05_22_storage_retrieval_sprint]].
 
 ### 3.4 DUPLICATE-RISK (DO NOT BUILD; the ingest package asks for these but they already exist)
 

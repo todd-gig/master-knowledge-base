@@ -308,8 +308,21 @@ If rejected — fall back: add `tax_amount` field to `invoice` + a manual tax-ru
 - [x] **B2** — Per-product-and-service-package (not a global model; each package carries its own). **LOCKED 2026-05-22.**
 - [x] **B3** — Inside `gigaton-engine`. **LOCKED 2026-05-22.**
 - [x] **B4** — Per-deal-and-package (not a global cadence). **LOCKED 2026-05-22.**
-- [ ] **B5** — Stripe Tax. **PROPOSED per recommendation; awaiting user confirm.**
-- [ ] **First product catalog entry** — what does the first Product/Package look like? (Open for input. Suggest defining one default package per active operator: Carmen Beach STR, LiquiFex, InContekst, Ti Solutions consulting.)
-- [ ] **First operator to bill** — Carmen Beach, or one of the others, or a synthetic test customer first?
-- [ ] User approves the revised file-level implementation plan above.
-- [ ] User approves provisioning `gigaton-engine-pg` Cloud SQL instance in `carmen-beach-properties` project.
+- [x] **B5** — Stripe Tax. `automatic_tax: {enabled: true}` on every invoice creation. **LOCKED 2026-05-22.**
+- [x] **First operators to bill** — "multipli & ben" used as business-use-case examples per user direction 2026-05-22. **AWAITING CONTEXT** — these names are not in `entity_ecosystem_registry`. Possible interpretations: (a) hypothetical example operators for catalog modeling; (b) real operators not yet captured in registry; (c) project codenames. Will clarify with user before catalog work begins.
+- [x] **Provision `gigaton-engine-pg` Cloud SQL** in `carmen-beach-properties` project. **APPROVED 2026-05-22.** Execution scheduled for 2026-05-22 alongside storage flip Phase A.
+- [ ] **First product catalog entries** — defer until multipli + ben context is clarified. Two example packages will be defined (one per example operator) as the initial seed.
+- [x] **User approves the revised file-level implementation plan above.** Implied by B1-B5 + provisioning lock 2026-05-22.
+
+## Storage-flip dependency
+
+Implementation will run in the following sequence:
+
+1. **Storage flip Phase A (DEE)** — STARTING NOW 2026-05-22. ~3-5h, single PR. No billing dependency.
+2. **`gigaton-engine-pg` provisioning** — running in parallel with Phase A. ~10 min.
+3. **gigaton-engine Cloud SQL + Alembic adoption** — prerequisite for billing build. After Phase A ships + soak. Mirrors the EO Phase B pattern.
+4. **Storage flip Phase B (EO)** — after gigaton-engine SQL adoption. Independent repo; can run in parallel.
+5. **Billing Phases 1-7** — after gigaton-engine SQL adoption lands.
+6. **First catalog seed** — after multipli + ben context is clarified.
+
+Total elapsed estimate from 2026-05-22 to first invoice: ~8 days at current pace.

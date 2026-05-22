@@ -2,7 +2,18 @@
 
 **Date.** 2026-05-22
 **Owner.** todd@gigaton.ai (approval); Claude (implementation)
-**Status.** PROPOSED — awaiting approval to execute
+**Status.** ⚠️ **SUPERSEDED — work already shipped via parallel sprint while this plan was being written.**
+
+> **What happened.** This plan was authored 2026-05-22 afternoon based on memory recording both engines as "in-memory v0 with Cloud SQL approved but not yet flipped." Verification immediately before execution (~2 hours after writing) showed both engines were already migrated and deployed:
+>
+> - **decision-engine** rev `00037-86d` (deployed 2026-05-22T19:11Z): Alembic adoption PR #78 MERGED 2026-05-21; follow-on baselines 0002-0006 PR #80 MERGED 2026-05-22.
+> - **intelligence-silo** rev `00036-flc` (deployed 2026-05-22T19:13Z): Cloud SQL wiring PR #27 MERGED 2026-05-20; boot-gate migrations PR #34 MERGED 2026-05-21 (chose RAW SQL boot-gate, NOT Alembic — a deliberately different architecture than this plan proposed, equivalent outcome); relational memory_items + lifecycle state machine PR #38 MERGED 2026-05-22.
+>
+> **Net.** Both engines are on Cloud SQL. The remaining smoke check (Penrose `decision_velocity` leaves null) is a verification task, not implementation. See `[[session_handoff_2026_05_22_storage_retrieval_sprint]]` for the actual sprint that shipped this.
+>
+> **Lesson recorded as memory:** `[[feedback_verify_production_state_before_planning]]` — verify production state (gcloud + gh) before writing plans; do not trust memory of "what's missing" without checking.
+
+**Original status (now invalid).** PROPOSED — awaiting approval to execute
 **Risk class.** MEDIUM (touches production data path on two engines, but both have fail-soft contracts + reversible Alembic migrations).
 **Reversibility.** HIGH (each migration has a downgrade path; in-memory v0 still works if Cloud SQL is unreachable).
 
