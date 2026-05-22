@@ -1,8 +1,10 @@
 ---
 adr_id: 2026-05-22-billing_architecture_choices
 title: Gigaton platform billing — architecture choices required before any code
-status: AWAITING DECISION — 5 gates open
+status: PARTIALLY ACCEPTED — 4/5 gates locked; B5 (tax) pending confirmation
 date: 2026-05-22
+accepted_at: 2026-05-22
+accepted_by: todd@gigaton.ai
 authors:
   - Claude (architecture intelligence pass)
 reviewers:
@@ -15,6 +17,21 @@ related:
   - "docs/architecture/CODEBASE_MAP.md"
   - "decisions/2026-05-22_claude_gigaton_ingest_reconciliation.md"
 ---
+
+> **DECISIONS LOCKED 2026-05-22 by todd@gigaton.ai:**
+>
+> - **B1 = Single platform Stripe account.** Operators are Stripe Customers within one Gigaton account.
+> - **B2 = Per-product-and-service-package.** Billing model is NOT a global choice — each product/service package carries its own billing model. The platform supports flat-tier, usage-metered, hybrid, and (eventually) profit-influence-attributed pricing simultaneously, parameterized by the package.
+> - **B3 = Inside `gigaton-engine`.** Cross-entity economics service becomes the home. Promotes gigaton-engine from lightly-used to substantively-used.
+> - **B4 = Per-deal-and-package.** Invoice cadence is NOT global — each deal carries its locked-in cadence (auto-charge / net-30 / prepaid). Aligns with B2.
+> - **B5 = Stripe Tax (PROPOSED per recommendation; awaiting user confirmation).** Auto Mode call: lowest-friction default. 0.5% volume cost; Mexico + US + EU well-covered.
+>
+> The B2/B4 meta-pattern means the implementation has TWO layers:
+> 1. A **product/service catalog** (defines what is sold, on what model, on what cadence).
+> 2. A **deal/subscription engine** (binds operator → package → locked terms).
+>
+> Stripe's native Products + Prices + Subscriptions data model already supports this. We mirror it into gigaton-engine Postgres for fast reads + cross-references + Penrose attribution hooks.
+
 
 # ADR — Gigaton platform billing: architecture choices
 
@@ -158,73 +175,119 @@ Notes / overrides: _____
 
 ---
 
-## What gets built once all 5 are answered
+## File-level implementation plan (REVISED for locked decisions)
 
-Conditional on B1.a + B2.c + B3.a + B4.b + B5.a (my recommendation stack), here is the file-level implementation plan that will follow. **Not committed to until the gates are answered** — if the user picks a different stack, the plan changes accordingly.
+Locked: **B1.a single + B2 package-driven + B3 gigaton-engine + B4 deal-driven + B5 Stripe Tax (pending confirm).** This reframes the plan around a **catalog + deal** architecture inside `gigaton-engine`, with Stripe as the source-of-truth for Products/Prices/Subscriptions, mirrored locally for fast reads + Penrose attribution hooks.
 
-### Phase 1 — UAE billing data layer (~1 day)
+### Critical pre-requisite — gigaton-engine adopts Cloud SQL
+
+gigaton-engine currently has **NO Postgres instance**. Implementing billing there requires provisioning + adopting Alembic *first*. This becomes a third storage adoption alongside DEE + EO. It runs in parallel with EO (different repo, no dependency).
+
+| Step | Detail |
+|---|---|
+| Provision `gigaton-engine-pg` Cloud SQL | In `carmen-beach-properties` GCP project (matches current engine placement; do NOT mix with the gigaton-platform migration which is a separate ADR). `db-custom-1-3840`, same shape as DEE. |
+| Bootstrap Alembic + `start.sh` + Cloud SQL wiring | Mirror the EO Phase B pattern exactly (see `runbooks/2026_05_22_storage_flip_dee_eo_plan.md` §5). |
+| `0001_baseline.py` | Empty baseline — no pre-existing tables to capture. |
+
+**Important caveat.** gigaton-engine lives in `carmen-beach-properties` GCP project (historical drift; anti-pattern #4/7 in `[[repo_registry]]`). Building billing on top of misplaced infra is acceptable for now — the project migration ([[gcp_project_organization_target_2026]]) handles relocation later as a separate work item. Do NOT entangle the two.
+
+### Phase 1 — gigaton-engine catalog data layer (~1.5 days)
 
 | File | Change |
 |---|---|
-| `user-access-engine/alembic/versions/00NN_billing.py` (NEW) | Tables: `billing_profile` (1:1 with `client_namespace`), `billing_meter` (rollup of `gigaton-gateway` Firestore meters; period_start/period_end/operator_id/meter_kind/units/unit_cost), `invoice` (operator_id/period/subtotal/tax/total/status/stripe_invoice_id), `invoice_line_item`, `payment_method` (operator_id/stripe_pm_id/last4/brand/is_default). |
-| `user-access-engine/api/models/billing.py` (NEW) | Pydantic shapes for above. |
-| `user-access-engine/api/services/billing/__init__.py` (NEW) | `BillingService` — `get_billing_profile`, `upsert_billing_profile`, `record_meter`, `generate_invoice`, `list_invoices`. |
-| `user-access-engine/api/routes/billing.py` (NEW) | Endpoints: `GET/PATCH /v1/operators/{id}/billing-profile`, `POST /v1/operators/{id}/payment-methods`, `GET /v1/operators/{id}/invoices`, `GET /v1/invoices/{id}`. All gated by UAE sign-off matrix for `category=billing`. |
+| `gigaton-engine/alembic/versions/0002_billing_catalog.py` (NEW) | Catalog tables: `product` (product_id PK, slug, name, description, stripe_product_id, status, ppim_brand_dimension, created_at). `package` (package_id PK, product_id FK, slug, name, billing_model ENUM {flat, usage_metered, hybrid, profit_attributed}, description, status). `price` (price_id PK, package_id FK, stripe_price_id, unit_amount NUMERIC, currency, interval ENUM {month, year, one_time, usage}, usage_type ENUM nullable {metered, licensed}, tier_definition JSONB nullable, status). Indexes on stripe_product_id, stripe_price_id, slug. |
+| `gigaton-engine/alembic/versions/0003_billing_deals.py` (NEW) | Deal tables: `deal` (deal_id PK, operator_id, package_id FK, price_id FK, cadence ENUM {auto_charge_monthly, invoice_net_30, prepaid_credits, custom}, status ENUM {draft, active, paused, terminated}, stripe_subscription_id nullable, effective_from, effective_to, signed_by, signed_at, terms_overrides JSONB, ppim_signature JSONB). `deal_term_override` (deal_id FK, key, value JSONB) — for one-off custom terms outside the package defaults. Indexes on operator_id, stripe_subscription_id, status. |
+| `gigaton-engine/alembic/versions/0004_billing_meters_invoices.py` (NEW) | Runtime tables: `meter_event` (event_id PK UUID, operator_id, deal_id FK, package_id FK, meter_kind {llm_tokens, api_calls, whatsapp_messages, profit_attribution, custom}, units NUMERIC, source ENUM {gateway, ppeme, manual}, source_ref, occurred_at). `invoice` (invoice_id PK, operator_id, deal_id FK, period_start, period_end, subtotal NUMERIC, tax NUMERIC, total NUMERIC, currency, status ENUM {draft, open, paid, void, uncollectible}, stripe_invoice_id, created_at, finalized_at, paid_at). `invoice_line_item` (line_id PK, invoice_id FK, price_id FK, description, quantity NUMERIC, unit_amount NUMERIC, amount NUMERIC, meter_event_window JSONB). `payment_method` (payment_method_id PK, operator_id, stripe_payment_method_id, brand, last4, exp_month, exp_year, is_default, created_at). Indexes on operator_id, deal_id, status, stripe_invoice_id, occurred_at. |
+| `gigaton-engine/api/models/billing/__init__.py` (NEW) | Pydantic shapes mirroring all of the above. Separate request/response models per route. |
+| `gigaton-engine/api/services/billing/catalog.py` (NEW) | `CatalogService` — CRUD on Product / Package / Price; writes go to Stripe first (`stripe.Product.create`, `stripe.Price.create`), then mirrored to Postgres. Reads from Postgres for speed. Webhook re-syncs handle drift. |
+| `gigaton-engine/api/services/billing/deals.py` (NEW) | `DealService` — `create_deal(operator_id, package_id, price_id, cadence, terms_overrides)` creates the Stripe Subscription (or schedules first invoice for non-subscription cadences) and persists the deal row. `terminate_deal`, `pause_deal`, `list_deals_for_operator`. |
+| `gigaton-engine/api/services/billing/meters.py` (NEW) | `MeterService` — `record(meter_kind, operator_id, units, source, source_ref)`. Idempotent on `source_ref`. For `usage_metered` and `hybrid` packages, also pushes the meter to `stripe.SubscriptionItem.create_usage_record`. |
+| `gigaton-engine/api/services/billing/invoices.py` (NEW) | `InvoiceService` — `generate_for_deal(deal_id, period_end)` reads deal terms + accumulated meters, computes line items, creates Stripe Invoice (or charges via auto-charge cadence). |
 
-### Phase 2 — Stripe integration adapter (~1 day)
-
-| File | Change |
-|---|---|
-| `user-access-engine/api/integrations/stripe.py` (NEW) | Thin adapter — `create_customer`, `attach_payment_method`, `create_invoice`, `finalize_invoice`, `pay_invoice`. Reads `STRIPE_SECRET_KEY` from Secret Manager. |
-| `user-access-engine/api/routes/webhooks_stripe.py` (NEW) | `POST /v1/webhooks/stripe` — handles `invoice.paid`, `invoice.payment_failed`, `customer.updated`, `charge.dispute.created`. Idempotent via Stripe event_id. |
-| `user-access-engine/tests/test_stripe_adapter.py` (NEW) | Mocked Stripe client; verifies idempotency + retry. |
-| Secret Manager: `stripe-secret-key`, `stripe-webhook-signing-secret` (NEW) | Two new secret slots in `gigaton-platform` GCP project. **Pattern A storage — create slot empty, operator pastes key, only then re-deploy.** Avoids the AX-024 empty-slot deploy failure from gateway PR #37. |
-| Cloud Run env: `--update-secrets=STRIPE_SECRET_KEY=stripe-secret-key:latest,STRIPE_WEBHOOK_SIGNING_SECRET=stripe-webhook-signing-secret:latest` on UAE | After paste. |
-
-### Phase 3 — Meter rollup from gateway (~0.5 day)
+### Phase 2 — Stripe adapter + webhooks (~1 day)
 
 | File | Change |
 |---|---|
-| `user-access-engine/api/services/billing/meter_rollup.py` (NEW) | Cloud Scheduler job runs daily at 06:00 UTC; queries `gateway` Firestore `llm_call_cost` for prior day; aggregates per operator; writes `billing_meter` rows. |
-| `master-knowledge-base/runbooks/` | Add `billing_meter_rollup_failure.md` — what to do when daily rollup fails. |
+| `gigaton-engine/api/integrations/stripe_client.py` (NEW) | Thin wrapper around the Stripe Python SDK. Single entry point that reads `STRIPE_SECRET_KEY` from env (Secret Manager-mounted). Includes retry + idempotency-key support. |
+| `gigaton-engine/api/routes/webhooks_stripe.py` (NEW) | `POST /v1/webhooks/stripe` — handles `product.*`, `price.*`, `customer.subscription.*`, `invoice.*`, `payment_method.*`, `charge.dispute.created`. Verifies signature against `STRIPE_WEBHOOK_SIGNING_SECRET`. Idempotent on Stripe `event_id` (store in a `stripe_event` ledger table; if seen, ack and skip). |
+| `gigaton-engine/tests/test_stripe_adapter.py` (NEW) | Mocked Stripe client; verifies signature verification + idempotency + each event-handler branch. |
+| `gigaton-engine/tests/test_billing_e2e.py` (NEW) | Spins up testcontainer Postgres; exercises catalog → deal → meter → invoice flow end-to-end with Stripe mocked. |
+| Secret Manager `gigaton-platform`: `stripe-secret-key` (NEW empty slot — Pattern A) | Operator pastes key after slot exists; AX-024 mitigation. |
+| Secret Manager `gigaton-platform`: `stripe-webhook-signing-secret` (NEW empty slot — Pattern A) | Same. Operator gets signing secret from Stripe dashboard after webhook endpoint is registered. |
+| `gigaton-engine/cloudbuild.yaml` | Add `--update-secrets=STRIPE_SECRET_KEY=stripe-secret-key:latest,STRIPE_WEBHOOK_SIGNING_SECRET=stripe-webhook-signing-secret:latest`. **Deploy in two passes:** first pass creates the slots (above) WITHOUT binding; operator pastes; second pass adds the bindings + redeploys. |
 
-### Phase 4 — Invoice generation cron (~0.5 day)
-
-| File | Change |
-|---|---|
-| `user-access-engine/api/services/billing/invoice_generator.py` (NEW) | Cloud Scheduler job runs 1st of month 06:00 UTC; for each `client_namespace` with `billing_profile.status='active'`, calculates base + overage from `billing_meter`, calls Stripe to create+finalize invoice. |
-| Cloud Scheduler: `billing-generate-invoices-monthly` (NEW) | `0 6 1 * *` |
-| Cloud Scheduler: `billing-rollup-meters-daily` (NEW) | `0 6 * * *` |
-
-### Phase 5 — FE: billing settings + invoice list (~0.5 day)
+### Phase 3 — Catalog + Deal CRUD endpoints (~0.5 day)
 
 | File | Change |
 |---|---|
-| `gigaton-ui-system/src/pages/BillingPage.tsx` (NEW) | At `/billing`. Shows tier, current-period usage, next invoice estimate, payment method, invoice history. |
+| `gigaton-engine/api/routes/catalog.py` (NEW) | `GET/POST/PATCH /v1/catalog/products`, `GET/POST/PATCH /v1/catalog/packages`, `GET/POST/PATCH /v1/catalog/prices`. Gated by UAE sign-off matrix `category=billing` for mutations. |
+| `gigaton-engine/api/routes/deals.py` (NEW) | `POST /v1/deals` (create), `GET /v1/operators/{id}/deals`, `GET /v1/deals/{id}`, `POST /v1/deals/{id}/pause`, `POST /v1/deals/{id}/terminate`. Sign-off-gated for mutations. |
+| `gigaton-engine/api/routes/invoices.py` (NEW) | `GET /v1/operators/{id}/invoices`, `GET /v1/invoices/{id}`, `POST /v1/invoices/{id}/refund` (sign-off-required). |
+| `gigaton-engine/api/routes/meters.py` (NEW) | `POST /v1/meters` (internal — called by gateway rollup + ppeme attribution job), `GET /v1/operators/{id}/meters?from=&to=`. |
+
+### Phase 4 — Cross-engine wiring (~0.5 day)
+
+| File | Change |
+|---|---|
+| `gigaton-gateway/api/services/meter_emitter.py` (NEW or MODIFIED if exists) | Daily Cloud Scheduler `meter-rollup-from-gateway-daily` reads `gateway` Firestore `llm_call_cost` for prior day → POSTs to `gigaton-engine /v1/meters` with `meter_kind=llm_tokens`. |
+| `ppeme/api/services/profit_attribution_emitter.py` (NEW) | When ppeme finalizes a Penrose profit-attribution event, POSTs to `gigaton-engine /v1/meters` with `meter_kind=profit_attribution` for packages using `profit_attributed` billing model. |
+| `user-access-engine/api/services/clients/billing_client.py` (NEW thin client) | UAE reads gigaton-engine `/v1/operators/{id}/deals?status=active` to determine which capabilities are unlocked. Cached 5min. |
+| `decision-engine/drift_sentinel/axioms.yaml` | Add **AX-024 (proposed)**: operator with NO `active` deal → `gigaton-engine` services return 402 Payment Required. Add **AX-025 (proposed)**: operator with active deal but `invoice.status=uncollectible` → degrade to read-only after 14d grace. Drift sentinel flags violations. |
+
+### Phase 5 — Cloud Scheduler jobs (~0.25 day)
+
+| Job | Schedule | Purpose |
+|---|---|---|
+| `meter-rollup-from-gateway-daily` | `0 6 * * *` UTC | Pull prior day's LLM costs from Firestore → meters. |
+| `meter-rollup-from-ppeme-daily` | `30 6 * * *` UTC | Pull prior day's profit attributions → meters (for profit_attributed packages). |
+| `invoices-generate-billing-period` | `0 7 * * *` UTC | For each active deal, check if billing period closed today; if yes, generate invoice. Cadence-aware (monthly deals close 1st of month; weekly close on day-of-week; etc.). |
+| `invoices-collect-overdue` | `0 8 * * *` UTC | Retry failed auto-charge invoices on day +1/+3/+7; after +14d mark `uncollectible` + emit AX-025-triggering signal. |
+
+### Phase 6 — FE: catalog admin + operator billing surface (~1 day)
+
+| File | Change |
+|---|---|
+| `gigaton-ui-system/src/pages/AdminCatalogPage.tsx` (NEW) | At `/admin/catalog`. Founder/admin only. CRUD on Products + Packages + Prices. Live preview of Stripe representation. |
+| `gigaton-ui-system/src/pages/AdminDealsPage.tsx` (NEW) | At `/admin/deals`. Create + sign deals per operator. Picks package + price + cadence + overrides. Surfaces sign-off matrix. |
+| `gigaton-ui-system/src/pages/BillingPage.tsx` (NEW) | At `/billing`. Operator view: active deals + next invoice estimate + invoice history + payment method. |
 | `gigaton-ui-system/src/pages/BillingPaymentMethodPage.tsx` (NEW) | Stripe Elements for adding card. |
-| `gigaton-ui-system/src/api/billing.ts` (NEW) | Thin client for UAE billing endpoints. |
-| Nav rail | Add `/billing` to the appropriate tier-gated circle (per `onboarding_v1.yaml`). |
+| `gigaton-ui-system/src/api/billing.ts` (NEW) | Client for gigaton-engine billing endpoints. |
+| Nav rail | Add `/billing` to the appropriate tier-gated circle (per `onboarding_v1.yaml`); `/admin/catalog` + `/admin/deals` to founder rail. |
 
-### Phase 6 — HME event types + governance (~0.25 day)
+### Phase 7 — HME event types + governance (~0.25 day)
 
 | File | Change |
 |---|---|
-| `human-management-engine/api/events.py` | Add 4 event types: `InvoiceCreated`, `InvoicePaid`, `InvoicePaymentFailed`, `PaymentMethodAttached`. |
-| `decision-engine/drift_sentinel/axioms.yaml` | Consider adding axiom AX-024: "operator with `billing_profile.status=delinquent` must NOT receive new gigaton-engine work" (drift sentinel auto-flags violations). |
+| `human-management-engine/api/events.py` | Add 8 event types: `ProductCreated`, `PackageCreated`, `PriceCreated`, `DealCreated`, `DealActivated`, `InvoiceFinalized`, `InvoicePaid`, `InvoicePaymentFailed`. |
+| `decision-engine/drift_sentinel/axioms.yaml` | AX-024 + AX-025 as described in Phase 4. |
+
+### Stripe Tax (B5) — pending user confirmation
+
+If confirmed: enable Stripe Tax in the Stripe dashboard; set `automatic_tax: {enabled: true}` on every invoice creation in `gigaton-engine/api/integrations/stripe_client.py`. No additional Gigaton-side code beyond that flag. Register Stripe Tax in operating jurisdictions (US, Mexico, EU as needed).
+
+If rejected — fall back: add `tax_amount` field to `invoice` + a manual tax-rule table; we calculate ourselves. Estimated +2 days, ongoing compliance burden.
 
 ### Out of scope (for this build)
 
-- Stripe Connect / marketplace flows (deferred to a future ADR if/when third-party operators arrive).
-- Refund/dispute UX (handle case-by-case via Stripe dashboard for now; webhook just records state).
-- Coupons / promo codes.
-- Affiliate revenue share — operator-level concern; the existing `Payout` schema in Carmen Beach stays untouched.
+- Stripe Connect / marketplace flows (deferred until third-party operators arrive).
+- Refund/dispute UX beyond the basic `POST /v1/invoices/{id}/refund` route (handle case-by-case via Stripe dashboard initially).
+- Coupons / promo codes / discounts (extend `price` table later with `discount_id` FK).
+- Affiliate revenue share — operator-level concern; Carmen Beach `Payout` schema stays untouched.
+- The `gigaton-engine` GCP project migration to `gigaton-platform` ([[gcp_project_organization_target_2026]]) — separate work item.
 
-### Estimated total
+### Estimated total (revised)
 
-- ~3.5 elapsed days under the recommendation stack.
-- ~5 PRs across UAE + gigaton-ui-system + (potentially) decision-engine for AX-024.
-- 2 net-new Cloud Scheduler jobs.
-- 2 net-new Secret Manager slots.
+- **gigaton-engine SQL adoption (prerequisite)**: ~0.5 day (mostly copy-paste from EO Phase B pattern; empty baseline). 
+- **Phase 1** (catalog data layer): ~1.5 days.
+- **Phase 2** (Stripe adapter + webhooks, two-pass deploy): ~1 day.
+- **Phase 3** (CRUD endpoints): ~0.5 day.
+- **Phase 4** (cross-engine wiring): ~0.5 day.
+- **Phase 5** (Cloud Scheduler): ~0.25 day.
+- **Phase 6** (FE): ~1 day.
+- **Phase 7** (HME events + axioms): ~0.25 day.
+- **TOTAL**: ~5.5 elapsed days (up from ~3.5 in the original recommendation stack — the catalog + deal layer + gigaton-engine SQL adoption add 2 days).
+- **~9 PRs** across gigaton-engine + gigaton-ui-system + gigaton-gateway + ppeme + decision-engine + HME.
+- **2 net-new Secret Manager slots** + **1 net-new Cloud SQL instance** + **4 net-new Cloud Scheduler jobs**.
 
 ---
 
@@ -239,13 +302,14 @@ Conditional on B1.a + B2.c + B3.a + B4.b + B5.a (my recommendation stack), here 
 - All Phase 1 migrations have `downgrade()`. Stripe Customer records persist (cleanup manual via dashboard if needed). Webhooks idempotent — replaying is safe.
 - Cloud Scheduler jobs can be paused without code change.
 
-## Approval gates (binary)
+## Approval gates
 
-- [ ] **B1** — Stripe Connect or single account? (Recommend: **B1.a single**)
-- [ ] **B2** — Billing model? (Recommend: **B2.c hybrid base + usage**)
-- [ ] **B3** — Where does it live? (Recommend: **B3.a inside UAE**)
-- [ ] **B4** — Invoice cadence? (Recommend: **B4.b auto-charge monthly**)
-- [ ] **B5** — Tax + compliance? (Recommend: **B5.a Stripe Tax**)
-- [ ] **Tiers + pricing** for B2.c — what are the tier names, base prices, included quantities, overage rates? (Open for input.)
+- [x] **B1** — Single platform Stripe account. **LOCKED 2026-05-22.**
+- [x] **B2** — Per-product-and-service-package (not a global model; each package carries its own). **LOCKED 2026-05-22.**
+- [x] **B3** — Inside `gigaton-engine`. **LOCKED 2026-05-22.**
+- [x] **B4** — Per-deal-and-package (not a global cadence). **LOCKED 2026-05-22.**
+- [ ] **B5** — Stripe Tax. **PROPOSED per recommendation; awaiting user confirm.**
+- [ ] **First product catalog entry** — what does the first Product/Package look like? (Open for input. Suggest defining one default package per active operator: Carmen Beach STR, LiquiFex, InContekst, Ti Solutions consulting.)
 - [ ] **First operator to bill** — Carmen Beach, or one of the others, or a synthetic test customer first?
-- [ ] User approves committing this ADR.
+- [ ] User approves the revised file-level implementation plan above.
+- [ ] User approves provisioning `gigaton-engine-pg` Cloud SQL instance in `carmen-beach-properties` project.
