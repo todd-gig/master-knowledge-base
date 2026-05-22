@@ -32,7 +32,7 @@ Discovered 2026-05-22 evening: there is a parallel sprint shipping the **Gigaton
 - **Mon 5/25** — Package beta LAUNCHES (internal readiness; engines × wrapper bundled).
 - **Tue 5/26 EOD** — Multipli vendor-growth output bundle = first prospect-ready instantiation of the package.
 
-**Assumption 1 REVISED.** Tuesday output IS Ben-facing (or near-Ben-facing). Polish level: **prospect-demonstration quality**, not internal readiness. The output bundle gets attached to the outreach email Ben Cahir receives.
+**Assumption 1 LOCKED 2026-05-22 by user.** Tuesday = **internal readiness only.** Ben sees nothing Tuesday. Polish level: internal-readiness; demonstration-quality not required by Tuesday. Ben outreach happens AFTER user reviews + polishes the bundle (timing TBD). This loosens the Tuesday deadline somewhat — the engine has to RUN end-to-end and produce the bundle, but UX polish on FE surfaces can defer.
 
 **This sprint must NOT duplicate package engine work.** The package already maps the 4 lifecycle stages to the existing engines (intel-silo / decision-engine + ppeme + HME / sales-operating-system + decision-engine / UAE + gateway + persona-engine + HME). My distribution per §1 below matches the package mapping exactly — by design, not coincidence. Reinforces "do not create new module."
 
@@ -71,14 +71,38 @@ The package proposes a module named `vendor_financing_growth_engine`. **This pla
 
 ## 2. Assumptions I'm making in Auto Mode (call them out, redirect if wrong)
 
-1. **Tuesday EOD = internal readiness deadline.** Demo to Ben happens later; Tuesday is when the system runs end-to-end against real captured data. Polish level: demonstration-quality, not production launch.
-2. **Multipli is a PROSPECT, not yet an operator.** They have not signed. Do NOT seed `client_namespaces` for them. Carry `prospect_id=multipli` as a tag on records. Convert to operator namespace if/when they sign.
-3. **Manual capture method = both UI form AND Google Sheet upload.** Build the form (extends existing intake patterns); also accept CSV upload at the same endpoint. Lowest friction for whoever captures the data.
+1. **Tuesday EOD = internal readiness only.** **LOCKED 2026-05-22 by user.** Ben sees nothing Tuesday. Polish level: internal readiness; FE UX can be rough. Critical path: the engine runs end-to-end and produces the output bundle.
+2. **Multipli is a PROSPECT, not yet an operator.** **LOCKED.** They have not signed. Do NOT seed `client_namespaces` for them. Carry `prospect_id=multipli` as a tag on records. Convert to operator namespace if/when they sign.
+3. **Capture method = research + scrape pipeline with 3-mode interactive completion** for gaps. **LOCKED 2026-05-22 by user — supersedes "manual form or CSV":**
+   - **Auto-capture stage:** ingest vendor URL list (website + LinkedIn + any other identified sources). LLM-mediated extraction populates as many `vendor_opportunity` schema fields as possible.
+   - **Gap identification:** schema fields that didn't get filled get flagged "needs human/prospect input."
+   - **Interactive completion (3 modes):**
+     - (a) **Self-serve.** Prospect fills out their own gaps via a guided form (chat-block composer pattern from Onboarding v1).
+     - (b) **Sales-agent completion.** Sales agent (or user) fills out on prospect's behalf during research.
+     - (c) **Live-call tandem.** Prospect + sales agent both on the same screen during a live web call, filling in gaps in real time.
+   - For the Tuesday deadline: ship auto-capture (Phase A scope) + sales-agent completion mode (b) (Phase C scope). Self-serve (a) + live-call tandem (c) are Phase 2 — out of scope for Tuesday but architecturally seeded.
 4. **GCP project**: every engine that participates is already deployed in its existing project (`carmen-beach-properties` for decision-engine + intel-silo; `gigaton-platform` for HME + ppeme + gateway). Do NOT entangle with the long-term migration ([[gcp_project_organization_target_2026]]).
 5. **Output bundle delivery**: the 6 files for each test vendor land in a GCS bucket `gs://gigaton-platform-multipli-beta/vendor_<id>/` plus a one-shot zip download from a gigaton-ui-system page. Plus emitted to `gignet-orchestrator` event for HME ingestion.
-6. **No live Multipli CRM integration.** Manual data only. CRM hook is a Phase 2 item if/when Ben signs.
+6. **No live Multipli CRM integration.** Auto-captured / sales-agent-captured data only. CRM hook is a Phase 2 item if/when Ben signs.
 
 If any of those is wrong, redirect now — re-planning is cheap before Saturday.
+
+## 2.1 Phase A intake — re-scoped for the research-pipeline model
+
+Phase A (Saturday) is now larger than the original "form + EO" scope. The added work:
+
+- `POST /v1/multipli/vendor-research` — accepts `{vendor_urls: [website_url, linkedin_url, ...other_urls]}`. Triggers a chain:
+  1. **Source ingestion** — intelligence-silo's existing `documentation_bundles` / Source Registry pattern handles each URL: fetch + store + tag with provenance (Phase A.1).
+  2. **LLM extraction** — gateway `/v1/llm/call` with a structured-output prompt template that maps source content → `vendor_opportunity` schema fields. Output validated against the Pydantic model. Confidence per field. (Phase A.2).
+  3. **Gap report** — return `{vendor_id, captured_fields: {...}, missing_fields: [...], confidence_per_field: {...}}`. (Phase A.3).
+- `GET /v1/multipli/vendor/{vendor_id}/gaps` — re-runs gap analysis on demand (e.g., after a sales agent adds info).
+- `PATCH /v1/multipli/vendor/{vendor_id}` — sales-agent completion mode: update specific fields with `source=sales_agent_manual` provenance tag.
+
+Phase C (Monday) FE adds:
+- `/operators/multipli/research?vendor_urls=...` page — paste URL list, triggers research, shows live progress + extracted fields + gap list.
+- Sales-agent edit pane on the vendor detail page — fill in flagged gaps.
+
+Self-serve form mode (a) and live-call tandem (c) sit as deferred Phase 2 — same backend endpoints, different FE shells. Not in scope by Tuesday.
 
 ---
 
