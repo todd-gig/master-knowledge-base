@@ -1,4 +1,4 @@
-# Gigaton Operator Onboarding — Canonical Manifest v1.0.0
+# Gigaton Operator Onboarding — Canonical Manifest v1.1.0
 #
 # This manifest is the SOURCE OF TRUTH for the directed onboarding workflow.
 # It is declarative data. No business logic lives here. Logic lives in:
@@ -40,7 +40,7 @@
 #   - Versioned audit artifact ("operator X completed manifest v1.0.0")
 #   - Aligns with decision-engine's declarative DecisionRecord pattern
 
-version: 1.0.0
+version: 1.1.0
 manifest_id: gigaton-operator-onboarding
 introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target
 canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
@@ -525,9 +525,13 @@ stages:
       method: GET
       url: '{decision_engine_base}/v1/operators/{operator_id}/industry-process-triage'
       predicate:
-        json_path: '$.uncategorized_count'
-        operator: eq
-        value: 0
+        all_of:
+          - json_path: '$.industry_catalog_exists'
+            operator: eq
+            value: true
+          - json_path: '$.uncategorized_count'
+            operator: eq
+            value: 0
       ttl_seconds: 60
     actions:
       - id: select-industry
@@ -537,6 +541,27 @@ stages:
         action_href: '/onboarding/industry?action=select'
         auto_complete_on:
           - event_type: IndustrySelected
+      - id: submit-industry-catalog
+        title: Help us build the catalog for your industry
+        description: |
+          No catalog exists yet for your industry + sub-vertical. Help us seed it
+          by describing the standard processes, escalation paths, regulatory
+          frameworks, customer lifecycle stages, and pricing models. Your
+          submission segments + qualifies you (for free), and seeds the catalog
+          for the next operator in the same industry — pay-it-forward modular
+          replication per [[foundational_modular_replication_via_input_substitution]].
+        action_label: Submit catalog draft
+        action_href: '/onboarding/industry?action=submit-catalog'
+        conditional_on:
+          json_path: '$.industry_catalog_exists'
+          operator: eq
+          value: false
+        auto_complete_on:
+          - event_type: IndustryCatalogSubmitted
+        variable_registry_filter:
+          required_for: industry_catalog_submission
+          tag: industry
+        education_ref: '/docs/why/industry-catalog-self-healing-3min.md'
       - id: triage-catalog
         title: Triage the loaded catalog
         description: Each process gets Applies / Doesn't Apply / Modify. The Modify path forks the catalog entry into Stage 6.
@@ -551,6 +576,7 @@ stages:
     events_emitted:
       - StageStarted
       - IndustrySelected
+      - IndustryCatalogSubmitted
       - IndustryProcessTriaged
       - StageCompleted
     capability_unlocks_on_completion: tier_3_recommend
@@ -910,6 +936,14 @@ chat_orchestration:
       trigger_events:
         - ShadowModeEnabled
       ux: 'Toggle switch in chat with explanation copy'
+    industry_catalog_form:
+      trigger_events:
+        - IndustryCatalogSubmitted
+      ux: |
+        Multi-section form rendered in chat — sections for processes (with
+        add/remove rows), escalation paths, regulatory frameworks, customer
+        lifecycle stages, pricing models. Each section optional but at least
+        3 processes required. Submit returns to conversation flow.
   per_stage_overrides:
     # If a stage needs custom chat behavior, override here. Empty by default
     # — the derivation above covers all 10 stages.
@@ -927,6 +961,13 @@ chat_orchestration:
       opening_message: |
         I've scanned your sources and pulled out the people who appear most
         often. Let's confirm who they are and what they do for your operator.
+    stage-5-industry-processes:
+      opening_message: |
+        Next: industry processes. If we already have a catalog for your
+        industry + sub-vertical, you'll just triage which ones apply. If we
+        don't yet, you'll help us build it — your submission becomes the
+        seed for future operators in your industry (and segments + qualifies
+        you for free).
     stage-9-calibration-live:
       opening_message: |
         Last stage. We're going to run me in shadow mode for 30 days while
@@ -1048,6 +1089,7 @@ references:
     - feedback_directed_workflow_required_for_every_deploy
     - feedback_always_build_user_self_serve
     - feedback_always_include_gamification
+    - standalone_bundle_net_new_concepts  # Concept 3 — EO self-healing pattern (Stage 5 catalog seeding)
   patterns:
     - directed_workflow_registry_pattern  # FE infrastructure
     - documentation_ingest_feature_spec  # Stage 1 delegate
