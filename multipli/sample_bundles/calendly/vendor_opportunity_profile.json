@@ -1,0 +1,102 @@
+{
+  "_ppim_signature": {
+    "interaction": "prospect_outreach_evidence_attachment",
+    "economics": "incremental_funded_volume_x_take_rate_yields_multipli_net_revenue;_gigaton_capture_via_performance_share",
+    "predictability": "field_confidence_per_attribute_plus_aggregate_confidence_score_with_explicit_provenance_per_source",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_first_artifact_of_six_file_bundle"
+  },
+  "_meta": {
+    "bundle_version": "1.0.0",
+    "schema_ref": "multipli_claude_beta_package/06_data_models/vendor_opportunity.schema.json",
+    "generated_at": "2026-05-25T19:50:00Z",
+    "generated_by": "gigaton_multipli_vendor_growth_engine_manual_v0",
+    "prospect_id": "multipli",
+    "operator_id": null,
+    "tenant_axis_tags": {
+      "industry": "software_saas",
+      "sub_vertical": "scheduling_calendar_automation",
+      "geo": "global_hq_atlanta_us",
+      "regime": "venture_backed_late_stage_private",
+      "segment": "self_serve_to_enterprise_plg",
+      "lifecycle": "growth_stage_post_2021_peak_correction",
+      "provenance": "manual_llm_extraction_public_sources_2026_05_25",
+      "modality": "saas_subscription_seat_based"
+    },
+    "production_mode": "manual_hand_driven_no_engine_state_yet",
+    "do_not_quote_to_prospect_without_human_review": true
+  },
+  "vendor_id": "calendly_v1",
+  "vendor_name": "Calendly LLC",
+  "vertical": "software_saas",
+  "geography": "global_hq_us",
+  "product_service": "scheduling_automation_and_meeting_lifecycle_platform_team_and_enterprise_tiers_with_routing_workflows_and_admin_controls",
+  "average_deal_size": 18000,
+  "_average_deal_size_basis": "estimated_team_to_enterprise_blended_annual_contract_value_assuming_15_to_60_seats_at_observed_list_pricing_team_$16/seat/mo_enterprise_negotiated_$20-30/seat/mo_with_typical_15-25pct_discount_at_close",
+  "gross_margin_estimate": 0.78,
+  "_gross_margin_estimate_basis": "saas_industry_norm_for_scaled_vertical_workflow_tools_70-85pct_gross_margin_calendly_estimated_to_sit_at_high_end_due_to_self_serve_dominant_distribution_and_low_compute_per_seat",
+  "current_close_rate": 0.22,
+  "_current_close_rate_basis": "inferred_from_public_plg_norms_for_team_to_enterprise_motion_15-30pct_qualified_opp_to_close_rate_no_calendly_disclosed_figure",
+  "sales_cycle_days": 38,
+  "_sales_cycle_days_basis": "team_tier_self_serve_under_14_days_enterprise_tier_60-90_days_with_procurement_blended_estimate_of_~38_days_assuming_majority_team_tier_paid_motion",
+  "payment_friction_score": 64,
+  "_payment_friction_score_basis": "annual_prepay_required_for_discounted_pricing_creates_cfo_objection_at_mid_market_team_purchases_$10k-$25k_annual_upfront_commonly_pushed_to_monthly_or_quarterly_billing_against_vendor_preference_score_calibrated_on_0_no_friction_to_100_blocking_friction_scale",
+  "discounting_to_close": true,
+  "_discounting_to_close_basis": "calendly_publishes_annual_discount_(~16pct)_versus_monthly_and_enterprise_sales_reps_are_observed_offering_additional_seat_count_and_term_concessions_at_quarter_end_per_public_partner_and_user_forum_anecdotes",
+  "extended_terms_requested": true,
+  "_extended_terms_requested_basis": "mid_market_buyers_commonly_request_net_30_or_net_45_or_quarterly_billing_in_lieu_of_annual_prepay_strong_signal_for_financing_product_fit",
+  "implementation_services_bundleable": true,
+  "_implementation_services_bundleable_basis": "calendly_offers_enterprise_onboarding_admin_workflow_setup_sso_provisioning_and_premium_support_services_separate_from_seat_license_natural_bundle_candidates_for_financed_total_contract_value",
+  "buyer_objections": [
+    "annual_prepay_creates_budget_cycle_friction_for_mid_market_finance_teams",
+    "seat_count_uncertainty_makes_committed_annual_quantity_risky_for_buyer",
+    "competing_workflow_tools_(microsoft_bookings_google_appointment_schedule)_bundled_free_with_existing_productivity_suites",
+    "procurement_requires_vendor_security_review_and_data_residency_documentation_lengthening_cycle",
+    "value_proof_for_team_or_enterprise_tier_beyond_individual_use_takes_2-3_months_to_demonstrate_in_revenue_uplift_or_calendar_efficiency_terms",
+    "cfo_resistance_to_recurring_software_line_item_growth_in_2025-2026_cost_optimization_environment"
+  ],
+  "_buyer_objections_basis": "compiled_from_public_g2_capterra_reviews_2024-2026_calendly_competitive_landing_pages_and_general_saas_procurement_pattern_research_no_proprietary_calendly_data",
+  "confidence": 0.62,
+  "_confidence_basis": "all_field_values_are_modeled_estimates_from_public_sources_not_calendly_disclosed_figures_confidence_capped_at_0.62_until_validated_by_calendly_or_design_partner_data",
+  "notes": "Calendly chosen as sample vendor #1 because (a) public pricing tiers permit transparent deal_size estimation, (b) the team_to_enterprise upsell motion has a documented payment_friction pattern (annual_prepay_vs_monthly_preference) directly relevant to Multipli's financing thesis, (c) implementation services (admin onboarding, SSO, workflow setup) are clearly bundleable into a financed total contract value, and (d) sales cycle length lands in the 30-60 day range where vendor financing has highest demonstrated lift impact. CRITICAL CAVEAT: every numeric field in this profile is an LLM-derived estimate grounded in public sources, not Calendly-confirmed data. The Multipli pilot would need to validate these with either (i) a Calendly design-partner conversation, (ii) anonymized aggregated data from a SaaS-comparable Multipli portfolio vendor, or (iii) admit the entire bundle as illustrative-only in Ben Cahir-facing materials. Per package compliance rule (§9 governance): no financing claim, no firm pricing, no guaranteed_close_rate language in any downstream artifact.",
+  "missing_information": [
+    "actual_calendly_annual_recurring_revenue_breakdown_by_tier",
+    "actual_close_rate_self_serve_vs_sales_assisted",
+    "actual_average_contract_value_for_team_vs_enterprise_tier",
+    "actual_discount_percentage_negotiated_at_close_quarter_end_vs_mid_quarter",
+    "actual_payment_term_distribution_(annual_vs_monthly_vs_quarterly)_at_mid_market_and_enterprise",
+    "calendly_internal_view_of_top_three_buyer_objections_(versus_inferred_from_g2_reviews)",
+    "calendly_appetite_to_offer_a_financing_option_through_a_third_party_(multipli)_at_point_of_sale",
+    "competitive_displacement_rate_against_microsoft_bookings_google_appointment_schedule_chili_piper_savvycal"
+  ],
+  "_evidence_log": [
+    {
+      "field": "average_deal_size_basis_pricing_tiers",
+      "url": "https://calendly.com/pricing",
+      "observed_at": "2026-05-25",
+      "source_type": "vendor_official_pricing_page",
+      "confidence_contribution": "high_for_list_price_low_for_actual_close_price"
+    },
+    {
+      "field": "gross_margin_estimate_basis_saas_norms",
+      "url": "https://www.saastr.com/saas-gross-margins-where-they-are-and-where-they-should-be/",
+      "observed_at": "2026-05-25",
+      "source_type": "industry_benchmark_secondary",
+      "confidence_contribution": "medium_directional_only"
+    },
+    {
+      "field": "buyer_objections_g2_capterra",
+      "url": "https://www.g2.com/products/calendly/reviews",
+      "observed_at": "2026-05-25",
+      "source_type": "third_party_review_aggregator",
+      "confidence_contribution": "medium_objections_are_volunteered_by_users_not_buyers"
+    },
+    {
+      "field": "extended_terms_requested_saas_procurement_pattern",
+      "url": "https://www.gartner.com/en/finance/insights/procurement-sourcing",
+      "observed_at": "2026-05-25",
+      "source_type": "industry_research_general",
+      "confidence_contribution": "low_pattern_evidence_not_calendly_specific"
+    }
+  ]
+}
