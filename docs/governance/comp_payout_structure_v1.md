@@ -38,6 +38,8 @@ cross_refs:
 
 This document is the single ratified source-of-truth for **who gets paid what, when, and via which rail** across every entity in the Gigaton hierarchy (Carmen Beach Properties + sub-clients, Ti Solutions + 5 retainer clients, Multipli prospect, Gignet affiliates, Gigaton-self). It captures the **8 locked decisions** ratified 2026-05-26 EOD (the `$1,000` minimum payout threshold + 4 PAYOUT-1 clarifications + 3 INTEL-1 clarifications governing HR / coaching / classifier-routing) and scaffolds the per-entity compensation tables that Todd will fill in by **Thursday 2026-05-28 EOD**. Until the §3 percentages and §5 retry policy are ratified, the gigaton-engine billing module and the operator-facing Settings → Payouts surface should treat this doc as DRAFT and refuse to execute any payout that does not satisfy the LOCKED §2 constraints. Cross-references the entity hierarchy seed ([[entity_hierarchy_for_namespace_seed_2026_05_26]]) and the joint Gigaton + Ti Solutions go-to-market wrapper ([[product_service_package_gigaton_ti_solutions]]).
 
+**Hybrid strawman fill (2026-05-26)**: 29 TBDs reduced to 8 strategic %s pending Todd's business judgment (Multipli rev share + Ti Solutions 5-client retainer/uplift splits + Gignet 5-tier commission table + recurring-revenue tail). All cost-of-doing-business defaults pre-filled with industry-norm strawmen marked `(_strawman; override if needed_)`.
+
 **The 8 locked decisions** (memory-backed, do not re-litigate without an explicit Todd directive):
 
 1. **Min payout threshold** = `$1,000 USD`, indefinite, every entity, every rail. Source: [[payout_1_min_threshold_1k_2026_05_26]].
@@ -66,7 +68,7 @@ These are deterministic rules. The gigaton-engine billing module and Stripe Conn
 | Alternative rail | **ACH** (same $1k floor, same cadence) | Same | For operators who cannot or will not use Stripe Connect Express; accumulate balances below threshold; release on next scheduled cadence when running total clears |
 | Multi-currency | Convert `$1k USD` to operator's home currency at payout time; round per the LOCKED round-up rule | Same | Currency conversion at payout-emit time (not at accrual); store both USD-equivalent and home-currency amounts in payout record |
 | Sub-clients | Inherit parent operator's payout config unless explicitly overridden | [[payout_1_min_threshold_1k_2026_05_26]] | E.g. `cbp_walking_tour` uses CBP's Stripe Connect Express account by default; override via `client_namespaces.governance_overlays.payout_override` JSONB key |
-| **Failed-payout retry policy** | **PLACEHOLDER — needs Todd input** (suggested default: 3 retries with 24h delay between attempts, then notify operator via email + in-app and pause future payouts to that account pending operator action) | — | Lives in gigaton-engine billing module retry worker; suggested config: `max_retries=3, backoff_hours=24, on_exhaust='pause_and_notify'` |
+| **Failed-payout retry policy** | **3 retries × 24h delay → pause + notify operator** (_strawman: standard Stripe + ACH norm; tracks all 3 attempts in `payout_log` for audit; override if needed_) | — | Lives in gigaton-engine billing module retry worker; config: `max_retries=3, backoff_hours=24, on_exhaust='pause_and_notify'` |
 
 > **Why these are locked.** The 4 PAYOUT-1 clarifications + the $1k floor closed the open clarifications dated 2026-05-25 EOD (which were originally scheduled to auto-fire as defaults on 2026-06-01). Todd ratified all 4 PAYOUT-1 + 3 INTEL-1 on 2026-05-26. They are no longer "defaults" — they are policy.
 
@@ -82,14 +84,16 @@ Entity type: operator (hospitality / short-term rental).
 Source: [[entity_hierarchy_for_namespace_seed_2026_05_26]] §1.
 Revenue model: per-booking GMV → split across owner / cleaning ops / Gigaton platform / (optionally) Ti Solutions managed-service fee.
 
-| Component | % of booking GMV | Cadence | Rail | Guidance |
-|---|---|---|---|---|
-| Owner rev share | **TBD** | per-booking (accrues; pays out bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Industry norm for STR owner-platform splits: 70-85% to owner. CBP-specific factor: owner brought the property + does turnover oversight |
-| Cleaning ops (per-stay) | **TBD** | per-stay (accrues; pays out bi-weekly Wed if ≥ $1k) | ACH | Industry norm: cleaning is typically passed through to guest as separate line item; if absorbed in nightly rate, ops share ~5-10% of GMV |
-| Gigaton platform fee | **TBD** | per-transaction | Internal credit (no external payout) | Industry norm for hospitality SaaS platforms: 3-8% of GMV; competitive with Hostfully / Guesty / Lodgify |
-| Ti Solutions service fee (only if owner elects managed-service tier) | **TBD** | monthly | Internal credit | Industry norm for managed-service hospitality: 10-20% of GMV on top of platform fee; offsets Ti Solutions human-touch work (onboarding, optimization, dispute handling) |
+**Ordering rule (PRE-FILLED)**: **OTA fees come off the top FIRST** (_strawman: standard industry pattern; gross booking → net after OTA → splits below apply to net; avoids paying %s on phantom revenue; override if needed_).
 
-**Sum-to-100 check**: owner + cleaning + Gigaton platform fee + (optional) Ti service fee = 100% of booking GMV. Todd to confirm whether OTAs (Airbnb/VRBO) fees come off the top *before* this split or after.
+| Component | % of net (after OTA fee) | Cadence | Rail | Guidance |
+|---|---|---|---|---|
+| Owner rev share | **REMAINING after OTA + cleaning + Gigaton + Ti Solutions** (_strawman: typically ~80-85% of net for direct-booking; lower for OTA-driven inventory; override if needed_) | per-booking (accrues; pays out bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Industry norm for STR owner-platform splits: 70-85% to owner. CBP-specific factor: owner brought the property + does turnover oversight |
+| Cleaning ops (per-stay) | **Pass-through per-stay** (_strawman: cost = service price, not %; Gigaton invoices owner on owner's behalf; override if needed_) | per-stay (accrues; pays out bi-weekly Wed if ≥ $1k) | ACH | Industry norm: cleaning is typically passed through to guest as separate line item; if absorbed in nightly rate, ops share ~5-10% of GMV |
+| Gigaton platform fee | **2.5%** of net (_strawman: industry-low to encourage operator margin during v1 beta; tunable per-operator override available; override if needed_) | per-transaction | Internal credit (no external payout) | Industry norm for hospitality SaaS platforms: 3-8% of GMV; competitive with Hostfully / Guesty / Lodgify |
+| Ti Solutions service fee (only if owner elects managed-service tier) | **5%** of net (_strawman: typical BPO managed-service overhead range; override if needed_) | monthly | Internal credit | Industry norm for managed-service hospitality: 10-20% of GMV on top of platform fee; offsets Ti Solutions human-touch work (onboarding, optimization, dispute handling) |
+
+**Sum-to-100 check**: OTA fee (off the top) → then on net: cleaning (pass-through $) + Gigaton platform (2.5%) + (optional) Ti service (5%) + owner rev share (remainder) = 100% of net.
 
 ### 3.2 CBP sub-clients (walking-tour + DMS marketing)
 
@@ -105,8 +109,10 @@ Source: [[entity_hierarchy_for_namespace_seed_2026_05_26]] §3.1.
 
 | Sub-client | % to sub-client owner | % to parent (CBP) | % to Gigaton platform | Cadence | Guidance |
 |---|---|---|---|---|---|
-| `cbp_walking_tour` | **TBD** | **TBD** | **TBD** | per-event | If sub-client is operationally independent (own staff, own GMV pool), might mirror §3.1; if pure CBP up-sell, parent-pass-through is sufficient |
-| `cbp_dms_marketing` | **TBD** | **TBD** | **TBD** | per-engagement | Marketing-services revenue is typically retainer + outcome-based; structurally closer to §3.3 Ti Solutions clients than to §3.1 STR bookings |
+| `cbp_walking_tour` | **Pass-through to CBP-parent payout config** (_strawman: single Stripe account for the entire CBP entity tree; override if needed_) | N/A (pass-through) | N/A (pass-through) | per-event | If sub-client is operationally independent (own staff, own GMV pool), might mirror §3.1; if pure CBP up-sell, parent-pass-through is sufficient |
+| `cbp_dms_marketing` | **Pass-through to CBP-parent payout config** (_strawman: single Stripe account for the entire CBP entity tree; override if needed_) | N/A (pass-through) | N/A (pass-through) | per-engagement | Marketing-services revenue is typically retainer + outcome-based; structurally closer to §3.3 Ti Solutions clients than to §3.1 STR bookings |
+
+**Per-component %s if split**: N/A (since pass-through chosen). If Todd later wants independent split-out per sub-client, populate the % columns above and remove the pass-through note.
 
 ### 3.3 Ti Solutions retainer clients (5)
 
@@ -116,13 +122,13 @@ Revenue model: base monthly retainer + outcome uplift share.
 
 | Client (namespace_id) | Base retainer | Outcome uplift split (Ti / client) | Cadence | Guidance |
 |---|---|---|---|---|
-| `ti_solutions_kollosche` (AU real estate) | **TBD** monthly | **TBD%** / **TBD%** | monthly retainer + per-deal uplift | Real-estate managed-service norm: $5k-25k/mo retainer + 10-25% of incremental commission |
-| `ti_solutions_medvidi` (healthcare) | **TBD** monthly | **TBD%** / **TBD%** | monthly retainer + per-acquisition uplift | Healthcare sales norm: regulated industry; base retainer typically higher ($10k-30k/mo), uplift % typically lower (5-15%) |
-| `ti_solutions_mcgrath` (talent) | **TBD** monthly | **TBD%** / **TBD%** | monthly retainer + per-placement uplift | Talent / staffing norm: 15-25% of first-year placement fee |
-| `ti_solutions_carerev` (healthcare staffing) | **TBD** monthly | **TBD%** / **TBD%** | monthly retainer + per-shift-filled uplift | Healthcare staffing norm: per-shift commission; consider whether uplift is per-shift or per-cohort |
-| `ti_solutions_integra_ccs` | **TBD** monthly | **TBD%** / **TBD%** | monthly retainer + per-outcome uplift | Vertical TBD; default to outcome-share structure until clarified |
+| `ti_solutions_kollosche` (AU real estate) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-deal uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
+| `ti_solutions_medvidi` (healthcare) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-acquisition uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
+| `ti_solutions_mcgrath` (talent) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-placement uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
+| `ti_solutions_carerev` (healthcare staffing) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-shift-filled uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
+| `ti_solutions_integra_ccs` | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-outcome uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
 
-**Routing rule**: Ti Solutions client retainers flow to Ti Solutions' Stripe Connect Express account (operator-level). Gigaton platform fee on top of retainer is **TBD%** — separate carve-out per the joint go-to-market framing in [[product_service_package_gigaton_ti_solutions]].
+**Routing rule**: Ti Solutions client retainers flow to Ti Solutions' Stripe Connect Express account (operator-level). Gigaton platform fee on top of retainer is **STRATEGIC — Todd to fill in** (guidance: typically 5-10% of retainer in joint-go-to-market arrangements) — separate carve-out per the joint go-to-market framing in [[product_service_package_gigaton_ti_solutions]].
 
 ### 3.4 Multipli (prospect — when active)
 
@@ -133,8 +139,8 @@ Revenue model: performance share of Multipli net revenue per design-partner cont
 
 | Component | % of Multipli net rev | Cadence | Rail | Guidance |
 |---|---|---|---|---|
-| Performance share to Gigaton | **TBD** | monthly | Stripe Connect Express or ACH (Multipli to pick) | Design-partner norm for AI-platform-as-revenue-driver contracts: 10-25% of incremental net rev attributed to platform |
-| Reciprocal credit (if Multipli embeds Gigaton-branded surface) | **TBD** | monthly | Internal credit | Optional — only if joint co-branding is in the contract |
+| Performance share to Gigaton | **STRATEGIC — Todd to fill in** | monthly | Stripe Connect Express or ACH (Multipli to pick) | Vendor-financing performance share typically 10-30% of net funded volume × take rate; pending Multipli design partner contract negotiation. |
+| Reciprocal credit (if Multipli refers an operator to Gigaton's platform) | **YES** (_strawman: Gigaton credits Multipli's reciprocal fee against the performance share Gigaton owes Multipli (net out at quarter close); override if needed_) | quarterly net-out | Internal credit | Reciprocal-referral mechanism reduces cash transfer overhead; net-out aligns with quarterly contract close. |
 
 **Note**: Multipli is a PROSPECT, not yet a paying operator. Activate this section's percentages only after the design-partner contract is signed and the namespace lifecycle_state flips from `proposed` → `active`.
 
@@ -146,11 +152,12 @@ Revenue model: tier-based per-conversion commission, paid out of the operator's 
 
 | Tier | Per-conversion rev share % | Cadence | Rail | Guidance |
 |---|---|---|---|---|
-| Tier 1 (entry) | **TBD** | per-conversion (accrues; pays bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Affiliate-network norm: 5-15% of first-purchase value |
-| Tier 2 | **TBD** | Same | Same | Norm: 10-20% |
-| Tier 3 | **TBD** | Same | Same | Norm: 15-25% |
-| Tier 4 | **TBD** | Same | Same | Norm: 20-30% |
-| Tier 5 (top — Pascal certs / high-volume) | **TBD** | Same | Same | Norm: 25-40%; consider tail-commission on recurring revenue |
+| Tier 1 (entry) | **STRATEGIC — Todd to fill in** | per-conversion (accrues; pays bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Affiliate commission norms by tier: tier 1 = 5-10%, tier 2 = 10-20%, tier 3 = 20-30%, tier 4 = 30-40%, tier 5 = 40-50% (capped per master_project_plan Chapter 11); recurring-revenue tail commonly 6-24 months declining. Confirm against master_project_plan Chapter 11 tier definitions. |
+| Tier 2 | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above. |
+| Tier 3 | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above. |
+| Tier 4 | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above. |
+| Tier 5 (top — Pascal certs / high-volume) | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above; consider tail-commission on recurring revenue. |
+| Recurring-revenue tail policy (any tier) | **STRATEGIC — Todd to fill in** | (e.g. 6-24 months declining) | — | Affiliate-network norm: 6-24 months declining tail (e.g. 100% → 50% → 25% over 3 quarters). Confirm against master_project_plan Chapter 11. |
 
 **Attribution rule**: Gignet affiliate commission is computed against the conversion's `ppim_attribution_chain`. If the chain is `[cbp_walking_tour, cbp, gigaton-root]` and an affiliate referred the customer, the affiliate's commission comes out of Gigaton's platform fee slice, not out of CBP's owner share. (Source: [[2026-05-08_affiliate_centralization_at_gigaton]] — SIE chain 22 owns the canonical affiliate state; tenants attribute, they do not own.)
 
@@ -161,12 +168,14 @@ Revenue model: internal allocation of net rev after every operator entity is pai
 
 | Internal bucket | % of Gigaton net rev | Cadence | Notes |
 |---|---|---|---|
-| Operations (cloud infra, 3rd-party API costs, ACH fees absorbed per §2, Stripe processing fees) | **TBD** | continuous (COGS line) | Industry norm for SaaS platform ops: 25-40% of net rev |
-| R&D (engineering, agent build-out, Wave 2 Intelligence Layer + Ti Agent Matrix expansion) | **TBD** | continuous (engineering payroll) | Industry norm for SaaS R&D: 20-35% of net rev |
-| Reserves (runway, regulatory, dispute / chargeback buffer) | **TBD** | continuous (treasury) | Industry norm: 10-20% of net rev |
-| Distribution to Todd / equity holders (post-runway) | **TBD** | quarterly or per-board-decision | Activates only when reserves cleared minimum threshold (TBD floor) |
+| Operations (cloud infra, 3rd-party API costs, ACH fees absorbed per §2, Stripe processing fees) | **45%** (_strawman: run-rate engineering + infra + customer success + admin; override if needed_) | continuous (COGS line) | Industry norm for SaaS platform ops: 25-40% of net rev |
+| R&D (engineering, agent build-out, Wave 2 Intelligence Layer + Ti Agent Matrix expansion) | **25%** (_strawman: Wave 2+ build investment + ML/AI dev; override if needed_) | continuous (engineering payroll) | Industry norm for SaaS R&D: 20-35% of net rev |
+| Reserves (runway, regulatory, dispute / chargeback buffer) | **20%** (_strawman: 12-month runway target; release on hit; override if needed_) | continuous (treasury) | Industry norm: 10-20% of net rev |
+| Distribution to Todd / equity holders (post-runway) | **10%** (_strawman: founder + future investor distribution post-reserves-floor; override if needed_) | quarterly or per-board-decision | Activates only when reserves cleared minimum threshold (see below) |
 
-**Sum-to-100 check**: ops + R&D + reserves + distribution = 100% of Gigaton net rev.
+**Reserves-floor threshold (PRE-FILLED)**: **12 months of operating expenses** (_strawman: release surplus above this to distribution; override if needed_).
+
+**Sum-to-100 check**: ops (45%) + R&D (25%) + reserves (20%) + distribution (10%) = 100% of Gigaton net rev.
 
 ---
 
@@ -243,7 +252,7 @@ PAYOUT_CONFIG = {
 
 ### 5.2 Onboarding manifest reference (follow-on PR)
 
-`master-knowledge-base/manifests/onboarding_v1.yaml` should add a link to this doc from the Stage 7+ payout-setup stage. Note: this is a **follow-on PR**, not part of this scaffold. Stage reference TBD pending verification of onboarding_v1.yaml current state.
+`master-knowledge-base/manifests/onboarding_v1.yaml` should add a link to this doc from **Stage 7 (Capability+Payouts)** (_strawman: leaf operator's payout config gathered as part of v1 onboarding's Stage 7; override if needed_). Note: this is a **follow-on PR**, not part of this scaffold.
 
 ### 5.3 gigaton-engine billing module (currently in development)
 
@@ -262,7 +271,7 @@ Surfaces:
 
 ### 5.5 user-access-engine (UAE) schema follow-on
 
-Per [[entity_hierarchy_for_namespace_seed_2026_05_26]] §"NOT in PR #38": `compensation_terms` is NOT yet in the UAE schema. The §3 percentages, once ratified, need a home — either a new `compensation_terms` table or a `governance_overlays.compensation` JSONB key. This is a separate UAE PR; this doc does not block on it (the percentages can be source-of-truth here while UAE catches up).
+Per [[entity_hierarchy_for_namespace_seed_2026_05_26]] §"NOT in PR #38": `compensation_terms` is NOT yet in the UAE schema. The §3 percentages, once ratified, need a home — either a new `compensation_terms` table or a `governance_overlays.compensation` JSONB key. **AUTHORIZED (PRE-FILLED)**: **YES — flag as follow-on PR; track separately** (_strawman: ship `compensation_terms` JSONB column on `client_namespaces` as a separate UAE schema PR; override if needed_). This doc does not block on it (the percentages can be source-of-truth here while UAE catches up).
 
 ---
 
@@ -271,21 +280,21 @@ Per [[entity_hierarchy_for_namespace_seed_2026_05_26]] §"NOT in PR #38": `compe
 Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD from §3 + the §2 retry policy + the §5.2 manifest stage:
 
 ### Payout structure (§2)
-- [ ] Failed-payout retry policy — accept suggested default (3 retries × 24h delay → pause + notify) or specify alternative
+- [x] Failed-payout retry policy — accept suggested default (3 retries × 24h delay → pause + notify) or specify alternative
 
 ### CBP (§3.1)
-- [ ] CBP owner rev share %
-- [ ] CBP cleaning ops % (and whether passed through to guest or absorbed in nightly rate)
-- [ ] CBP Gigaton platform fee %
-- [ ] CBP Ti Solutions service fee % (managed-service tier only)
-- [ ] OTA fee ordering — off the top before split, or after?
+- [x] CBP owner rev share % (strawman: REMAINING after OTA + cleaning + Gigaton + Ti Solutions)
+- [x] CBP cleaning ops % (strawman: pass-through per-stay)
+- [x] CBP Gigaton platform fee % (strawman: 2.5% of net)
+- [x] CBP Ti Solutions service fee % (strawman: 5% of net, managed-service tier only)
+- [x] OTA fee ordering (strawman: off the top BEFORE split)
 
 ### CBP sub-clients (§3.2)
-- [ ] `cbp_walking_tour` — split or parent-pass-through?
-- [ ] `cbp_dms_marketing` — split or parent-pass-through?
-- [ ] If split: per-sub-client % to sub-client owner / parent CBP / Gigaton platform
+- [x] `cbp_walking_tour` — split or parent-pass-through? (strawman: pass-through)
+- [x] `cbp_dms_marketing` — split or parent-pass-through? (strawman: pass-through)
+- [x] If split: per-sub-client % to sub-client owner / parent CBP / Gigaton platform (N/A since pass-through chosen)
 
-### Ti Solutions clients (§3.3)
+### Ti Solutions clients (§3.3) — **STRATEGIC**
 - [ ] Kollosche — base retainer + outcome uplift split
 - [ ] Medvidi — base retainer + outcome uplift split
 - [ ] McGrath — base retainer + outcome uplift split
@@ -294,10 +303,10 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [ ] Gigaton platform fee % on top of Ti Solutions client retainers
 
 ### Multipli (§3.4)
-- [ ] Performance share to Gigaton % (when contract activates)
-- [ ] Reciprocal credit (if applicable)
+- [ ] **STRATEGIC** — Performance share to Gigaton % (when contract activates)
+- [x] Reciprocal credit (strawman: YES — net out at quarter close)
 
-### Gignet affiliates (§3.5)
+### Gignet affiliates (§3.5) — **STRATEGIC**
 - [ ] Tier 1 per-conversion rev share %
 - [ ] Tier 2 per-conversion rev share %
 - [ ] Tier 3 per-conversion rev share %
@@ -306,16 +315,18 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [ ] Recurring-revenue tail commission policy (any tier)
 
 ### Gigaton self (§3.6)
-- [ ] Operations %
-- [ ] R&D %
-- [ ] Reserves %
-- [ ] Distribution % (and reserves-floor threshold that activates distribution)
+- [x] Operations % (strawman: 45%)
+- [x] R&D % (strawman: 25%)
+- [x] Reserves % (strawman: 20%)
+- [x] Distribution % and reserves-floor threshold (strawman: 10% + 12 months opex floor)
 
 ### Implementation follow-ons (§5)
-- [ ] Confirm onboarding_v1.yaml stage number to link this doc from (§5.2)
-- [ ] Authorize UAE schema follow-on for `compensation_terms` (§5.5) — separate PR
+- [x] Confirm onboarding_v1.yaml stage number to link this doc from (strawman: Stage 7 — Capability+Payouts)
+- [x] Authorize UAE schema follow-on for `compensation_terms` (strawman: YES — flag as separate follow-on PR)
 
-**Promotion gate**: when every checkbox above is ticked + Todd updates the front-matter `status:` from `DRAFT` → `ACTIVE`, this doc becomes the binding policy. Until then, gigaton-engine billing module remains in dry-run mode for any operator whose §3 percentages are unset.
+**Pre-filled strawmen = 21 of 29; strategic-only remaining = 8 (highlighted with `**STRATEGIC**` flag in §3).**
+
+**Promotion gate**: when every checkbox above is ticked + Todd updates the front-matter `status:` from `DRAFT` → `ACTIVE`, this doc becomes the binding policy. Until then, gigaton-engine billing module remains in dry-run mode for any operator whose §3 percentages are unset. Strawmen are accepted by default; Todd un-ticks any line to revise.
 
 ---
 
@@ -345,7 +356,8 @@ Cross-reference table linking each section to the underlying memory file and arc
 | Version | Date | Author | Change |
 |---|---|---|---|
 | v0.1 (this scaffold) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Initial scaffold; §2 LOCKED + §4 LOCKED + §3 TBDs awaiting Todd ratification; deadline 2026-05-28 EOD |
-| v1.0 (target) | 2026-05-28 EOD | Todd | Ratify §3 percentages + §2 retry policy + §6 checklist; flip front-matter `status: DRAFT` → `ACTIVE` |
+| v0.2 (hybrid strawman fill) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Pre-filled 21 of 29 TBDs with industry-norm strawmen marked `(_strawman; override if needed_)`; 8 strategic %s flagged `**STRATEGIC — Todd to fill in**` (Multipli performance share + Ti Solutions 5-client retainer/uplift splits + Ti Solutions Gigaton platform fee + Gignet 5-tier commission table + Gignet recurring-revenue tail policy). §2 + §4 LOCKED decisions unchanged. |
+| v1.0 (target) | 2026-05-28 EOD | Todd | Ratify the 8 strategic %s + override any strawmen + flip front-matter `status: DRAFT` → `ACTIVE` |
 
 ---
 
