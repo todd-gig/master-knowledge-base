@@ -1,0 +1,133 @@
+{
+  "_ppim_signature": {
+    "interaction": "prospect_economics_evidence_attachment",
+    "economics": "6_take_rate_scenarios_yield_multipli_net_revenue_band_per_loom_pilot_year_with_gross_spread_pool_and_performance_share_projection",
+    "predictability": "deterministic_math_per_06_data_models_deal_economics_model_json_scenarios_are_illustrative_pending_loom_or_atlassian_confirmed_inputs",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_third_artifact_of_six_file_bundle"
+  },
+  "_meta": {
+    "model_name": "multipli_vendor_financing_deal_economics",
+    "model_version": "1.0.0",
+    "schema_ref": "multipli_claude_beta_package/06_data_models/deal_economics_model.json",
+    "vendor_id": "loom_v1",
+    "vendor_name": "Loom (Atlassian subsidiary)",
+    "generated_at": "2026-05-26T15:30:00Z",
+    "generated_by": "gigaton_multipli_vendor_growth_engine_manual_v0",
+    "production_mode": "manual_hand_driven_no_engine_state_yet",
+    "compliance_flag": "scenarios_only_no_guaranteed_outcomes_per_package_section_9_governance",
+    "do_not_quote_to_prospect_without_human_review": true
+  },
+  "baseline_assumptions": {
+    "loom_blended_average_funded_contract_value_usd": 22000,
+    "loom_blended_acv_basis": "business_tier_($15/seat/mo)_50-100_seats_to_business_plus_ai_tier_($20/seat/mo)_50-100_seats_to_enterprise_tier_negotiated_($25-35/seat/mo)_75-150_seats_blended_modeled_estimate_skewed_higher_than_calendly_due_to_ai_addon_uplift_and_enterprise_compliance_tier_attachment",
+    "loom_pilot_assumed_financed_deals_per_quarter": 50,
+    "loom_pilot_assumed_quarters": 4,
+    "loom_pilot_total_financed_deals_year_1": 200,
+    "package_baseline_average_funded_contract_value_usd": 28260,
+    "package_conservative_average_funded_contract_value_usd": 28000,
+    "package_saas_example_vendor_payout_usd": 62000,
+    "package_saas_example_customer_payment_total_usd": 72000,
+    "package_gross_spread_pool_per_deal_usd": 10000
+  },
+  "incremental_funded_volume_usd": {
+    "year_1_conservative_50_deals_per_q_x_4_q": 4400000,
+    "year_1_optimistic_100_deals_per_q_x_4_q": 8800000,
+    "_basis": "200_loom_financed_deals_x_$22k_blended_acv_=_$4.4M_year_1_conservative;_doubling_pipeline_capture_yields_$8.8M_optimistic_band_(materially_higher_than_calendly_$3.6M_conservative_due_to_higher_blended_acv_from_ai_addon_and_enterprise_tier_mix)"
+  },
+  "take_rate_scenarios": [
+    {
+      "take_rate": 0.03,
+      "label": "3pct_floor",
+      "estimated_net_revenue_year_1_conservative_usd": 132000,
+      "estimated_net_revenue_year_1_optimistic_usd": 264000
+    },
+    {
+      "take_rate": 0.05,
+      "label": "5pct_low_mid",
+      "estimated_net_revenue_year_1_conservative_usd": 220000,
+      "estimated_net_revenue_year_1_optimistic_usd": 440000
+    },
+    {
+      "take_rate": 0.08,
+      "label": "8pct_mid",
+      "estimated_net_revenue_year_1_conservative_usd": 352000,
+      "estimated_net_revenue_year_1_optimistic_usd": 704000
+    },
+    {
+      "take_rate": 0.10,
+      "label": "10pct_mid_high",
+      "estimated_net_revenue_year_1_conservative_usd": 440000,
+      "estimated_net_revenue_year_1_optimistic_usd": 880000
+    },
+    {
+      "take_rate": 0.12,
+      "label": "12pct_high",
+      "estimated_net_revenue_year_1_conservative_usd": 528000,
+      "estimated_net_revenue_year_1_optimistic_usd": 1056000
+    },
+    {
+      "take_rate": 0.16,
+      "label": "16pct_ceiling",
+      "estimated_net_revenue_year_1_conservative_usd": 704000,
+      "estimated_net_revenue_year_1_optimistic_usd": 1408000
+    }
+  ],
+  "estimated_net_revenue_band_year_1_conservative_usd": {
+    "low_3pct": 132000,
+    "mid_8pct": 352000,
+    "high_16pct": 704000
+  },
+  "estimated_net_revenue_band_year_1_optimistic_usd": {
+    "low_3pct": 264000,
+    "mid_8pct": 704000,
+    "high_16pct": 1408000
+  },
+  "gross_spread_pool_per_deal_usd": {
+    "loom_modeled_per_deal": 3500,
+    "_basis": "scaled_from_package_$10k_per_deal_baseline_at_$28k_avg_contract_to_loom_$22k_avg_contract_($10k_x_22000/28000_=_~$7857)_then_reduced_for_lower_buyer_payment_total_assumption_and_thinner_spread_capacity_at_business_tier_majority_to_~$3500_modeled_directional_only_(modestly_higher_than_calendly_$2900_due_to_higher_blended_acv)",
+    "_caveat": "this_figure_is_NOT_a_confirmed_Multipli_margin._Use_estimated_net_revenue_(take_rate_x_funded_volume)_as_the_preferred_performance_basis_per_package_warnings."
+  },
+  "draw_repayment_projection": {
+    "loom_modeled_avg_term_months": 12,
+    "loom_modeled_repayment_completion_pct_year_1": 0.93,
+    "loom_modeled_default_pct_year_1": 0.025,
+    "loom_modeled_prepay_pct_year_1": 0.045,
+    "_basis": "saas_subscription_vendor_financing_norms_for_mid_market_buyers_with_high_credit_quality_business_and_enterprise_purchasers_(typically_known_brand_companies_skewed_higher_due_to_atlassian_install_base_cross_sell_implying_stable_buyer_base)_implies_low_default_rate_under_3pct_modeled_directional_only_until_loom_buyer_credit_distribution_is_known"
+  },
+  "performance_share_projection_to_gigaton": {
+    "performance_share_pct_of_multipli_net_revenue_assumed": 0.15,
+    "year_1_conservative_8pct_take_rate_gigaton_share_usd": 52800,
+    "year_1_optimistic_8pct_take_rate_gigaton_share_usd": 105600,
+    "year_1_conservative_12pct_take_rate_gigaton_share_usd": 79200,
+    "year_1_optimistic_12pct_take_rate_gigaton_share_usd": 158400,
+    "_basis": "15pct_revenue_share_is_a_placeholder_for_the_eventual_gigaton_x_multipli_commercial_agreement._actual_share_TBD_in_partnership_negotiation._this_figure_is_illustrative_only_and_will_not_be_quoted_in_ben_cahir_facing_materials."
+  },
+  "warnings": [
+    "Do not treat gross spread as confirmed Multipli margin.",
+    "Use net revenue or gross profit as the preferred performance basis when actual data is available.",
+    "Use funded volume only as a directional proxy unless Multipli confirms economics.",
+    "All Loom-specific numeric inputs (ACV, close rate, sales cycle, payment friction, AI addon attach rate) are LLM-modeled from public sources. Confidence: 0.60. Do not quote any specific dollar figure to Loom, Atlassian, or Ben Cahir without first validating against (a) Loom or Atlassian design-partner conversation, (b) Multipli's actual SaaS portfolio data, or (c) caveating the bundle as illustrative.",
+    "Performance share to Gigaton (15%) is a placeholder. Actual rev-share TBD in Gigaton-Multipli commercial agreement.",
+    "Year 1 financed-deal volumes (200 conservative / 400 optimistic) are pilot-scale assumptions only. A full Loom partnership would target an order-of-magnitude larger pipeline.",
+    "Post-Atlassian-acquisition, Loom pricing and packaging are subject to change (e.g., possible repackaging into Atlassian premium tier). Model assumes current standalone Loom pricing holds through pilot window; revisit if Atlassian announces consolidation.",
+    "AI addon attach rate is a moving target; if Atlassian forces AI addon into base pricing post-pilot, blended ACV could shift materially and all scenarios should be re-run."
+  ],
+  "missing_information_for_full_economics_lock": [
+    "loom_actual_blended_acv_business_vs_business_plus_ai_vs_enterprise",
+    "loom_actual_ai_addon_attach_rate_at_business_and_enterprise_tiers",
+    "loom_actual_quarterly_new_logo_volume_business_and_enterprise",
+    "loom_appetite_for_third_party_financing_offer_at_point_of_sale",
+    "atlassian_finance_policy_on_third_party_financing_attached_to_subsidiary_products",
+    "multipli_actual_take_rate_realized_on_software_saas_segment_historical_average",
+    "multipli_actual_default_rate_realized_on_software_saas_segment",
+    "gigaton_multipli_commercial_rev_share_negotiated_percentage",
+    "loom_buyer_credit_quality_distribution_for_default_modeling",
+    "atlassian_acquisition_co_term_bundle_pricing_impact_on_standalone_loom_acv"
+  ],
+  "_engine_routing_trace": {
+    "would_have_been_computed_by": "ppeme /v1/multipli/deal-economics POST endpoint",
+    "actual_method_used": "hand_computed_in_this_file_grounded_in_06_data_models_deal_economics_model.json_baseline",
+    "regenerable_after": "ppeme PR landing Phase B per runbook section 5"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "_ppim_signature": {
+    "interaction": "dashboard_emission_for_internal_observability_and_hme_ingestion",
+    "economics": "carries_estimated_incremental_funded_volume_and_net_revenue_band_for_penrose_super_additive_network_value_metric",
+    "predictability": "schema_aligned_with_package_06_data_models_dashboard_event_payload.example.json_plus_ppim_extensions",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_fifth_artifact_of_six_file_bundle"
+  },
+  "event_type": "vendor_financing_beta_result",
+  "event_schema_version": "1.0.0",
+  "source": "gigaton_multipli_beta",
+  "source_mode": "manual_hand_driven_no_engine_emission_yet",
+  "timestamp": "2026-05-26T16:30:00Z",
+  "vendor_id": "notion_v1",
+  "vendor_name": "Notion Labs, Inc.",
+  "vertical": "software_saas",
+  "prospect_id": "multipli",
+  "operator_id": null,
+  "fit_score": 82,
+  "fit_score_label": "high_fit",
+  "fit_score_components": {
+    "deal_size_suitability": 16,
+    "payment_friction": 14,
+    "vendor_segment_fit": 14,
+    "buyer_urgency": 7,
+    "bundleable_services": 10,
+    "sales_cycle_improvement": 9,
+    "margin_protection": 9,
+    "data_confidence": 3
+  },
+  "reason_codes_top": [
+    "reason:deal_size_above_baseline",
+    "reason:annual_prepay_plus_ai_addon_friction",
+    "reason:top_declared_segment",
+    "reason:multiple_service_lines_plus_consultant_ecosystem",
+    "reason:enterprise_cycle_75_to_120_days_compressible",
+    "reason:discount_displaced_by_financing_option_plus_free_ai_seat_grants"
+  ],
+  "average_deal_size_usd": 32000,
+  "estimated_incremental_funded_volume_usd": {
+    "year_1_conservative": 6400000,
+    "year_1_optimistic": 12800000
+  },
+  "estimated_net_revenue_scenarios_year_1_conservative_usd": {
+    "low_3pct": 192000,
+    "mid_5pct": 320000,
+    "mid_8pct": 512000,
+    "high_10pct": 640000,
+    "high_12pct": 768000,
+    "ceiling_16pct": 1024000
+  },
+  "estimated_net_revenue_scenarios_year_1_optimistic_usd": {
+    "low_3pct": 384000,
+    "mid_5pct": 640000,
+    "mid_8pct": 1024000,
+    "high_10pct": 1280000,
+    "high_12pct": 1536000,
+    "ceiling_16pct": 2048000
+  },
+  "recommended_next_action": "Invite Notion to a 30-minute design-partner conversation focused on the Notion AI addon attach motion. Validate modeled inputs against Notion contract and AI-attach data. If aligned, propose a 90-day enterprise-tier financing pilot covering ~50 financing-eligible opportunities with explicit AI-addon-ramp option.",
+  "attribution": {
+    "campaign_id": "multipli_saas_beta_tuesday_2026_05_26",
+    "workflow_id": "multipli_vendor_growth_engine_v0_manual",
+    "influence_type": "intake_analysis_and_recommendation",
+    "ppim_action_chain": [
+      "ppim:intel_silo:vendor_eo_capture_(manual_substitute)",
+      "ppim:decision_engine:fit_score_compute_(manual_substitute)",
+      "ppim:ppeme:deal_economics_model_(manual_substitute)",
+      "ppim:decision_engine:proposal_language_generate_(manual_substitute)",
+      "ppim:hme:dashboard_event_emit_(this_payload)"
+    ]
+  },
+  "confidence": 0.63,
+  "missing_information": [
+    "notion_actual_arr_breakdown_by_tier_(plus_business_enterprise_ai_addon)",
+    "notion_actual_ai_addon_attach_rate_by_tier_and_segment",
+    "notion_actual_close_rate_self_serve_vs_assisted_business_vs_enterprise",
+    "notion_actual_blended_acv_business_vs_enterprise_with_and_without_ai_addon",
+    "notion_actual_discount_pct_realized_at_close",
+    "notion_actual_payment_term_distribution",
+    "notion_actual_3_year_committed_term_uptake_rate",
+    "notion_internal_top_3_buyer_objections",
+    "notion_appetite_for_third_party_financing_at_pos_especially_for_ai_addon",
+    "multipli_actual_take_rate_realized_on_saas_segment",
+    "multipli_default_rate_realized_on_saas_segment",
+    "gigaton_x_multipli_commercial_rev_share_pct",
+    "notion_certified_consultant_ecosystem_revenue_share"
+  ],
+  "ppim_signature_tags": {
+    "industry": "software_saas",
+    "sub_vertical": "workspace_collaboration_notes_database_knowledge_management",
+    "geo": "global_hq_us",
+    "regime": "venture_backed_late_stage_private_decacorn",
+    "segment": "self_serve_plg_to_enterprise_with_ai_addon_motion",
+    "lifecycle": "growth_stage_post_ai_pivot_2023_to_2026_expansion",
+    "provenance": "manual_llm_extraction_public_sources_2026_05_26",
+    "modality": "saas_subscription_seat_based_plus_per_seat_ai_addon"
+  },
+  "_intended_consumers": [
+    "human-management-engine: register new event type vendor.financing.assessed.v1 + log to dashboard event stream",
+    "decision-engine (DEE): persist Decision record for audit and reason-code traceability",
+    "ppeme: contribute to penrose super_additive_network_value metric once vendor-financing volume is realized",
+    "gigaton-ui-system: render in /operators/multipli/vendors list view"
+  ],
+  "_engine_routing_trace": {
+    "would_have_been_emitted_via": "Pub/Sub gignet-orchestrator topic with event_type vendor.financing.assessed.v1 (planned per runbook section 6)",
+    "actual_method_used": "JSON file written to mkb local artifact bundle",
+    "regenerable_after": "HME register-event-type PR + decision-engine emit-route PR per Phase C"
+  },
+  "_compliance_flag": "scenarios_only_no_guaranteed_outcomes_per_package_section_9_governance"
+}
