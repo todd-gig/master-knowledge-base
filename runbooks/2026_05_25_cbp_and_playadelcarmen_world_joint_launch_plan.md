@@ -1,13 +1,46 @@
 ---
-title: CBP + playadelcarmen.world Joint Launch Plan
+title: CBP + PDC Sub-client Joint Launch Plan
 created: 2026-05-25
+revised: 2026-05-25-eve
 owner: todd@gigaton.ai
-status: PLAN — no execution yet
+status: SCAFFOLD COMMITTED — pending user FIRST_DEPLOY actions
 governs: Entity #3 (CBP) + Entity #3.1 (walking tour + DMS) activation, sequenced against v0.7 beta-activation week and the migration freeze
 supersedes: nothing — fills the gap between [[beta_activation_one_week_plan_2026_05_25]] (cohort-level) and per-operator activation
 ---
 
-# CBP + playadelcarmen.world — Joint Launch Plan
+# CBP + PDC Sub-client — Joint Launch Plan
+
+## ⚡ REVISION 2026-05-25 eve — read this first
+
+User directive: **skip playadelcarmen.world DNS provisioning**, assume everything should be prepared, migration in 1 week, **goal = get all possible live utilizing playadelcarmen.homes ASAP**.
+
+**Locked decisions:**
+
+| # | Lock |
+| --- | --- |
+| D1 | **playadelcarmen.world DEFERRED** until post-migration. Not provisioning DNS/MX/Firebase in gigaton-platform now. |
+| D2 | **Sub-client surfaces deploy to subdomains of playadelcarmen.homes**: `tour.playadelcarmen.homes` (walking tour) + `services.playadelcarmen.homes` (DMS marketing, new A record added 2026-05-25 → 199.36.158.100). |
+| D3 | **Use existing `playa-del-carmen` stub repo** for sub-client surfaces. Multi-site Firebase Hosting deploys both subdomains from one repo. **SCAFFOLD COMMITTED 2026-05-25 eve** (commit `e30d4c6` on branch `chore/rebrand-carmen-beach-to-pdc`). |
+| D4 | (was .world mail) — moot under new direction |
+| D5 | **Static HTML + Tailwind via CDN** (no build step) — Phase 1 ships value fast. Phase 2 (post-beta) may introduce Next.js if dynamic features needed. |
+| D6 | (was cross-domain redirect) — moot since same domain now |
+
+**Implication of this revision:** sub-client (#3.1) *customer-facing surfaces* are decoupled from *operational activation*. Surfaces can go live anytime (just needs user FIRST_DEPLOY actions). Operational activation (UAE namespace + affiliate row + license row) still gated on migration + Phase3_Spec_A/C/D, which is post-Wed 5/27 work.
+
+**Pending user actions** (~15 min total, see `playa-del-carmen/docs/FIRST_DEPLOY.md`):
+
+1. `firebase login --reauth`
+2. `firebase hosting:sites:create tour-pdc --project=carmen-beach-properties`
+3. `firebase hosting:sites:create services-pdc --project=carmen-beach-properties`
+4. Firebase Console — map `tour.playadelcarmen.homes` → site `tour-pdc`
+5. Firebase Console — map `services.playadelcarmen.homes` → site `services-pdc`
+6. `cd ~/Documents/GitHub/playa-del-carmen && firebase deploy --only hosting`
+
+After deploy: visible at `https://tour.playadelcarmen.homes/` and `https://services.playadelcarmen.homes/` with Phase 1 placeholder content. Content TODOs marked inline in `sites/{tour,services}/index.html`.
+
+The rest of this document is the pre-revision plan, retained for reference. **Sections about playadelcarmen.world DNS/MX provisioning are SUPERSEDED by D1 above.**
+
+---
 
 ## Why this runbook exists
 
