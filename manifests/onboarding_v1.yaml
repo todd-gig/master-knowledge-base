@@ -1,4 +1,4 @@
-# Gigaton Operator Onboarding — Canonical Manifest v1.1.0
+# Gigaton Operator Onboarding — Canonical Manifest v1.2.0
 #
 # This manifest is the SOURCE OF TRUTH for the directed onboarding workflow.
 # It is declarative data. No business logic lives here. Logic lives in:
@@ -40,7 +40,7 @@
 #   - Versioned audit artifact ("operator X completed manifest v1.0.0")
 #   - Aligns with decision-engine's declarative DecisionRecord pattern
 
-version: 1.1.0
+version: 1.2.0
 manifest_id: gigaton-operator-onboarding
 introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target
 canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
@@ -138,6 +138,35 @@ nav_circles:
     tier_required: tier_5_live
     icon: crown
     additional_gate: '@gigaton.ai email domain'
+  # Decision-approval surfaces — reachable by URL but previously invisible
+  # in NavRail because no nav_circles entries existed. Gated at tier_3_active
+  # (operators can review/approve recommendations once tier-3 capabilities
+  # — draft recommendations + goals/processes — are unlocked).
+  - circle_id: review_queue
+    label: Review Queue
+    route: /admin/review-queue
+    tier_required: tier_3_active
+    icon: inbox
+  - circle_id: founder_signoff
+    label: Sign-off
+    route: /founder/signoff
+    tier_required: tier_3_active
+    icon: file-signature
+  - circle_id: proposals
+    label: Proposals
+    route: /founder/proposals
+    tier_required: tier_3_active
+    icon: list-checks
+  - circle_id: owner_proposals
+    label: Owner Proposals
+    route: /owner/proposals
+    tier_required: tier_3_active
+    icon: list
+  - circle_id: overrides
+    label: Overrides
+    route: /overrides
+    tier_required: tier_3_active
+    icon: shield-check
 
 # Deprecated routes — redirect rules the FE App.tsx enforces.
 deprecated_routes:
