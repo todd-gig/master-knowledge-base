@@ -226,13 +226,67 @@ This plan operationalizes that into a concrete pipeline so that after a document
 
 ---
 
-## 6. Open Questions (need operator decision before Phase 2 ships)
+## 6. Open Questions — DECISIONS (2026-05-25)
 
-1. **Operator scoping of FAISS search** — `core/memory/semantic.search()` does not currently filter by `operator_id`. Is multi-tenant isolation already enforced upstream (one silo per operator) or do we need to add an `operator_id` tag and a filter pass? *(Affects Phase 2 query construction.)*
-2. **Web-search backend** — `self_heal.spawn_research_task(source_preference="web_search")` says "web_search" — is there an actual configured backend (Brave/Tavily/SerpAPI/Anthropic web_search tool), or does Phase 5 need to spec one first?
-3. **Fast vs. slow path default** — Should `/v1/qa/ask` default to `fast=true` (return partial + stream backfill) or `wait_for_backfill=true` (single complete answer, higher latency)? Chat UX implications differ.
-4. **Principles-filter strictness in dev** — Should violations of non-negotiables (e.g. unlabeled synthetic data) hard-block the answer in dev, or only annotate? Hard-blocking is correct per doctrine but will surprise during early testing.
-5. **Citation linkout** — For Drive-ingested chunks we have `drive_file_id`. Should Citation.tsx open the raw Drive file, the NotebookLM canonical bundle entry, or an in-app preview? *(Affects Phase 4 component.)*
+Decided by Claude session in autonomous mode after E spec landed. Operator can override any of these before Phase 2 ships; otherwise they govern implementation.
+
+### Q1. Operator scoping of FAISS search — **DECIDED: add operator_id filter as Phase 2.0 prereq**
+
+**Decision:** Add an `operator_id` column to the FAISS metadata sidecar (or tag chunks on ingest) and have `semantic.search()` accept an `operator_id` parameter that filters results post-retrieval. Ship this as the FIRST commit of Phase 2, before the Q&A endpoint exists. The endpoint MUST refuse to return chunks not owned by the calling operator.
+
+**Why:** Multi-tenant data isolation is non-negotiable. We can't ship a Q&A endpoint that could leak one operator's documents to another. If the silo is currently single-tenant in production, this filter is a no-op + future-proofing. If multi-tenant, it's the load-bearing safety check.
+
+**Risk:** Existing chunks ingested without operator_id need backfill. Decision: tag pre-existing chunks with the operator who currently owns the silo deploy (a single-value backfill), then enforce non-null on new ingests.
+
+### Q2. Web-search backend — **DECIDED: Anthropic `web_search` tool (Claude API native)**
+
+**Decision:** Use Anthropic's `web_search` tool for the backfill path. Configurable per-request via `qa_pipeline.answer(..., web_search_provider="anthropic")`. Falls back to disabled if the configured provider is unreachable.
+
+**Why:** The silo already calls the Claude API (no new API key, no new billing relationship). Anthropic's `web_search` returns sourced results that fit cleanly into the Citation surface. Lower operational footprint than maintaining a separate Brave/Tavily/SerpAPI key.
+
+**Risk:** Anthropic web_search is per-model-availability. If we're on a Claude model that doesn't expose it, we degrade to no-backfill (Critic still flags the gap, but no automatic web research happens). Reasonable degradation.
+
+### Q3. Fast vs slow path default — **DECIDED: `fast=true` default**
+
+**Decision:** `/v1/qa/ask` defaults to `fast=true`. UI shows the partial answer immediately + a "researching the web for X…" chip; second SSE event streams the augmented answer when backfill completes. Operators doing batch analysis can pass `wait_for_backfill=true` for a single complete response.
+
+**Why:** Chat is a conversational surface; perceived latency dominates user satisfaction. A partial answer in 1.5s beats a complete answer in 12s for the human-in-the-loop case. Batch analysis is the minority case and can opt in.
+
+**Risk:** Users may misread the partial answer as final and miss the backfilled context. UI mitigation: the ResearchBackfillChip is visually prominent + the partial answer is suffixed with "(researching further sources…)" until backfill resolves.
+
+### Q4. Principles-filter strictness in dev — **DECIDED: annotate-only in dev, hard-block in prod (env-gated)**
+
+**Decision:** `principles_filter.check()` returns `{violations, ethos_flags, suggestions}` always. The `qa_pipeline` checks `os.environ["GIGATON_PRINCIPLES_STRICT"]` — if "true", a non-negotiable violation flips `verdict.consensus=False` and `verdict.content.blocked_reason` is set (UI renders red banner, no answer rendered). If false (default), violations annotate as amber chips but the answer renders.
+
+**Decision matrix:**
+
+| Env | Default | Override |
+|---|---|---|
+| dev / staging | `STRICT=false` (annotate) | set `STRICT=true` to test hard-block behavior |
+| prod | `STRICT=true` (hard-block) | NOT overridable — guarded by deploy config |
+
+**Why:** Hard-blocking is correct per doctrine but will surprise during early testing when prompts haven't been hardened against the principles. Lint-warn vs lint-error per env is industry standard. Prod always enforces; dev gives engineers room to iterate.
+
+### Q5. Citation linkout — **DECIDED: raw Drive file (primary), NotebookLM bundle entry (secondary)**
+
+**Decision:** `Citation.tsx` opens `webViewLink` for the Drive file (raw source, editable, familiar UI) as the primary action. A secondary "Also in your NotebookLM bundle →" link opens the file's position in the canonical bundle if `bundle_link` is present in the citation payload. In-app preview deferred to a later phase.
+
+**Why:** Operators need to verify and often edit the source. NotebookLM is read-only and disconnected from edit workflows. Drive is the source of truth and the place edits propagate from. In-app preview is a UX nicety we can ship later without breaking citation contracts.
+
+**Risk:** If the operator hasn't connected the same Drive account that owns the file, `webViewLink` will prompt for a different account. Mitigation: Citation surfaces the owning account email next to the file name so the operator knows which account to be signed into.
+
+---
+
+## 7. Implementation order (post-decisions)
+
+Given the 5 decisions above, the dependency order tightens:
+
+1. **Phase 2.0** (NEW): operator_id filter on `semantic.search()` + backfill of existing chunks
+2. **Phase 1**: ethnographic skill + frames.yaml + this runbook (✅ shipped 2026-05-25)
+3. **Phase 2**: Q&A endpoint + `qa_pipeline.py` + ethnographic_frames.py + principles_filter.py + coverage_detector.py
+4. **Phase 3**: chat gateway bridge
+5. **Phase 4**: UI components (Citation, SocietyTrace, PrinciplesCheckBanner, ResearchBackfillChip)
+6. **Phase 5**: web-research backfill loop close + Anthropic web_search wiring
 
 ---
 
