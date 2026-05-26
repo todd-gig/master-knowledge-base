@@ -139,33 +139,33 @@ nav_circles:
     icon: crown
     additional_gate: '@gigaton.ai email domain'
   # Decision-approval surfaces — reachable by URL but previously invisible
-  # in NavRail because no nav_circles entries existed. Gated at tier_3_active
+  # in NavRail because no nav_circles entries existed. Gated at tier_3_recommend
   # (operators can review/approve recommendations once tier-3 capabilities
   # — draft recommendations + goals/processes — are unlocked).
   - circle_id: review_queue
     label: Review Queue
     route: /admin/review-queue
-    tier_required: tier_3_active
+    tier_required: tier_3_recommend
     icon: inbox
   - circle_id: founder_signoff
     label: Sign-off
     route: /founder/signoff
-    tier_required: tier_3_active
+    tier_required: tier_3_recommend
     icon: file-signature
   - circle_id: proposals
     label: Proposals
     route: /founder/proposals
-    tier_required: tier_3_active
+    tier_required: tier_3_recommend
     icon: list-checks
   - circle_id: owner_proposals
     label: Owner Proposals
     route: /owner/proposals
-    tier_required: tier_3_active
+    tier_required: tier_3_recommend
     icon: list
   - circle_id: overrides
     label: Overrides
     route: /overrides
-    tier_required: tier_3_active
+    tier_required: tier_3_recommend
     icon: shield-check
 
 # Deprecated routes — redirect rules the FE App.tsx enforces.
