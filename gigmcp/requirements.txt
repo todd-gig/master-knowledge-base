@@ -1,0 +1,17 @@
+# gigmcp-industry-sync runtime requirements
+#
+# Pinned to MINOR (not patch) to keep CVE remediation auto-applied on
+# rebuild while preventing surprise API breaks. The Cloud Run Job
+# rebuilds on every cloudbuild trigger so floating patches are picked
+# up within the daily/weekly deploy cadence.
+
+# HTTP
+requests~=2.32
+
+# Postgres (binary wheel — avoids needing pg_config / libpq at build time)
+psycopg2-binary~=2.9
+
+# GCP clients
+google-cloud-secret-manager~=2.20
+google-cloud-monitoring~=2.22
+google-cloud-pubsub~=2.23
