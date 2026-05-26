@@ -241,6 +241,66 @@ Captures all decisions ratified during the 2026-05-25 session. Each entry: decis
 
 ---
 
+## Intelligence Layer doctrine lock 2026-05-26 ~03:00 UTC
+
+### INTEL-1 — Wave 2 redefinition: Intelligence Layer + Ti Agent Matrix + Self-Engineered HR
+- **Wave 2 (previously variance-aware self-healing for Stage 5)** is now the foundational **Intelligence Layer**. Variance-aware self-healing relegates to a sub-task within Wave 2 (specifically: the LLM-router calibration loop).
+- **Concept rename:** `chat` page → **`intelligence`** page. Iconography: representative-of-intelligence symbol (TBD by the design pipeline; default: brain / neural / lightning glyph until brand pipeline picks). All existing references to `/chat` in `gigaton-ui-system` route to `/intelligence`.
+- **Goal:** all 11 platform services operating + user can interact with all of them through the Intelligence page = a unified CLI-style chat surface.
+- **Objective:** give user a CLI for all Gigaton systems via the intelligence page + create real-time coaching + feedback + intelligence-utilization-to-qualify-information environment.
+- **Ti Agent Matrix:** the intelligence layer dispatches each query/task to a multi-expert ensemble derived from the locked org structure (CEO → 9 executives [CTO/CXOO/CISO/CDO/CTO/CFO/CMO/CRO/CPO] × up to 7 reports each = up to 63 specialized roles). Skill matrix axes per CLAUDE.md: technical, commercial, creative, analytical, operational, interpersonal, environmental, political. Matching = task → required-skills × available-experts × resource-availability → optimal agent ensemble.
+- **CLI controls everything:** all 3rd-party LLMs (Anthropic + OpenAI + Google), source updates (intel-silo connectors), alt AI tools (any tool registered in the connector catalog), all through gignet-orchestrator Pub/Sub fabric.
+- **Self-Engineered HR:** the intelligence layer performs automated analysis → identifies human-entity/talent requirements → triggers recruiting & staff management through automated human management systems engineered BY gigaton intelligence itself. Closed feedback loop: platform's own talent gaps surface from its own performance data; recruitment is platform-driven.
+- Source: user 2026-05-26 ~03:00 UTC
+
+### INTEL-2 — Decision-making protocol (META-DOCTRINE)
+- **Rule:** ALL decisions should be made by system intelligence ASAP. Questions to the user are the FALLBACK, not the default.
+- **Before escalating any choice to user, route through:**
+  1. Existing memory files at `~/.claude/projects/-Users-admin/memory/` (look for prior decisions on similar topics)
+  2. The decisions log at `decisions/2026-05-25_architecture_decisions_log.md` (the rolling source of truth)
+  3. Doctrine docs: `[[foundational_goal_gigaton_engineered_brand_experience]]`, `[[foundational_modular_replication_via_input_substitution]]`, `[[universal_connector_hub_architecture]]`, `[[gignet_auto_trigger_orchestration]]`
+  4. The master plan: `[[master_project_plan]]`
+  5. The Ti Agent Matrix (when implemented): dispatch to the appropriate expert role(s) for the decision
+  6. Custom language + symbology logic: PPIM signatures, multi-axis JSONB tags, modular replication input-substitution patterns
+- **Only escalate to user when:** (a) the decision is genuinely novel + outside doctrine scope, (b) the cost of a wrong autonomous decision exceeds the cost of waiting for user input, or (c) the user has explicitly tagged a topic as user-only (e.g. legal entity decisions, personnel ownership, brand identity).
+- Source: user 2026-05-26 ~03:00 UTC
+
+## Payout architecture lock 2026-05-26 ~02:00 UTC
+
+### PAYOUT-1 — Platform-wide payout architecture
+- **Scope:** EVERY user/affiliate/client/operator/contributor who can receive money on the platform. Includes:
+  - Carmen Beach property owners (booking payouts)
+  - Gignet affiliate commissions (per-human, per-org)
+  - Service providers (photographers, agents, consultants, leasing agents)
+  - Multipli vendors (financing-deal payouts)
+  - All future entity-creation-flow operators
+  - Ti DBA managed-service client payouts
+- **Two payout paths, both enforced:**
+  - **Path A (default): Stripe Connect Express.** Every recipient onboards via Stripe's hosted Connect flow (KYC + bank linking handled by Stripe). Bookings/sales auto-split at transaction time; recipient gets paid on Stripe's normal payout schedule (typically T+2 to T+7).
+  - **Path B (alternative): Scheduled ACH.** Recipient opts for direct ACH with:
+    - Additional platform fees (TBD specific rate — likely $0.50-$2/payout to cover ACH costs)
+    - **Minimum payout threshold = 5% of cost basis** for the transaction-set, rounded to nearest currency unit:
+      - USD: nearest $0.25 (so a $20 transaction set has minimum payout of $1.00 — but rounds up to $1.00 since 5% × $20 = $1.00 already at $0.25 boundary; a $7 set has 5% = $0.35 → rounds to $0.25 nearest? CLARIFY with user — see open Q below)
+      - MXN: nearest 5 MXN (so a 200-peso set → 5% × 200 = 10 MXN; a 75-peso set → 5% × 75 = 3.75 → rounds to 5 MXN)
+      - Other currencies: nearest equivalent denomination (TBD currency mapping table)
+    - Payout frequency rules (TBD: weekly? monthly? — likely weekly with carryover)
+- **No other payout mechanism supported.** No wire transfers, no PayPal, no crypto, no manual checks. Connect Express OR scheduled ACH only.
+- **Implementation surface:**
+  - Lives in gigaton-engine per locked B3 ADR (billing logic)
+  - Entity-creation-flow Step 10 = payout method selection (default: Connect Express; opt-in: ACH)
+  - Stripe Connect for all entity types (saas / managed-service / property-management / marketing-agency / real-estate / tour-operator / solo-affiliate)
+  - Currency-aware minimum payout calculator + rounding helper
+- **Affects:**
+  - 30-day launch roadmap: every entity launch now includes Stripe Connect KYC during Step 10
+  - Entity-creation flow doc: Step 10 expands to include payout-method selector
+  - Per-entity legal scaffold: ToS adds payout terms section
+- **Open clarifications for user:**
+  - Currency rounding: 5% × cost basis rounded WHICH direction? (Up to nearest 25¢ in USD?)
+  - ACH frequency: weekly / monthly / configurable?
+  - ACH fee: flat $X/payout, or $/transaction? Who pays — recipient or platform?
+  - Minimum payout exception for first-time recipients (welcome bonus / earlier ACH)?
+- Source: user 2026-05-26 ~02:00 UTC
+
 ## Architecture lock 2026-05-26 ~01:30 UTC
 
 ### ARCH-2 — Three access layers locked 2026-05-26 ~02:00 UTC
