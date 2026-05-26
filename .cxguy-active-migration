@@ -1,0 +1,33 @@
+# Active Migration Marker — DO NOT REDEPLOY gigaton-gateway without reading this
+
+active_migration: carmen-beach-properties → gigaton-platform
+sessions_complete:
+  - session_1 (decision-engine) — completed 2026-05-25 ~23:57Z by todd@gigaton.ai
+sessions_pending:
+  - session_2 (intelligence-silo) — target Wed 2026-05-27 evening
+  - session_3 (gigaton-engine + sales-operating-system) — target Thu 2026-05-28 evening
+
+WARNING for any agent/session about to deploy gigaton-gateway:
+  The DECISION_ENGINE_URL env var is INTENTIONALLY pointed at gigaton-platform:
+    https://decision-engine-825651647756.us-central1.run.app
+  If you redeploy from a stale baseline that flips it back to rjmcrtvuzq-uc.a.run.app
+  (carmen-beach-properties), you will SILENTLY REVERT the migration.
+
+  This has already happened ONCE today (rev 00044-gh6 reverted my rev 00042-stn).
+
+Before redeploying gigaton-gateway:
+  1. Read this file
+  2. Confirm with the migration-active operator (todd@gigaton.ai)
+  3. Verify your env config matches the active state by running:
+       gcloud run services describe gigaton-gateway --project=gigaton-platform \
+         --region=us-central1 --format='value(spec.template.spec.containers[0].env)' \
+         | tr ',' '\n' | grep _URL
+  4. If your baseline env doesn't include the gigaton-platform URLs for migrated engines,
+     do NOT auto-deploy. Sync your branch first.
+
+This marker file will be removed when migration completes (all 4 engines on gigaton-platform).
+
+Last updated: 2026-05-25T23:58Z
+Active migration runbooks:
+  - runbooks/2026_05_25_gcp_migration_accelerated_complete_plan.md
+  - runbooks/2026_05_25_carmen_to_gigaton_migration_day_by_day.md

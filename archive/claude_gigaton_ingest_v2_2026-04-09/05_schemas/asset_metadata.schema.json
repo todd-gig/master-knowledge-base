@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gigaton Asset Metadata",
+  "type": "object",
+  "required": [
+    "asset_id",
+    "asset_type",
+    "purpose",
+    "client_namespace",
+    "usage_context",
+    "source",
+    "ingestion_summary"
+  ],
+  "properties": {
+    "asset_id": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "client_namespace": {
+      "type": "string"
+    },
+    "usage_context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string"
+    },
+    "ingestion_summary": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rights": {
+      "type": "object"
+    }
+  }
+}

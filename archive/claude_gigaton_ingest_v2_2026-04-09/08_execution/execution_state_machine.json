@@ -1,0 +1,84 @@
+{
+  "states": [
+    "intake",
+    "repo_audit",
+    "gap_analysis",
+    "decision_proposed",
+    "approval_pending",
+    "implementation",
+    "validation",
+    "staging",
+    "production_approval",
+    "production_deploy",
+    "monitoring",
+    "complete",
+    "rollback"
+  ],
+  "transitions": [
+    {
+      "from": "intake",
+      "to": "repo_audit",
+      "condition": "task accepted"
+    },
+    {
+      "from": "repo_audit",
+      "to": "gap_analysis",
+      "condition": "repo mapped"
+    },
+    {
+      "from": "gap_analysis",
+      "to": "decision_proposed",
+      "condition": "options scored"
+    },
+    {
+      "from": "decision_proposed",
+      "to": "approval_pending",
+      "condition": "approval required"
+    },
+    {
+      "from": "decision_proposed",
+      "to": "implementation",
+      "condition": "low risk auto-executable"
+    },
+    {
+      "from": "approval_pending",
+      "to": "implementation",
+      "condition": "human approved"
+    },
+    {
+      "from": "implementation",
+      "to": "validation",
+      "condition": "code/artifacts complete"
+    },
+    {
+      "from": "validation",
+      "to": "staging",
+      "condition": "tests pass"
+    },
+    {
+      "from": "staging",
+      "to": "production_approval",
+      "condition": "prod change required"
+    },
+    {
+      "from": "production_approval",
+      "to": "production_deploy",
+      "condition": "approved"
+    },
+    {
+      "from": "production_deploy",
+      "to": "monitoring",
+      "condition": "deployed"
+    },
+    {
+      "from": "monitoring",
+      "to": "complete",
+      "condition": "healthy"
+    },
+    {
+      "from": "monitoring",
+      "to": "rollback",
+      "condition": "failure threshold exceeded"
+    }
+  ]
+}

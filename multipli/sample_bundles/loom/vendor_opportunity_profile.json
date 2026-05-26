@@ -1,0 +1,133 @@
+{
+  "_ppim_signature": {
+    "interaction": "prospect_outreach_evidence_attachment",
+    "economics": "incremental_funded_volume_x_take_rate_yields_multipli_net_revenue;_gigaton_capture_via_performance_share",
+    "predictability": "field_confidence_per_attribute_plus_aggregate_confidence_score_with_explicit_provenance_per_source",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_first_artifact_of_six_file_bundle"
+  },
+  "_meta": {
+    "bundle_version": "1.0.0",
+    "schema_ref": "multipli_claude_beta_package/06_data_models/vendor_opportunity.schema.json",
+    "generated_at": "2026-05-26T15:30:00Z",
+    "generated_by": "gigaton_multipli_vendor_growth_engine_manual_v0",
+    "prospect_id": "multipli",
+    "operator_id": null,
+    "tenant_axis_tags": {
+      "industry": "software_saas",
+      "sub_vertical": "async_video_messaging_and_screen_recording_collaboration",
+      "geo": "global_hq_san_francisco_us",
+      "regime": "atlassian_subsidiary_post_acquisition_strategic_unit",
+      "segment": "self_serve_to_enterprise_plg_with_atlassian_cross_sell",
+      "lifecycle": "post_acquisition_integration_and_enterprise_expansion_phase",
+      "provenance": "manual_llm_extraction_public_sources_2026_05_26",
+      "modality": "saas_subscription_seat_based_with_ai_addon_tier"
+    },
+    "production_mode": "manual_hand_driven_no_engine_state_yet",
+    "do_not_quote_to_prospect_without_human_review": true
+  },
+  "vendor_id": "loom_v1",
+  "vendor_name": "Loom (Atlassian subsidiary, formerly Loom Inc.)",
+  "vertical": "software_saas",
+  "geography": "global_hq_us",
+  "product_service": "asynchronous_video_messaging_screen_recording_and_collaboration_platform_with_ai_transcription_summary_and_chaptering_team_business_and_enterprise_tiers_now_integrated_into_atlassian_collaboration_suite",
+  "average_deal_size": 22000,
+  "_average_deal_size_basis": "estimated_business_to_enterprise_blended_annual_contract_value_assuming_50_to_150_seats_at_observed_list_pricing_business_$15/seat/mo_business_plus_ai_$20/seat/mo_enterprise_negotiated_$25-35/seat/mo_with_typical_15-25pct_discount_at_close_skewed_higher_than_calendly_due_to_ai_addon_pull_and_enterprise_compliance_tier_attachment",
+  "gross_margin_estimate": 0.74,
+  "_gross_margin_estimate_basis": "saas_industry_norm_for_video_centric_workflow_tools_70-80pct_gross_margin_loom_estimated_to_sit_at_mid_range_due_to_video_storage_egress_and_ai_transcription_compute_cost_per_seat_(materially_higher_than_calendly_per_seat_compute)_partially_offset_by_atlassian_infrastructure_consolidation_post_acquisition",
+  "current_close_rate": 0.24,
+  "_current_close_rate_basis": "inferred_from_public_plg_norms_for_business_to_enterprise_motion_15-30pct_qualified_opp_to_close_rate_modestly_higher_than_calendly_estimate_due_to_atlassian_warm_install_base_cross_sell_advantage_no_loom_disclosed_figure",
+  "sales_cycle_days": 52,
+  "_sales_cycle_days_basis": "business_tier_self_serve_under_21_days_enterprise_tier_with_security_review_and_atlassian_co_term_alignment_75-120_days_blended_estimate_~52_days_assuming_growing_share_of_enterprise_motion_post_atlassian_acquisition_(longer_cycle_than_calendly_due_to_video_data_residency_and_compliance_scrutiny)",
+  "payment_friction_score": 68,
+  "_payment_friction_score_basis": "annual_prepay_required_for_discounted_pricing_plus_ai_addon_uplift_creates_compound_cfo_objection_at_mid_market_business_plus_ai_purchases_$15k-$40k_annual_upfront_commonly_pushed_to_monthly_or_quarterly_billing_against_vendor_preference_atlassian_co_term_alignment_pressure_adds_friction_score_calibrated_on_0_no_friction_to_100_blocking_friction_scale",
+  "discounting_to_close": true,
+  "_discounting_to_close_basis": "loom_publishes_annual_discount_(~20pct_implied_by_monthly_vs_annual_pricing_delta)_versus_monthly_and_enterprise_sales_reps_observed_offering_additional_seat_count_term_and_ai_addon_concessions_at_quarter_end_per_public_partner_and_user_forum_anecdotes_atlassian_bundle_discounting_adds_additional_pressure_when_loom_attached_to_jira_confluence_renewals",
+  "extended_terms_requested": true,
+  "_extended_terms_requested_basis": "mid_market_buyers_commonly_request_net_30_or_net_45_or_quarterly_billing_in_lieu_of_annual_prepay_especially_when_ai_addon_lifts_acv_15-40pct_above_baseline_seat_pricing_strong_signal_for_financing_product_fit",
+  "implementation_services_bundleable": true,
+  "_implementation_services_bundleable_basis": "loom_offers_enterprise_onboarding_admin_workflow_setup_sso_provisioning_scim_user_lifecycle_data_residency_configuration_and_atlassian_integration_consulting_separate_from_seat_license_natural_bundle_candidates_for_financed_total_contract_value_ai_governance_and_video_retention_policy_setup_is_an_emerging_paid_services_line",
+  "buyer_objections": [
+    "annual_prepay_plus_ai_addon_uplift_creates_compound_budget_cycle_friction_for_mid_market_finance_teams",
+    "seat_count_uncertainty_in_async_collaboration_tools_makes_committed_annual_quantity_risky_for_buyer_(adoption_pattern_varies_by_team)",
+    "competing_async_video_tools_(microsoft_stream_zoom_clips_google_meet_recording_vidyard_freecam)_partially_bundled_free_with_existing_productivity_or_video_suites",
+    "procurement_requires_video_data_residency_documentation_ai_training_data_disclosure_and_security_review_lengthening_cycle_15-30_days_versus_non_video_saas",
+    "value_proof_for_business_or_enterprise_tier_beyond_individual_use_takes_3-4_months_to_demonstrate_in_meeting_reduction_or_async_velocity_terms_(longer_than_calendly_value_proof_window)",
+    "cfo_resistance_to_recurring_software_line_item_growth_in_2025-2026_cost_optimization_environment_amplified_by_ai_addon_being_perceived_as_optional",
+    "atlassian_acquisition_creates_uncertainty_about_long_term_pricing_packaging_(will_loom_be_folded_into_jira_premium_or_remain_standalone)"
+  ],
+  "_buyer_objections_basis": "compiled_from_public_g2_capterra_reviews_2024-2026_loom_competitive_landing_pages_atlassian_loom_post_acquisition_announcement_coverage_and_general_saas_procurement_pattern_research_no_proprietary_loom_or_atlassian_data",
+  "confidence": 0.60,
+  "_confidence_basis": "all_field_values_are_modeled_estimates_from_public_sources_not_loom_or_atlassian_disclosed_figures_confidence_capped_at_0.60_(2_points_below_calendly_baseline)_due_to_added_uncertainty_from_atlassian_post_acquisition_pricing_packaging_evolution_and_ai_addon_attach_rate_being_a_moving_target",
+  "notes": "Loom chosen as sample vendor #2 because (a) public pricing tiers (Starter free, Business $15/seat/mo, Business+AI $20/seat/mo, Enterprise custom) permit transparent deal_size estimation, (b) the business_to_enterprise upsell motion has a documented payment_friction pattern (annual_prepay_vs_monthly_preference plus AI addon uplift) directly relevant to Multipli's financing thesis, (c) implementation services (admin onboarding, SSO/SCIM, data residency setup, Atlassian integration consulting) are clearly bundleable into a financed total contract value, (d) sales cycle length lands in the 45-120 day range where vendor financing has highest demonstrated lift impact, and (e) the Atlassian acquisition (announced Oct 2023, closed early 2024, ~$975M) creates an interesting capital-stack overlap with Multipli's enterprise procurement angle — buyers procuring Loom inside an Atlassian co-term may be ideal candidates for a financed bundle. CRITICAL CAVEAT: every numeric field in this profile is an LLM-derived estimate grounded in public sources, not Loom- or Atlassian-confirmed data. The Multipli pilot would need to validate these with either (i) a Loom or Atlassian design-partner conversation, (ii) anonymized aggregated data from a SaaS-comparable Multipli portfolio vendor, or (iii) admit the entire bundle as illustrative-only in Ben Cahir-facing materials. Per package compliance rule (§9 governance): no financing claim, no firm pricing, no guaranteed_close_rate language in any downstream artifact.",
+  "missing_information": [
+    "actual_loom_annual_recurring_revenue_breakdown_by_tier_(starter_free_business_business_plus_ai_enterprise)",
+    "actual_loom_close_rate_self_serve_vs_sales_assisted_vs_atlassian_cross_sell_assisted",
+    "actual_loom_average_contract_value_for_business_vs_business_plus_ai_vs_enterprise_tier",
+    "actual_loom_ai_addon_attach_rate_at_business_tier_and_enterprise_tier",
+    "actual_loom_discount_percentage_negotiated_at_close_quarter_end_vs_mid_quarter_vs_atlassian_co_term",
+    "actual_loom_payment_term_distribution_(annual_vs_monthly_vs_quarterly)_at_mid_market_and_enterprise",
+    "loom_internal_view_of_top_three_buyer_objections_(versus_inferred_from_g2_reviews)",
+    "loom_appetite_to_offer_a_financing_option_through_a_third_party_(multipli)_at_point_of_sale_(decision_likely_held_at_atlassian_finance_post_acquisition)",
+    "atlassian_finance_policy_on_third_party_financing_attached_to_subsidiary_products",
+    "competitive_displacement_rate_against_microsoft_stream_zoom_clips_google_meet_recording_vidyard_freecam"
+  ],
+  "_evidence_log": [
+    {
+      "field": "average_deal_size_basis_pricing_tiers",
+      "url": "https://www.loom.com/pricing",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_pricing_page",
+      "confidence_contribution": "high_for_list_price_low_for_actual_close_price"
+    },
+    {
+      "field": "atlassian_acquisition_context",
+      "url": "https://www.atlassian.com/blog/announcements/atlassian-acquires-loom",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_acquisition_announcement",
+      "confidence_contribution": "high_for_ownership_structure_medium_for_post_acquisition_pricing_evolution"
+    },
+    {
+      "field": "atlassian_acquisition_deal_size_and_timing",
+      "url": "https://techcrunch.com/2023/10/12/atlassian-to-acquire-video-messaging-platform-loom-for-975m/",
+      "observed_at": "2026-05-26",
+      "source_type": "third_party_business_news",
+      "confidence_contribution": "high_for_announced_price_and_date"
+    },
+    {
+      "field": "gross_margin_estimate_basis_saas_norms",
+      "url": "https://www.saastr.com/saas-gross-margins-where-they-are-and-where-they-should-be/",
+      "observed_at": "2026-05-26",
+      "source_type": "industry_benchmark_secondary",
+      "confidence_contribution": "medium_directional_only"
+    },
+    {
+      "field": "buyer_objections_g2_capterra",
+      "url": "https://www.g2.com/products/loom/reviews",
+      "observed_at": "2026-05-26",
+      "source_type": "third_party_review_aggregator",
+      "confidence_contribution": "medium_objections_are_volunteered_by_users_not_buyers"
+    },
+    {
+      "field": "buyer_objections_capterra_cross_reference",
+      "url": "https://www.capterra.com/p/171874/Loom/reviews/",
+      "observed_at": "2026-05-26",
+      "source_type": "third_party_review_aggregator",
+      "confidence_contribution": "medium_complements_g2_signal"
+    },
+    {
+      "field": "extended_terms_requested_saas_procurement_pattern",
+      "url": "https://www.gartner.com/en/finance/insights/procurement-sourcing",
+      "observed_at": "2026-05-26",
+      "source_type": "industry_research_general",
+      "confidence_contribution": "low_pattern_evidence_not_loom_specific"
+    },
+    {
+      "field": "video_storage_compute_cost_pressure_on_margin",
+      "url": "https://aws.amazon.com/s3/pricing/",
+      "observed_at": "2026-05-26",
+      "source_type": "infrastructure_provider_pricing_reference",
+      "confidence_contribution": "low_indirect_evidence_for_gross_margin_directionality"
+    }
+  ]
+}

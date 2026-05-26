@@ -1,0 +1,36 @@
+=== decision-engine full env (values + secret refs) ===
+  INSTANCE_CONNECTION_NAME=carmen-beach-properties:us-central1:decision-engine-pg
+  DB_USER=decision_engine
+  DB_NAME=decision_engine
+  INTELLIGENCE_SILO_URL=https://intelligence-silo-rjmcrtvuzq-uc.a.run.app
+  [SECRET] DB_PASSWORD -> decision-engine-pg-app-pw/latest
+  Image: gcr.io/carmen-beach-properties/decision-engine:d928753e-1afc-4a9a-bc66-1492cd6be684
+  SA: decision-engine-runtime@carmen-beach-properties.iam.gserviceaccount.com
+=== intelligence-silo full env (values + secret refs) ===
+  SILO_DATA_DIR=/data
+  VAULT_DISABLED=true
+  GCS_BUCKET=gigaton-silo-index
+  GCS_SYNC_PATH=semantic-index
+  INSTANCE_CONNECTION_NAME=carmen-beach-properties:us-central1:intelligence-silo-pg
+  DB_USER=intelligence_silo
+  DB_NAME=intelligence_silo
+  EXPERIENCE_ASSEMBLY_BUCKET=gigaton-experiences-prod
+  [SECRET] DB_PASSWORD -> intelligence-silo-pg-app-pw/latest
+  [SECRET] GOOGLE_DRIVE_OAUTH_CLIENT_JSON -> google-drive-oauth-client/latest
+  [SECRET] OAUTH_STATE_SECRET -> oauth-state-secret/latest
+  Image: us-central1-docker.pkg.dev/carmen-beach-properties/cloud-run-source-deploy/intelligence-silo:1657afa1-6d99-4ee6-9850-e43177c20c14
+  SA: intel-silo-runtime@carmen-beach-properties.iam.gserviceaccount.com
+=== gigaton-engine full env (values + secret refs) ===
+  ENVIRONMENT=production
+  APOLLO_MOCK_MODE=true
+  SIE_SILENCE_RECOVERY_ENABLED=true
+  SIE_SILENCE_RECOVERY_DRY_RUN=true
+  SIE_MAX_DAILY_ACTIONS=50
+  Image: gcr.io/carmen-beach-properties/gigaton-engine:c7a53f4d-624e-4e00-9289-5d5e20013b4e
+  SA: gigaton-engine-runtime@carmen-beach-properties.iam.gserviceaccount.com
+=== sales-operating-system full env (values + secret refs) ===
+  DATABASE_PATH=/data/sales_os.db
+  CORS_ORIGINS=https://gigaton-ui.web.app
+  DECISION_ENGINE_URL=https://decision-engine-825651647756.us-central1.run.app
+  Image: gcr.io/carmen-beach-properties/sales-operating-system:f778f938-7241-489e-8209-bbfcd5854394
+  SA: sales-os-runtime@carmen-beach-properties.iam.gserviceaccount.com

@@ -1,0 +1,107 @@
+{
+  "_ppim_signature": {
+    "interaction": "dashboard_emission_for_internal_observability_and_hme_ingestion",
+    "economics": "carries_estimated_incremental_funded_volume_and_net_revenue_band_for_penrose_super_additive_network_value_metric",
+    "predictability": "schema_aligned_with_package_06_data_models_dashboard_event_payload.example.json_plus_ppim_extensions",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_fifth_artifact_of_six_file_bundle"
+  },
+  "event_type": "vendor_financing_beta_result",
+  "event_schema_version": "1.0.0",
+  "source": "gigaton_multipli_beta",
+  "source_mode": "manual_hand_driven_no_engine_emission_yet",
+  "timestamp": "2026-05-25T19:50:00Z",
+  "vendor_id": "calendly_v1",
+  "vendor_name": "Calendly LLC",
+  "vertical": "software_saas",
+  "prospect_id": "multipli",
+  "operator_id": null,
+  "fit_score": 75,
+  "fit_score_label": "high_fit",
+  "fit_score_components": {
+    "deal_size_suitability": 14,
+    "payment_friction": 13,
+    "vendor_segment_fit": 14,
+    "buyer_urgency": 6,
+    "bundleable_services": 9,
+    "sales_cycle_improvement": 8,
+    "margin_protection": 8,
+    "data_confidence": 3
+  },
+  "reason_codes_top": [
+    "reason:top_declared_segment",
+    "reason:annual_prepay_friction",
+    "reason:multiple_service_lines_documented",
+    "reason:enterprise_cycle_60_to_90_days_compressible",
+    "reason:discount_displaced_by_financing_option"
+  ],
+  "average_deal_size_usd": 18000,
+  "estimated_incremental_funded_volume_usd": {
+    "year_1_conservative": 3600000,
+    "year_1_optimistic": 7200000
+  },
+  "estimated_net_revenue_scenarios_year_1_conservative_usd": {
+    "low_3pct": 108000,
+    "mid_5pct": 180000,
+    "mid_8pct": 288000,
+    "high_10pct": 360000,
+    "high_12pct": 432000,
+    "ceiling_16pct": 576000
+  },
+  "estimated_net_revenue_scenarios_year_1_optimistic_usd": {
+    "low_3pct": 216000,
+    "mid_5pct": 360000,
+    "mid_8pct": 576000,
+    "high_10pct": 720000,
+    "high_12pct": 864000,
+    "ceiling_16pct": 1152000
+  },
+  "recommended_next_action": "Invite Calendly to a 30-minute design-partner conversation. Validate modeled inputs against Calendly contract data. If aligned, propose a 90-day enterprise-tier financing pilot covering ~50 financing-eligible opportunities.",
+  "attribution": {
+    "campaign_id": "multipli_saas_beta_tuesday_2026_05_26",
+    "workflow_id": "multipli_vendor_growth_engine_v0_manual",
+    "influence_type": "intake_analysis_and_recommendation",
+    "ppim_action_chain": [
+      "ppim:intel_silo:vendor_eo_capture_(manual_substitute)",
+      "ppim:decision_engine:fit_score_compute_(manual_substitute)",
+      "ppim:ppeme:deal_economics_model_(manual_substitute)",
+      "ppim:decision_engine:proposal_language_generate_(manual_substitute)",
+      "ppim:hme:dashboard_event_emit_(this_payload)"
+    ]
+  },
+  "confidence": 0.62,
+  "missing_information": [
+    "calendly_actual_arr_breakdown_by_tier",
+    "calendly_actual_close_rate_self_serve_vs_sales_assisted",
+    "calendly_actual_blended_acv_team_vs_enterprise",
+    "calendly_actual_discount_pct_realized_at_close",
+    "calendly_actual_payment_term_distribution",
+    "calendly_internal_top_3_buyer_objections",
+    "calendly_appetite_for_third_party_financing_at_pos",
+    "multipli_actual_take_rate_realized_on_saas_segment",
+    "multipli_default_rate_realized_on_saas_segment",
+    "gigaton_x_multipli_commercial_rev_share_pct"
+  ],
+  "ppim_signature_tags": {
+    "industry": "software_saas",
+    "sub_vertical": "scheduling_calendar_automation",
+    "geo": "global_hq_us",
+    "regime": "venture_backed_late_stage_private",
+    "segment": "self_serve_to_enterprise_plg",
+    "lifecycle": "growth_stage_post_2021_peak_correction",
+    "provenance": "manual_llm_extraction_public_sources_2026_05_25",
+    "modality": "saas_subscription_seat_based"
+  },
+  "_intended_consumers": [
+    "human-management-engine: register new event type vendor.financing.assessed.v1 + log to dashboard event stream",
+    "decision-engine (DEE): persist Decision record for audit and reason-code traceability",
+    "ppeme: contribute to penrose super_additive_network_value metric once vendor-financing volume is realized",
+    "gigaton-ui-system: render in /operators/multipli/vendors list view"
+  ],
+  "_engine_routing_trace": {
+    "would_have_been_emitted_via": "Pub/Sub gignet-orchestrator topic with event_type vendor.financing.assessed.v1 (planned per runbook section 6)",
+    "actual_method_used": "JSON file written to mkb local artifact bundle",
+    "regenerable_after": "HME register-event-type PR + decision-engine emit-route PR per Phase C"
+  },
+  "_compliance_flag": "scenarios_only_no_guaranteed_outcomes_per_package_section_9_governance"
+}

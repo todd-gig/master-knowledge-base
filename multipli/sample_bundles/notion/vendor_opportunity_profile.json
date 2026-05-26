@@ -1,0 +1,142 @@
+{
+  "_ppim_signature": {
+    "interaction": "prospect_outreach_evidence_attachment",
+    "economics": "incremental_funded_volume_x_take_rate_yields_multipli_net_revenue;_gigaton_capture_via_performance_share",
+    "predictability": "field_confidence_per_attribute_plus_aggregate_confidence_score_with_explicit_provenance_per_source",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_first_artifact_of_six_file_bundle"
+  },
+  "_meta": {
+    "bundle_version": "1.0.0",
+    "schema_ref": "multipli_claude_beta_package/06_data_models/vendor_opportunity.schema.json",
+    "generated_at": "2026-05-26T16:30:00Z",
+    "generated_by": "gigaton_multipli_vendor_growth_engine_manual_v0",
+    "prospect_id": "multipli",
+    "operator_id": null,
+    "tenant_axis_tags": {
+      "industry": "software_saas",
+      "sub_vertical": "workspace_collaboration_notes_database_knowledge_management",
+      "geo": "global_hq_san_francisco_us",
+      "regime": "venture_backed_late_stage_private_decacorn",
+      "segment": "self_serve_plg_to_enterprise_with_ai_addon_motion",
+      "lifecycle": "growth_stage_post_ai_pivot_2023_to_2026_expansion",
+      "provenance": "manual_llm_extraction_public_sources_2026_05_26",
+      "modality": "saas_subscription_seat_based_plus_per_seat_ai_addon"
+    },
+    "production_mode": "manual_hand_driven_no_engine_state_yet",
+    "do_not_quote_to_prospect_without_human_review": true
+  },
+  "vendor_id": "notion_v1",
+  "vendor_name": "Notion Labs, Inc.",
+  "vertical": "software_saas",
+  "geography": "global_hq_us",
+  "product_service": "workspace_collaboration_platform_combining_notes_databases_wiki_project_management_and_ai_assistant_with_plus_business_and_enterprise_tiers_plus_notion_ai_per_seat_addon_and_growing_connector_ecosystem",
+  "average_deal_size": 32000,
+  "_average_deal_size_basis": "estimated_business_to_enterprise_blended_annual_contract_value_assuming_50_to_150_seats_at_business_tier_$15/seat/mo_annual_or_enterprise_tier_negotiated_$20-25/seat/mo_plus_notion_ai_addon_attach_at_$8-10/seat/mo_on_60-80pct_of_seats_blended_to_~$32k_modeled_directional_only_no_notion_disclosed_acv_figure",
+  "gross_margin_estimate": 0.80,
+  "_gross_margin_estimate_basis": "saas_industry_norm_for_horizontal_collaboration_tools_75-85pct_gross_margin_notion_estimated_to_sit_at_high_end_due_to_dominant_plg_self_serve_acquisition_funnel_low_cac_and_efficient_per_seat_infrastructure_costs_notion_ai_addon_likely_dilutes_blended_margin_modestly_due_to_underlying_anthropic_openai_inference_costs",
+  "current_close_rate": 0.20,
+  "_current_close_rate_basis": "inferred_from_public_plg_norms_for_self_serve_to_enterprise_motion_15-25pct_qualified_opp_to_close_rate_for_assisted_business_and_enterprise_tier_notion_disclosed_no_specific_figure_self_serve_conversion_at_free_to_plus_is_separately_estimated_at_2-5pct_industry_norm",
+  "sales_cycle_days": 52,
+  "_sales_cycle_days_basis": "plus_tier_self_serve_under_7_days_business_tier_assisted_30-45_days_enterprise_tier_with_security_review_and_procurement_75-120_days_blended_estimate_of_~52_days_weighted_toward_business_and_enterprise_assisted_motion_where_financing_has_demonstrable_leverage",
+  "payment_friction_score": 71,
+  "_payment_friction_score_basis": "annual_prepay_required_to_access_published_discount_tiers_(plus_$10_vs_$12_monthly_business_$15_vs_$18_monthly)_creates_cfo_objection_at_50-150_seat_purchases_($7.5k-$22.5k_upfront_committed_annual_with_ai_addon_pushing_to_$15k-$36k_upfront)_enterprise_tier_typically_requires_3_year_committed_term_with_full_year_1_prepay_compounding_friction_buyers_in_g2_capterra_forums_routinely_request_quarterly_or_monthly_billing_against_published_terms_scored_higher_than_calendly_(64)_because_of_ai_addon_doubling_the_upfront_commit_and_3_year_enterprise_term_pressure_calibrated_on_0_no_friction_to_100_blocking_friction_scale",
+  "discounting_to_close": true,
+  "_discounting_to_close_basis": "notion_publishes_~20pct_annual_vs_monthly_discount_($10_vs_$12_plus_$15_vs_$18_business)_AND_enterprise_sales_reps_observed_offering_additional_15-25pct_concessions_at_quarter_end_plus_free_notion_ai_seat_grants_(typically_3-6_months_complimentary_ai_addon)_as_a_close_lever_per_partner_and_user_forum_anecdotes",
+  "extended_terms_requested": true,
+  "_extended_terms_requested_basis": "mid_market_and_enterprise_buyers_routinely_request_net_30_net_45_quarterly_billing_or_phased_seat_ramp_in_lieu_of_full_annual_prepay_especially_when_notion_ai_addon_doubles_the_committed_spend_strong_signal_for_financing_product_fit_higher_than_calendly_baseline_because_total_contract_value_is_typically_larger",
+  "implementation_services_bundleable": true,
+  "_implementation_services_bundleable_basis": "notion_offers_enterprise_onboarding_dedicated_customer_success_admin_workflow_setup_sso_provisioning_scim_user_provisioning_template_library_implementation_ai_connectors_setup_(slack_github_gdrive_jira_etc)_and_premium_support_separate_from_seat_license_AND_a_large_third_party_consultant_ecosystem_(notion_certified_consultants_program)_offers_implementation_template_design_and_change_management_services_natural_bundle_candidates_for_financed_total_contract_value_higher_attach_potential_than_calendly_due_to_workspace_complexity",
+  "buyer_objections": [
+    "annual_prepay_with_ai_addon_creates_$15k_to_$50k_upfront_commitment_friction_for_mid_market_finance_teams",
+    "notion_ai_addon_value_unproven_at_purchase_time_requires_3-6_months_of_workspace_usage_data_to_justify_per_seat_$8-10_premium",
+    "seat_count_uncertainty_in_growing_or_hybrid_workforce_makes_committed_annual_quantity_risky_for_buyer",
+    "competing_workspace_tools_(microsoft_loop_atlassian_confluence_coda_clickup)_bundled_or_priced_aggressively_against_notion",
+    "enterprise_procurement_requires_soc2_iso27001_data_residency_eu_us_documentation_lengthening_cycle_to_75-120_days",
+    "data_migration_and_change_management_friction_when_moving_from_existing_wiki_(confluence)_or_doc_(google_docs_sharepoint)_estate_creates_pilot_to_rollout_chasm",
+    "cfo_resistance_to_layering_a_new_collaboration_subscription_when_microsoft_365_or_google_workspace_already_in_budget",
+    "ai_addon_billing_uncertainty_(usage_based_overages_or_seat_based)_creates_procurement_modeling_difficulty"
+  ],
+  "_buyer_objections_basis": "compiled_from_public_g2_capterra_reviews_2024-2026_notion_competitive_landing_pages_notion_community_forum_threads_and_general_saas_procurement_pattern_research_no_proprietary_notion_data",
+  "confidence": 0.63,
+  "_confidence_basis": "all_field_values_are_modeled_estimates_from_public_sources_not_notion_disclosed_figures_confidence_capped_at_0.63_(slightly_above_calendly_0.62_because_notion_pricing_is_more_explicitly_published_including_ai_addon_pricing_giving_higher_grounding_for_acv_estimate)_until_validated_by_notion_or_design_partner_data_per_package_section_9_governance_max_0.65_for_public_source_only",
+  "notes": "Notion chosen as sample vendor #3 of 3 because (a) it represents a distinct vendor archetype (workspace/database/knowledge-management) vs sample #1 Calendly (scheduling) and sample #2 Loom (async video), broadening the demonstration set across SaaS sub-verticals for Ben Cahir, (b) the Notion AI per-seat addon at $8-10/seat/mo on top of $10-25/seat/mo base creates a financing-eligible upsell motion that essentially doubles the committed annual contract value at point of sale, sharply increasing payment friction and making it a high-leverage Multipli use case, (c) the published 20pct annual-vs-monthly discount plus observed 15-25pct enterprise close discounts create a documented discount-displacement opportunity for vendor financing, (d) Notion has a documented Certified Consultant ecosystem offering implementation, template design, and AI Connectors setup services that are naturally bundleable into a financed total contract value (higher attach than Calendly), and (e) the 75-120 day enterprise sales cycle lands squarely in the financing-leverageable band where annual-prepay friction is the dominant procurement objection. CRITICAL CAVEAT: every numeric field in this profile is an LLM-derived estimate grounded in public sources, not Notion-confirmed data. The Multipli pilot would need to validate these with either (i) a Notion design-partner conversation, (ii) anonymized aggregated data from a workspace-SaaS-comparable Multipli portfolio vendor, or (iii) admit the entire bundle as illustrative-only in Ben Cahir-facing materials. Per package compliance rule (§9 governance): no financing claim, no firm pricing, no guaranteed_close_rate language in any downstream artifact.",
+  "missing_information": [
+    "actual_notion_annual_recurring_revenue_breakdown_by_tier_(plus_vs_business_vs_enterprise_vs_ai_addon)",
+    "actual_notion_ai_addon_attach_rate_by_tier_and_segment",
+    "actual_close_rate_self_serve_plus_vs_assisted_business_vs_enterprise",
+    "actual_average_contract_value_for_business_vs_enterprise_tier_with_and_without_ai_addon",
+    "actual_discount_percentage_negotiated_at_close_quarter_end_vs_mid_quarter_(seat_discount_vs_term_extension_vs_free_ai_seats)",
+    "actual_payment_term_distribution_(annual_vs_monthly_vs_quarterly_vs_3_year_committed)_at_business_and_enterprise",
+    "actual_3_year_enterprise_committed_term_uptake_rate_and_associated_concession_pattern",
+    "notion_internal_view_of_top_three_buyer_objections_(versus_inferred_from_g2_reviews)",
+    "notion_appetite_to_offer_a_financing_option_through_a_third_party_(multipli)_at_point_of_sale_especially_for_ai_addon_attach",
+    "competitive_displacement_rate_against_atlassian_confluence_microsoft_loop_coda_clickup_obsidian",
+    "notion_certified_consultant_ecosystem_revenue_share_or_partner_program_economics_(if_bundled_implementation_is_financed_through_multipli)"
+  ],
+  "_evidence_log": [
+    {
+      "field": "average_deal_size_basis_pricing_tiers",
+      "url": "https://www.notion.so/pricing",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_pricing_page",
+      "confidence_contribution": "high_for_published_per_seat_list_price_low_for_actual_enterprise_close_price_and_ai_attach_rate"
+    },
+    {
+      "field": "notion_ai_addon_pricing_and_motion",
+      "url": "https://www.notion.so/product/ai",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_product_page",
+      "confidence_contribution": "high_for_addon_per_seat_price_low_for_actual_attach_rate_and_usage_pattern"
+    },
+    {
+      "field": "gross_margin_estimate_basis_saas_norms",
+      "url": "https://www.saastr.com/saas-gross-margins-where-they-are-and-where-they-should-be/",
+      "observed_at": "2026-05-26",
+      "source_type": "industry_benchmark_secondary",
+      "confidence_contribution": "medium_directional_only_notion_ai_addon_inference_costs_unknown"
+    },
+    {
+      "field": "buyer_objections_g2_capterra",
+      "url": "https://www.g2.com/products/notion/reviews",
+      "observed_at": "2026-05-26",
+      "source_type": "third_party_review_aggregator",
+      "confidence_contribution": "medium_objections_are_volunteered_by_users_not_buyers_and_skew_toward_individual_and_plus_tier_users"
+    },
+    {
+      "field": "buyer_objections_capterra",
+      "url": "https://www.capterra.com/p/151878/Notion/reviews/",
+      "observed_at": "2026-05-26",
+      "source_type": "third_party_review_aggregator",
+      "confidence_contribution": "medium_secondary_to_g2"
+    },
+    {
+      "field": "enterprise_motion_and_implementation_services",
+      "url": "https://www.notion.so/enterprise",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_enterprise_page",
+      "confidence_contribution": "high_for_documented_service_lines_(onboarding_sso_scim_dedicated_csm)_low_for_actual_attach_rate"
+    },
+    {
+      "field": "certified_consultant_ecosystem_bundleability",
+      "url": "https://www.notion.so/consultants",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_partner_directory",
+      "confidence_contribution": "medium_documents_partner_existence_but_not_revenue_or_attach_pattern"
+    },
+    {
+      "field": "notion_ai_launch_and_strategic_priority",
+      "url": "https://www.notion.so/blog/notion-ai",
+      "observed_at": "2026-05-26",
+      "source_type": "vendor_official_blog_launch_announcement",
+      "confidence_contribution": "medium_directional_for_ai_strategic_importance_not_economics"
+    },
+    {
+      "field": "extended_terms_requested_saas_procurement_pattern",
+      "url": "https://www.gartner.com/en/finance/insights/procurement-sourcing",
+      "observed_at": "2026-05-26",
+      "source_type": "industry_research_general",
+      "confidence_contribution": "low_pattern_evidence_not_notion_specific"
+    }
+  ]
+}

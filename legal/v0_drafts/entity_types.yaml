@@ -1,0 +1,425 @@
+# Entity Type Taxonomy — v0 Draft (2026-05-25)
+#
+# This file is consumed by the entity-creation flow to drive template
+# instantiation. Each top-level key under `entity_types:` is a valid value
+# for the `{{ENTITY_TYPE}}` template parameter.
+#
+# Adding a new entity type:
+#   1. Add a key under `entity_types:` with the fields shown below.
+#   2. Update the corresponding {% if ENTITY_TYPE == 'X' %} blocks in the
+#      four .template.md files under templates/ (terms, privacy, AUP, DPA).
+#   3. Add at least one validation instance under examples/ (see README §4).
+#
+# Hard rules:
+#   - Stripe is ALWAYS the platform payment processor (Gigaton AI is the
+#     Stripe account holder; entity-level operators receive payouts via
+#     Stripe Connect). See product_service_package_gigaton_ti_solutions.md
+#     constraint B1.
+#   - Cloudflare + GCP are ALWAYS in the sub-processor list (edge + compute).
+#   - Anthropic + OpenAI + Google are sub-processors IF ai_processing_disclosure
+#     is `high` or `medium`.
+#
+# Schema version
+schema_version: "v0.1.0"
+last_reviewed: "2026-05-25"
+status: "PENDING-PARALEGAL-REVIEW"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Universal sub-processors (always included regardless of entity_type)
+# ─────────────────────────────────────────────────────────────────────────────
+universal_sub_processors:
+  - name: "Stripe, Inc."
+    purpose: "Payment processing, Stripe Tax, Stripe Connect payouts"
+    location: "US"
+    role: "platform_payment_processor"
+  - name: "Google Cloud Platform (Google LLC)"
+    purpose: "Cloud infrastructure (Cloud Run, Cloud SQL, Secret Manager, Pub/Sub, Firestore)"
+    location: "US"
+    role: "infrastructure"
+  - name: "Cloudflare, Inc."
+    purpose: "Edge routing, DNS, DDoS mitigation, CDN"
+    location: "US"
+    role: "edge_infrastructure"
+  - name: "Gigaton AI"
+    purpose: "Platform orchestration, decisioning, AI routing (only listed in NON-saas_platform entity DPAs — Gigaton itself does not list itself as its own sub-processor)"
+    location: "US"
+    role: "platform_operator"
+    include_when: "entity_type != 'saas_platform'"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AI sub-processors (included when ai_processing_disclosure in [high, medium])
+# ─────────────────────────────────────────────────────────────────────────────
+ai_sub_processors:
+  - name: "Anthropic PBC"
+    purpose: "Large language model inference (Claude family)"
+    location: "US"
+    training_commitment: "Customer Data via commercial API will NOT be used to train foundation models absent explicit opt-in."
+  - name: "OpenAI, L.L.C."
+    purpose: "Large language model inference (GPT family), embeddings"
+    location: "US"
+    training_commitment: "Customer Data via commercial API will NOT be used to train foundation models absent explicit opt-in."
+  - name: "Google LLC (Gemini / Vertex AI)"
+    purpose: "Large language model inference (Gemini family)"
+    location: "US"
+    training_commitment: "Customer Data via commercial API will NOT be used to train foundation models absent explicit opt-in."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Entity types
+# ─────────────────────────────────────────────────────────────────────────────
+entity_types:
+
+  saas_platform:
+    display_name: "SaaS Platform"
+    description: "First-party Gigaton-style SaaS — multi-tenant, self-serve."
+    seed_instance: "Gigaton AI"
+    data_categories:
+      - "account_identity_pii"        # name, email, business name
+      - "billing_pii"                  # billing address, last-4 card
+      - "operator_business_data"       # operator's own business content
+      - "connected_third_party_data"   # data pulled from OAuth-connected sources
+      - "interaction_logs"             # chat, WhatsApp, email content
+      - "telemetry_and_usage"          # decisions, scores, dashboard events
+      - "ai_prompts_and_outputs"
+    sub_processors:
+      - "Stripe, Inc."
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+      - "Google LLC (Gemini / Vertex AI)"
+      - "Twilio, Inc."                 # WhatsApp + SMS
+      - "Google Workspace (OAuth)"     # Drive ingest
+    default_jurisdictions: ["US-DE", "US-WA"]
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "high"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "beta_status"
+      - "multi_tenant_isolation"
+      - "sub_processor_change_notice"
+      - "customer_data_export"
+      - "us_export_compliance"
+    optional_clauses:
+      - "affiliate_program_reference"  # if this SaaS runs an affiliate program
+
+  managed_service:
+    display_name: "Managed Service / Agency-Delivered"
+    description: "Done-for-you delivery of Gigaton-powered outcomes by a service entity."
+    seed_instance: "Ti Solutions"
+    data_categories:
+      - "client_business_data"
+      - "client_brand_assets"
+      - "client_contact_lists"
+      - "interaction_logs"
+      - "telemetry_and_usage"
+      - "ai_prompts_and_outputs"
+      - "deliverable_artifacts"        # generated bundles, sites, scripts
+    sub_processors:
+      - "Stripe, Inc."
+      - "Gigaton AI"                   # Ti Solutions builds ON Gigaton
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+      - "Google LLC (Gemini / Vertex AI)"
+    default_jurisdictions: ["US-WA"]
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "high"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "managed_service_sow"          # statement-of-work referenced
+      - "deliverable_ip_assignment"    # client owns deliverables on payment
+      - "gigaton_as_sub_processor"
+      - "client_data_export"
+    optional_clauses: []
+
+  property_management:
+    display_name: "Property Management"
+    description: "Vacation-rental / short-term-rental management on behalf of property owners."
+    seed_instance: "Carmen Beach Properties"
+    data_categories:
+      - "guest_booking_pii"            # name, email, phone, address, ID
+      - "guest_payment_data"           # via Stripe; never card numbers
+      - "property_owner_pii"
+      - "property_listing_content"
+      - "host_fund_balances"           # owner rent collected on owner's behalf
+      - "ota_communications"
+      - "interaction_logs"
+      - "telemetry_and_usage"
+      - "ai_prompts_and_outputs"
+    sub_processors:
+      - "Stripe, Inc."
+      - "Gigaton AI"
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+      - "Twilio, Inc."                 # guest WhatsApp + SMS
+      - "Airbnb, Inc."                 # OTA integration
+      - "Booking.com B.V."             # OTA integration
+      - "Vrbo (Expedia Group, Inc.)"   # OTA integration
+    default_jurisdictions: ["MX-QuintanaRoo", "US-WA"]
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "high"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "ota_data_handling"
+      - "host_fund_handling"           # entity holds funds in trust for owner
+      - "guest_data_minimization"
+      - "mexico_lfpdppp_explicit"
+      - "mexico_lfpc_consumer_carveout"
+      - "spanish_language_courtesy"
+    optional_clauses:
+      - "tour_operator_addendum"       # if also offering tours
+
+  marketing_agency:
+    display_name: "Marketing + Media Management Agency"
+    description: "Agency that runs paid media, content production, and brand campaigns for clients."
+    seed_instance: "TBD — marketing-agency entity"
+    data_categories:
+      - "client_business_data"
+      - "client_brand_assets"
+      - "client_ad_account_access"     # Meta, Google Ads, TikTok, LinkedIn
+      - "campaign_performance_data"
+      - "client_audience_lists"        # uploaded CRM lists
+      - "interaction_logs"
+      - "telemetry_and_usage"
+      - "ai_prompts_and_outputs"
+      - "creative_assets_generated"
+    sub_processors:
+      - "Stripe, Inc."
+      - "Gigaton AI"
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+      - "Google LLC (Gemini / Vertex AI)"
+      - "Meta Platforms, Inc."         # FB/IG ad accounts
+      - "Google Ads (Google LLC)"
+      - "TikTok Inc."
+      - "LinkedIn Corporation"
+    default_jurisdictions: ["US-WA"]
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "high"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "ad_platform_oauth_scope"
+      - "client_audience_list_handling"  # CCPA-sensitive
+      - "creative_ip_assignment"
+      - "campaign_performance_data_retention"
+      - "managed_service_sow"
+    optional_clauses:
+      - "affiliate_program_reference"
+
+  real_estate_consolidated:
+    display_name: "Consolidated Real Estate Operator"
+    description: "Unified multi-model real-estate business: brokerage + property mgmt + rentals + listings, marketshare-domination focus."
+    seed_instance: "TBD — Playa del Carmen consolidated real-estate"
+    data_categories:
+      - "buyer_pii"
+      - "seller_pii"
+      - "renter_pii"
+      - "property_listing_content"
+      - "transaction_documents"        # purchase agreements, mortgage refs
+      - "agent_commission_data"
+      - "host_fund_balances"           # for rental side
+      - "interaction_logs"
+      - "telemetry_and_usage"
+      - "ai_prompts_and_outputs"
+    sub_processors:
+      - "Stripe, Inc."
+      - "Gigaton AI"
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+      - "Twilio, Inc."
+      - "Airbnb, Inc."
+      - "Booking.com B.V."
+      - "MLS provider (regional)"      # local MLS, varies by market
+      - "DocuSign, Inc."               # e-signature
+    default_jurisdictions: ["MX-QuintanaRoo", "US-WA"]
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "high"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "ota_data_handling"
+      - "host_fund_handling"
+      - "real_estate_disclosure"       # not legal/financial/tax advice
+      - "mexico_lfpdppp_explicit"
+      - "mexico_lfpc_consumer_carveout"
+      - "spanish_language_courtesy"
+      - "broker_licensing_disclaimer"
+    optional_clauses: []
+
+  tour_operator:
+    display_name: "Tour Operator / Experience Provider"
+    description: "Walking tours, in-shop guided experiences, or in-person experiences with comms via WhatsApp/IG."
+    seed_instance: "TBD — 5th Avenue PDC walking tour"
+    data_categories:
+      - "guest_booking_pii"
+      - "guest_payment_data"
+      - "in_shop_chat_logs"            # WhatsApp + Instagram DM
+      - "voice_session_recordings"     # if owner-chat is voice
+      - "tour_route_telemetry"
+      - "merchant_partner_data"        # shops on the tour route
+      - "interaction_logs"
+      - "telemetry_and_usage"
+      - "ai_prompts_and_outputs"
+    sub_processors:
+      - "Stripe, Inc."
+      - "Gigaton AI"
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+      - "Twilio, Inc."                 # WhatsApp
+      - "Meta Platforms, Inc."         # Instagram DM
+    default_jurisdictions: ["MX-QuintanaRoo"]
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "high"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "voice_recording_consent"      # MX + US two-party where applicable
+      - "in_person_safety_disclaimer"
+      - "merchant_partner_data_sharing"
+      - "mexico_lfpdppp_explicit"
+      - "mexico_lfpc_consumer_carveout"
+      - "spanish_language_courtesy"
+    optional_clauses: []
+
+  affiliate_solo_operator:
+    display_name: "Gignet Affiliate Solo-Operator"
+    description: "Default entity type for a Gignet-affiliate human's organization (single-human company). Must have domain + business-class email per Gignet program rules."
+    seed_instance: "N/A — instantiated per affiliate"
+    data_categories:
+      - "affiliate_pii"
+      - "affiliate_payout_data"        # via Stripe Connect
+      - "downstream_customer_pii"      # the affiliate's own customers
+      - "interaction_logs"
+      - "telemetry_and_usage"
+      - "ai_prompts_and_outputs"
+    sub_processors:
+      - "Stripe, Inc."
+      - "Gigaton AI"                   # affiliate runs ON Gigaton
+      - "Google Cloud Platform"
+      - "Cloudflare, Inc."
+      - "Anthropic PBC"
+      - "OpenAI, L.L.C."
+    default_jurisdictions: ["US-WA"]   # may be overridden by affiliate
+    excluded_jurisdictions: ["EU", "EEA", "UK", "CH"]
+    ai_processing_disclosure: "medium"
+    required_clauses:
+      - "ai_processing_full"
+      - "ai_opt_out"
+      - "gignet_affiliate_addendum"    # mandatory inclusion
+      - "gigaton_as_sub_processor"
+      - "domain_business_email_required"
+      - "downstream_customer_data_minimization"
+    optional_clauses: []
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Clause registry — each `required_clauses` / `optional_clauses` token maps
+# to a {% if %} block inside the template files. Documented here so the
+# entity-creation flow and reviewers share a vocabulary.
+# ─────────────────────────────────────────────────────────────────────────────
+clause_registry:
+  ai_processing_full:
+    where: ["terms_of_service.template.md §7.3", "privacy_policy.template.md §AI"]
+    summary: "Full AI processing disclosure with subprocessor list + training-opt-out commitment."
+  ai_opt_out:
+    where: ["terms_of_service.template.md §7.4"]
+    summary: "Customer right to opt out of AI processing for designated categories."
+  beta_status:
+    where: ["terms_of_service.template.md §4.3"]
+    summary: "Beta service disclaimer — features may change, no SLA."
+  multi_tenant_isolation:
+    where: ["data_processing_addendum.template.md §Security"]
+    summary: "Logical tenant isolation guarantees for multi-tenant SaaS."
+  sub_processor_change_notice:
+    where: ["data_processing_addendum.template.md §Sub-Processors"]
+    summary: "30-day notice + objection window for new sub-processors."
+  customer_data_export:
+    where: ["terms_of_service.template.md §7.5"]
+    summary: "Customer self-serve export at any time + 30-day grace post-termination."
+  client_data_export:
+    where: ["terms_of_service.template.md §7.5"]
+    summary: "Client deliverable export at end of engagement; managed-service variant."
+  us_export_compliance:
+    where: ["terms_of_service.template.md §18.7"]
+    summary: "US export-control representation."
+  ota_data_handling:
+    where: ["privacy_policy.template.md §OTA", "terms_of_service.template.md §Connectors"]
+    summary: "Handling of guest data received from OTA (Airbnb/Booking/Vrbo) channels."
+  host_fund_handling:
+    where: ["terms_of_service.template.md §Funds", "data_processing_addendum.template.md §Financial"]
+    summary: "Funds held in trust for property owner; segregation; payout cadence."
+  guest_data_minimization:
+    where: ["privacy_policy.template.md §Minimization"]
+    summary: "Only collect guest data necessary to fulfill stay; deletion after stay+retention period."
+  mexico_lfpdppp_explicit:
+    where: ["privacy_policy.template.md §Mexico"]
+    summary: "Explicit LFPDPPP (Ley Federal de Protección de Datos Personales en Posesión de los Particulares) compliance."
+  mexico_lfpc_consumer_carveout:
+    where: ["terms_of_service.template.md §11.3", "terms_of_service.template.md §18.9"]
+    summary: "PROFECO / LFPC consumer-protection carve-outs for MX residents."
+  spanish_language_courtesy:
+    where: ["terms_of_service.template.md §18.9", "privacy_policy.template.md §Language"]
+    summary: "Spanish translation provided as courtesy; English controls (with MX carve-out)."
+  managed_service_sow:
+    where: ["terms_of_service.template.md §Services"]
+    summary: "Statement of Work referenced as authoritative scope document."
+  deliverable_ip_assignment:
+    where: ["terms_of_service.template.md §IP"]
+    summary: "On full payment, deliverables assigned to client; pre-existing IP retained."
+  gigaton_as_sub_processor:
+    where: ["data_processing_addendum.template.md §Sub-Processors"]
+    summary: "Gigaton AI listed as platform sub-processor with link to its policies."
+  ad_platform_oauth_scope:
+    where: ["privacy_policy.template.md §AdPlatforms"]
+    summary: "OAuth-scope disclosure for Meta/Google/TikTok/LinkedIn ad accounts."
+  client_audience_list_handling:
+    where: ["privacy_policy.template.md §AudienceLists", "data_processing_addendum.template.md §CCPA"]
+    summary: "Handling of uploaded customer/audience lists (CCPA sensitive; no resale)."
+  creative_ip_assignment:
+    where: ["terms_of_service.template.md §IP"]
+    summary: "Creative deliverables assigned to client on payment."
+  campaign_performance_data_retention:
+    where: ["privacy_policy.template.md §Retention"]
+    summary: "Campaign metrics retained for 24 months for performance analysis."
+  real_estate_disclosure:
+    where: ["terms_of_service.template.md §Disclaimers"]
+    summary: "Service is not legal, financial, tax, or investment advice."
+  broker_licensing_disclaimer:
+    where: ["terms_of_service.template.md §Disclaimers"]
+    summary: "Brokerage activities subject to local licensing; entity holds applicable licenses."
+  voice_recording_consent:
+    where: ["acceptable_use_policy.template.md §Recording", "privacy_policy.template.md §Voice"]
+    summary: "Two-party consent disclosure for voice recordings; MX + US compliance."
+  in_person_safety_disclaimer:
+    where: ["terms_of_service.template.md §Safety"]
+    summary: "Customer responsible for own safety during in-person experience; entity liability limited."
+  merchant_partner_data_sharing:
+    where: ["privacy_policy.template.md §MerchantPartners"]
+    summary: "Disclosure of data sharing with tour-route merchant partners."
+  gignet_affiliate_addendum:
+    where: ["gignet_affiliate_addendum.template.md (incorporated by reference)"]
+    summary: "Mandatory addendum for affiliate-solo-operator entities."
+  domain_business_email_required:
+    where: ["terms_of_service.template.md §Eligibility"]
+    summary: "Affiliate must operate from owned domain + business-class email; gmail/hotmail not accepted."
+  downstream_customer_data_minimization:
+    where: ["privacy_policy.template.md §Minimization", "data_processing_addendum.template.md §Affiliate"]
+    summary: "Affiliate's downstream customers' data minimized; affiliate is controller, Gigaton is processor."
+  affiliate_program_reference:
+    where: ["terms_of_service.template.md §Affiliate"]
+    summary: "Reference to affiliate program terms if this entity runs an affiliate program."
+  tour_operator_addendum:
+    where: ["terms_of_service.template.md §Tours"]
+    summary: "Tour-operator clauses bundled when a property-mgmt entity also runs tours."
