@@ -15,6 +15,7 @@ applies_to:
   - master-knowledge-base (this spec + Q&A runbook Phase 0.5 addendum + doctrine memory)
 cross_refs:
   - decisions/2026-05-25_architecture_decisions_log.md (INTEL-1 Wave 2 redefinition, INTEL-2 meta-doctrine, PAYOUT-1)
+  - ~/.claude/projects/-Users-admin/memory/intel_3_no_static_weights_algorithmic_determination_2026_05_26.md (INTEL-3 — this layer's thresholds + weights are INTEL-3-compliant seeds-with-bounds)
   - docs/architecture/2026_05_25_wave2_intelligence_layer_ti_agent_matrix.md (the /intelligence surface this layer feeds)
   - runbooks/2026_05_25_intelligence_qa_on_ingested_files.md (Q&A pipeline — Phase 0.5 addendum extends this)
   - foundational_goal_gigaton_engineered_brand_experience (PPIM doctrine — context completeness is a PPIM precondition)
@@ -461,6 +462,61 @@ These defaults fire 2026-06-08 (2 weeks post-merge) if no response, per INTEL-2 
 | Adaptive threshold drift overshoots. | ± 0.15 cap from launch defaults; α = 0.05 (slow); drift events logged for audit. |
 | Capability 1 (FSA) breaks across Chromium versions. | Feature-detect at every interaction; fall back to manual upload (Capability 2) with notice. |
 | Recursive loop creates a "filter bubble" where the system stops asking questions outside the operator's prior frame. | Question-pool re-rank uses cross-operator correlation, not within-operator. New questions injected from LLM pass keep the pool from collapsing. |
+
+---
+
+## 13.5. INTEL-3 alignment — every numeric weight in this spec is a seed-with-bounds
+
+Per INTEL-3 doctrine (locked 2026-05-26 EOD: "no weights will be static and determined as a function of algorithm > real time adjustments"), every `0.X` / `X%` / threshold constant in this spec is a **seed with bounded range + algorithm-pending marker**, not a target. The seeds activate the system at launch; the algorithm replaces them as Phase 2 of INTEL-3 ships (week of 2026-06-02).
+
+### Seed registry for this layer
+
+| Symbol | Seed | Bounds | Algorithm-pending? | Purpose |
+|---|---|---|---|---|
+| `block_below` | `0.60` | `[0.45, 0.75]` | YES (per-operator drift on outcome-quality EWMA) | Below this, decision refused |
+| `caveat_below` | `0.80` | `[0.65, 0.95]` | YES (per-operator drift on outcome-quality EWMA) | Below this, decision produces with caveat |
+| Corpus/why7 weighting in `evidence_depth_score` | `0.60 / 0.40` | `[0.50, 0.80] / [0.20, 0.50]` | YES (Phase 2: per-decision-type tuning) | How much corpus evidence vs self-report counts |
+| Corpus saturation hits | `5` | `[3, 10]` | YES (Phase 2: per-category tuning — some categories saturate faster) | Diminishing returns past this many hits |
+| WHY-7 saturation answers | `3` | `[2, 6]` | YES (Phase 2: per-category tuning) | Diminishing returns past this many answers |
+| EWMA drift rate α | `0.05` | `[0.02, 0.10]` | YES (Phase 2: adapt α to operator's decision-volume — high-volume operators can move faster) | How fast threshold drifts on observed outcomes |
+| EWMA target quality | `0.85` | `[0.80, 0.92]` | YES (Phase 2: cross-operator benchmark vs absolute) | What "good decisions" means for drift trajectory |
+| Drift cap from launch defaults | `± 0.15` | `[0.10, 0.25]` | YES (Phase 2: tighten for new operators, loosen for veterans) | Protect against algorithm overcorrection |
+| Local-folder tree depth limit | `4` levels | `[2, 8]` | NO — binary policy (cognitive/perf safeguard, not a weight) | Walk depth on local-folder picker |
+| Coverage event recursion-loop cadence | monthly re-rank | `[weekly, quarterly]` | YES (Phase 2: trigger by event volume, not calendar) | When question-pool re-rank runs |
+
+### Exempt from INTEL-3 (binary policy or hard floor)
+
+- **`bypass_coverage_gate` flag** — binary admin/debug toggle, not a weight.
+- **Coverage zone state machine** (clean / caveat / block) — binary state classification, not a weight.
+- **≤ 7 questions per stage cap** — Miller's-Law-grounded cognitive policy, locked. Hard ceiling, not a weight.
+- **Chromium FSA API constraint** — capability constraint, not a weight.
+
+### How the algorithm replaces seeds
+
+Per INTEL-3 §38-44, every seed becomes a `WeightComputed(name, value, computed_at, inputs, model_version)` event-driven resolution:
+
+```
+function resolve_weight(name, operator_id, decision_type, event_context):
+    if WEIGHT_IS_EXEMPT(name): return STATIC_POLICY_VALUE(name)
+    if PHASE_2_ALGORITHM_READY(name):
+        value = compute(name, operator_state(operator_id), market_state(decision_type),
+                        performance_signal(operator_id, decision_type, last_30d),
+                        variance_from_expected(operator_id),
+                        cross_operator_benchmark_if_authorized(decision_type))
+        emit_event(WeightComputed(name=name, value=value, ...))
+        return clamp(value, bounds_of(name))
+    else:
+        emit_event(WeightSourcedFromSeed(name=name, seed=SEED[name], ...))
+        return SEED[name]
+```
+
+UI / billing / scoring read the *resolved* value, never the seed directly. This makes seed-vs-computed observable for audit + Wave 2 variance display.
+
+### Build-sequence impact
+
+PR-1 ships **all seed values + bounded ranges + the WeightSourcedFromSeed emission pattern**. The seed values activate the layer at launch. PR-5's decision-engine precondition gate calls `resolve_weight()` instead of reading thresholds directly. Phase 2 of INTEL-3 (decision-engine team, week of 2026-06-02) replaces the seed lookups with computed values per weight.
+
+This means: **the layer is INTEL-3-compliant at launch, not retrofitted**. Seeds operate the system today; the algorithm makes them right per-event when INTEL-3 Phase 2 ships.
 
 ---
 
