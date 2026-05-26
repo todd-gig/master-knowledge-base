@@ -1,0 +1,150 @@
+# cloudbuild.yaml — build + deploy gigmcp-industry-sync Cloud Run Job
+#
+# Pattern mirrors decision-engine/cloudbuild-codification-sweep.yaml
+# (the AX-008 sweep job that's been proven in production). Same shape:
+# build image → push → deploy Cloud Run Job → ensure Cloud Scheduler.
+#
+# DO NOT trigger from a push-to-main GHA workflow unless gigmcp-export
+# is live in gigaton-platform AND the gigmcp-sync-runtime SA exists
+# with the IAM grants in runbooks/gigmcp_industry_sync.md. Pre-deploy
+# validation script: master-knowledge-base/scripts/verify_gigmcp_sync_prereqs.sh
+# (TBD — write when this PR is ready to ship).
+#
+# Build context: master-knowledge-base/ root (so the Dockerfile's
+# `COPY gigmcp/ ...` resolves). Cloud Build is invoked as:
+#
+#   gcloud builds submit \
+#     --config=gigmcp/cloudbuild.yaml \
+#     --project=gigaton-platform \
+#     master-knowledge-base/
+#
+# Substitutions (all have safe defaults — override at submit-time via
+# --substitutions=_KEY=value):
+#
+#   _REGION              - Cloud Run region (default us-central1)
+#   _AR_REPO             - Artifact Registry repo (default jobs)
+#   _IMAGE_NAME          - Image basename (default gigmcp-industry-sync)
+#   _JOB_NAME            - Cloud Run Job name (default gigmcp-industry-sync)
+#   _SCHEDULER_JOB_NAME  - Cloud Scheduler job name (default gigmcp-industry-sync-daily)
+#   _RUNTIME_SA          - Runtime SA email (default gigmcp-sync-runtime@gigaton-platform.iam.gserviceaccount.com)
+#   _INVOKER_SA          - Cloud Scheduler invoker SA (default cloud-scheduler-runner@gigaton-platform.iam.gserviceaccount.com)
+#   _CLOUD_SQL_INSTANCE  - Connection name (default gigaton-platform:us-central1:gigaton-engine-pg)
+#   _GIGMCP_EXPORT_URL   - URL of gigmcp-export Cloud Run service (REQUIRED — no default).
+
+substitutions:
+  _REGION: us-central1
+  _AR_REPO: jobs
+  _IMAGE_NAME: gigmcp-industry-sync
+  _JOB_NAME: gigmcp-industry-sync
+  _SCHEDULER_JOB_NAME: gigmcp-industry-sync-daily
+  _RUNTIME_SA: gigmcp-sync-runtime@gigaton-platform.iam.gserviceaccount.com
+  _INVOKER_SA: cloud-scheduler-runner@gigaton-platform.iam.gserviceaccount.com
+  _CLOUD_SQL_INSTANCE: gigaton-platform:us-central1:gigaton-engine-pg
+  _GIGMCP_EXPORT_URL: ""
+
+steps:
+  # 1. Build container.
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - gigmcp/Dockerfile
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:$COMMIT_SHA
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:latest
+      - .
+
+  # 2. Push both tags.
+  - id: push-sha
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:$COMMIT_SHA
+    waitFor: ["build"]
+
+  - id: push-latest
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:latest
+    waitFor: ["build"]
+
+  # 3. Refuse-to-deploy gate: GIGMCP_EXPORT_URL must be set. Failing the
+  #    build here is cheaper than deploying a job that will silently
+  #    skip every run.
+  - id: validate-substitutions
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        if [ -z "${_GIGMCP_EXPORT_URL}" ]; then
+          echo "ERROR: _GIGMCP_EXPORT_URL substitution is empty."
+          echo "Either pass via --substitutions=_GIGMCP_EXPORT_URL=https://gigmcp-export-<hash>-uc.a.run.app"
+          echo "or stand up gigmcp-export in ${PROJECT_ID} first (see spec §verify-before-deploy)."
+          exit 1
+        fi
+    waitFor: ["-"]  # runs in parallel with build
+
+  # 4. Deploy / update the Cloud Run Job. `--max-retries=2` because a
+  #    transient gigmcp-export 5xx during fetch is retried in-script,
+  #    but a Cloud SQL connector flake might need a fresh invocation.
+  - id: deploy-job
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - jobs
+      - deploy
+      - ${_JOB_NAME}
+      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:$COMMIT_SHA
+      - --region=${_REGION}
+      - --project=$PROJECT_ID
+      - --service-account=${_RUNTIME_SA}
+      - --set-cloudsql-instances=${_CLOUD_SQL_INSTANCE}
+      - --max-retries=2
+      - --task-timeout=900
+      - --cpu=1
+      - --memory=512Mi
+      - --set-env-vars=GIGMCP_EXPORT_URL=${_GIGMCP_EXPORT_URL},DECISION_ENGINE_DB_HOST=/cloudsql/${_CLOUD_SQL_INSTANCE},DECISION_ENGINE_DB_NAME=decision_engine,DECISION_ENGINE_DB_USER=decision_engine,DECISION_ENGINE_DB_PASSWORD_SECRET=decision-engine-pg,GCP_PROJECT=$PROJECT_ID,HME_EVENT_TOPIC=gignet-orchestrator
+    waitFor: ["push-sha", "validate-substitutions"]
+
+  # 5. Idempotently ensure Cloud Scheduler is wired. Same upsert
+  #    pattern as cloudbuild-codification-sweep.yaml. 03:00 UTC chosen
+  #    to avoid contention with the 09:00 UTC AX-008 nightly sweep.
+  - id: ensure-scheduler
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        URI="https://${_REGION}-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/${PROJECT_ID}/jobs/${_JOB_NAME}:run"
+        gcloud scheduler jobs update http ${_SCHEDULER_JOB_NAME} \
+          --location=${_REGION} \
+          --schedule="0 3 * * *" \
+          --time-zone="UTC" \
+          --uri="$URI" \
+          --http-method=POST \
+          --oauth-service-account-email=${_INVOKER_SA} \
+          --oauth-token-scope="https://www.googleapis.com/auth/cloud-platform" \
+          --project=$PROJECT_ID \
+        || gcloud scheduler jobs create http ${_SCHEDULER_JOB_NAME} \
+          --location=${_REGION} \
+          --schedule="0 3 * * *" \
+          --time-zone="UTC" \
+          --uri="$URI" \
+          --http-method=POST \
+          --oauth-service-account-email=${_INVOKER_SA} \
+          --oauth-token-scope="https://www.googleapis.com/auth/cloud-platform" \
+          --project=$PROJECT_ID
+    waitFor: ["deploy-job"]
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:$COMMIT_SHA
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/${_IMAGE_NAME}:latest
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
