@@ -1,7 +1,8 @@
 ---
 type: governance-scaffold
 established: 2026-05-26
-status: DRAFT — scaffold awaiting Todd ratification of per-entity percentages (deadline 2026-05-28 EOD)
+status: DRAFT (v0.3 math-backed) — ready for Todd one-click DRAFT → ACTIVE flip; only remaining inputs are Gignet §3.5 tiers (deferred v1.1) and v1-promotion calibration triggers
+version: v0.3
 authority: requires Todd sign-off on §3, §5 retry policy, and the §6 checklist before promotion to ACTIVE
 serves: foundational_goal_gigaton_engineered_brand_experience (PPIM)
 ppim_interaction: meta — governs every money-out-of-platform event for every operator entity
@@ -88,12 +89,40 @@ Revenue model: per-booking GMV → split across owner / cleaning ops / Gigaton p
 
 | Component | % of net (after OTA fee) | Cadence | Rail | Guidance |
 |---|---|---|---|---|
-| Owner rev share | **REMAINING after OTA + cleaning + Gigaton + Ti Solutions** (_strawman: typically ~80-85% of net for direct-booking; lower for OTA-driven inventory; override if needed_) | per-booking (accrues; pays out bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Industry norm for STR owner-platform splits: 70-85% to owner. CBP-specific factor: owner brought the property + does turnover oversight |
-| Cleaning ops (per-stay) | **Pass-through per-stay** (_strawman: cost = service price, not %; Gigaton invoices owner on owner's behalf; override if needed_) | per-stay (accrues; pays out bi-weekly Wed if ≥ $1k) | ACH | Industry norm: cleaning is typically passed through to guest as separate line item; if absorbed in nightly rate, ops share ~5-10% of GMV |
-| Gigaton platform fee | **2.5%** of net (_strawman: industry-low to encourage operator margin during v1 beta; tunable per-operator override available; override if needed_) | per-transaction | Internal credit (no external payout) | Industry norm for hospitality SaaS platforms: 3-8% of GMV; competitive with Hostfully / Guesty / Lodgify |
-| Ti Solutions service fee (only if owner elects managed-service tier) | **5%** of net (_strawman: typical BPO managed-service overhead range; override if needed_) | monthly | Internal credit | Industry norm for managed-service hospitality: 10-20% of GMV on top of platform fee; offsets Ti Solutions human-touch work (onboarding, optimization, dispute handling) |
+| Owner rev share | **78% of net with Ti / 81% direct-managed (no Ti)** ✅ LOCKED v0 2026-05-26 (math-backed) | per-booking (accrues; pays out bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Top quartile vs Vacasa 65-75%; near Evolve 90% half-service. Owner-LTV + brand-experience axis dominant. |
+| Cleaning ops (per-stay) | **Pass-through actual $ (~$50/stay PDC representative), itemized on booking line** ✅ LOCKED v0 | per-stay (accrues; pays out bi-weekly Wed if ≥ $1k) | ACH | Itemized > absorbed: transparency + cleanliness brand axis. PDC market: $40-$80/stay (Mexico labor, lower than US $145 avg). |
+| Gigaton platform fee | **5.0% of net** ✅ LOCKED v0 (math-backed — replaces 2.5% strawman) | per-transaction | Internal credit (no external payout) | Cost-to-serve floor: $8.50/booking @ ~50 bookings/property/yr. 5% yields 65% gross margin (SaaS-healthy). 2.5% strawman left platform underwater on bookings <$1K. Reference: `carmen-beach-occupancy-roi.md`. |
+| Ti Solutions service fee (only if owner elects managed-service tier; CBP is direct-managed = 0%) | **3.0% of net** ✅ LOCKED v0 (math-backed — replaces 5% strawman) | monthly | Internal credit | BPO-appropriate ~32% margin at 3% net. 5% strawman exceeded market-competitive ceiling once OTA + cleaning are already off-top. |
+| Risk reserve (chargeback / damage cushion) | **1.5% of net** ✅ LOCKED v0 | per-transaction | Internal credit | Industry-norm hospitality reserve. |
 
-**Sum-to-100 check**: OTA fee (off the top) → then on net: cleaning (pass-through $) + Gigaton platform (2.5%) + (optional) Ti service (5%) + owner rev share (remainder) = 100% of net.
+**Sum-to-100 check (full-service with Ti)**: OTA off-top → then on net: cleaning pass-through (~14% if absorbed equivalent) + Gigaton 5.0% + Ti 3.0% + risk 1.5% + owner 78% = 100% of net ✓
+**Sum-to-100 check (self-serve no Ti — CBP today)**: cleaning ~14% + Gigaton 5.0% + risk 1.5% + owner 81% (note: cleaning pass-through itemized = doesn't take from owner share if invoiced separately) ✓
+
+### Math basis (v0 LOCKED 2026-05-26)
+
+- Variable cost $25/occupied-night per `knowledge-extracts/carmen-beach-occupancy-roi.md`
+- Fixed ops $6,000/yr/property, marketing $1,000/yr/property (canonical model)
+- Representative booking: $200 ADR × 3 nights = $600 gross; OTA $93 (15.5% Airbnb) + Stripe $17.70 off-top → $489.30 net
+- Gigaton 5% = $24.47/booking → margin = $15.97 = **65% gross margin** (SaaS-healthy)
+- Owner-net (after cleaning + var + fixed + mktg): $268.40 = 44.7% of gross / 54.8% of net
+- Reference benchmarks (2026-current): Airbnb 15.5% / VRBO 8% / Booking.com 15% / Stripe 2.9%+$0.30 / MasterHost PDC 12% / Vacasa 25-35% / Evolve 10%
+
+### v1 calibration triggers (Day 30+)
+
+- Actual cleaning vendor invoices replace $50 estimate
+- Channel-mix-weighted OTA fee replaces 15.5% worst-case
+- Stripe MX settlement fees confirmed
+- Property-level fixed-cost variance (HOA, tax, insurance) tightens fixed-ops bucket
+- Real ALOS replaces 4.4-night assumption
+- Owner-acquisition A/B test 78% vs 81% confirms market-competitive ceiling
+
+### Multi-objective (M-theory) justification
+
+- **Brand-experience axis**: Cleaning pass-through itemized (transparency) + Ti optional (premium-tier signal)
+- **Interaction-management axis**: Gigaton 5% funds decision-engine + LLM-driven guest comm (per `gigaton-playa-dag-model.md` +5% nightly + 10pp occupancy uplift)
+- **Profitability axis**: Every line clears cost-to-serve floor with ≥30% margin headroom
+- **Cost-to-serve axis**: $8.50/booking Gigaton cost (Cloud Run + Cloud SQL + LLM + customer success fraction)
+- **Owner-LTV axis**: 78-81% sits at top quartile of PDC market comparables
 
 ### 3.2 CBP sub-clients (walking-tour + DMS marketing)
 
@@ -114,35 +143,107 @@ Source: [[entity_hierarchy_for_namespace_seed_2026_05_26]] §3.1.
 
 **Per-component %s if split**: N/A (since pass-through chosen). If Todd later wants independent split-out per sub-client, populate the % columns above and remove the pass-through note.
 
-### 3.3 Ti Solutions retainer clients (5)
+### 3.3 ~~Ti Solutions retainer clients (5)~~ — DELETED 2026-05-26
 
-Entity type: clients of Ti Solutions (BPO / sales managed-service).
-Source: [[entity_hierarchy_for_namespace_seed_2026_05_26]] §1 (5 clients under `ti-solutions`).
-Revenue model: base monthly retainer + outcome uplift share.
+**Status: DELETED.** Per Todd directive 2026-05-26 eve and `[[cohort-restructure-multipli-gigaton-branded-2026-05-26]]`, the 5 entities previously sketched here (Kollosche / McGrath / Medvidi / CareRev / Integra-CCS) are NOT active client deals. Reclassified:
 
-| Client (namespace_id) | Base retainer | Outcome uplift split (Ti / client) | Cadence | Guidance |
-|---|---|---|---|---|
-| `ti_solutions_kollosche` (AU real estate) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-deal uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
-| `ti_solutions_medvidi` (healthcare) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-acquisition uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
-| `ti_solutions_mcgrath` (talent) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-placement uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
-| `ti_solutions_carerev` (healthcare staffing) | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-shift-filled uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
-| `ti_solutions_integra_ccs` | **STRATEGIC — Todd to fill in** | **STRATEGIC — Todd to fill in** | monthly retainer + per-outcome uplift | Managed-service retainer typically $5k-$50k/mo per client; outcome-uplift commonly 5-15% of revenue lift; Gigaton platform fee typically 5-10%. Confirm per existing client contract terms. |
+- **Kollosche + McGrath** → knowledge-extraction sources for CBP real estate ops — see §3.7
+- **Medvidi + CareRev** → knowledge-extraction sources for platform service / HR / acquisition doctrine — see §3.7
+- **Integra-CCS** → dropped (no active deal, no knowledge-extraction value identified)
 
-**Routing rule**: Ti Solutions client retainers flow to Ti Solutions' Stripe Connect Express account (operator-level). Gigaton platform fee on top of retainer is **STRATEGIC — Todd to fill in** (guidance: typically 5-10% of retainer in joint-go-to-market arrangements) — separate carve-out per the joint go-to-market framing in [[product_service_package_gigaton_ti_solutions]].
+Ti Solutions brand is NOT killed by this directive — Ti DBA launches (Ti Life / Ti Solutions / Total Interactions) may return per entity launch order in `[[RESUME_HERE_2026_05_26_full_session_handoff]]`. But there are no active Ti client deals as of 2026-05-26, so no compensation rows.
 
-### 3.4 Multipli (prospect — when active)
+The ONLY active proposed deal in flight is Multipli — moved to §3.4 under **Gigaton brand** (not Ti).
 
-Entity type: prospect (vendor financing platform, NA + UK + AU markets).
-Source: [[entity_hierarchy_for_namespace_seed_2026_05_26]] §1.
-Status: PROSPECT — sprint output bundle was due EOD 2026-05-26.
-Revenue model: performance share of Multipli net revenue per design-partner contract.
+### 3.4 Multipli engagement (GIGATON-branded — beta cohort #1)
 
-| Component | % of Multipli net rev | Cadence | Rail | Guidance |
-|---|---|---|---|---|
-| Performance share to Gigaton | **STRATEGIC — Todd to fill in** | monthly | Stripe Connect Express or ACH (Multipli to pick) | Vendor-financing performance share typically 10-30% of net funded volume × take rate; pending Multipli design partner contract negotiation. |
-| Reciprocal credit (if Multipli refers an operator to Gigaton's platform) | **YES** (_strawman: Gigaton credits Multipli's reciprocal fee against the performance share Gigaton owes Multipli (net out at quarter close); override if needed_) | quarterly net-out | Internal credit | Reciprocal-referral mechanism reduces cash transfer overhead; net-out aligns with quarterly contract close. |
+**Brand: GIGATON (NOT Ti)** per Todd directive 2026-05-26 eve.
+**Status**: v0 LOCKED 2026-05-26 (math-backed by research agent; Day-30 calibration scheduled).
+**Cohort**: beta cohort #1 — first paying operator.
+**Contact owner**: Ben Cahir (CEO).
+**Source**: `[[multipli_vendor_growth_engine_sprint_2026_05_22]]` ($650M financed, 23K vendor contracts) + 2 mkb runbooks + sample bundles `multipli/sample_bundles/{calendly,loom,notion}/deal_economics_model.json` + 2026-current channel-partner industry research.
+**Revenue model**: performance share of Multipli net revenue per Gigaton-attributed funded contract.
 
-**Note**: Multipli is a PROSPECT, not yet a paying operator. Activate this section's percentages only after the design-partner contract is signed and the namespace lifecycle_state flips from `proposed` → `active`.
+| Term | Value | Math basis | PPIM axis |
+|---|---|---|---|
+| Performance share | **18% of Multipli net revenue** on Gigaton-attributed funded contracts ✅ LOCKED v0 | High end of 5-20% channel-partner band (Allbound / Magentrix / Kiflo / Scaleo norms); justified by Gigaton supplying full performance infrastructure (intel-silo + decision-engine + ppeme + FE + HME + governance) — closer to co-build than referral. ≈ 5.4% of Multipli gross spread (below their own 8% mid-scenario). | economics + LTV |
+| Cadence | **Monthly, T+15** after Multipli funding-month close ✅ LOCKED v0 | Matches Multipli's portfolio funding cycle. | interaction (monthly settlement loop) |
+| Rail | **Stripe Connect Express** ✅ LOCKED v0 | PAYOUT-1 default. | predictability |
+| Min payout floor | **$1,000 USD** (accrue if below) ✅ LOCKED v0 | PAYOUT-1 platform rule per §2. | economics |
+| Base retainer | **NO for beta cohort #1** (variable-only) ✅ LOCKED v0 | Aligns incentive; revisit at M4 if both sides want predictability. | predictability |
+| Attribution | **First-touch + 180-day verified-handoff** ✅ LOCKED v0 | Vendor counts as Gigaton-attributed if (a) originated in Gigaton `vendor.financing.captured.v1` event AND (b) Multipli funding system confirms funded contract within 180d. | interaction + economics |
+| Term | **6 months initial; auto-renew if either side exceeds 50 funded-contracts-from-Gigaton** ✅ LOCKED v0 | Both-sides off-ramp at small scale; renewal trigger ties to delivered value. | lifecycle |
+| Y1 cap | **$250K max perf share** ✅ LOCKED v0 | = 465 funded contracts at $538/contract net. Floors Multipli downside if Gigaton over-delivers. | economics (partner predictability) |
+
+### Per-funded-contract economics (SaaS canonical example)
+
+| Line | $ |
+|---|---|
+| Customer total payment ($2K × 36mo) | $72,000 |
+| Vendor upfront payout | $62,000 |
+| Multipli gross spread pool | $10,000 |
+| Less cost of funds (~5% × $62K × 1.5yr) | ($4,650) |
+| Less credit-risk reserve (3% default) | ($1,860) |
+| Less ops + servicing | ($500) |
+| **Multipli net revenue** | **$2,990** |
+| Gigaton perf share @ 18% of net | **$538** |
+| Gigaton fully-loaded cost per qualified vendor | ~$1.80 |
+| At 10% vendor→contract conversion, cost-to-serve per funded contract | ~$18 |
+| **Gigaton contribution margin** | **$520 / 96.6%** |
+
+### Multi-objective (M-theory) justification
+
+- **Brand-experience axis**: Gigaton brand for Multipli signals platform-product (not bespoke-services)
+- **Interaction-management axis**: 18% sustains the engine ensemble that produces vendor research → routed prospects → proposal bundles → onboarding automation
+- **Profitability axis**: 96.6% contribution margin at scale; cost-to-serve floor at 3.3% perf share gives massive headroom
+- **Cost-to-serve axis**: $1.80/qualified vendor LLM+infra cost amortized across full ensemble
+- **LTV-as-operator axis**: Multipli is canary for entire vendor-finance vertical — successful delivery seeds playbook for cohort #2+
+
+### Self-serve tokenized link onboarding architecture
+
+**URL pattern**: `https://gigaton.ai/onboard/multipli/<jwt-token>`
+
+**Token**: JWT (HS256), single-use via Redis/Firestore `jti` set, **14-day expiry**. Payload carries `prospect_id`, `contact`, `cohort`, `terms_template_version`, `perf_share_pct`, `min_payout_usd`, `rail`, `exp`, `jti`, `iat`.
+
+**Server-side pre-provisioning (before link is sent):**
+
+1. UAE `client_namespaces` row with `state=pending_acceptance`, `parent_operator_id=gigaton`, `cohort=beta_1`
+2. Persona-engine seeds default vendor-finance B2B persona
+3. Capability tier = `tier_0_onboarding`
+4. UAE `workflow_overlays` JSONB seeded with `multipli_perf_share_v0` template
+5. Decision-engine pre-creates Stripe Connect Express account in `pending_kyc` state
+6. HME emits `prospect.onboard_link.issued.v1`
+
+**Single-scroll landing page bundle**:
+
+1. Co-branded hero (Gigaton + Multipli lockup)
+2. Value-prop summary (vendor research pipeline / fit-scored opportunities / 6-file proposal bundles / dashboard)
+3. Integration documentation (engine ensemble routing)
+4. Commercial terms (renders from JWT payload — never hardcoded)
+5. ToS + privacy + SLA
+6. E-sign (**recommend in-app for beta cohort #1**; DocuSign upgrade path for cohort #2+)
+7. Stripe Connect Express KYC + bank linking
+8. Final confirmation → namespace flips `state=active`, capability tier → `tier_1_active`, Wave 2 dispatch enabled, HME `operator.activated.v1` fires
+
+**Reuses (existing infrastructure)**: ChatOnboardingOrchestrator + UAE 10-stage manifest (`master-knowledge-base/manifests/onboarding_v1.yaml`) + gateway onboarding endpoints (live rev `00027-pb9`) + L2 access layer per ARCH-2 + HME event emission + Stripe Connect Express PAYOUT-1 rail.
+
+**New work required (~23h ≈ 3 dev-days)**:
+
+1. Token issuer + validator middleware — `POST /v1/onboard/issue-link` (admin-gated) + middleware (~6h)
+2. Co-branded landing page `gigaton-ui-system/src/pages/onboard/MultipliOnboard.tsx` (~5h)
+3. Commercial-terms template `master-knowledge-base/templates/commercial_terms/multipli_v0.md` (~2h)
+4. Terms-acceptance HME event type + in-app e-sign capture (~4h)
+5. Stripe Connect Express handoff (`accountLinks.create`) (~3h)
+6. Acceptance → namespace-activate transition (UAE state machine + capability tier bump) (~3h)
+
+**Send mechanism**: **Gmail-via-Workspace** from `todd@gigaton.ai` (primary; preserves audit trail in Workspace logs + HME `prospect.outreach.sent.v1`). Slack DM = redundant ack only ("check your email for the onboarding link" 5 min after Gmail send). **DO NOT send link in Slack alone** — Slack has weaker retention/audit posture for commercial terms acceptance.
+
+### v1 calibration triggers
+
+- Actual vendor→funded-contract conversion rate replaces 10% optimistic estimate
+- Actual cost-of-funds + default-rate validate per-contract economics
+- Multipli's actual channel-mix (Gigaton-attributed vs other) tightens attribution rules
+- Y1 cap revisit at M6 based on actual delivered volume
 
 ### 3.5 Gignet affiliates (when active)
 
@@ -161,21 +262,74 @@ Revenue model: tier-based per-conversion commission, paid out of the operator's 
 
 **Attribution rule**: Gignet affiliate commission is computed against the conversion's `ppim_attribution_chain`. If the chain is `[cbp_walking_tour, cbp, gigaton-root]` and an affiliate referred the customer, the affiliate's commission comes out of Gigaton's platform fee slice, not out of CBP's owner share. (Source: [[2026-05-08_affiliate_centralization_at_gigaton]] — SIE chain 22 owns the canonical affiliate state; tenants attribute, they do not own.)
 
-### 3.6 Gigaton self (platform)
+### 3.6 Gigaton self (platform) — Option A LOCKED ✅ 2026-05-26
 
 Entity type: platform-root (`gigaton`).
 Revenue model: internal allocation of net rev after every operator entity is paid.
+**Status**: v0 LOCKED 2026-05-26 (math-backed by research agent; Option A ratified; replaces 45/25/20/10 strawman).
 
-| Internal bucket | % of Gigaton net rev | Cadence | Notes |
+| Internal bucket | % of Gigaton net rev | Floor | Ceiling | Cadence | PPIM axis |
+|---|---|---|---|---|---|
+| Operations (cloud infra, 3rd-party API costs, ACH fees absorbed per §2, Stripe processing fees, S&M, G&A) | **40%** ✅ LOCKED v0 | 28% | 55% | continuous (COGS line) | predictability |
+| R&D (engineering, agent build-out, Wave 2 Intelligence Layer + Ti Agent Matrix expansion) | **35%** ✅ LOCKED v0 | 22% | 50% | continuous (engineering payroll) | brand_dimension (build-velocity) |
+| Reserves (runway, regulatory, dispute / chargeback buffer) | **25%** ✅ LOCKED v0 (Option A — absorbs the 5% slice that would otherwise go to distribution) | 15% | 30% | continuous (treasury) | interaction (platform-survival) |
+| Distribution to Todd / equity holders (post-reserves-floor) | **0%** ✅ LOCKED v0 (Option A — re-introduce at v1 once Multipli + Ti retainers contribute meaningful net rev) | 0% | 15% | quarterly or per-board-decision | outcome_quality |
+
+**Sum-to-100 check**: ops (40%) + R&D (35%) + reserves (25%) + distribution (0%) = **100%** of Gigaton net rev ✓
+
+### Reserves-floor activation (math-backed)
+
+**Floor = $180,000** (= 12 months × $15K projected steady-state opex at cohort #0-3 stage)
+
+```python
+if treasury_balance < 180_000_USD:
+    distribution_pct = 0
+    reserves_pct = 25  # absorbs the 5% distribution slice
+else:
+    distribution_pct = 0  # locked 0% at v0 — re-introduce at v1
+    reserves_pct = 25
+```
+
+**Auto-bump rule**: Floor recomputes monthly. Each new active cohort operator adds projected monthly opex delta (~$500-$2,000/mo per operator) to the floor.
+
+### Why Option A (locked 2026-05-26)
+
+At projected ~$1K/mo accrual rate (Premium-tier $499/mo + CBP 5% fee on 50 bookings × $600), time-to-clear $180K reserves floor from operations alone = **~144 months under Option A** (180 months under rejected Option B). Option A's 5%-redirect-to-reserves accelerates accrual by ~25% while honoring PPIM doctrine "platform-survival before founder-draws." Distribution can be re-introduced at v1 once Multipli + Ti retainers contribute meaningful net revenue.
+
+### Math basis (v0 LOCKED 2026-05-26)
+
+- Infra cost band $85-$130/mo from `cloudbuild.yaml` `min-instances=1` × 3 always-on services + scale-to-zero × 8 + 2 Cloud SQL + Firebase Hosting + Storage + DNS + Secret Manager
+- LLM API band $150-$500/mo via gigaton-gateway `llm_call_cost` Firestore telemetry (no aggregate pulled yet — v1 trigger)
+- Twilio WhatsApp ~$20/mo at cohort #0 volume
+- Realistic steady-state opex band $1K-$15K/mo (15× spread reflects unknown payroll line — see v1 calibration)
+- Reference benchmarks (2025): SaaS Capital R&D 22% median + Benchmarkit 26% + Lighter Capital early-stage 50%+ R&D + Rule-of-40 + Drivetrain 12-18mo bootstrapped runway floor
+
+### v1 calibration triggers (Todd-only inputs)
+
+- Confirm payroll/contractor monthly cash burn (no headcount file in repo today)
+- Confirm cash on hand (drives feasibility of $180K floor target)
+- Pull 30-day `llm_call_cost` aggregate from Firestore (replaces $300/mo midpoint estimate)
+- Wire `cost-coverage` aggregator (`intelligence-silo/core/onboarding/endpoints.py:434` currently stub)
+- Approve `monthly_opex_auto_bump` mechanism for floor recomputation
+
+---
+
+### 3.7 Knowledge-extraction sources (NEW 2026-05-26)
+
+Replaces the dropped Ti 5-client compensation matrix (§3.3). **NOT compensation rows** — read-only registry of work-product origins that inform CBP and platform doctrine.
+
+| Source | Vertical | Work-product captured | Applied to |
 |---|---|---|---|
-| Operations (cloud infra, 3rd-party API costs, ACH fees absorbed per §2, Stripe processing fees) | **45%** (_strawman: run-rate engineering + infra + customer success + admin; override if needed_) | continuous (COGS line) | Industry norm for SaaS platform ops: 25-40% of net rev |
-| R&D (engineering, agent build-out, Wave 2 Intelligence Layer + Ti Agent Matrix expansion) | **25%** (_strawman: Wave 2+ build investment + ML/AI dev; override if needed_) | continuous (engineering payroll) | Industry norm for SaaS R&D: 20-35% of net rev |
-| Reserves (runway, regulatory, dispute / chargeback buffer) | **20%** (_strawman: 12-month runway target; release on hit; override if needed_) | continuous (treasury) | Industry norm: 10-20% of net rev |
-| Distribution to Todd / equity holders (post-runway) | **10%** (_strawman: founder + future investor distribution post-reserves-floor; override if needed_) | quarterly or per-board-decision | Activates only when reserves cleared minimum threshold (see below) |
+| **Kollosche** | AU luxury real estate | Pricing structures, contract templates, agent comp models, listing-quality patterns | CBP / `playadelcarmen.homes` real estate business model |
+| **McGrath** | Real estate placement / sales | Listing pipelines, closing patterns, sales-process automation | CBP / `playadelcarmen.homes` real estate business model |
+| **Medvidi** | Healthcare patient acquisition | Service-industry frameworks, human management systems, acquisition / process logic | Platform doctrine — services / HR / acquisition workflows |
+| **CareRev** | Per-shift healthcare staffing marketplace | Supply-side acquisition patterns, matching algorithms, cadence models | Platform doctrine — services / HR / acquisition workflows |
 
-**Reserves-floor threshold (PRE-FILLED)**: **12 months of operating expenses** (_strawman: release surplus above this to distribution; override if needed_).
+**Out of scope**: Integra-CCS (no active deal, no knowledge-extraction value identified — dropped 2026-05-26).
 
-**Sum-to-100 check**: ops (45%) + R&D (25%) + reserves (20%) + distribution (10%) = 100% of Gigaton net rev.
+**Provenance tracking**: every pattern derived from these sources and applied to platform doctrine or CBP must carry a `provenance.source` tag (e.g. `provenance.source: kollosche/pricing_template_v2_2024-Q4`) for audit trail. Tracked in `master-knowledge-base/knowledge-extracts/_provenance/` (follow-on PR to scaffold the registry).
+
+**No payouts** — these sources do not receive compensation from this document. If any of the 4 becomes an active deal in the future, it gets its own §3.X compensation row at that time.
 
 ---
 
@@ -294,17 +448,16 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [x] `cbp_dms_marketing` — split or parent-pass-through? (strawman: pass-through)
 - [x] If split: per-sub-client % to sub-client owner / parent CBP / Gigaton platform (N/A since pass-through chosen)
 
-### Ti Solutions clients (§3.3) — **STRATEGIC**
-- [ ] Kollosche — base retainer + outcome uplift split
-- [ ] Medvidi — base retainer + outcome uplift split
-- [ ] McGrath — base retainer + outcome uplift split
-- [ ] CareRev — base retainer + outcome uplift split
-- [ ] Integra-CCS — base retainer + outcome uplift split
-- [ ] Gigaton platform fee % on top of Ti Solutions client retainers
+### Ti Solutions clients (§3.3) — **DELETED 2026-05-26**
+- [x] §3.3 deleted; 4 of 5 entities reclassified as knowledge-extraction sources in §3.7; Integra-CCS dropped
 
-### Multipli (§3.4)
-- [ ] **STRATEGIC** — Performance share to Gigaton % (when contract activates)
-- [x] Reciprocal credit (strawman: YES — net out at quarter close)
+### Multipli (§3.4 — under GIGATON brand)
+- [x] **Performance share to Gigaton** = 18% of Multipli net rev on Gigaton-attributed funded contracts ✅ LOCKED v0 (math-backed)
+- [x] Cadence = monthly T+15 / Rail = Stripe Connect Express / Min = $1k floor / Retainer = NO for beta ✅ LOCKED v0
+- [x] Attribution = first-touch + 180-day verified-handoff ✅ LOCKED v0
+- [x] Term = 6mo initial; auto-renew at 50 contracts; $250K Y1 cap ✅ LOCKED v0
+- [x] Self-serve tokenized link architecture spec'd (URL pattern + bundle + reuses + ~23h new work)
+- [ ] **v1 promotion**: Confirm 15/18/20 perf share final, base retainer yes/no, attribution window 90/180/365, Y1 cap, e-sign tool (in-app vs DocuSign), link expiry, co-branded hero approval gate, send timing
 
 ### Gignet affiliates (§3.5) — **STRATEGIC**
 - [ ] Tier 1 per-conversion rev share %
@@ -314,11 +467,13 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [ ] Tier 5 per-conversion rev share %
 - [ ] Recurring-revenue tail commission policy (any tier)
 
-### Gigaton self (§3.6)
-- [x] Operations % (strawman: 45%)
-- [x] R&D % (strawman: 25%)
-- [x] Reserves % (strawman: 20%)
-- [x] Distribution % and reserves-floor threshold (strawman: 10% + 12 months opex floor)
+### Gigaton self (§3.6) — Option A LOCKED ✅ 2026-05-26
+- [x] Operations % = **40%** ✅ LOCKED v0 (math-backed; replaces 45% strawman)
+- [x] R&D % = **35%** ✅ LOCKED v0 (math-backed; replaces 25% strawman)
+- [x] Reserves % = **25%** ✅ LOCKED v0 (Option A — absorbs distribution slice)
+- [x] Distribution % = **0%** ✅ LOCKED v0 (Option A — re-introduce at v1)
+- [x] Reserves-floor = **$180K** (12 × $15K opex; auto-bumps per cohort)
+- [ ] **v1 promotion**: Confirm payroll/contractor cash burn + cash on hand + approve auto_bump mechanism + authorize cost-coverage aggregator wiring
 
 ### Implementation follow-ons (§5)
 - [x] Confirm onboarding_v1.yaml stage number to link this doc from (strawman: Stage 7 — Capability+Payouts)
@@ -356,8 +511,9 @@ Cross-reference table linking each section to the underlying memory file and arc
 | Version | Date | Author | Change |
 |---|---|---|---|
 | v0.1 (this scaffold) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Initial scaffold; §2 LOCKED + §4 LOCKED + §3 TBDs awaiting Todd ratification; deadline 2026-05-28 EOD |
-| v0.2 (hybrid strawman fill) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Pre-filled 21 of 29 TBDs with industry-norm strawmen marked `(_strawman; override if needed_)`; 8 strategic %s flagged `**STRATEGIC — Todd to fill in**` (Multipli performance share + Ti Solutions 5-client retainer/uplift splits + Ti Solutions Gigaton platform fee + Gignet 5-tier commission table + Gignet recurring-revenue tail policy). §2 + §4 LOCKED decisions unchanged. |
-| v1.0 (target) | 2026-05-28 EOD | Todd | Ratify the 8 strategic %s + override any strawmen + flip front-matter `status: DRAFT` → `ACTIVE` |
+| v0.2 (hybrid strawman fill) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Pre-filled 21 of 29 TBDs with industry-norm strawmen marked `(_strawman; override if needed_)`; 8 strategic %s flagged `**STRATEGIC — Todd to fill in**` |
+| v0.3 (math-backed v0) | 2026-05-26 eve | Claude Opus 4.7 (this session) — under Todd direction "ensure all math is completed as correctly as possible from start" | **3 research agents in parallel** derived math-backed v0 values from real artifacts (`carmen-beach-agent-costing.md` + `carmen-beach-occupancy-roi.md` + `gigaton-playa-dag-model.md` + `gigaton-company-valuation.md` + `multipli_research_brief.md` + `multipli/sample_bundles/*/deal_economics_model.json` + 11+ Cloud Run `cloudbuild.yaml` configs) + 2025-2026 industry benchmarks (Airbnb 15.5% / VRBO 8% / Vacasa 25-35% / Evolve 10% / MasterHost PDC 12% / SaaS Capital 2025 / Benchmarkit 2025 / Rule-of-40 / channel-partner 5-20% band). **§3.1 CBP** v0.2 strawmen replaced: Gigaton 2.5% → 5.0% (cost-to-serve math); Ti 5% → 3% (market-ceiling); cleaning pass-through itemized; owner 78%/81%; risk reserve 1.5% added. **§3.3 DELETED** (4 entities reclassified as knowledge-sources, 1 dropped). **§3.4 Multipli** repositioned under GIGATON brand with full math-backed terms (18% perf share + monthly T+15 + Stripe Connect + $1K floor + no retainer + 180d attribution + 6mo term + $250K Y1 cap) + self-serve tokenized link architecture spec'd (`gigaton.ai/onboard/multipli/<jwt>` + bundle + reuses + ~23h new dev work). **§3.6 Gigaton-self** Option A LOCKED (Ops 40 / R&D 35 / Reserves 25 / Distribution 0; $180K floor with auto-bump). **§3.7 NEW** knowledge-extraction sources catalog (Kollosche+McGrath for CBP RE; Medvidi+CareRev for service/HR/acquisition doctrine; Integra-CCS dropped). PPIM axis-weighted multi-objective (M-theory) justifications on every line. Logged to MASTER_PLAN.md §13 via `add_decision` MCP 21:42 + 22:03 UTC. Companion ratifications: D1 + D2 + MIG-DEFER. |
+| v1.0 (target) | 2026-05-28 EOD | Todd | Promote DRAFT → ACTIVE: only remaining input = approve v0 as locked OR amend specific lines. Gignet §3.5 (5 tiers + tail policy) deferred to v1.1 (Day-30 calibration window). |
 
 ---
 
