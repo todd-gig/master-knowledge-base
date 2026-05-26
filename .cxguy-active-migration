@@ -1,33 +1,80 @@
-# Active Migration Marker — DO NOT REDEPLOY gigaton-gateway without reading this
+# Migration Coordination Marker — MIG-DEFER (UPDATED 2026-05-26 EOD)
 
+status: DEFERRED — sessions 2 & 3 PAUSED until "existing system completion" trigger is met
 active_migration: carmen-beach-properties → gigaton-platform
+authorized_by: todd@gigaton.ai 2026-05-26 EOD
+authorization_quote: "Migration will need to happen, but only after completion of existing system unless notified otherwise, but ensure reminders are set to get it completed + architecture > structure > cost management > etc optimized weekly"
+
+# Session log
+
 sessions_complete:
-  - session_1 (decision-engine) — completed 2026-05-25 ~23:57Z by todd@gigaton.ai
-sessions_pending:
-  - session_2 (intelligence-silo) — target Wed 2026-05-27 evening
-  - session_3 (gigaton-engine + sales-operating-system) — target Thu 2026-05-28 evening
+  - session_1 (decision-engine) — completed 2026-05-25 ~23:57Z by todd@gigaton.ai. NOT to be reverted.
+
+sessions_deferred (do NOT fire without explicit Todd authorization):
+  - session_2 (intelligence-silo) — was scheduled Wed 2026-05-27 eve; now DEFERRED
+  - session_3 (gigaton-engine + sales-operating-system) — was scheduled Thu 2026-05-28 eve; now DEFERRED
+
+# Trigger criteria — all 4 gates must be GREEN to fire sessions 2/3
+
+trigger_gates:
+  A. Wave 2 Week 1 items 2-5 MERGED to main:
+     - intel-silo: agent_roles + skill_vectors tables on main
+     - persona-engine: 9 executive OrgPersonas seeded on main
+     - decision-engine: POST /v1/intelligence/classify endpoint on main
+     - decision-engine: CTO role end-to-end pilot demoable
+  B. docs/governance/comp_payout_structure_v1.md front-matter status: ACTIVE (not DRAFT)
+  C. At least 1 paying operator transacted successfully through gigaton-engine billing in the past 7 days
+  D. No in-flight feature work touching engines being migrated (intel-silo, gigaton-engine, sales-OS)
+
+# Reminder routines (created 2026-05-26 EOD via remote-trigger API)
+
+weekly_gate_check:
+  - Routine ID: trig_01Fjre6WnngZAsYn8hLt9tx9
+  - Cadence: every Wednesday 14:00 UTC (9am Cancun)
+  - Action: checks the 4 gates above + DMs todd@gigaton.ai in ti-gigaton.slack.com with status
+  - First fire: Wed 2026-05-27 14:05 UTC
+  - URL: https://claude.ai/code/routines/trig_01Fjre6WnngZAsYn8hLt9tx9
+
+weekly_optimization_sweep:
+  - Routine ID: trig_01YVbgh6BzZ4biPLAWCALQfA
+  - Cadence: every Monday 14:00 UTC (9am Cancun)
+  - Scope: architecture + structure + cost-management + efficiency + doctrine-drift sweep
+  - Action: DMs Todd top 3-5 optimization opportunities (read-only, no PRs opened)
+  - First fire: Mon 2026-06-01 14:02 UTC
+  - URL: https://claude.ai/code/routines/trig_01YVbgh6BzZ4biPLAWCALQfA
+
+# Gateway redeploy warning (unchanged from prior version — session_1 is still locked-in)
 
 WARNING for any agent/session about to deploy gigaton-gateway:
   The DECISION_ENGINE_URL env var is INTENTIONALLY pointed at gigaton-platform:
     https://decision-engine-825651647756.us-central1.run.app
-  If you redeploy from a stale baseline that flips it back to rjmcrtvuzq-uc.a.run.app
-  (carmen-beach-properties), you will SILENTLY REVERT the migration.
-
-  This has already happened ONCE today (rev 00044-gh6 reverted my rev 00042-stn).
+  session_1 IS complete — do NOT silently revert by redeploying from a stale baseline.
+  This already happened once (rev 00044-gh6 reverted rev 00042-stn).
 
 Before redeploying gigaton-gateway:
   1. Read this file
-  2. Confirm with the migration-active operator (todd@gigaton.ai)
-  3. Verify your env config matches the active state by running:
+  2. Confirm with todd@gigaton.ai
+  3. Verify env config matches active state:
        gcloud run services describe gigaton-gateway --project=gigaton-platform \
          --region=us-central1 --format='value(spec.template.spec.containers[0].env)' \
          | tr ',' '\n' | grep _URL
-  4. If your baseline env doesn't include the gigaton-platform URLs for migrated engines,
+  4. If your baseline env doesn't include the gigaton-platform URL for decision-engine,
      do NOT auto-deploy. Sync your branch first.
 
-This marker file will be removed when migration completes (all 4 engines on gigaton-platform).
+# Removal criteria
 
-Last updated: 2026-05-25T23:58Z
-Active migration runbooks:
+This marker file will be REMOVED when:
+  - All 4 trigger gates are GREEN
+  - Todd explicitly authorizes sessions 2/3 to fire (e.g. replies "go" to the weekly gate-check DM)
+  - Sessions 2/3 complete + verify successfully
+
+# History
+
+Last updated: 2026-05-26T19:40Z (MIG-DEFER pivot per Todd directive)
+Prior update: 2026-05-25T23:58Z (session_1 complete + sessions 2/3 originally scheduled Wed/Thu eve)
+Original creation: 2026-05-25 (migration kickoff)
+
+# Reference runbooks (preserved for when sessions 2/3 do fire)
+
   - runbooks/2026_05_25_gcp_migration_accelerated_complete_plan.md
   - runbooks/2026_05_25_carmen_to_gigaton_migration_day_by_day.md
