@@ -16,7 +16,7 @@ applies_to:
   - persona-engine (HR offer human-in-loop gate per INTEL-1)
   - decision-engine (semantic_classifier cosine thresholds per INTEL-1)
   - intelligence-silo (skill-vector seed values for talent routing)
-  - gigaton-ui-system (operator-facing Settings → Payouts + Coaching toggle)
+  - gigaton-ui-system (operator-facing Settings → Payouts; coaching surfaces auto-graduate via competence — no opt-out toggle)
 cross_refs:
   - decisions/2026-05-25_architecture_decisions_log.md (PAYOUT-1, INTEL-1, OPS-1, ARCH-1, ARCH-2)
   - /Users/admin/.claude/projects/-Users-admin/memory/payout_1_min_threshold_1k_2026_05_26.md
@@ -46,7 +46,7 @@ This document is the single ratified source-of-truth for **who gets paid what, w
 4. **ACH fee bearer** = platform absorbs (recipients see clean amounts). Same source.
 5. **First-time payout exception** = NO exception (steady-state cadence applies to first payout). Same source.
 6. **HR offer human-in-loop gate** = YES — every HR offer requires human pre-review (operator approval queue). Same source.
-7. **Coaching opt-out** = per-operator toggle, default ON (opt-out model, not opt-in). Same source.
+7. **Coaching graduation** (REVISED 2026-05-26 EOD) = NO opt-out toggle. Coaching nudges auto-suppress per-category as the operator demonstrates competence (correct UI actions + accurate chat prompts). Same source.
 8. **Skill-vector cosine thresholds** = `0.55` primary / `0.35` secondary (drives downstream Ti Agent Matrix routing per INTEL-1). Same source.
 
 ---
@@ -184,15 +184,25 @@ These 3 clarifications were ratified 2026-05-26 EOD alongside the 4 PAYOUT-1 cla
 - **Why locked this way**: per `CRIT-001` ("automation requires human override") + HR offers carry legal + retention consequences that pure-LLM judgment cannot underwrite.
 - **Implementation**: `persona-engine` HR module emits `OfferDrafted` event → `human-management-engine` enqueues for operator approval → gated send.
 
-### 4.2 Coaching opt-out
+### 4.2 Coaching graduation (REVISED 2026-05-26 EOD — supersedes opt-out)
 
-**Rule**: per-operator toggle, default ON (coaching enabled).
+**Rule**: NO opt-out toggle. Coaching is automatically REMOVED or CHANGED per-nudge-category as the operator demonstrates competence through (a) correct UI actions and (b) accurate chat prompts.
 
-- Operators see coaching nudges from their OrgPersonas by default.
-- Operators can disable coaching at any time via Settings → Coaching → Off.
-- Default state: opt-out model (not opt-in) so baseline value is delivered without action; operators retain autonomy to silence.
-- **Why locked this way**: per ARCH-2 ("operator controls own surface") + opt-out preserves baseline coaching value while respecting autonomy.
-- **Implementation**: `client_namespaces.governance_overlays.coaching_enabled` boolean (default `true`); UI toggle in Settings → Coaching; `persona-engine` reads + suppresses coaching nudges when `false`.
+- **Mechanism**: every operator receives coaching nudges by default. Each nudge category (e.g. "how to connect a Drive folder", "how to interpret variance display", "how to use the prompt suggestor") graduates independently as the operator demonstrates understanding.
+- **Graduation criteria per nudge category**:
+  - **Correct actions**: operator completed the corresponding UI flow without error `N` times (default `N=3`)
+  - **Accurate prompts**: operator's chat prompts in the relevant domain hit the intent classifier with confidence `≥ 0.55` (matches our primary cosine threshold from §4.3) `M` times (default `M=2`)
+  - Both criteria must be met to graduate
+- **Re-emergence**: if the operator regresses (errors return, or chat prompts drop below `0.35` accuracy), coaching for that category re-activates automatically.
+- **Why locked this way**: an opt-out toggle lets operators silence the system's only built-in onboarding correction; the graduation model preserves the autonomy intent (no nag once competent) without the regression risk (operator turns it off + never gets help when they need it).
+- **Implementation**:
+  - `agent_roles.coaching_categories` JSONB list per role defining nudge categories that role emits.
+  - new table `coaching_graduation_state` per `(operator_id, nudge_category)` tracking `correct_action_count`, `accurate_prompt_count`, `graduated_at`, `last_regression_at`.
+  - `persona-engine` emits nudge → checks `coaching_graduation_state` → suppresses if graduated → else delivers.
+  - `decision-engine` `intelligence/classify` confidence scores feed `accurate_prompt_count` increments.
+  - UI flow completions emit `CoachingProgressEvent` to `human-management-engine` → updates `correct_action_count`.
+  - Spec follow-on (separate PR) to define every nudge category + its criteria thresholds; ship behind a `coaching.v2_graduation` feature flag.
+- **No Settings UI**: there is NO operator-facing toggle. The Settings page will surface graduation STATUS (e.g. "You've graduated 3 of 12 coaching topics") as a transparency mechanism, but the operator cannot disable nudges directly. Regression auto-re-engages — operator's path to "no more nudges" is genuine competence, not a switch.
 
 ### 4.3 Skill-vector cosine thresholds (for downstream Ti Agent Matrix routing)
 
@@ -247,7 +257,7 @@ The billing module should:
 
 Surfaces:
 - **Settings → Payouts** — displays operator's configured Stripe Connect Express account, next scheduled payout date, accrued balance, $1k floor reminder, history.
-- **Settings → Coaching** — boolean toggle per §4.2; default ON.
+- **Settings → Coaching graduation status** — transparency-only surface per §4.2 (graduation progress per nudge category); NO opt-out toggle.
 - **Settings → Compensation** (admin-only, future) — displays the §3 percentages for the operator's entity; read-only for the operator.
 
 ### 5.5 user-access-engine (UAE) schema follow-on
@@ -324,7 +334,7 @@ Cross-reference table linking each section to the underlying memory file and arc
 | §3 entity routing | requires Todd ratification | — | (open until §6 checklist ticked) |
 | §3.5 Gignet attribution | SIE chain 22 affiliate centralization | — | `decisions/2026-05-08_affiliate_centralization_at_gigaton.md` |
 | §4.1 HR human-in-loop | INTEL-1 clarification (HR offer gate) | `payout_1_and_intel_1_clarifications_locked_2026_05_26.md` | INTEL-1 clarification + CRIT-001 reference |
-| §4.2 coaching opt-out default-ON | INTEL-1 clarification (coaching) | Same | INTEL-1 clarification + ARCH-2 reference |
+| §4.2 coaching graduation (NO opt-out, auto-suppress via competence) | INTEL-1 clarification (coaching) — REVISED 2026-05-26 EOD | Same | INTEL-1 clarification + competence-graduation model |
 | §4.3 cosine thresholds 0.55 / 0.35 | INTEL-1 clarification (classifier) | Same | INTEL-1 clarification |
 | §5 Wave 2 Intelligence Layer context | INTEL-1 / INTEL-2 Wave 2 redefinition | — | `docs/architecture/2026_05_25_wave2_intelligence_layer_ti_agent_matrix.md` |
 
