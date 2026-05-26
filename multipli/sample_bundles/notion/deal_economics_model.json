@@ -1,0 +1,138 @@
+{
+  "_ppim_signature": {
+    "interaction": "prospect_economics_evidence_attachment",
+    "economics": "6_take_rate_scenarios_yield_multipli_net_revenue_band_per_notion_pilot_year_with_gross_spread_pool_and_performance_share_projection",
+    "predictability": "deterministic_math_per_06_data_models_deal_economics_model_json_scenarios_are_illustrative_pending_notion_confirmed_inputs",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_third_artifact_of_six_file_bundle"
+  },
+  "_meta": {
+    "model_name": "multipli_vendor_financing_deal_economics",
+    "model_version": "1.0.0",
+    "schema_ref": "multipli_claude_beta_package/06_data_models/deal_economics_model.json",
+    "vendor_id": "notion_v1",
+    "vendor_name": "Notion Labs, Inc.",
+    "generated_at": "2026-05-26T16:30:00Z",
+    "generated_by": "gigaton_multipli_vendor_growth_engine_manual_v0",
+    "production_mode": "manual_hand_driven_no_engine_state_yet",
+    "compliance_flag": "scenarios_only_no_guaranteed_outcomes_per_package_section_9_governance",
+    "do_not_quote_to_prospect_without_human_review": true
+  },
+  "baseline_assumptions": {
+    "notion_blended_average_funded_contract_value_usd": 32000,
+    "notion_blended_acv_basis": "business_tier_($15/seat/mo_annual)_50-150_seats_to_enterprise_tier_negotiated_($20-25/seat/mo)_100-300_seats_plus_notion_ai_addon_($8-10/seat/mo)_attach_at_60-80pct_of_seats_blended_modeled_estimate",
+    "notion_pilot_assumed_financed_deals_per_quarter": 50,
+    "notion_pilot_assumed_quarters": 4,
+    "notion_pilot_total_financed_deals_year_1": 200,
+    "package_baseline_average_funded_contract_value_usd": 28260,
+    "package_conservative_average_funded_contract_value_usd": 28000,
+    "package_saas_example_vendor_payout_usd": 62000,
+    "package_saas_example_customer_payment_total_usd": 72000,
+    "package_gross_spread_pool_per_deal_usd": 10000
+  },
+  "incremental_funded_volume_usd": {
+    "year_1_conservative_50_deals_per_q_x_4_q": 6400000,
+    "year_1_optimistic_100_deals_per_q_x_4_q": 12800000,
+    "_basis": "200_notion_financed_deals_x_$32k_blended_acv_=_$6.4M_year_1_conservative;_doubling_pipeline_capture_yields_$12.8M_optimistic_band"
+  },
+  "take_rate_scenarios": [
+    {
+      "take_rate": 0.03,
+      "label": "3pct_floor",
+      "estimated_net_revenue_year_1_conservative_usd": 192000,
+      "estimated_net_revenue_year_1_optimistic_usd": 384000
+    },
+    {
+      "take_rate": 0.05,
+      "label": "5pct_low_mid",
+      "estimated_net_revenue_year_1_conservative_usd": 320000,
+      "estimated_net_revenue_year_1_optimistic_usd": 640000
+    },
+    {
+      "take_rate": 0.08,
+      "label": "8pct_mid",
+      "estimated_net_revenue_year_1_conservative_usd": 512000,
+      "estimated_net_revenue_year_1_optimistic_usd": 1024000
+    },
+    {
+      "take_rate": 0.10,
+      "label": "10pct_mid_high",
+      "estimated_net_revenue_year_1_conservative_usd": 640000,
+      "estimated_net_revenue_year_1_optimistic_usd": 1280000
+    },
+    {
+      "take_rate": 0.12,
+      "label": "12pct_high",
+      "estimated_net_revenue_year_1_conservative_usd": 768000,
+      "estimated_net_revenue_year_1_optimistic_usd": 1536000
+    },
+    {
+      "take_rate": 0.16,
+      "label": "16pct_ceiling",
+      "estimated_net_revenue_year_1_conservative_usd": 1024000,
+      "estimated_net_revenue_year_1_optimistic_usd": 2048000
+    }
+  ],
+  "estimated_net_revenue_band_year_1_conservative_usd": {
+    "low_3pct": 192000,
+    "mid_8pct": 512000,
+    "high_16pct": 1024000
+  },
+  "estimated_net_revenue_band_year_1_optimistic_usd": {
+    "low_3pct": 384000,
+    "mid_8pct": 1024000,
+    "high_16pct": 2048000
+  },
+  "gross_spread_pool_per_deal_usd": {
+    "notion_modeled_per_deal": 5200,
+    "_basis": "scaled_from_package_$10k_per_deal_baseline_at_$28k_avg_contract_to_notion_$32k_avg_contract_($10k_x_32000/28000_=_~$11429)_then_adjusted_downward_to_~$5200_to_reflect_(a)_blended_business_and_enterprise_tier_buyer_payment_total_is_not_fully_inflated_above_baseline_because_business_tier_majority_implies_thinner_spread_capacity_per_dollar_of_acv_and_(b)_ai_addon_inference_costs_reduce_vendor_margin_pool_available_for_financing_spread_capture_modeled_directional_only",
+    "_caveat": "this_figure_is_NOT_a_confirmed_Multipli_margin._Use_estimated_net_revenue_(take_rate_x_funded_volume)_as_the_preferred_performance_basis_per_package_warnings."
+  },
+  "draw_repayment_projection": {
+    "notion_modeled_avg_term_months": 12,
+    "notion_modeled_repayment_completion_pct_year_1": 0.93,
+    "notion_modeled_default_pct_year_1": 0.025,
+    "notion_modeled_prepay_pct_year_1": 0.045,
+    "_basis": "saas_subscription_vendor_financing_norms_for_mid_market_buyers_with_high_credit_quality_business_and_enterprise_workspace_purchasers_(typically_known_brand_companies_with_existing_microsoft_365_or_google_workspace_relationships)_implies_low_default_rate_under_3pct_modeled_directional_only_until_notion_buyer_credit_distribution_is_known_marginally_better_than_calendly_baseline_(0.03_default)_because_notion_enterprise_motion_skews_to_larger_employers"
+  },
+  "performance_share_projection_to_gigaton": {
+    "performance_share_pct_of_multipli_net_revenue_assumed": 0.15,
+    "year_1_conservative_8pct_take_rate_gigaton_share_usd": 76800,
+    "year_1_optimistic_8pct_take_rate_gigaton_share_usd": 153600,
+    "year_1_conservative_12pct_take_rate_gigaton_share_usd": 115200,
+    "year_1_optimistic_12pct_take_rate_gigaton_share_usd": 230400,
+    "_basis": "15pct_revenue_share_is_a_placeholder_for_the_eventual_gigaton_x_multipli_commercial_agreement._actual_share_TBD_in_partnership_negotiation._this_figure_is_illustrative_only_and_will_not_be_quoted_in_ben_cahir_facing_materials."
+  },
+  "ai_addon_financing_motion_specific_notes": {
+    "ai_addon_share_of_blended_acv_modeled_pct": 0.27,
+    "ai_addon_share_basis": "at_$8-10/seat/mo_attach_on_60-80pct_of_seats_against_$15-25/seat/mo_base_the_ai_addon_contributes_approximately_25-30pct_of_total_acv_modeled_at_27pct_midpoint",
+    "financing_specific_lever": "the_ai_addon_doubles_the_upfront_committed_spend_at_purchase_which_is_precisely_the_friction_financing_addresses;_offering_a_buyer_the_ability_to_finance_the_ai_addon_separately_(or_as_part_of_total_tcv)_with_a_ramp_payment_schedule_(start_at_lower_seat_attach_grow_over_12_months)_directly_resolves_the_top_documented_buyer_objection",
+    "estimated_lift_on_ai_addon_attach_rate_if_financed": "modeled_5_to_15_percentage_point_lift_on_attach_rate_based_on_general_buy_now_pay_later_lift_norms_NOT_notion_specific_directional_only"
+  },
+  "warnings": [
+    "Do not treat gross spread as confirmed Multipli margin.",
+    "Use net revenue or gross profit as the preferred performance basis when actual data is available.",
+    "Use funded volume only as a directional proxy unless Multipli confirms economics.",
+    "All Notion-specific numeric inputs (ACV, AI addon attach, close rate, sales cycle, payment friction) are LLM-modeled from public sources. Confidence: 0.63. Do not quote any specific dollar figure to Notion or Ben Cahir without first validating against (a) Notion design-partner conversation, (b) Multipli's actual SaaS portfolio data, or (c) caveating the bundle as illustrative.",
+    "Performance share to Gigaton (15%) is a placeholder. Actual rev-share TBD in Gigaton-Multipli commercial agreement.",
+    "Year 1 financed-deal volumes (200 conservative / 400 optimistic) are pilot-scale assumptions only. A full Notion partnership would target an order-of-magnitude larger pipeline, especially if AI addon attach financing becomes a primary motion.",
+    "AI addon attach lift estimate (5-15 percentage points) is directional only and based on general BNPL lift norms, NOT Notion-specific. Validate against Notion historical AI addon attach data before quoting."
+  ],
+  "missing_information_for_full_economics_lock": [
+    "notion_actual_blended_acv_business_vs_enterprise_with_and_without_ai_addon",
+    "notion_actual_ai_addon_attach_rate_by_tier_and_segment",
+    "notion_actual_quarterly_new_logo_volume_business_and_enterprise",
+    "notion_actual_3_year_committed_term_uptake_rate",
+    "notion_appetite_for_third_party_financing_offer_at_point_of_sale_especially_for_ai_addon",
+    "multipli_actual_take_rate_realized_on_software_saas_segment_historical_average",
+    "multipli_actual_default_rate_realized_on_software_saas_segment",
+    "gigaton_multipli_commercial_rev_share_negotiated_percentage",
+    "notion_buyer_credit_quality_distribution_for_default_modeling",
+    "notion_certified_consultant_ecosystem_attach_revenue_pattern"
+  ],
+  "_engine_routing_trace": {
+    "would_have_been_computed_by": "ppeme /v1/multipli/deal-economics POST endpoint",
+    "actual_method_used": "hand_computed_in_this_file_grounded_in_06_data_models_deal_economics_model.json_baseline",
+    "regenerable_after": "ppeme PR landing Phase B per runbook section 5"
+  }
+}

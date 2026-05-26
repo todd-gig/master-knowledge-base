@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "weights": {
+    "roi": 0.3,
+    "speed_to_impact": 0.2,
+    "reusability": 0.2,
+    "dependency_unblock": 0.15,
+    "risk_adjusted_confidence": 0.15
+  },
+  "approval_thresholds": {
+    "auto_execute_max_risk": 0.25,
+    "human_review_min_risk": 0.26,
+    "mandatory_approval_categories": [
+      "auth",
+      "billing",
+      "payments",
+      "production_deploy",
+      "data_deletion",
+      "client_commitment"
+    ]
+  },
+  "score_scale": "0_to_100"
+}

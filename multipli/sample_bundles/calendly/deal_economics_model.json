@@ -1,0 +1,127 @@
+{
+  "_ppim_signature": {
+    "interaction": "prospect_economics_evidence_attachment",
+    "economics": "6_take_rate_scenarios_yield_multipli_net_revenue_band_per_calendly_pilot_year_with_gross_spread_pool_and_performance_share_projection",
+    "predictability": "deterministic_math_per_06_data_models_deal_economics_model_json_scenarios_are_illustrative_pending_calendly_confirmed_inputs",
+    "brand_dimension": "vendor_growth_acquisition_intelligence",
+    "lifecycle": "acquisition_stage_third_artifact_of_six_file_bundle"
+  },
+  "_meta": {
+    "model_name": "multipli_vendor_financing_deal_economics",
+    "model_version": "1.0.0",
+    "schema_ref": "multipli_claude_beta_package/06_data_models/deal_economics_model.json",
+    "vendor_id": "calendly_v1",
+    "vendor_name": "Calendly LLC",
+    "generated_at": "2026-05-25T19:50:00Z",
+    "generated_by": "gigaton_multipli_vendor_growth_engine_manual_v0",
+    "production_mode": "manual_hand_driven_no_engine_state_yet",
+    "compliance_flag": "scenarios_only_no_guaranteed_outcomes_per_package_section_9_governance"
+  },
+  "baseline_assumptions": {
+    "calendly_blended_average_funded_contract_value_usd": 18000,
+    "calendly_blended_acv_basis": "team_tier_($16/seat/mo)_15-30_seats_to_enterprise_tier_negotiated_($20-30/seat/mo)_30-60_seats_blended_modeled_estimate",
+    "calendly_pilot_assumed_financed_deals_per_quarter": 50,
+    "calendly_pilot_assumed_quarters": 4,
+    "calendly_pilot_total_financed_deals_year_1": 200,
+    "package_baseline_average_funded_contract_value_usd": 28260,
+    "package_conservative_average_funded_contract_value_usd": 28000,
+    "package_saas_example_vendor_payout_usd": 62000,
+    "package_saas_example_customer_payment_total_usd": 72000,
+    "package_gross_spread_pool_per_deal_usd": 10000
+  },
+  "incremental_funded_volume_usd": {
+    "year_1_conservative_50_deals_per_q_x_4_q": 3600000,
+    "year_1_optimistic_100_deals_per_q_x_4_q": 7200000,
+    "_basis": "200_calendly_financed_deals_x_$18k_blended_acv_=_$3.6M_year_1_conservative;_doubling_pipeline_capture_yields_$7.2M_optimistic_band"
+  },
+  "take_rate_scenarios": [
+    {
+      "take_rate": 0.03,
+      "label": "3pct_floor",
+      "estimated_net_revenue_year_1_conservative_usd": 108000,
+      "estimated_net_revenue_year_1_optimistic_usd": 216000
+    },
+    {
+      "take_rate": 0.05,
+      "label": "5pct_low_mid",
+      "estimated_net_revenue_year_1_conservative_usd": 180000,
+      "estimated_net_revenue_year_1_optimistic_usd": 360000
+    },
+    {
+      "take_rate": 0.08,
+      "label": "8pct_mid",
+      "estimated_net_revenue_year_1_conservative_usd": 288000,
+      "estimated_net_revenue_year_1_optimistic_usd": 576000
+    },
+    {
+      "take_rate": 0.10,
+      "label": "10pct_mid_high",
+      "estimated_net_revenue_year_1_conservative_usd": 360000,
+      "estimated_net_revenue_year_1_optimistic_usd": 720000
+    },
+    {
+      "take_rate": 0.12,
+      "label": "12pct_high",
+      "estimated_net_revenue_year_1_conservative_usd": 432000,
+      "estimated_net_revenue_year_1_optimistic_usd": 864000
+    },
+    {
+      "take_rate": 0.16,
+      "label": "16pct_ceiling",
+      "estimated_net_revenue_year_1_conservative_usd": 576000,
+      "estimated_net_revenue_year_1_optimistic_usd": 1152000
+    }
+  ],
+  "estimated_net_revenue_band_year_1_conservative_usd": {
+    "low_3pct": 108000,
+    "mid_8pct": 288000,
+    "high_16pct": 576000
+  },
+  "estimated_net_revenue_band_year_1_optimistic_usd": {
+    "low_3pct": 216000,
+    "mid_8pct": 576000,
+    "high_16pct": 1152000
+  },
+  "gross_spread_pool_per_deal_usd": {
+    "calendly_modeled_per_deal": 2900,
+    "_basis": "scaled_from_package_$10k_per_deal_baseline_at_$28k_avg_contract_to_calendly_$18k_avg_contract_($10k_x_18000/28000_-=_~$6429)_then_further_reduced_for_lower_buyer_payment_total_assumption_(team_tier_majority_implies_thinner_spread_capacity)_to_~$2900_modeled_directional_only",
+    "_caveat": "this_figure_is_NOT_a_confirmed_Multipli_margin._Use_estimated_net_revenue_(take_rate_x_funded_volume)_as_the_preferred_performance_basis_per_package_warnings."
+  },
+  "draw_repayment_projection": {
+    "calendly_modeled_avg_term_months": 12,
+    "calendly_modeled_repayment_completion_pct_year_1": 0.92,
+    "calendly_modeled_default_pct_year_1": 0.03,
+    "calendly_modeled_prepay_pct_year_1": 0.05,
+    "_basis": "saas_subscription_vendor_financing_norms_for_mid_market_buyers_with_high_credit_quality_team_and_enterprise_purchasers_(typically_known_brand_companies)_implies_low_default_rate_under_5pct_modeled_directional_only_until_calendly_buyer_credit_distribution_is_known"
+  },
+  "performance_share_projection_to_gigaton": {
+    "performance_share_pct_of_multipli_net_revenue_assumed": 0.15,
+    "year_1_conservative_8pct_take_rate_gigaton_share_usd": 43200,
+    "year_1_optimistic_8pct_take_rate_gigaton_share_usd": 86400,
+    "year_1_conservative_12pct_take_rate_gigaton_share_usd": 64800,
+    "year_1_optimistic_12pct_take_rate_gigaton_share_usd": 129600,
+    "_basis": "15pct_revenue_share_is_a_placeholder_for_the_eventual_gigaton_x_multipli_commercial_agreement._actual_share_TBD_in_partnership_negotiation._this_figure_is_illustrative_only_and_will_not_be_quoted_in_ben_cahir_facing_materials."
+  },
+  "warnings": [
+    "Do not treat gross spread as confirmed Multipli margin.",
+    "Use net revenue or gross profit as the preferred performance basis when actual data is available.",
+    "Use funded volume only as a directional proxy unless Multipli confirms economics.",
+    "All Calendly-specific numeric inputs (ACV, close rate, sales cycle, payment friction) are LLM-modeled from public sources. Confidence: 0.62. Do not quote any specific dollar figure to Calendly or Ben Cahir without first validating against (a) Calendly design-partner conversation, (b) Multipli's actual SaaS portfolio data, or (c) caveating the bundle as illustrative.",
+    "Performance share to Gigaton (15%) is a placeholder. Actual rev-share TBD in Gigaton-Multipli commercial agreement.",
+    "Year 1 financed-deal volumes (200 conservative / 400 optimistic) are pilot-scale assumptions only. A full Calendly partnership would target an order-of-magnitude larger pipeline."
+  ],
+  "missing_information_for_full_economics_lock": [
+    "calendly_actual_blended_acv_team_vs_enterprise",
+    "calendly_actual_quarterly_new_logo_volume_team_and_enterprise",
+    "calendly_appetite_for_third_party_financing_offer_at_point_of_sale",
+    "multipli_actual_take_rate_realized_on_software_saas_segment_historical_average",
+    "multipli_actual_default_rate_realized_on_software_saas_segment",
+    "gigaton_multipli_commercial_rev_share_negotiated_percentage",
+    "calendly_buyer_credit_quality_distribution_for_default_modeling"
+  ],
+  "_engine_routing_trace": {
+    "would_have_been_computed_by": "ppeme /v1/multipli/deal-economics POST endpoint",
+    "actual_method_used": "hand_computed_in_this_file_grounded_in_06_data_models_deal_economics_model.json_baseline",
+    "regenerable_after": "ppeme PR landing Phase B per runbook section 5"
+  }
+}
