@@ -1,5 +1,9 @@
 # OAuth Client Recreation Runbook — `gigaton-platform` Migration
 
+> **STATUS: SUPERSEDED 2026-05-26 by MIG-CANCEL — DR-only mirror, no production migration.**
+> This runbook is preserved for the DR-mirror OAuth-client provisioning subset only.
+> DO NOT execute the production-migration steps.
+
 **Status:** PROCEDURE — execute during GCP project migration
 **Authored:** 2026-05-25
 **Companion:** [gcp_engine_migration_accelerated_2026_05_25.md](../../.claude/projects/-Users-admin/memory/gcp_engine_migration_accelerated_2026_05_25.md)
@@ -44,11 +48,8 @@ gcloud secrets versions access latest --secret=GOOGLE_DRIVE_OAUTH_CLIENT_JSON --
 chmod 600 /tmp/cbp_oauth_snapshot.json
 # DO NOT commit this file anywhere
 
-# Snapshot OAuth consent screen scope list
-TOKEN=$(gcloud auth print-access-token)
-curl -s -H "Authorization: Bearer $TOKEN" -H "X-Goog-User-Project: carmen-beach-properties" \
-  "https://oauth2.googleapis.com/v1/iam-policies/projects/carmen-beach-properties/brands" \
-  > /tmp/cbp_oauth_brand_snapshot.json
+# Snapshot OAuth consent screen / brand list
+gcloud iap oauth-brands list --project=carmen-beach-properties > /tmp/cbp_oauth_brand_snapshot.json
 ```
 
 ### 2.3 Identify all redirect URIs currently configured
