@@ -1,9 +1,9 @@
 ---
 type: governance-scaffold
 established: 2026-05-26
-status: DRAFT (v0.3 math-backed) — ready for Todd one-click DRAFT → ACTIVE flip; only remaining inputs are Gignet §3.5 tiers (deferred v1.1) and v1-promotion calibration triggers
-version: v0.3
-authority: requires Todd sign-off on §3, §5 retry policy, and the §6 checklist before promotion to ACTIVE
+status: ACTIVE (v1.0) — ratified by Todd 2026-05-27; binding policy for all money-out-of-platform events. Deferred (non-blocking): §3.5 Gignet tiers → v1.1, §3.4/§3.6 v1-promotion calibration triggers → Day-30 window
+version: v1.0
+authority: Todd sign-off granted 2026-05-27 on §3 v0 locks, §5 retry policy, and the §6 checklist (non-deferred items). Now binding.
 serves: foundational_goal_gigaton_engineered_brand_experience (PPIM)
 ppim_interaction: meta — governs every money-out-of-platform event for every operator entity
 ppim_economics: directly determines net rev share routing across CBP / Ti Solutions clients / Multipli / Gignet / Gigaton-self
@@ -31,7 +31,7 @@ cross_refs:
 
 # Compensation + Payout Structure — v1 Scaffold
 
-> **Document state.** This is a SCAFFOLD. Every locked decision below is memory-backed and ready to ship; every TBD in §3 requires Todd's per-entity percentage input before this document promotes from DRAFT → ACTIVE. Deadline: **Thursday 2026-05-28 EOD**.
+> **Document state.** ACTIVE as of **2026-05-27** (ahead of the Thursday 2026-05-28 EOD deadline). All v0 locked decisions are binding policy. Deferred, non-blocking: §3.5 Gignet tiers (→ v1.1) and the §3.4/§3.6 v1-promotion calibration triggers (→ Day-30 window). The gigaton-engine billing module may run live for any entity with §3 percentages set; Gignet stays dry-run until its tiers are filled in at v1.1.
 
 ---
 
@@ -95,8 +95,8 @@ Revenue model: per-booking GMV → split across owner / cleaning ops / Gigaton p
 | Ti Solutions service fee (only if owner elects managed-service tier; CBP is direct-managed = 0%) | **3.0% of net** ✅ LOCKED v0 (math-backed — replaces 5% strawman) | monthly | Internal credit | BPO-appropriate ~32% margin at 3% net. 5% strawman exceeded market-competitive ceiling once OTA + cleaning are already off-top. |
 | Risk reserve (chargeback / damage cushion) | **1.5% of net** ✅ LOCKED v0 | per-transaction | Internal credit | Industry-norm hospitality reserve. |
 
-**Sum-to-100 check (full-service with Ti)**: OTA off-top → then on net: cleaning pass-through (~14% if absorbed equivalent) + Gigaton 5.0% + Ti 3.0% + risk 1.5% + owner 78% = 100% of net ✓
-**Sum-to-100 check (self-serve no Ti — CBP today)**: cleaning ~14% + Gigaton 5.0% + risk 1.5% + owner 81% (note: cleaning pass-through itemized = doesn't take from owner share if invoiced separately) ✓
+**Sum-to-100 check (full-service with Ti)**: OTA off-top → then on net: cleaning pass-through (~12.5% absorbed-equivalent) + Gigaton 5.0% + Ti 3.0% + risk 1.5% + owner 78% = 100% of net ✓
+**Sum-to-100 check (self-serve no Ti — CBP today)**: cleaning ~12.5% + Gigaton 5.0% + risk 1.5% + owner 81% = 100% of net ✓ (note: cleaning pass-through itemized = doesn't take from owner share if invoiced separately; the ~12.5% absorbed-equivalent is illustrative — actual cleaning is a flat per-stay $ ≈ 10% of net on the representative booking, see Math basis below)
 
 ### Math basis (v0 LOCKED 2026-05-26)
 
@@ -481,7 +481,7 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 
 **Pre-filled strawmen = 21 of 29; strategic-only remaining = 8 (highlighted with `**STRATEGIC**` flag in §3).**
 
-**Promotion gate**: when every checkbox above is ticked + Todd updates the front-matter `status:` from `DRAFT` → `ACTIVE`, this doc becomes the binding policy. Until then, gigaton-engine billing module remains in dry-run mode for any operator whose §3 percentages are unset. Strawmen are accepted by default; Todd un-ticks any line to revise.
+**Promotion gate (satisfied 2026-05-27)**: this doc promotes to `ACTIVE` once every *non-deferred* checkbox above is ticked + Todd updates the front-matter `status:`. Three boxes remain unticked **by design, not as blockers**: §3.5 Gignet tiers (no active affiliate deal → deferred to v1.1 / Day-30 calibration) and the two v1-promotion calibration lines in §3.4 Multipli + §3.6 Gigaton-self (calibration-trigger inputs, not v0 locks). All v0 locked values stand as binding policy. The gigaton-engine billing module runs live for any entity with §3 percentages set (CBP, Multipli, Gigaton-self) and stays in dry-run mode only for entities whose percentages remain unset (Gignet until v1.1). Strawmen are accepted by default; Todd un-ticks any line to revise.
 
 ---
 
@@ -513,7 +513,7 @@ Cross-reference table linking each section to the underlying memory file and arc
 | v0.1 (this scaffold) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Initial scaffold; §2 LOCKED + §4 LOCKED + §3 TBDs awaiting Todd ratification; deadline 2026-05-28 EOD |
 | v0.2 (hybrid strawman fill) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Pre-filled 21 of 29 TBDs with industry-norm strawmen marked `(_strawman; override if needed_)`; 8 strategic %s flagged `**STRATEGIC — Todd to fill in**` |
 | v0.3 (math-backed v0) | 2026-05-26 eve | Claude Opus 4.7 (this session) — under Todd direction "ensure all math is completed as correctly as possible from start" | **3 research agents in parallel** derived math-backed v0 values from real artifacts (`carmen-beach-agent-costing.md` + `carmen-beach-occupancy-roi.md` + `gigaton-playa-dag-model.md` + `gigaton-company-valuation.md` + `multipli_research_brief.md` + `multipli/sample_bundles/*/deal_economics_model.json` + 11+ Cloud Run `cloudbuild.yaml` configs) + 2025-2026 industry benchmarks (Airbnb 15.5% / VRBO 8% / Vacasa 25-35% / Evolve 10% / MasterHost PDC 12% / SaaS Capital 2025 / Benchmarkit 2025 / Rule-of-40 / channel-partner 5-20% band). **§3.1 CBP** v0.2 strawmen replaced: Gigaton 2.5% → 5.0% (cost-to-serve math); Ti 5% → 3% (market-ceiling); cleaning pass-through itemized; owner 78%/81%; risk reserve 1.5% added. **§3.3 DELETED** (4 entities reclassified as knowledge-sources, 1 dropped). **§3.4 Multipli** repositioned under GIGATON brand with full math-backed terms (18% perf share + monthly T+15 + Stripe Connect + $1K floor + no retainer + 180d attribution + 6mo term + $250K Y1 cap) + self-serve tokenized link architecture spec'd (`gigaton.ai/onboard/multipli/<jwt>` + bundle + reuses + ~23h new dev work). **§3.6 Gigaton-self** Option A LOCKED (Ops 40 / R&D 35 / Reserves 25 / Distribution 0; $180K floor with auto-bump). **§3.7 NEW** knowledge-extraction sources catalog (Kollosche+McGrath for CBP RE; Medvidi+CareRev for service/HR/acquisition doctrine; Integra-CCS dropped). PPIM axis-weighted multi-objective (M-theory) justifications on every line. Logged to MASTER_PLAN.md §13 via `add_decision` MCP 21:42 + 22:03 UTC. Companion ratifications: D1 + D2 + MIG-DEFER. |
-| v1.0 (target) | 2026-05-28 EOD | Todd | Promote DRAFT → ACTIVE: only remaining input = approve v0 as locked OR amend specific lines. Gignet §3.5 (5 tiers + tail policy) deferred to v1.1 (Day-30 calibration window). |
+| v1.0 (RATIFIED) | 2026-05-27 | Todd (via Claude Opus 4.7 1M) | Promoted DRAFT → ACTIVE one day ahead of deadline. v0 math-backed values approved as locked/binding. Pre-flip fixes: §3.1 sum-to-100 cleaning figure corrected ~14% → ~12.5% (the prior "✓" overstated by 1.5pp); §6 promotion-gate text reconciled to acknowledge the 3 by-design deferrals (Gignet §3.5 → v1.1; §3.4 Multipli + §3.6 Gigaton-self v1-promotion calibration → Day-30) rather than requiring every box. Gignet §3.5 (5 tiers + tail policy) deferred to v1.1 (Day-30 calibration window). |
 
 ---
 
