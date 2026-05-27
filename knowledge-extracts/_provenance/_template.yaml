@@ -1,0 +1,29 @@
+# Provenance record template
+# Per docs/governance/comp_payout_structure_v1.md §3.7.
+# Copy this shape for each pattern derived from a knowledge-extraction source
+# (Kollosche / McGrath / Medvidi / CareRev) and applied to platform doctrine or CBP.
+# Integra-CCS is OUT OF SCOPE — do not create records for it.
+
+# REQUIRED — origin of the borrowed pattern.
+# Format: <source>/<work-product-slug>_<version-or-period>
+# <source> is one of: kollosche | mcgrath | medvidi | carerev
+provenance.source: <source>/<work-product-slug>_<version-or-period>
+
+# REQUIRED — where the pattern was applied (repo-relative path or artifact id).
+derived_artifact: <path/to/artifact>
+
+# REQUIRED — destination scope. One of: CBP | platform-doctrine
+applied_to: <CBP|platform-doctrine>
+
+# REQUIRED — one-line description of the pattern lifted.
+pattern: "<what was borrowed>"
+
+# REQUIRED — date the pattern was extracted/applied (YYYY-MM-DD).
+extracted_on: 2026-05-27
+
+# OPTIONAL — additional sources if the pattern draws on more than one.
+# additional_sources:
+#   - <source>/<work-product-slug>_<version-or-period>
+
+# OPTIONAL — free-text notes / justification / linkage.
+notes: ""

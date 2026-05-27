@@ -691,6 +691,12 @@ stages:
       automation candidate scored by Decision Execution Engine.
     owning_engine: human-management-engine
     secondary_engines: [decision-engine]
+    # Stage 7 collects the operator's payout config (Capability+Payouts). The
+    # compensation + payout structure that governs every money-out-of-platform
+    # event is ratified in the governance doc referenced below (see its §5.2).
+    references:
+      governance:
+        - docs/governance/comp_payout_structure_v1.md  # comp + payout structure v1.0 (ACTIVE) — §5.2 links this stage
     entry_signal:
       type: prior_stage_completed
       stage_id: stage-6-org-processes
