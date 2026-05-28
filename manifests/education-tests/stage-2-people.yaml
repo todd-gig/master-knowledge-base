@@ -1,0 +1,181 @@
+# Education tests — Stage 2: People & Human Data
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[2]
+# Schema: manifests/education-tests/SCHEMA.md
+
+stage_id: stage-2-people
+manifest_education_block:
+  why_1min: /docs/why/people-1min.md
+  what_3min: /docs/what/people-3min.md
+  deep_dive_10min: /docs/deep/bft-snapshot-explainer-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/people-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-ppim-is-interaction-management
+        prompt: |
+          PPIM expands to "predictably profitable INTERACTION MANAGEMENT of a gigaton
+          engineered brand experience." Why does that make Stage 2 (People) structurally necessary?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "interaction"
+          - regex: "(?i)personalized|target|generic"
+        weight: 1.0
+
+      - id: why-bft-required
+        prompt: |
+          Without a BFT snapshot per person, what is true of every interaction?
+        type: multiple_choice
+        options:
+          - id: a
+            text: It is generic
+          - id: b
+            text: It is illegal
+          - id: c
+            text: It is rate-limited
+          - id: d
+            text: It is automatically escalated
+        correct: a
+        weight: 1.0
+
+      - id: why-personalization-unlock
+        prompt: |
+          True or false: Personalized communication becomes available only AFTER Stage 2
+          completes.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/people-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-owning-engine
+        prompt: |
+          Which engine OWNS Stage 2?
+        type: multiple_choice
+        options:
+          - id: a
+            text: persona-engine
+          - id: b
+            text: intelligence-silo
+          - id: c
+            text: human-management-engine
+          - id: d
+            text: decision-engine
+        correct: a
+        weight: 1.0
+
+      - id: what-activation-counts
+        prompt: |
+          The Stage 2 activation gate requires BOTH human_persona_count and
+          bft_snapshots_available_count to be greater than or equal to what value?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "3"
+        weight: 1.0
+
+      - id: what-three-actions
+        prompt: |
+          Which three actions does Stage 2 require?
+        type: multiple_choice
+        options:
+          - id: a
+            text: review-proposed-people, capture-initial-intent, classify-internal-external
+          - id: b
+            text: declare-legal-entity, select-jurisdictions, sign-scope-contract
+          - id: c
+            text: fill-brand-voice-variables, declare-icp-segments, define-lifecycle-stages
+          - id: d
+            text: review-proposed-people, declare-icp-segments, classify-internal-external
+        correct: a
+        weight: 1.0
+
+      - id: what-classifications
+        prompt: |
+          Name two of the person classifications the classify-internal-external action supports.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "internal"
+          - keyword: "customer"
+          - keyword: "vendor"
+          - keyword: "regulator"
+          - keyword: "prospect"
+        weight: 1.0
+        references_action: classify-internal-external
+
+  - tier: deep_dive
+    source_doc: /docs/deep/bft-snapshot-explainer-10min.md
+    pass_criteria:
+      min_score_pct: 90
+      attempts_allowed: 3
+    questions:
+      - id: deep-bft-meaning
+        prompt: |
+          BFT (the snapshot type Stage 2 produces per person) is the foundation of
+          personalized interaction. What single best-fit phrase describes what a
+          BFT snapshot CAPTURES?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "behavioral"
+          - regex: "(?i)profile|model|disposition"
+        weight: 1.5
+
+      - id: deep-intent-drives-bft
+        prompt: |
+          The capture-initial-intent action requires one sentence per person.
+          What does that one sentence drive downstream?
+        type: multiple_choice
+        options:
+          - id: a
+            text: BFT scoring
+          - id: b
+            text: Stage 0 axiom acknowledgement
+          - id: c
+            text: The activation gate TTL
+          - id: d
+            text: The Variable Registry seed
+        correct: a
+        weight: 1.0
+        references_action: capture-initial-intent
+
+      - id: deep-classification-routing
+        prompt: |
+          True or false: Each classification (internal / customer / vendor /
+          regulator / prospect) routes differently downstream.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+      - id: deep-secondary-engines
+        prompt: |
+          Beyond the owning persona-engine, which two secondary engines collaborate
+          on Stage 2?
+        type: multiple_choice
+        options:
+          - id: a
+            text: intelligence-silo and human-management-engine
+          - id: b
+            text: decision-engine and ppeme
+          - id: c
+            text: gigaton-gateway and intelligence-silo
+          - id: d
+            text: human-management-engine and decision-engine
+        correct: a
+        weight: 1.0
+
+      - id: deep-predictability-medium
+        prompt: |
+          The PPIM signature lists Stage 2 predictability as MEDIUM. What does it
+          depend on?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "BFT"
+          - regex: "(?i)snapshot|quality"
+        weight: 1.0

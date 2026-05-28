@@ -1,0 +1,105 @@
+# Education tests — Stage 5: Industry Processes
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[5]
+# Schema: manifests/education-tests/SCHEMA.md
+#
+# NOTE: Manifest does NOT reference a deep_dive_*.md for this stage.
+# Per SCHEMA.md authoring rule #4, no deep_dive test is authored.
+
+stage_id: stage-5-industry-processes
+manifest_education_block:
+  why_1min: /docs/why/industry-processes-1min.md
+  what_3min: /docs/what/industry-processes-3min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/industry-processes-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-templates-vs-discovery
+        prompt: |
+          Why does Stage 5 use industry templates BEFORE Stage 6 org-process discovery?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "minutes"
+          - regex: "(?i)save|days|consult"
+        weight: 1.0
+
+      - id: why-catalog-binds-vars
+        prompt: |
+          Each catalog entry binds to Variable Registry tags. Which two tags
+          specifically?
+        type: multiple_choice
+        options:
+          - id: a
+            text: industry, sub_vertical
+          - id: b
+            text: brand_voice, ICP
+          - id: c
+            text: north_star, constraints
+          - id: d
+            text: jurisdiction, regulator
+        correct: a
+        weight: 1.0
+
+      - id: why-templates-save-time-true-false
+        prompt: |
+          True or false: The PPIM signature for Stage 5 estimates the catalog
+          saves the equivalent of 12-30 hours of consulting.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/industry-processes-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-triage-options
+        prompt: |
+          Each catalog entry receives which three triage outcomes?
+        type: multiple_choice
+        options:
+          - id: a
+            text: Applies / Doesn't Apply / Modify
+          - id: b
+            text: Accept / Reject / Defer
+          - id: c
+            text: Adopt / Skip / Escalate
+          - id: d
+            text: Required / Optional / Forbidden
+        correct: a
+        weight: 1.0
+        references_action: triage-catalog
+
+      - id: what-modify-fork
+        prompt: |
+          The Modify triage outcome forks the catalog entry into which next stage
+          for org-specific codification?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Stage 6"
+          - keyword: "stage-6"
+          - regex: "(?i)org.?processes"
+        weight: 1.0
+
+      - id: what-activation-uncategorized
+        prompt: |
+          The Stage 5 activation gate requires uncategorized_count to be equal to
+          what value?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "0"
+        weight: 1.0
+
+      - id: what-inherits-from-stage-0
+        prompt: |
+          True or false: The select-industry action inherits from Stage 0
+          declarations where present.
+        type: true_false
+        correct: true
+        weight: 1.0
+        references_action: select-industry

@@ -1,0 +1,120 @@
+# Education tests — Stage 7: Human-assigned + Automated Processes
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[7]
+# Schema: manifests/education-tests/SCHEMA.md
+#
+# NOTE: Manifest does NOT reference a deep_dive_*.md for this stage.
+# Per SCHEMA.md authoring rule #4, no deep_dive test is authored.
+
+stage_id: stage-7-assignments
+manifest_education_block:
+  why_1min: /docs/why/assignments-1min.md
+  what_3min: /docs/what/assignments-3min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/assignments-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-unowned-doesnt-run
+        prompt: |
+          What is the operator-facing motto for Stage 7?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "process without an owner"
+          - regex: "(?i)doesn'?t run|won'?t run"
+        weight: 1.0
+
+      - id: why-after-stage-7
+        prompt: |
+          After Stage 7 every codified workflow has either:
+        type: multiple_choice
+        options:
+          - id: a
+            text: A human accountable, or an automation candidate scored by Decision Execution Engine
+          - id: b
+            text: A BFT snapshot or an axiom acknowledgement
+          - id: c
+            text: A north star or a constraint
+          - id: d
+            text: A Variable Registry instance or a Penrose entry
+        correct: a
+        weight: 1.0
+
+      - id: why-no-process-leaves-without-owner-true-false
+        prompt: |
+          True or false: A process can legitimately leave Stage 7 without either
+          an owner OR an automation candidate score.
+        type: true_false
+        correct: false
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/assignments-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-activation-gate
+        prompt: |
+          The Stage 7 activation gate requires unassigned_initiative_count to
+          equal what value?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "0"
+        weight: 1.0
+
+      - id: what-ux-assign-owners
+        prompt: |
+          How does the assign-human-owners action describe its UX?
+        type: multiple_choice
+        options:
+          - id: a
+            text: Drag-and-drop your Stage 2 people onto Stage 6 workflows
+          - id: b
+            text: A free-text form per workflow
+          - id: c
+            text: A single-button bulk assignment
+          - id: d
+            text: A CSV upload
+        correct: a
+        weight: 1.0
+        references_action: assign-human-owners
+
+      - id: what-multiple-owners
+        prompt: |
+          True or false: A single workflow may have multiple human owners assigned.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+      - id: what-automation-scoring-disposition
+        prompt: |
+          The score-automation-candidates action lets the operator do which three
+          things with each scored candidate?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "approve"
+          - keyword: "reject"
+          - keyword: "queue"
+          - regex: "(?i)human"
+        weight: 1.0
+        references_action: score-automation-candidates
+
+      - id: what-tier-first-half
+        prompt: |
+          Stage 7 completion unlocks the FIRST HALF of which capability tier?
+        type: multiple_choice
+        options:
+          - id: a
+            text: tier_4_costs
+          - id: b
+            text: tier_3_recommend
+          - id: c
+            text: tier_5_live
+          - id: d
+            text: tier_2_personalized
+        correct: a
+        weight: 1.0

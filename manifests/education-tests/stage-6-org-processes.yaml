@@ -1,0 +1,115 @@
+# Education tests — Stage 6: Organization Processes
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[6]
+# Schema: manifests/education-tests/SCHEMA.md
+#
+# NOTE: Manifest does NOT reference a deep_dive_*.md for this stage.
+# Per SCHEMA.md authoring rule #4, no deep_dive test is authored.
+
+stage_id: stage-6-org-processes
+manifest_education_block:
+  why_1min: /docs/why/org-processes-1min.md
+  what_3min: /docs/what/org-processes-3min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/org-processes-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-industry-takes-you-partway
+        prompt: |
+          Industry templates carry an operator how far before org-specific work
+          is required?
+        type: multiple_choice
+        options:
+          - id: a
+            text: 0-20%
+          - id: b
+            text: 20-40%
+          - id: c
+            text: 60-80%
+          - id: d
+            text: 100%
+        correct: c
+        weight: 1.0
+
+      - id: why-hme-becomes-aware
+        prompt: |
+          After Stage 6, what does HME know about the operator that it did not
+          before?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "team"
+          - regex: "(?i)automate|assign|workflow"
+        weight: 1.0
+
+      - id: why-stage-6-required-true-false
+        prompt: |
+          True or false: Stage 6 is what enables HME to automate OR assign work.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/org-processes-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-owning-engine
+        prompt: |
+          Which engine OWNS Stage 6?
+        type: multiple_choice
+        options:
+          - id: a
+            text: human-management-engine
+          - id: b
+            text: persona-engine
+          - id: c
+            text: decision-engine
+          - id: d
+            text: intelligence-silo
+        correct: a
+        weight: 1.0
+
+      - id: what-activation-initiative-count
+        prompt: |
+          The Stage 6 activation gate requires org_initiatives_with_workflow_type
+          to be greater than or equal to what value?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "10"
+        weight: 1.0
+
+      - id: what-escalation-min-count
+        prompt: |
+          The define-escalation-paths action auto-completes after how many
+          EscalationPathDefined events?
+        type: multiple_choice
+        options:
+          - id: a
+            text: 1
+          - id: b
+            text: 3
+          - id: c
+            text: 5
+          - id: d
+            text: 10
+        correct: b
+        weight: 1.0
+        references_action: define-escalation-paths
+
+      - id: what-workflow-sources
+        prompt: |
+          Name one source the platform uses to extract candidate workflows for the
+          review-proposed-workflows action.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Stage 1"
+          - keyword: "sources"
+          - keyword: "meeting transcripts"
+          - regex: "(?i)transcript|source"
+        weight: 1.0
+        references_action: review-proposed-workflows

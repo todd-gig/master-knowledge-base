@@ -44,6 +44,7 @@ version: 1.0.0
 manifest_id: gigaton-operator-onboarding
 introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target
 canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
+education_tests_catalog: master-knowledge-base/manifests/education-tests/INDEX.md
 ratified_by:
   - todd@gigaton.ai     # assumed within triad signoff window 2026-05-14 → 2026-05-24
   - matt@gigaton.ai

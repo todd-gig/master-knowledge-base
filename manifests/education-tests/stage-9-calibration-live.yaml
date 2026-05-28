@@ -1,0 +1,239 @@
+# Education tests — Stage 9: Calibration → Live Mode
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[9]
+#   + the v1.1.0 amendment doctrine (no clock; evidence-based graduation gate;
+#     four verification dimensions; post-graduation "monitor more closely";
+#     drift_critical regression auto-suspends capability).
+# Schema: manifests/education-tests/SCHEMA.md
+#
+# This is the highest-leverage test in the catalog — the Stage 9 graduation gate
+# is what consumes education_tests_passed_all == true. The deep_dive specifically
+# verifies the v1.1.0 doctrine that REMOVED the calendar clock from the gate.
+
+stage_id: stage-9-calibration-live
+manifest_education_block:
+  why_1min: /docs/why/calibration-1min.md
+  what_3min: /docs/what/calibration-3min.md
+  deep_dive_10min: /docs/deep/ovs-calibration-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/calibration-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-onboarding-ends-on-trusted-decisions
+        prompt: |
+          Onboarding doesn't end when data lands. When does it end?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "live"
+          - keyword: "trusted decisions"
+          - regex: "(?i)trusted.*decisions|live.*decisions"
+        weight: 1.0
+
+      - id: why-three-roles
+        prompt: |
+          Which three subsystems collaborate during the shadow period?
+        type: multiple_choice
+        options:
+          - id: a
+            text: PPEME simulates, decision-engine recommends, OVS-Calibration scores attribution
+          - id: b
+            text: HME simulates, intel-silo recommends, decision-engine scores
+          - id: c
+            text: persona-engine simulates, ppeme recommends, gateway scores
+          - id: d
+            text: decision-engine simulates, OVS scores, persona-engine recommends
+        correct: a
+        weight: 1.0
+
+      - id: why-no-skip-true-false
+        prompt: |
+          True or false: An operator can skip Stage 9 and jump straight to
+          tier_5_live by configuring a workflow_overlay.
+        type: true_false
+        correct: false
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/calibration-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-four-actions
+        prompt: |
+          Which four actions make up Stage 9, in order?
+        type: multiple_choice
+        options:
+          - id: a
+            text: enable-shadow-mode → review-shadow-recommendations → graduate-to-live-recommend → graduate-to-live-execute
+          - id: b
+            text: graduate-to-live-execute → graduate-to-live-recommend → review-shadow-recommendations → enable-shadow-mode
+          - id: c
+            text: enable-shadow-mode → graduate-to-live-recommend → review-shadow-recommendations → graduate-to-live-execute
+          - id: d
+            text: review-shadow-recommendations → enable-shadow-mode → graduate-to-live-execute → graduate-to-live-recommend
+        correct: a
+        weight: 1.0
+
+      - id: what-shadow-review-count
+        prompt: |
+          The review-shadow-recommendations action auto-completes after how many
+          ShadowReviewCompleted events?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "4"
+        weight: 1.0
+        references_action: review-shadow-recommendations
+
+      - id: what-tier-unlocked
+        prompt: |
+          Which tier does Stage 9 completion unlock?
+        type: multiple_choice
+        options:
+          - id: a
+            text: tier_5_live
+          - id: b
+            text: tier_4_costs
+          - id: c
+            text: tier_3_recommend
+          - id: d
+            text: tier_2_personalized
+        correct: a
+        weight: 1.0
+
+      - id: what-live-recommend-vs-execute
+        prompt: |
+          Briefly: What is the key difference between "live recommend" and "live
+          auto-execute"?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "auto"
+          - regex: "(?i)execute|autonomous|no auto-?execute"
+        weight: 1.0
+
+  - tier: deep_dive
+    source_doc: /docs/deep/ovs-calibration-10min.md
+    pass_criteria:
+      min_score_pct: 90   # INTEL-3 seed, range 70-95; HIGHEST LEVERAGE — tests the v1.1.0 amendment
+      attempts_allowed: 3
+    questions:
+
+      # ── v1.1.0 AMENDMENT: no calendar clock ────────────────────────────────
+      - id: deep-v110-no-clock
+        prompt: |
+          The v1.1.0 amendment to the Stage 9 graduation gate removed a specific
+          calendar-based predicate. What predicate did it remove, and what kind
+          of gate replaced it?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "shadow_days_elapsed"
+          - keyword: "evidence-based"
+          - regex: "(?i)no clock|no calendar|evidence"
+        weight: 2.0
+
+      - id: deep-v110-clock-true-false
+        prompt: |
+          True or false (per v1.1.0): A 30-day calendar elapsed period is STILL
+          required for Stage 9 graduation even when all evidence dimensions are green.
+        type: true_false
+        correct: false
+        weight: 2.0
+
+      # ── Four verification dimensions ───────────────────────────────────────
+      - id: deep-four-dimensions
+        prompt: |
+          Name the four verification dimensions the v1.1.0 evidence-based
+          graduation gate evaluates.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "drift_critical"
+          - keyword: "interactions_logged"
+          - keyword: "shadow_reviews"
+          - keyword: "education_tests_passed"
+        weight: 2.0
+
+      - id: deep-fourth-dimension
+        prompt: |
+          Which of the following is the FOURTH verification dimension introduced
+          by v1.1.0 (the one this catalog's tests provide the operand for)?
+        type: multiple_choice
+        options:
+          - id: a
+            text: education_tests_passed_all == true
+          - id: b
+            text: shadow_days_elapsed >= 30
+          - id: c
+            text: scope_contract.signed_at is_not_null
+          - id: d
+            text: tier_4_costs unlocked
+        correct: a
+        weight: 1.5
+
+      # ── Monitor more closely (post-graduation) ─────────────────────────────
+      - id: deep-monitor-more-closely
+        prompt: |
+          After an operator graduates to live mode, what does the doctrine
+          phrase "monitor more closely" specifically refer to?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "drift"
+          - regex: "(?i)tighter.*threshold|tighter.*budget|elevated|continuous"
+        weight: 1.5
+
+      - id: deep-post-grad-monitoring-true-false
+        prompt: |
+          True or false: After graduation, the Penrose scoreboard cadence and
+          drift-threshold sensitivity tighten relative to the shadow period.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+      # ── drift_critical regression → auto-suspend ───────────────────────────
+      - id: deep-drift-critical-auto-suspend
+        prompt: |
+          Why does a drift_critical regression AUTO-SUSPEND tier_5_live capability
+          rather than just emitting a warning? Answer in one sentence.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "trust"
+          - regex: "(?i)evidence.*was.*premise|premise.*revoked|auto.*execute.*risk|inviolable"
+        weight: 2.0
+
+      - id: deep-drift-critical-suspend-mc
+        prompt: |
+          When drift_critical regresses post-graduation, what is the FIRST
+          system action?
+        type: multiple_choice
+        options:
+          - id: a
+            text: tier_5_live (live auto-execute) is auto-suspended
+          - id: b
+            text: The operator is emailed a warning
+          - id: c
+            text: A new shadow_days_elapsed timer is started
+          - id: d
+            text: The Variable Registry is reseeded
+        correct: a
+        weight: 1.5
+
+      # ── Bonus: events emitted ──────────────────────────────────────────────
+      - id: deep-events-emitted
+        prompt: |
+          Which event signals tier_5_live is granted at the end of Stage 9?
+        type: multiple_choice
+        options:
+          - id: a
+            text: LiveAutoExecuteActivated
+          - id: b
+            text: ShadowModeEnabled
+          - id: c
+            text: ShadowReviewCompleted
+          - id: d
+            text: StageStarted
+        correct: a
+        weight: 1.0
+        references_action: graduate-to-live-execute
