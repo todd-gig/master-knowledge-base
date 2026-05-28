@@ -31,18 +31,18 @@ tar --exclude='.git' --exclude='node_modules' --exclude='.pytest_cache' \
 gcloud storage cp "$BUNDLE"   "${BUCKET}/bundles/mkb-${STAMP}.bundle"
 gcloud storage cp "$ARCHIVE"  "${BUCKET}/worktree/mkb-${STAMP}.tar.gz"
 
-# 4. Prune old bundles — gsutil-style age filter via list+sort
+# 4. Prune old bundles — portable across BSD/GNU awk
 CUTOFF=$(date -u -v-${RETAIN_DAYS}d +%Y%m%d 2>/dev/null || date -u -d "${RETAIN_DAYS} days ago" +%Y%m%d)
 echo "Pruning bundles older than ${CUTOFF}…"
-gcloud storage ls "${BUCKET}/bundles/" 2>/dev/null \
-  | awk -F/ -v cutoff="$CUTOFF" '
-      {
-        f=$NF
-        if (match(f, /mkb-([0-9]{8})T/, m)) {
-          if (m[1] < cutoff) print $0
-        }
-      }' \
-  | xargs -r -n1 gcloud storage rm
+prune_root() {
+  local root="$1"
+  gcloud storage ls "$root" 2>/dev/null \
+    | sed -nE 's|.*/mkb-?(worktree-)?([0-9]{8})T.*|\2 &|p' \
+    | awk -v cutoff="$CUTOFF" '$1 < cutoff { $1=""; sub(/^ /,""); print }' \
+    | xargs -r -n1 gcloud storage rm
+}
+prune_root "${BUCKET}/bundles/"
+prune_root "${BUCKET}/worktree/"
 
 rm -f "$BUNDLE" "$ARCHIVE"
 echo "MKB backup complete: ${BUCKET}/bundles/mkb-${STAMP}.bundle"
