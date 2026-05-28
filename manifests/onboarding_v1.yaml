@@ -1,4 +1,4 @@
-# Gigaton Operator Onboarding — Canonical Manifest v1.2.0
+# Gigaton Operator Onboarding — Canonical Manifest v1.0.0
 #
 # This manifest is the SOURCE OF TRUTH for the directed onboarding workflow.
 # It is declarative data. No business logic lives here. Logic lives in:
@@ -40,7 +40,7 @@
 #   - Versioned audit artifact ("operator X completed manifest v1.0.0")
 #   - Aligns with decision-engine's declarative DecisionRecord pattern
 
-version: 1.2.0
+version: 1.0.0
 manifest_id: gigaton-operator-onboarding
 introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target
 canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
@@ -138,35 +138,6 @@ nav_circles:
     tier_required: tier_5_live
     icon: crown
     additional_gate: '@gigaton.ai email domain'
-  # Decision-approval surfaces — reachable by URL but previously invisible
-  # in NavRail because no nav_circles entries existed. Gated at tier_3_recommend
-  # (operators can review/approve recommendations once tier-3 capabilities
-  # — draft recommendations + goals/processes — are unlocked).
-  - circle_id: review_queue
-    label: Review Queue
-    route: /admin/review-queue
-    tier_required: tier_3_recommend
-    icon: inbox
-  - circle_id: founder_signoff
-    label: Sign-off
-    route: /founder/signoff
-    tier_required: tier_3_recommend
-    icon: file-signature
-  - circle_id: proposals
-    label: Proposals
-    route: /founder/proposals
-    tier_required: tier_3_recommend
-    icon: list-checks
-  - circle_id: owner_proposals
-    label: Owner Proposals
-    route: /owner/proposals
-    tier_required: tier_3_recommend
-    icon: list
-  - circle_id: overrides
-    label: Overrides
-    route: /overrides
-    tier_required: tier_3_recommend
-    icon: shield-check
 
 # Deprecated routes — redirect rules the FE App.tsx enforces.
 deprecated_routes:
@@ -554,13 +525,9 @@ stages:
       method: GET
       url: '{decision_engine_base}/v1/operators/{operator_id}/industry-process-triage'
       predicate:
-        all_of:
-          - json_path: '$.industry_catalog_exists'
-            operator: eq
-            value: true
-          - json_path: '$.uncategorized_count'
-            operator: eq
-            value: 0
+        json_path: '$.uncategorized_count'
+        operator: eq
+        value: 0
       ttl_seconds: 60
     actions:
       - id: select-industry
@@ -570,27 +537,6 @@ stages:
         action_href: '/onboarding/industry?action=select'
         auto_complete_on:
           - event_type: IndustrySelected
-      - id: submit-industry-catalog
-        title: Help us build the catalog for your industry
-        description: |
-          No catalog exists yet for your industry + sub-vertical. Help us seed it
-          by describing the standard processes, escalation paths, regulatory
-          frameworks, customer lifecycle stages, and pricing models. Your
-          submission segments + qualifies you (for free), and seeds the catalog
-          for the next operator in the same industry — pay-it-forward modular
-          replication per [[foundational_modular_replication_via_input_substitution]].
-        action_label: Submit catalog draft
-        action_href: '/onboarding/industry?action=submit-catalog'
-        conditional_on:
-          json_path: '$.industry_catalog_exists'
-          operator: eq
-          value: false
-        auto_complete_on:
-          - event_type: IndustryCatalogSubmitted
-        variable_registry_filter:
-          required_for: industry_catalog_submission
-          tag: industry
-        education_ref: '/docs/why/industry-catalog-self-healing-3min.md'
       - id: triage-catalog
         title: Triage the loaded catalog
         description: Each process gets Applies / Doesn't Apply / Modify. The Modify path forks the catalog entry into Stage 6.
@@ -605,7 +551,6 @@ stages:
     events_emitted:
       - StageStarted
       - IndustrySelected
-      - IndustryCatalogSubmitted
       - IndustryProcessTriaged
       - StageCompleted
     capability_unlocks_on_completion: tier_3_recommend
@@ -782,6 +727,78 @@ stages:
         auto_complete_on:
           - event_type: BillingConnectorEstablished
             min_count: 1
+      - id: register-provider-credentials
+        title: Register API keys, secrets, and tokens for every inventoried tool
+        description: |
+          For each tool you inventoried (LLM providers, comms, payments, productivity,
+          OTAs, analytics, etc.), I'll walk you through providing the credential
+          inline in chat. Each credential is validated against the provider's API
+          before storage; nothing lands in Secret Manager until the probe succeeds.
+          Credentials never appear in chat transcripts — the paste affordance is
+          masked end-to-end. Per-operator namespaces; no cross-operator visibility.
+        action_label: Register credentials
+        action_href: '/onboarding/tech-stack?action=credentials'
+        credential_classes:
+          # The exhaustive set of credential types the orchestrator can prompt for.
+          # The actual prompts are driven by connector_catalog rows; this list
+          # documents the universe of credentials the platform knows how to ingest.
+          # Per-class: how the orchestrator collects it + which probe validates it.
+          llm_provider:
+            providers: [openai, anthropic_direct, gemini_direct, vertex_ai_iam]
+            collection: api_key_paste_or_iam_attestation
+            probe: '{provider}_smoke_completion_call'
+            note: 'Vertex AI Claude+Gemini use IAM (no key); only OpenAI + direct-API Anthropic/Gemini need keys'
+          payments:
+            providers: [stripe, paypal, square, quickbooks]
+            collection: oauth_flow_or_api_key_paste
+            probe: '{provider}_list_balances_or_test_charge'
+          communications:
+            providers: [twilio, sendgrid, mailchimp, slack, mailgun, postmark]
+            collection: api_key_paste_or_oauth
+            probe: '{provider}_account_describe'
+          productivity:
+            providers: [notion, clickup, asana, linear, monday, airtable]
+            collection: api_key_paste_or_oauth
+            probe: '{provider}_workspace_describe'
+          source_code:
+            providers: [github_pat, gitlab_token, bitbucket_app_password]
+            collection: api_key_paste
+            probe: '{provider}_list_repos_first_page'
+            note: 'GitHub PAT used for webhook config + repo ingest; minimal scopes required'
+          ota_booking:
+            providers: [airbnb_ical, vrbo_ical, booking_com_ical, hospitable, hostaway]
+            collection: ical_url_paste_or_api_key
+            probe: '{provider}_list_reservations_last_30d'
+          analytics:
+            providers: [ga4_service_account, hubspot_api_key, mixpanel_service, segment_write_key]
+            collection: service_account_json_upload_or_api_key
+            probe: '{provider}_account_summary'
+          calendar_email:
+            providers: [gmail_oauth, google_calendar_oauth, outlook_oauth, icloud_app_password]
+            collection: oauth_flow
+            probe: '{provider}_list_first_page'
+          storage:
+            providers: [google_drive_oauth, dropbox_oauth, onedrive_oauth, s3_iam_key]
+            collection: oauth_flow_or_iam_key_paste
+            probe: '{provider}_list_root'
+            note: 'Google Drive collected separately in Stage 1; other storage providers prompted here'
+          ai_image_video:
+            providers: [openai_dalle, gemini_omni, runway, elevenlabs, vapi]
+            collection: api_key_paste
+            probe: '{provider}_minimal_render_test'
+          custom:
+            description: 'For any provider not in the canonical list, operator declares: provider_name + credential_type + secret_value. Probe is generic "store + retrieve roundtrip".'
+            collection: custom_provider_paste_form
+        storage_target: 'per-operator Secret Manager — name pattern: <operator_id>--<provider>--<purpose>:latest'
+        auto_complete_on:
+          - event_type: ProviderCredentialRegistered
+            min_count_predicate: all_credentialed_inventoried_tools
+        verify_description: |
+          For each inventoried tool that requires a credential, a ProviderCredentialRegistered
+          event has fired with status=validated. Tools that don't need credentials
+          (e.g. open APIs) or that the operator explicitly skipped (with reason) do
+          not block stage completion.
+        education_ref: '/docs/onboarding/credentials-walkthrough'
       - id: review-unit-economics
         title: Review computed unit economics
         description: Cost-per-atomic-action across all prior stages. Adjust where Gigaton's auto-categorization missed.
@@ -797,6 +814,7 @@ stages:
       - StageStarted
       - ToolInventoried
       - BillingConnectorEstablished
+      - ProviderCredentialRegistered
       - UnitEconomicsReviewed
       - StageCompleted
     capability_unlocks_on_completion: tier_4_costs
@@ -952,6 +970,19 @@ chat_orchestration:
       trigger_events:
         - BillingConnectorEstablished
       ux: 'Single button in chat that opens OAuth window'
+    credential_paste:
+      trigger_events:
+        - ProviderCredentialRegistered
+      ux: |
+        Per-provider masked paste field embedded in chat — value is captured
+        client-side, sent via TLS to gigaton-gateway /v1/connectors/credentials
+        with the operator's session JWT, validated against the provider's API,
+        then stored in per-operator Secret Manager. The masked input is never
+        echoed back, never logged in the transcript, never sent to LLM router.
+        For OAuth providers, the affordance falls back to oauth_kickoff. For
+        iCal URLs (OTAs), affordance is plain URL paste (no masking needed).
+        Orchestrator iterates connector_catalog rows where credential_required=true
+        AND operator inventoried the tool in `inventory-tools` action.
     confirmation_only:
       trigger_events:
         - UnitEconomicsReviewed
@@ -965,14 +996,6 @@ chat_orchestration:
       trigger_events:
         - ShadowModeEnabled
       ux: 'Toggle switch in chat with explanation copy'
-    industry_catalog_form:
-      trigger_events:
-        - IndustryCatalogSubmitted
-      ux: |
-        Multi-section form rendered in chat — sections for processes (with
-        add/remove rows), escalation paths, regulatory frameworks, customer
-        lifecycle stages, pricing models. Each section optional but at least
-        3 processes required. Submit returns to conversation flow.
   per_stage_overrides:
     # If a stage needs custom chat behavior, override here. Empty by default
     # — the derivation above covers all 10 stages.
@@ -990,13 +1013,6 @@ chat_orchestration:
       opening_message: |
         I've scanned your sources and pulled out the people who appear most
         often. Let's confirm who they are and what they do for your operator.
-    stage-5-industry-processes:
-      opening_message: |
-        Next: industry processes. If we already have a catalog for your
-        industry + sub-vertical, you'll just triage which ones apply. If we
-        don't yet, you'll help us build it — your submission becomes the
-        seed for future operators in your industry (and segments + qualifies
-        you for free).
     stage-9-calibration-live:
       opening_message: |
         Last stage. We're going to run me in shadow mode for 30 days while
@@ -1118,7 +1134,6 @@ references:
     - feedback_directed_workflow_required_for_every_deploy
     - feedback_always_build_user_self_serve
     - feedback_always_include_gamification
-    - standalone_bundle_net_new_concepts  # Concept 3 — EO self-healing pattern (Stage 5 catalog seeding)
   patterns:
     - directed_workflow_registry_pattern  # FE infrastructure
     - documentation_ingest_feature_spec  # Stage 1 delegate

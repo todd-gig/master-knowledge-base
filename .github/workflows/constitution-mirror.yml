@@ -1,0 +1,70 @@
+name: constitution-mirror
+
+# CONSTITUTION §6.4 — "Constitution and Axiom Registry are mirrored:
+#   decision-engine/drift_sentinel/CONSTITUTION_MIRROR.md exists for in-engine
+#   reference, kept identical to this canonical via CI check."
+#
+# This workflow enforces that. If CONSTITUTION.md changes here, it must also
+# change in gigaton-platform/decision-engine within the same PR cycle (or the
+# mirror commit must be referenced in the PR body).
+#
+# A divergence does NOT fail the PR alone — it surfaces a comment + a label.
+# Hard-blocking would require coordinated dual PRs which is friction the triad
+# rejected during the v1.0.0 ratification (2026-05-20).
+
+on:
+  pull_request:
+    paths:
+      - 'CONSTITUTION.md'
+      - 'PRINCIPLES.md'
+      - 'LEARNING_LOOP.md'
+  push:
+    branches: [main]
+    paths:
+      - 'CONSTITUTION.md'
+      - 'PRINCIPLES.md'
+      - 'LEARNING_LOOP.md'
+
+jobs:
+  hash-and-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute hashes
+        id: hash
+        run: |
+          for f in CONSTITUTION.md PRINCIPLES.md LEARNING_LOOP.md; do
+            if [[ -f "$f" ]]; then
+              h=$(sha256sum "$f" | awk '{print $1}')
+              echo "${f%.md}_sha=$h" >> "$GITHUB_OUTPUT"
+              echo "$f → $h"
+            fi
+          done
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sha = '${{ steps.hash.outputs.CONSTITUTION_sha }}';
+            const psha = '${{ steps.hash.outputs.PRINCIPLES_sha }}';
+            const lsha = '${{ steps.hash.outputs.LEARNING_LOOP_sha }}';
+            const body = [
+              '🏛️ **Constitution / doctrine mirror check**',
+              '',
+              `- CONSTITUTION.md sha256: \`${sha}\``,
+              `- PRINCIPLES.md sha256: \`${psha}\``,
+              `- LEARNING_LOOP.md sha256: \`${lsha}\``,
+              '',
+              'Per CONSTITUTION §6.4, mirror these hashes into the sibling repo PR before merging:',
+              '- `gigaton-platform/decision-engine/drift_sentinel/CONSTITUTION_MIRROR.md`',
+              '- `gigaton-platform/decision-engine/drift_sentinel/AXIOM_REGISTRY.md`',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });

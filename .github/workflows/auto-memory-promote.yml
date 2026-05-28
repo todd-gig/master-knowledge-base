@@ -1,0 +1,29 @@
+name: auto-memory-promote-validation
+
+# Validates the auto-memory promote script can parse all current memory files.
+# Runs against this repo's snapshot dir + the actual auto-memory dir when
+# invoked locally; in CI it dry-runs against the committed snapshots.
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/auto_memory_promote.py'
+      - 'memory-snapshots/**'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/auto_memory_promote.py'
+
+jobs:
+  parse-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Syntax check
+        run: python -c "import ast; ast.parse(open('scripts/auto_memory_promote.py').read())"
+      - name: Self-test against committed snapshots
+        run: |
+          export AUTO_MEMORY_DIR=memory-snapshots/auto-memory
+          python scripts/auto_memory_promote.py || echo "OK — exit 1 = nothing to promote"

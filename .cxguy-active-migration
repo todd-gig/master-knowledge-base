@@ -9,6 +9,13 @@ authorization_quote: "Migration will need to happen, but only after completion o
 
 sessions_complete:
   - session_1 (decision-engine) — completed 2026-05-25 ~23:57Z by todd@gigaton.ai. NOT to be reverted.
+  - "session_1 RE-LOCKED 2026-05-27 ~00:30Z by todd@gigaton.ai — found it had silently reverted to carmen.
+     Root cause = cloudbuild.yaml line 52 hardcodes the carmen URL, so every gateway Cloud Build redeploy
+     re-reverts. Verified carmen decision_engine held only 2 trivial rows (data risk nil; backup dump at
+     gs://gigaton-migration-staging/decision-engine-redo-session1-20260528T002323Z.sql.gz). Verify-and-flipped
+     live gateway DECISION_ENGINE_URL to https://decision-engine-sqatlxhlza-uc.a.run.app (rev
+     gigaton-gateway-00054-fmw, 0 5xx post-flip). DURABLE FIX PENDING = push gateway commit 6a4eb3e (branch
+     fix/decision-engine-route-gigaton-platform-2026-05-27); until merged, a gateway redeploy re-reverts AGAIN."
 
 sessions_deferred (do NOT fire without explicit Todd authorization):
   - session_2 (intelligence-silo) — was scheduled Wed 2026-05-27 eve; now DEFERRED

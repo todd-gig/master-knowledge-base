@@ -135,3 +135,16 @@ master-knowledge-base
 3. **Knowledge extracts are generated, not hand-edited** — update the xlsx source, then re-run the extractor.
 4. **Decision framework docs are additive** — add new docs with next number; never delete existing numbered docs.
 5. **Thread exports are immutable** — treat as historical record; add new exports, never edit old ones.
+
+# Recursive Learning Loop
+
+See [LEARNING_LOOP.md](LEARNING_LOOP.md) for the architecture connecting auto-memory → MKB → intelligence-silo Q&A → telemetry. Components:
+
+- `scripts/auto_memory_promote.py` — promotes canonical entries from `~/.claude/projects/-Users-admin/memory/` into `memory-snapshots/auto-memory/` and opens a PR.
+- `scripts/ingest_mkb_to_silo.sh` — pushes MKB content into intel-silo's FAISS index (`operator_id=gigaton`) so the Q&A pipeline grounds answers in doctrine.
+- `scripts/mkb_gcs_backup.sh` — nightly off-GitHub bundle archive (eliminates single-point-of-failure on the GitHub remote).
+- `scripts/launchagents/` — macOS LaunchAgent plists that wire all the above to weekly/nightly cadences. Install with `scripts/install_launchagents.sh`.
+
+# Manifest fork — onboarding_v1.yaml
+
+`manifests/onboarding_v1.yaml` is forked into `gigaton-gateway/app/onboarding/manifest/onboarding_v1.yaml`. The MKB copy is canonical; the gateway copy is a build-time mirror. The CI workflow `.github/workflows/onboarding-manifest-sync.yml` posts the expected sha256 on every PR touching the manifest so the reviewer can confirm parity before merging the gateway-side mirror PR.
