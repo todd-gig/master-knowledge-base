@@ -32,18 +32,25 @@ if [[ -z "${SILO_URL:-}" ]]; then
   exit 1
 fi
 
-# Auto-derive SILO_TOKEN from gcloud identity if not provided. Works for both
-# interactive runs and launchd (inherits the user's gcloud config). Requires
-# the caller to have roles/run.invoker on the silo Cloud Run service.
-if [[ -z "${SILO_TOKEN:-}" ]]; then
-  if command -v gcloud >/dev/null 2>&1; then
+# Auto-derive SILO_TOKEN from gcloud identity if not provided. Handles two
+# credential shapes:
+#   - user credentials (gcloud auth login): reject --audiences with
+#     "Invalid service account", so we must call print-identity-token
+#     WITHOUT --audiences. The token's default aud works against Cloud Run.
+#   - service-account credentials (key file / impersonation): require
+#     --audiences=$SILO_URL or Cloud Run returns 401.
+# Try the user-creds form first, fall back to the audienced form.
+# Requires the caller to have roles/run.invoker on the silo service.
+if [[ -z "${SILO_TOKEN:-}" ]] && command -v gcloud >/dev/null 2>&1; then
+  SILO_TOKEN="$(gcloud auth print-identity-token 2>/dev/null || true)"
+  if [[ -z "$SILO_TOKEN" ]]; then
     SILO_TOKEN="$(gcloud auth print-identity-token --audiences="$SILO_URL" 2>/dev/null || true)"
-    if [[ -n "$SILO_TOKEN" ]]; then
-      export SILO_TOKEN
-      echo "Derived SILO_TOKEN from gcloud (audience=$SILO_URL)."
-    else
-      echo "WARN: gcloud auth print-identity-token failed; ingest_docs.py will run unauthenticated." >&2
-    fi
+  fi
+  if [[ -n "$SILO_TOKEN" ]]; then
+    export SILO_TOKEN
+    echo "Derived SILO_TOKEN from gcloud."
+  else
+    echo "WARN: gcloud auth print-identity-token failed; ingest_docs.py will run unauthenticated." >&2
   fi
 fi
 
