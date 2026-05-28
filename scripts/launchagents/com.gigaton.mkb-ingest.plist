@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>           <string>com.gigaton.mkb-ingest</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>cd $HOME/Documents/GitHub/master-knowledge-base &amp;&amp; ./scripts/ingest_mkb_to_silo.sh</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- Set these two via `launchctl setenv` or edit before loading -->
+    <key>SILO_URL</key>      <string>https://intelligence-silo-825651647756.us-central1.run.app</string>
+    <key>SILO_TOKEN</key>    <string></string>
+    <key>SILO_INGEST</key>   <string>/Users/admin/Documents/GitHub/intelligence-silo/intelligence-silo</string>
+    <key>PATH</key>          <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <!-- Weekly Sunday 04:30 UTC fallback (push-based re-ingest preferred) -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>       <integer>0</integer>
+    <key>Hour</key>          <integer>4</integer>
+    <key>Minute</key>        <integer>30</integer>
+  </dict>
+  <key>StandardOutPath</key> <string>/Users/admin/.knowledge_sync/mkb-ingest.out.log</string>
+  <key>StandardErrorPath</key><string>/Users/admin/.knowledge_sync/mkb-ingest.err.log</string>
+  <key>RunAtLoad</key>       <false/>
+</dict>
+</plist>

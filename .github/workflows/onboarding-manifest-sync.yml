@@ -1,0 +1,59 @@
+name: onboarding-manifest-sync
+
+# manifests/onboarding_v1.yaml is forked into gigaton-gateway at
+#   app/onboarding/manifest/onboarding_v1.yaml
+# This workflow hashes the MKB copy and posts the expected hash so the
+# gateway-side PR reviewer can confirm parity. A future iteration can
+# call gh api to dispatch the sibling repo with the new hash automatically.
+
+on:
+  pull_request:
+    paths: ['manifests/onboarding_v1.yaml']
+  push:
+    branches: [main]
+    paths: ['manifests/onboarding_v1.yaml']
+
+jobs:
+  hash-and-notify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - id: meta
+        run: |
+          F=manifests/onboarding_v1.yaml
+          SHA=$(sha256sum "$F" | awk '{print $1}')
+          VER=$(grep -m1 '^version:' "$F" | awk '{print $2}')
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "Manifest v$VER sha256=$SHA"
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              '📋 **Onboarding manifest sync**',
+              '',
+              `- manifests/onboarding_v1.yaml v${{ steps.meta.outputs.version }}`,
+              `- sha256: \`${{ steps.meta.outputs.sha }}\``,
+              '',
+              'After merge, mirror into gigaton-gateway:',
+              '```bash',
+              'cp manifests/onboarding_v1.yaml \\',
+              '  ../gigaton-gateway/app/onboarding/manifest/onboarding_v1.yaml',
+              'cd ../gigaton-gateway && git checkout -b chore/sync-onboarding-manifest-v${{ steps.meta.outputs.version }}',
+              'git commit -am "chore: sync onboarding_v1.yaml from MKB (sha=${{ steps.meta.outputs.sha }})"',
+              'gh pr create --fill',
+              '```',
+              '',
+              'Or set up the gateway-side workflow to pull on MKB main push.',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
