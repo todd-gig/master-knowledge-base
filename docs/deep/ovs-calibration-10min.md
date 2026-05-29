@@ -24,27 +24,34 @@ The amendment replaced `shadow_days_elapsed >= 30` with `education_tests_passed_
 
 The verbatim shift: the predicate that v1.1.0 removed is **`shadow_days_elapsed`**; the kind of gate that replaced it is **evidence-based**. **False**: a 30-day calendar elapsed period is NOT still required for Stage 9 graduation even when all evidence dimensions are green.
 
-## 2. The four verification dimensions
+## 2. The four NEW verification dimensions (and the preserved safety floor)
 
-The v1.1.0 evidence-based graduation gate evaluates exactly four verification dimensions:
+The v1.1.0 evidence-based graduation gate evaluates exactly **four NEW** verification dimensions, plus one **preserved safety floor** from v1.0.0:
 
-1. **`drift_critical_count == 0`** — no critical drift events outstanding.
-2. **`interactions_logged_count >= threshold`** — sufficient calibration sample size (algorithm-pending, INTEL-3-bounded; seed value 30).
-3. **`shadow_reviews_completed >= threshold`** — sufficient operator review cadence (algorithm-pending, INTEL-3-bounded; seed value 4).
+1. **`operator_accuracy_score >= 0.75`** — operator's decisions align with platform recommendations within tolerance, OR operator-corrected recommendations track to ground-truth outcomes. INTEL-3 seed `0.75` within bounded range **0.60–0.90**; algorithm-pending.
+2. **`feature_knowledge_verified_pct >= 100`** — every feature about to be granted by `tier_5_live` has been verified by the operator (they can describe what it does, what it costs, how to override it).
+3. **`value_creation_outcomes_count >= 10`** — attributable value-creation outcomes have been observed. *Attribution*, not raw interactions: a logged interaction without value attribution does not count. INTEL-3 seed `10` within bounded range **5–30**.
 4. **`education_tests_passed_all == true`** — every required (stage, tier) education test has a passing event.
 
-All four must hold. A single dimension failure keeps the gate closed regardless of the other three.
+**Safety floor (preserved from v1.0.0, NOT one of the four new dimensions):** `drift_critical_count == 0`. The gate fails closed if drift_critical is nonzero, but this is the safety floor, not a verification dimension introduced by v1.1.0.
+
+All four dimensions plus the safety floor must hold. A single failure keeps the gate closed regardless of the others.
 
 The fourth dimension — **`education_tests_passed_all == true`** — is the one this education-test catalog provides the operand for. Without paired tests for the existing education modules, dimension 4 had no operand; the v1.1.0 amendment without this catalog would have been structurally incomplete.
 
+### What v1.1.0 removed from v1.0.0
+- `shadow_days_elapsed >= 30` — the 30-day calendar clock. Gone.
+- `interactions_logged_count >= 30` — replaced by the *attributed* `value_creation_outcomes_count` (an interaction without attributable value doesn't count).
+
 ## 3. INTEL-3 bounding on the dimensions
 
-Per the INTEL-3 doctrine (no static weights; algorithmic real-time determination), the threshold values for dimensions 2 and 3 are **seeds within bounded ranges**, not fixed targets. The runtime grader (separate engine-side PR) adjusts thresholds based on operator-cohort behavior:
+Per the INTEL-3 doctrine (no static weights; algorithmic real-time determination), the threshold values for the three numeric dimensions are **seeds within bounded ranges**, not fixed targets. The runtime grader (separate engine-side PR) adjusts thresholds based on operator-cohort behavior:
 
-- `interactions_logged_count` seed = 30, bounded range to be set per algorithm.
-- `shadow_reviews_completed` seed = 4, bounded range to be set per algorithm.
-- `drift_critical_count` is binary (0 or >0) — exempt from algorithmic drift.
+- `operator_accuracy_score` seed = 0.75, bounded range 0.60–0.90.
+- `feature_knowledge_verified_pct` seed = 100 (every feature); narrower bound by design.
+- `value_creation_outcomes_count` seed = 10, bounded range 5–30.
 - `education_tests_passed_all` is binary — exempt from algorithmic drift.
+- `drift_critical_count` is binary (0 or >0) safety floor — exempt from algorithmic drift.
 
 Binary policy rules are inviolable; threshold rules are INTEL-3-bounded. The runtime never relaxes a binary; it may adjust a threshold within bounds based on observed drift_critical correlation.
 
@@ -100,14 +107,18 @@ education_tests_passed_all := for every (stage, tier) in INDEX.md,
                               an EducationTestPassed event exists for this operator
 
 graduation_eligible := (
-  drift_critical_count == 0
-  AND interactions_logged_count >= threshold_2
-  AND shadow_reviews_completed >= threshold_3
-  AND education_tests_passed_all == true
+  # The four NEW v1.1.0 dimensions (all must hold)
+  operator_accuracy_score >= 0.75              # seed; bounded 0.60–0.90
+  AND feature_knowledge_verified_pct >= 100    # every tier_5 feature verified
+  AND value_creation_outcomes_count >= 10      # seed; bounded 5–30; attributed only
+  AND education_tests_passed_all == true       # all required tests pass
+
+  # Preserved v1.0.0 safety floor (NOT one of the four new dimensions)
+  AND drift_critical_count == 0
 )
 ```
 
-If any required (stage, tier) is missing or has no passing event, dimension 4 fails and the gate stays closed. If `drift_critical_count` is nonzero, dimension 1 fails and the gate stays closed. Each dimension is independently gating.
+If any required (stage, tier) is missing or has no passing event, dimension 4 fails and the gate stays closed. If `drift_critical_count` is nonzero, the safety floor fails and the gate stays closed. Each dimension and the safety floor are independently gating.
 
 ## 8. Why the catalog's pass_criteria are seeds, not targets
 
@@ -174,7 +185,7 @@ The auto-suspend hook is the operational expression of the trust model. The plat
 The v1.1.0 doctrine is built on three commitments:
 
 1. **No clock.** Calibration confidence, not calendar time, governs graduation.
-2. **Four evidence dimensions.** Drift, sample size, review cadence, education comprehension.
+2. **Four evidence dimensions** (plus the preserved drift safety floor): operator accuracy, feature-knowledge verification, attributed value creation, and education-test completion. Pass all four AND keep `drift_critical_count == 0`, and the gate opens.
 3. **Trust is conditional.** Auto-execute lives under an evidence premise; when the premise fails, the authorization fails with it.
 
 The result: a graduation gate that protects the operator without penalizing them for being well-prepared, and a post-graduation monitoring regime that protects the operator from misfire under a known-broken model. Operators who internalize the doctrine — and pass the deep_dive test that verifies they have — are the operators best equipped to use tier_5_live well.
