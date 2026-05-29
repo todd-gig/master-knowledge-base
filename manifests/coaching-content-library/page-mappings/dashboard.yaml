@@ -1,0 +1,33 @@
+page_id: /dashboard
+value_now:
+  description: "Your operator landing page — today's insights, phase-gate progress, coverage scoreboard, and the next-best action ranked by the live HIE."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Connect a Google Drive folder so the dashboard's insights cite your real documentation"
+    est_value_delta: 5
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Connect Stripe to turn on the Influence vs Cost panel on this dashboard"
+    est_value_delta: 4
+  - input_kind: input
+    name: north_star
+    target_capability: outcome-graded-decisions
+    smallest_action: "Declare your north-star metric so dashboard panels rank by impact on it"
+    est_value_delta: 4
+  - input_kind: channel
+    name: in_platform
+    target_capability: real-time-coaching
+    smallest_action: "Mount the NotificationBell to receive urgent cross-page coaching here on the dashboard"
+    est_value_delta: 3
+applicable_insight_types:
+  - phase_gate_progress
+  - coverage_gap
+  - cost_drift
+  - revenue_opportunity_match
+  - decision_pattern_alert
+  - cohort_benchmarking

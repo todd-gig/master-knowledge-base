@@ -1,0 +1,36 @@
+page_id: /connections
+value_now:
+  description: "Manage your data sources and 3rd-party connectors. Each connection feeds the operator-scoped intelligence index and unlocks capabilities downstream."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: gmail
+    target_capability: customer-dm-coaching
+    smallest_action: "Connect Gmail to enable customer-DM coaching and inbox-grounded answers"
+    est_value_delta: 4
+  - input_kind: connector
+    name: clickup
+    target_capability: project-progress-intelligence
+    smallest_action: "Connect ClickUp to surface project-progress insights and assignment drift"
+    est_value_delta: 3
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Connect Stripe to ingest 90 days of invoices and turn on the Influence vs Cost dashboard"
+    est_value_delta: 5
+  - input_kind: connector
+    name: twilio
+    target_capability: sms-channel-coaching
+    smallest_action: "Connect Twilio to enable SMS as a coaching + escalation channel"
+    est_value_delta: 2
+  - input_kind: connector
+    name: google_calendar
+    target_capability: meeting-context-intelligence
+    smallest_action: "Connect Google Calendar so meetings inform people-and-priority coaching"
+    est_value_delta: 2
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - revenue_opportunity_match
+  - cost_drift

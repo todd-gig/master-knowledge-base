@@ -1,0 +1,33 @@
+page_id: /owner
+value_now:
+  description: "Owner view: capability tiers unlocked, sign-off queue, connector inventory, and per-operator coverage scoreboard."
+  requires:
+    - operator_token
+    - owner_role
+next_unlock_inputs:
+  - input_kind: signoff
+    name: tier_5_live_signoff
+    target_capability: tier_5_live
+    smallest_action: "Complete the Tier 5 Live sign-off to graduate this operator to auto-execute mode"
+    est_value_delta: 5
+  - input_kind: input
+    name: constraint_set
+    target_capability: hard-guardrail-enforcement
+    smallest_action: "Register hard constraints so auto-executed decisions cannot violate your inviolable rules"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: notification_strict
+    target_capability: real-time-coaching
+    smallest_action: "Enable strict notification mode so urgent items always reach you via the NotificationBell"
+    est_value_delta: 3
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Connect Stripe to ground owner-level dashboards in real billing data"
+    est_value_delta: 4
+applicable_insight_types:
+  - signoff_pending
+  - phase_gate_progress
+  - coverage_gap
+  - cost_drift
+  - decision_pattern_alert

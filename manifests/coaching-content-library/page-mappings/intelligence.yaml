@@ -1,0 +1,32 @@
+page_id: /intelligence
+value_now:
+  description: "Ask questions against your ingested corpus. Answers cite the source files, run through the Society of Minds reasoning loop, and apply Gigaton principles + ethnographic frames."
+  requires:
+    - operator_token
+    - tier_1_data
+next_unlock_inputs:
+  - input_kind: source
+    name: drive_folder
+    target_capability: chat-with-your-data
+    smallest_action: "Connect a Google Drive folder to ground answers in your own documents (Stage 1 / Sources)"
+    est_value_delta: 5
+  - input_kind: source
+    name: notion_workspace
+    target_capability: cross-tool-knowledge-search
+    smallest_action: "Connect Notion so notes and docs surface alongside Drive answers"
+    est_value_delta: 3
+  - input_kind: input
+    name: north_star
+    target_capability: goal-aligned-qa-ranking
+    smallest_action: "Declare your north-star metric so the Synthesizer prioritizes answers that move it"
+    est_value_delta: 3
+  - input_kind: input
+    name: icp_segment
+    target_capability: customer-lens-qa-ranking
+    smallest_action: "Declare your ICP segment so answers surface customer-relevant evidence first"
+    est_value_delta: 2
+applicable_insight_types:
+  - coverage_gap
+  - memory_query_recommendation
+  - decision_pattern_alert
+  - phase_gate_progress
