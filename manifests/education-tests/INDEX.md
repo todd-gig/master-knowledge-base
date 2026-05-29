@@ -8,7 +8,7 @@ required for `education_tests_passed_all == true`.
 - **Parent manifest**: `manifests/onboarding_v1.yaml` (referenced as `education_tests_catalog`)
 - **Pass-criteria seeds**: INTEL-3-bounded (range 70–95); `why` / `what` seed 80%, `deep_dive` seed 90%
 - **Attempts seed**: 3 per tier (INTEL-3 algorithm-pending)
-- **Catalog totals**: 10 stage files · 27 tests · 105 questions
+- **Catalog totals**: 10 stage files · 27 tests · 106 questions
 
 ---
 
@@ -25,7 +25,7 @@ required for `education_tests_passed_all == true`.
 | stage-6-org-processes | [stage-6-org-processes.yaml](stage-6-org-processes.yaml) | why (3), what (4) | 80 / 80 | 3 | No deep_dive in manifest |
 | stage-7-assignments | [stage-7-assignments.yaml](stage-7-assignments.yaml) | why (3), what (5) | 80 / 80 | 3 | No deep_dive in manifest |
 | stage-8-tech-stack-costs | [stage-8-tech-stack-costs.yaml](stage-8-tech-stack-costs.yaml) | why (3), what (4), deep_dive (4) | 80 / 80 / 90 | 3 | Influence vs Cost dashboard |
-| stage-9-calibration-live | [stage-9-calibration-live.yaml](stage-9-calibration-live.yaml) | why (3), what (4), deep_dive (9) | 80 / 80 / 90 | 3 | **Highest leverage** — v1.1.0 amendment doctrine |
+| stage-9-calibration-live | [stage-9-calibration-live.yaml](stage-9-calibration-live.yaml) | why (3), what (4), deep_dive (10) | 80 / 80 / 90 | 3 | **Highest leverage** — v1.1.0 amendment doctrine |
 
 ---
 

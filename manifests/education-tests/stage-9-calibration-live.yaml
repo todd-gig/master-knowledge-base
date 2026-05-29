@@ -143,18 +143,33 @@ tests:
         correct: false
         weight: 2.0
 
-      # ── Four verification dimensions ───────────────────────────────────────
+      # ── Four verification dimensions (v1.1.0) ──────────────────────────────
+      # NOTE: `drift_critical_count` is the preserved SAFETY FLOOR from v1.0.0,
+      # NOT one of the four new verification dimensions. The four v1.1.0
+      # dimensions per manifest §amendments[1.1.0] are: operator_accuracy_score,
+      # feature_knowledge_verified_pct, value_creation_outcomes_count,
+      # education_tests_passed_all.
       - id: deep-four-dimensions
         prompt: |
-          Name the four verification dimensions the v1.1.0 evidence-based
-          graduation gate evaluates.
+          Name the four NEW verification dimensions the v1.1.0 evidence-based
+          graduation gate evaluates. (Do not include `drift_critical_count`,
+          which is the preserved v1.0.0 safety floor, not one of the four new
+          dimensions.)
         type: short_answer
         accepted_patterns:
-          - keyword: "drift_critical"
-          - keyword: "interactions_logged"
-          - keyword: "shadow_reviews"
+          - keyword: "operator_accuracy_score"
+          - keyword: "feature_knowledge_verified"
+          - keyword: "value_creation_outcomes"
           - keyword: "education_tests_passed"
         weight: 2.0
+
+      - id: deep-drift-critical-is-safety-floor-not-dimension
+        prompt: |
+          True or false: `drift_critical_count == 0` is one of the four NEW
+          verification dimensions introduced by the v1.1.0 amendment.
+        type: true_false
+        correct: false
+        weight: 1.5
 
       - id: deep-fourth-dimension
         prompt: |
