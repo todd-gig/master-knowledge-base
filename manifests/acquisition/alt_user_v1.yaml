@@ -1,0 +1,844 @@
+# Gigaton Alt-User Acquisition Onboarding — Manifest v1.0.0
+#
+# This manifest is the SOURCE OF TRUTH for the ALT-USER acquisition path —
+# researchers, regulators, auditors, prospective partners, journalists,
+# investors, and any other party that gets scoped, read-restricted access
+# to platform surfaces under an NDA. It is declarative data.
+#
+# Alt-users do NOT pay (or pay only nominal access fees), do NOT receive
+# dispatches, do NOT issue tracking links — they consume optionality
+# value. Activation is qualitative; UAF §2.2 names "Strategic optionality
+# value" as the metric.
+#
+# Provenance / doctrine refs (see references[] block at bottom):
+#   - [[universal_acquisition_framework_2026_05_26]]               (parent spec)
+#   - [[onboarding_v1]]                                            (CLIENT manifest — shape template)
+#   - [[context_completeness_doctrine_2026_05_26]]                 (refuse-below-threshold for Q&A)
+#   - [[mcp_multi_tenant_namespace_blocker_2026_05_26]]            (scoping discipline)
+#
+# UAF stage mapping (parent spec §2.1 → this manifest):
+#   UAF Stage 1 Awareness        → stage-0-alt-user-discovered
+#   UAF Stage 2 Identification   → stage-1-alt-user-identified
+#   UAF Stage 3 Qualification    → stage-2-nda-scope-defined
+#   UAF Stage 4 Engagement       → stage-3-nda-signed, stage-4-scoped-access-provisioned
+#   UAF Stage 5 Onboarding       → stage-5-orientation-completed
+#   UAF Stage 6 Activation       → stage-6-first-scoped-interaction
+#   UAF Stage 7 Compounding      → stage-7-ongoing-dialog
+
+version: 1.0.0
+manifest_id: gigaton-alt-user-acquisition-onboarding
+acquisition_category: alt_user
+introduced_at: '2026-05-28T00:00:00Z'
+canonical_source: master-knowledge-base/manifests/acquisition/alt_user_v1.yaml
+parent_framework: universal_acquisition_framework_2026_05_26
+ratified_by:
+  - todd@gigaton.ai
+  - matt@gigaton.ai
+  - bella@gigaton.ai
+
+# Capability tiers — what an alt-user can see/do under their NDA scope.
+capability_tiers:
+  tier_1_inquiry:
+    unlocked_by_stages: [stage-0-alt-user-discovered, stage-1-alt-user-identified]
+    grants:
+      - alt_user.public_info.read
+  tier_2_scoped:
+    unlocked_by_stages: [stage-2-nda-scope-defined, stage-3-nda-signed]
+    grants:
+      - alt_user.scope.read_negotiated
+  tier_3_provisioned:
+    unlocked_by_stages: [stage-4-scoped-access-provisioned, stage-5-orientation-completed]
+    grants:
+      - alt_user.surface.access_scoped
+      - alt_user.intelligence.query_scoped  # subject to context_completeness threshold
+  tier_4_active:
+    unlocked_by_stages: [stage-6-first-scoped-interaction]
+    grants:
+      - alt_user.dialog.continuous
+      - alt_user.export.request_scoped
+  tier_5_compounding:
+    unlocked_by_stages: [stage-7-ongoing-dialog]
+    grants:
+      - alt_user.advisory.sustained
+      - alt_user.referral.refer_other_alt_users
+
+nav_circles:
+  - circle_id: home
+    label: Home
+    route: /alt-user/home
+    tier_required: always
+    icon: home
+  - circle_id: scope
+    label: My Scope
+    route: /alt-user/scope
+    tier_required: tier_2_scoped
+    icon: file-text
+  - circle_id: surfaces
+    label: Scoped Surfaces
+    route: /alt-user/surfaces
+    tier_required: tier_3_provisioned
+    icon: layers
+  - circle_id: intelligence
+    label: Intelligence
+    route: /alt-user/intelligence
+    tier_required: tier_3_provisioned
+    icon: brain
+  - circle_id: exports
+    label: Exports
+    route: /alt-user/exports
+    tier_required: tier_4_active
+    icon: download
+  - circle_id: refer
+    label: Refer Researcher
+    route: /alt-user/refer
+    tier_required: tier_5_compounding
+    icon: share
+
+deprecated_routes: []
+
+# ─────────────────────────────────────────────────────────────────────────
+# STAGES
+# ─────────────────────────────────────────────────────────────────────────
+
+stages:
+
+  # ─── STAGE 0 — AWARENESS ───────────────────────────────────────────────
+  - id: stage-0-alt-user-discovered
+    order: 0
+    name: Alt-User Discovered
+    short_description: First inbound inquiry (research request, regulator outreach, partner intro, audit invitation) captured.
+    why_this_stage: |
+      UAF Stage 1. Pre-IDP capture for an alt-user is usually an inbound
+      email or form submission, not a marketing-pixel signal. The same
+      SignalEvent schema applies; channel field disambiguates.
+    primary_actor: operator
+    owning_engine: user-access-engine
+    secondary_engines: [intelligence-silo, gigaton-gateway]
+    ui_route: /alt-user/inquiry
+    entry_signal:
+      type: always_open
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/idp/signals?session_id={session_id}&category=alt_user'
+      predicate:
+        json_path: '$.signal_count'
+        operator: gte
+        value: 1
+      ttl_seconds: 30
+    exit_criterion:
+      event_type: AltUserSignalCaptured
+      description: SignalEvent with category=alt_user received (inbound inquiry, regulator outreach, partner intro)
+    signoff_required: false
+    actions:
+      - id: capture-inquiry-signal
+        title: Capture inquiry
+        description: Inbound research/regulator/partner inquiry submitted via form or email-to-CRM emits SignalEvent.
+        action_label: Submit inquiry
+        action_href: /alt-user/inquiry
+        auto_complete_on:
+          - event_type: AltUserSignalCaptured
+    education:
+      why_1min: /docs/acquisition/alt-user/why/awareness-1min.md
+    events_emitted:
+      - AltUserSignalCaptured
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_inquiry
+    gamification:
+      badge_slug: alt-user-discovered
+      badge_name: Inquiry Received
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0  # alt-user influence is optionality, not direct $
+    ppim_signature:
+      interaction: optionality channel opened
+      economics: zero direct $; strategic optionality
+      predictability: HIGH
+      brand_dimension: openness + legitimacy
+
+  # ─── STAGE 1 — IDENTIFICATION ──────────────────────────────────────────
+  - id: stage-1-alt-user-identified
+    order: 1
+    name: Alt-User Identified
+    short_description: Inquirer self-identifies (legal entity, affiliation, purpose); IDPProfile created with category=alt_user.
+    why_this_stage: |
+      UAF Stage 2. Identity + stated purpose are required before any
+      scope negotiation. Affiliation (e.g. "Princeton CS lab", "FTC",
+      "Sequoia portfolio team") drives NDA template selection.
+    primary_actor: alt_user
+    owning_engine: user-access-engine
+    secondary_engines: [intelligence-silo]
+    ui_route: /alt-user/inquiry/identify
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-0-alt-user-discovered
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/idp/profile?session_id={session_id}'
+      predicate:
+        all_of:
+          - json_path: '$.idp_profile_id'
+            operator: is_not_null
+          - json_path: '$.category'
+            operator: eq
+            value: alt_user
+          - json_path: '$.affiliation'
+            operator: is_not_null
+          - json_path: '$.stated_purpose'
+            operator: is_not_null
+      ttl_seconds: 30
+    exit_criterion:
+      event_type: AltUserIDPResolved
+      description: idp_profiles row created with category=alt_user + affiliation + stated_purpose
+    signoff_required: false
+    actions:
+      - id: capture-identity-and-purpose
+        title: Capture identity, affiliation, and stated purpose
+        description: Name, organization, role, stated reason for access. Affiliation drives NDA template later.
+        action_label: Continue
+        action_href: /alt-user/inquiry/identify
+        auto_complete_on:
+          - event_type: AltUserIdentitySubmitted
+      - id: resolve-idp
+        title: Resolve IDP profile
+        description: Resolution worker creates IDP; walks back any prior anon signals.
+        action_label: '(automatic)'
+        action_href: /alt-user/inquiry
+        auto_complete_on:
+          - event_type: AltUserIDPResolved
+    education:
+      why_1min: /docs/acquisition/alt-user/why/identification-1min.md
+    events_emitted:
+      - AltUserIdentitySubmitted
+      - AltUserIDPResolved
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_inquiry
+    gamification:
+      badge_slug: alt-user-identified
+      badge_name: Identified
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: scope negotiation can begin
+      economics: prevents miscategorized access requests
+      predictability: HIGH
+      brand_dimension: legitimacy
+
+  # ─── STAGE 2 — QUALIFICATION (NDA SCOPE DEFINITION) ────────────────────
+  - id: stage-2-nda-scope-defined
+    order: 2
+    name: NDA Scope Defined
+    short_description: NDA scope negotiated; data-residency + retention + redistribution rules locked.
+    why_this_stage: |
+      UAF Stage 3. The qualification step for alt-users is custom NDA/scope
+      definition (per UAF §2.2). Operator (or platform-side admin) defines
+      exactly what surfaces, datasets, and time windows are in scope; what
+      redistribution rules apply; how long access lasts. This is the
+      qualitative substitute for skill_vector / trust_tier.
+    primary_actor: operator
+    owning_engine: decision-engine
+    secondary_engines: [user-access-engine, intelligence-silo]
+    ui_route: /alt-user/scope/draft
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-1-alt-user-identified
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/alt-user/nda-scope?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.scope_definition_id'
+            operator: is_not_null
+          - json_path: '$.surfaces_in_scope_count'
+            operator: gte
+            value: 1
+          - json_path: '$.retention_days_max'
+            operator: is_not_null
+          - json_path: '$.redistribution_rules_set'
+            operator: eq
+            value: true
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: NDAScopeDefined
+      description: nda_scopes row written with surfaces + retention + redistribution + jurisdiction-correct NDA template selected
+    signoff_required: true
+    signoff:
+      type: operator_acknowledgement
+      actor: operator_admin
+      stored_in: decision_engine_nda_scopes_table
+    actions:
+      - id: select-nda-template
+        title: Select NDA template
+        description: Driven by alt-user's affiliation (academic / regulator / commercial-partner / journalist / investor); jurisdiction from stage-1.
+        action_label: Select template
+        action_href: /alt-user/scope/draft?action=template
+        auto_complete_on:
+          - event_type: NDATemplateSelected
+      - id: define-in-scope-surfaces
+        title: Define in-scope surfaces
+        description: Specific surfaces (e.g. "Penrose scoreboard for entity X", "anonymized aggregate of cohort Y") + time windows.
+        action_label: Define scope
+        action_href: /alt-user/scope/draft?action=surfaces
+        auto_complete_on:
+          - event_type: SurfacesInScopeDefined
+      - id: set-retention-and-redistribution
+        title: Set retention + redistribution rules
+        description: Max retention days; redistribution allow/forbid; export quotas.
+        action_label: Set rules
+        action_href: /alt-user/scope/draft?action=rules
+        auto_complete_on:
+          - event_type: NDARulesSet
+      - id: finalize-scope
+        title: Finalize NDA scope
+        description: decision-engine writes nda_scopes row.
+        action_label: Finalize
+        action_href: /alt-user/scope/draft?action=finalize
+        auto_complete_on:
+          - event_type: NDAScopeDefined
+    education:
+      why_1min: /docs/acquisition/alt-user/why/nda-scope-1min.md
+      deep_dive_10min: /docs/acquisition/alt-user/deep/nda-templates-by-affiliation-10min.md
+    events_emitted:
+      - NDATemplateSelected
+      - SurfacesInScopeDefined
+      - NDARulesSet
+      - NDAScopeDefined
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_scoped
+    gamification:
+      badge_slug: alt-user-scoped
+      badge_name: Scope Defined
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: legal envelope established
+      economics: prevents scope-creep liability
+      predictability: HIGH
+      brand_dimension: integrity + selectivity
+
+  # ─── STAGE 3 — ENGAGEMENT I (NDA SIGNED) ───────────────────────────────
+  - id: stage-3-nda-signed
+    order: 3
+    name: NDA Signed
+    short_description: Alt-user and operator both cryptographically acknowledge the NDA; counter-signed copy stored in both namespaces.
+    why_this_stage: |
+      UAF Stage 4a. No scoped access can be provisioned without a fully
+      executed NDA. Counter-signature is mandatory; one-side-signed
+      documents do not advance the stage.
+    primary_actor: alt_user
+    owning_engine: decision-engine
+    secondary_engines: [user-access-engine]
+    ui_route: /alt-user/scope/sign
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-2-nda-scope-defined
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/alt-user/nda-signed?idp_profile_id={idp_profile_id}'
+      predicate:
+        json_path: '$.nda_signed_at'
+        operator: is_not_null
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: NDASigned
+      description: signed NDA artifact written to scope_contracts (alt_user variant) with dual cryptographic acknowledgement
+    signoff_required: true
+    signoff:
+      type: dual_signature
+      actors: [alt_user, operator_admin]
+      stored_in: scope_contracts_table
+    actions:
+      - id: present-nda
+        title: Present NDA
+        description: NDA from stage-2 scope; final rendering with all parties + dates filled.
+        action_label: Review NDA
+        action_href: /alt-user/scope/sign?action=review
+        auto_complete_on:
+          - event_type: NDAPresented
+      - id: alt-user-signs
+        title: Alt-user signs
+        description: Alt-user cryptographically acknowledges.
+        action_label: Sign
+        action_href: /alt-user/scope/sign?action=sign-alt-user
+        auto_complete_on:
+          - event_type: NDAAltUserSigned
+      - id: operator-counter-signs
+        title: Operator counter-signs
+        description: Operator admin counter-signs; both signatures stored.
+        action_label: Counter-sign
+        action_href: /alt-user/scope/sign?action=sign-operator
+        auto_complete_on:
+          - event_type: NDASigned
+    education:
+      why_1min: /docs/acquisition/alt-user/why/nda-signed-1min.md
+    events_emitted:
+      - NDAPresented
+      - NDAAltUserSigned
+      - NDASigned
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_scoped
+    gamification:
+      badge_slug: alt-user-nda-signed
+      badge_name: NDA Signed
+      streak_eligible: false
+      success_celebration: 'NDA executed. Provisioning scoped access now.'
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: legal go-live
+      economics: foundational for scoped access provisioning
+      predictability: HIGH
+      brand_dimension: integrity
+
+  # ─── STAGE 4 — ENGAGEMENT II (SCOPED ACCESS PROVISIONED) ───────────────
+  - id: stage-4-scoped-access-provisioned
+    order: 4
+    name: Scoped Access Provisioned
+    short_description: UAE provisions read-restricted credentials limited to NDA-in-scope surfaces; audit logging enabled.
+    why_this_stage: |
+      UAF Stage 4b. The bridge from "signed NDA" to "can actually look at
+      anything". UAE writes alt_user_accounts row scoped to operator
+      namespace; entitlements bind exactly to nda_scopes.surfaces_in_scope;
+      audit logging is mandatory and irreducible. Aligns with namespace
+      enforcement doctrine (see [[mcp_multi_tenant_namespace_blocker]]).
+    primary_actor: operator
+    owning_engine: user-access-engine
+    secondary_engines: [gigaton-gateway, intelligence-silo]
+    ui_route: /alt-user/surfaces
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-3-nda-signed
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/alt-user-accounts/{idp_profile_id}/entitlements'
+      predicate:
+        all_of:
+          - json_path: '$.account_created_at'
+            operator: is_not_null
+          - json_path: '$.entitlement_count'
+            operator: gte
+            value: 1
+          - json_path: '$.audit_logging_enabled'
+            operator: eq
+            value: true
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: ScopedAccessProvisioned
+      description: UAE alt_user_accounts row + entitlements bound to nda_scopes + audit logging confirmed enabled
+    signoff_required: false
+    actions:
+      - id: create-alt-user-account
+        title: Create alt-user account
+        description: UAE writes alt_user_accounts row scoped to operator namespace; auth credentials issued.
+        action_label: '(automatic)'
+        action_href: /alt-user/surfaces
+        auto_complete_on:
+          - event_type: AltUserAccountCreated
+      - id: bind-scope-entitlements
+        title: Bind entitlements strictly to NDA scope
+        description: Per-surface entitlement rows; no broader access; namespace-enforcement at gateway.
+        action_label: '(automatic)'
+        action_href: /alt-user/surfaces
+        auto_complete_on:
+          - event_type: ScopeEntitlementsBound
+      - id: enable-audit-logging
+        title: Enable audit logging
+        description: Every alt-user request logged to immutable audit table; mandatory, non-overridable.
+        action_label: '(automatic)'
+        action_href: /alt-user/surfaces
+        auto_complete_on:
+          - event_type: AuditLoggingEnabled
+      - id: notify-alt-user
+        title: Notify alt-user
+        description: Email + in-app notification with deep-link to scoped surfaces.
+        action_label: '(automatic)'
+        action_href: /alt-user/surfaces
+        auto_complete_on:
+          - event_type: ScopedAccessProvisioned
+    education:
+      why_1min: /docs/acquisition/alt-user/why/scoped-access-1min.md
+    events_emitted:
+      - AltUserAccountCreated
+      - ScopeEntitlementsBound
+      - AuditLoggingEnabled
+      - ScopedAccessProvisioned
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_provisioned
+    gamification:
+      badge_slug: alt-user-provisioned
+      badge_name: Access Provisioned
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: alt-user can now look at exactly what was negotiated
+      economics: prevents scope-leak liability
+      predictability: HIGH
+      brand_dimension: integrity + auditability
+
+  # ─── STAGE 5 — ONBOARDING (ORIENTATION) ────────────────────────────────
+  - id: stage-5-orientation-completed
+    order: 5
+    name: Orientation Completed
+    short_description: Alt-user completes an orientation walkthrough of the scoped surfaces, the intelligence query interface, and audit-trail expectations.
+    why_this_stage: |
+      UAF Stage 5. Orientation closes the knowledge gap on what is in scope,
+      how to query intelligence within the context_completeness threshold,
+      and what audit signals are surfaced back to the operator. Without
+      orientation, alt-users repeatedly hit refusals and walk away.
+    primary_actor: alt_user
+    owning_engine: gigaton-ui-system
+    secondary_engines: [intelligence-silo, user-access-engine]
+    ui_route: /alt-user/orientation
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-4-scoped-access-provisioned
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/alt-user-accounts/{idp_profile_id}/orientation-state'
+      predicate:
+        json_path: '$.steps_completed_pct'
+        operator: gte
+        value: 80
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: OrientationCompleted
+      description: alt-user completed ≥80% of orientation steps (surfaces tour + intelligence query primer + audit-trail explainer)
+    signoff_required: false
+    actions:
+      - id: tour-surfaces
+        title: Tour scoped surfaces
+        description: Walkthrough of each surface in nda_scopes.surfaces_in_scope.
+        action_label: Tour
+        action_href: /alt-user/orientation?step=surfaces
+        auto_complete_on:
+          - event_type: SurfacesToured
+      - id: intelligence-primer
+        title: Intelligence query primer
+        description: How to query the intelligence layer; context_completeness threshold behavior (queries below threshold refused with caveats per doctrine).
+        action_label: Primer
+        action_href: /alt-user/orientation?step=intelligence
+        auto_complete_on:
+          - event_type: IntelligencePrimerCompleted
+      - id: audit-explainer
+        title: Audit-trail explainer
+        description: What gets logged; what the operator sees; export-request behavior.
+        action_label: Read
+        action_href: /alt-user/orientation?step=audit
+        auto_complete_on:
+          - event_type: AuditExplainerCompleted
+      - id: complete-orientation
+        title: Mark orientation complete
+        description: alt-user confirms; UAE records OrientationCompleted.
+        action_label: Done
+        action_href: /alt-user/orientation?action=complete
+        auto_complete_on:
+          - event_type: OrientationCompleted
+    education:
+      why_1min: /docs/acquisition/alt-user/why/orientation-1min.md
+    events_emitted:
+      - SurfacesToured
+      - IntelligencePrimerCompleted
+      - AuditExplainerCompleted
+      - OrientationCompleted
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_provisioned
+    gamification:
+      badge_slug: alt-user-oriented
+      badge_name: Oriented
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: alt-user knows the rules of engagement
+      economics: avg 40-60% reduction in refusal-fatigue churn
+      predictability: HIGH
+      brand_dimension: clarity + competence
+
+  # ─── STAGE 6 — ACTIVATION (FIRST SCOPED INTERACTION) ───────────────────
+  - id: stage-6-first-scoped-interaction
+    order: 6
+    name: First Scoped Interaction
+    short_description: Alt-user runs first non-trivial query or export within scope; ActivationEvent recorded.
+    why_this_stage: |
+      UAF Stage 6. Alt-user activation is qualitative — the moment they
+      extracted strategic value within scope. activation_metrics.yaml
+      category=alt_user defines this precisely (e.g. "≥1 intelligence
+      query at or above context_completeness threshold OR ≥1 scoped
+      export request approved").
+    primary_actor: alt_user
+    owning_engine: decision-engine
+    secondary_engines: [intelligence-silo, gigaton-gateway]
+    ui_route: /alt-user/intelligence
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-5-orientation-completed
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/activation/events?idp_profile_id={idp_profile_id}&category=alt_user&first=true'
+      predicate:
+        json_path: '$.activation_event_count'
+        operator: gte
+        value: 1
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: ActivationEventRecorded
+      description: decision-engine writes ActivationEvent with category=alt_user + first_for_idp_profile=true + above-threshold query or approved export
+    signoff_required: false
+    actions:
+      - id: run-first-query
+        title: Run first intelligence query
+        description: Subject to context_completeness threshold; queries below threshold receive refusal-with-caveats response per doctrine.
+        action_label: Open intelligence
+        action_href: /alt-user/intelligence
+        auto_complete_on:
+          - event_type: FirstQueryRan
+      - id: request-first-export
+        title: Request first scoped export (alt path)
+        description: Export request routes to operator admin for approval before fulfillment.
+        action_label: Request export
+        action_href: /alt-user/exports?action=request
+        auto_complete_on:
+          - event_type: FirstExportRequested
+      - id: record-activation
+        title: Record activation
+        description: decision-engine emits ActivationEvent against Penrose scoreboard.
+        action_label: '(automatic)'
+        action_href: /alt-user/home
+        auto_complete_on:
+          - event_type: ActivationEventRecorded
+    education:
+      why_1min: /docs/acquisition/alt-user/why/first-interaction-1min.md
+    events_emitted:
+      - FirstQueryRan
+      - FirstExportRequested
+      - ActivationEventRecorded
+      - StageCompleted
+    capability_unlocks_on_completion: tier_4_active
+    gamification:
+      badge_slug: alt-user-activated
+      badge_name: First Interaction
+      streak_eligible: false
+      success_celebration: 'You extracted value within scope. Ongoing dialog now enabled.'
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: alt-user is in the value loop (within scope)
+      economics: strategic optionality realized
+      predictability: HIGH
+      brand_dimension: outcomes within bounded scope
+
+  # ─── STAGE 7 — COMPOUNDING ─────────────────────────────────────────────
+  - id: stage-7-ongoing-dialog
+    order: 7
+    name: Ongoing Dialog
+    short_description: Sustained engagement; advisory loop; alt-user-to-alt-user referrals; sustained strategic optionality.
+    why_this_stage: |
+      UAF Stage 7. compounding_per_profile.sql aggregates alt-user KPIs
+      (queries-per-week, scoped export approvals, advisory interactions
+      logged). Because alt-user LTV is qualitative, the threshold for
+      "compounding" is engagement frequency + scope-renewal cadence.
+    primary_actor: alt_user
+    owning_engine: human-management-engine
+    secondary_engines: [decision-engine, intelligence-silo]
+    ui_route: /alt-user/home
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-6-first-scoped-interaction
+    activation_gate:
+      method: GET
+      url: '{hme_base}/v1/compounding/per-profile?idp_profile_id={idp_profile_id}&category=alt_user'
+      predicate:
+        any_of:
+          - json_path: '$.queries_per_week'
+            operator: gte
+            value: 2
+          - json_path: '$.scope_renewals_count'
+            operator: gte
+            value: 1
+          - json_path: '$.advisory_interactions_30d'
+            operator: gte
+            value: 1
+      ttl_seconds: 300
+    exit_criterion:
+      event_type: CompoundingObserved
+      description: any one of ≥2 queries/wk / ≥1 scope renewal / ≥1 advisory interaction observed in 30d window
+    signoff_required: false
+    actions:
+      - id: renew-scope
+        title: Renew or extend scope
+        description: Pre-expiry renewal — re-runs stages 2 + 3 within same IDP profile.
+        action_label: Renew scope
+        action_href: /alt-user/scope?action=renew
+        auto_complete_on:
+          - event_type: ScopeRenewed
+      - id: refer-alt-user
+        title: Refer other alt-user
+        description: Alt-user introduces another researcher / regulator / partner; intro routes through stage-0.
+        action_label: Refer
+        action_href: /alt-user/refer
+        auto_complete_on:
+          - event_type: AltUserReferralIssued
+      - id: advisory-interaction
+        title: Logged advisory interaction
+        description: Calls / written exchanges captured as advisory_interactions; feeds compounding metric.
+        action_label: '(automatic)'
+        action_href: /alt-user/home
+        auto_complete_on:
+          - event_type: AdvisoryInteractionLogged
+    education:
+      why_1min: /docs/acquisition/alt-user/why/compounding-1min.md
+    events_emitted:
+      - ScopeRenewed
+      - AltUserReferralIssued
+      - AdvisoryInteractionLogged
+      - CompoundingObserved
+      - StageCompleted
+    capability_unlocks_on_completion: tier_5_compounding
+    gamification:
+      badge_slug: alt-user-compounding
+      badge_name: Compounding
+      streak_eligible: true
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: alt-user is now a sustained strategic asset
+      economics: optionality value compounds qualitatively
+      predictability: MEDIUM (qualitative)
+      brand_dimension: full coherence (within bounded scope)
+
+# ─────────────────────────────────────────────────────────────────────────
+# CHAT ORCHESTRATION CONTRACT (inherits from onboarding_v1)
+# ─────────────────────────────────────────────────────────────────────────
+chat_orchestration:
+  inherits_from: master-knowledge-base/manifests/onboarding_v1.yaml#/chat_orchestration
+  default_intent_derivation:
+    question_template: '{action.title}'
+    context_template: '{action.description}'
+    button_label: '{action.action_label}'
+    fallback_route: '{action.action_href}'
+    success_template: '{action.verify_description}'
+    activation_event: '{action.auto_complete_on[0].event_type}'
+  affordance_resolution:
+    inline_form:
+      trigger_events:
+        - AltUserIdentitySubmitted
+        - NDATemplateSelected
+        - SurfacesInScopeDefined
+        - NDARulesSet
+      ux: 'Inline form in chat'
+    multiple_choice:
+      trigger_events:
+        - NDATemplateSelected
+      ux: 'Button group of affiliation-driven NDA templates'
+    confirmation_only:
+      trigger_events:
+        - NDAScopeDefined
+        - NDASigned
+        - ScopedAccessProvisioned
+        - OrientationCompleted
+        - ActivationEventRecorded
+        - CompoundingObserved
+      ux: 'Acknowledge button in chat'
+  per_stage_overrides:
+    stage-0-alt-user-discovered:
+      opening_message: |
+        Thanks for reaching out. Before we can discuss specifics, tell me
+        who you are, who you're with, and what you're looking to look at.
+    stage-2-nda-scope-defined:
+      opening_message: |
+        Based on your affiliation, here are the NDA templates that apply.
+        We'll define the exact surfaces in scope next — be precise; what
+        isn't in scope stays out of scope.
+    stage-5-orientation-completed:
+      opening_message: |
+        Before you start querying, I want to walk you through how this
+        works. The intelligence layer will refuse queries it can't answer
+        completely within your scope — that's by design.
+
+# ─────────────────────────────────────────────────────────────────────────
+# OVERLAY SCHEMA
+# ─────────────────────────────────────────────────────────────────────────
+overlay_schema:
+  description: |
+    Each operator can override this alt-user manifest via
+    UAE.client_namespaces.workflow_overlays.alt_user_acquisition. Overlay
+    operations on NDA + scoped-access stages are heavily axiom-restricted —
+    you cannot hide stages that establish legal envelope.
+  shape:
+    hide:
+      type: array
+      items: string
+      restricted_by_axiom: AX-???
+    reorder:
+      type: array
+      items: string
+    replace:
+      type: object
+      additional_properties:
+        type: object
+    extend:
+      type: array
+      items:
+        $ref: '#/stages/0'
+    inviolable_stage_ids:
+      type: array
+      const:
+        - stage-2-nda-scope-defined
+        - stage-3-nda-signed
+        - stage-4-scoped-access-provisioned
+
+# ─────────────────────────────────────────────────────────────────────────
+# GATEWAY ENDPOINTS
+# ─────────────────────────────────────────────────────────────────────────
+gateway_endpoints:
+  manifest:
+    endpoint: GET /v1/acquisition/manifest
+    query_params:
+      category: alt_user
+      operator_id: required
+      idp_profile_id: optional
+      include_overlay: default=true
+    headers:
+      X-Client-Namespace: required
+    response:
+      schema_ref: '#/stages'
+      cache_control: 'max-age=60, private'
+      etag: required
+  state:
+    endpoint: GET /v1/acquisition/state
+    query_params:
+      category: alt_user
+      idp_profile_id: required
+    response:
+      shape:
+        current_stage_id: string
+        stages_completed: array of stage_id
+        current_tier_unlocked: enum [tier_1_inquiry, tier_2_scoped, tier_3_provisioned, tier_4_active, tier_5_compounding]
+        nav_circles_enabled: array of circle_id
+        nda_scope_id: string
+        surfaces_in_scope: array of string
+        audit_logging_enabled: boolean
+    cache_control: 'max-age=10, private'
+  intent:
+    endpoint: POST /v1/acquisition/intent
+    purpose: |
+      Alt-user chat reply / button click / form submission goes here.
+
+# ─────────────────────────────────────────────────────────────────────────
+# CROSS-REFERENCES
+# ─────────────────────────────────────────────────────────────────────────
+references:
+  doctrine:
+    - universal_acquisition_framework_2026_05_26
+    - foundational_goal_gigaton_engineered_brand_experience
+    - context_completeness_doctrine_2026_05_26
+    - mcp_multi_tenant_namespace_blocker_2026_05_26
+  schemas:
+    - uaf_phase_a_shared_schemas
+  manifests:
+    - onboarding_v1
+  patterns:
+    - directed_workflow_registry_pattern
+  governance:
+    - decision-engine/drift_sentinel/AXIOM_REGISTRY.md
+    - master-knowledge-base/CONSTITUTION.md
+  related_engines:
+    - user-access-engine  # IDP + alt_user_accounts + audit logging
+    - intelligence-silo  # context-completeness-bound query
+    - decision-engine  # nda_scopes + activation_metrics
+    - gigaton-gateway  # namespace enforcement + export approval routing
+    - human-management-engine  # compounding view

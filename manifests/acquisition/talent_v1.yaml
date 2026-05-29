@@ -1,0 +1,936 @@
+# Gigaton Talent Acquisition Onboarding — Manifest v1.0.0
+#
+# This manifest is the SOURCE OF TRUTH for the TALENT acquisition path —
+# people the platform engages to perform work (operators' fractional team,
+# Ti Solutions managed-service practitioners, specialized vendors who get
+# paid through Gigaton compensation rails). It is declarative data.
+#
+# Provenance / doctrine refs (see references[] block at bottom):
+#   - [[universal_acquisition_framework_2026_05_26]]               (parent spec)
+#   - [[onboarding_v1]]                                            (CLIENT manifest — shape template)
+#   - [[compensation_payout_structure_thursday_5_28_deadline]]     (rev share + cadence)
+#   - [[payout_1_min_threshold_1k_2026_05_26]]                     ($1k min payout)
+#   - [[intel_3_no_static_weights_algorithmic_determination_2026_05_26]] (algorithmic weights)
+#
+# UAF stage mapping (parent spec §2.1 → this manifest):
+#   UAF Stage 1 Awareness        → stage-0-talent-discovered
+#   UAF Stage 2 Identification   → stage-1-talent-identified
+#   UAF Stage 3 Qualification    → stage-2-skill-vector-captured, stage-3-trust-tier-assigned
+#   UAF Stage 4 Engagement       → stage-4-role-contract-signed
+#   UAF Stage 5 Onboarding       → stage-5-payout-rail-bound, stage-6-first-dispatch-criteria
+#   UAF Stage 6 Activation       → stage-7-first-dispatch-completed
+#   UAF Stage 7 Compounding      → stage-8-compounding
+
+version: 1.0.0
+manifest_id: gigaton-talent-acquisition-onboarding
+acquisition_category: talent
+introduced_at: '2026-05-28T00:00:00Z'
+canonical_source: master-knowledge-base/manifests/acquisition/talent_v1.yaml
+parent_framework: universal_acquisition_framework_2026_05_26
+ratified_by:
+  - todd@gigaton.ai
+  - matt@gigaton.ai
+  - bella@gigaton.ai
+
+# Capability tiers — what the talent can be dispatched to do.
+capability_tiers:
+  tier_1_candidate:
+    unlocked_by_stages: [stage-0-talent-discovered, stage-1-talent-identified]
+    grants:
+      - talent.profile.read_self
+      - talent.opportunities.browse
+  tier_2_qualified:
+    unlocked_by_stages: [stage-2-skill-vector-captured, stage-3-trust-tier-assigned]
+    grants:
+      - talent.match.receive_proposed_dispatches
+      - talent.intelligence.chat_scoped
+  tier_3_contracted:
+    unlocked_by_stages: [stage-4-role-contract-signed, stage-5-payout-rail-bound]
+    grants:
+      - talent.dispatch.accept
+      - talent.payouts.receive
+  tier_4_activated:
+    unlocked_by_stages: [stage-6-first-dispatch-criteria, stage-7-first-dispatch-completed]
+    grants:
+      - talent.dispatch.fulfill_autonomous
+      - talent.scoreboard.read_self
+  tier_5_compounding:
+    unlocked_by_stages: [stage-8-compounding]
+    grants:
+      - talent.dispatch.priority_routing
+      - talent.network.refer_other_talent
+      - talent.coaching.realtime
+
+# Talent-facing nav surfaces (the Gigaton talent portal).
+nav_circles:
+  - circle_id: profile
+    label: My Profile
+    route: /talent/profile
+    tier_required: always
+    icon: user
+  - circle_id: opportunities
+    label: Opportunities
+    route: /talent/opportunities
+    tier_required: tier_1_candidate
+    icon: briefcase
+  - circle_id: dispatches
+    label: Dispatches
+    route: /talent/dispatches
+    tier_required: tier_3_contracted
+    icon: send
+  - circle_id: payouts
+    label: Payouts
+    route: /talent/payouts
+    tier_required: tier_3_contracted
+    icon: dollar-sign
+  - circle_id: scoreboard
+    label: My Scoreboard
+    route: /talent/scoreboard
+    tier_required: tier_4_activated
+    icon: bar-chart
+  - circle_id: network
+    label: Refer Talent
+    route: /talent/network
+    tier_required: tier_5_compounding
+    icon: users
+
+deprecated_routes: []
+
+# ─────────────────────────────────────────────────────────────────────────
+# STAGES
+# ─────────────────────────────────────────────────────────────────────────
+
+stages:
+
+  # ─── STAGE 0 — AWARENESS ───────────────────────────────────────────────
+  - id: stage-0-talent-discovered
+    order: 0
+    name: Talent Discovered
+    short_description: First signal indicates a candidate (referral, application, scrape match, Ti Solutions network introduction).
+    why_this_stage: |
+      UAF Stage 1. The platform records a TalentSignalEvent against a
+      pre-IDP candidate id so that downstream sourcing attribution and
+      affiliate-credit for recruiting referrals can flow correctly.
+    primary_actor: operator
+    owning_engine: user-access-engine
+    secondary_engines: [intelligence-silo, gigaton-gateway]
+    ui_route: /talent/apply
+    entry_signal:
+      type: always_open
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/idp/signals?session_id={session_id}&category=talent'
+      predicate:
+        json_path: '$.signal_count'
+        operator: gte
+        value: 1
+      ttl_seconds: 30
+    exit_criterion:
+      event_type: TalentSignalCaptured
+      description: SignalEvent with category=talent received (application, referral, sourced-match)
+    signoff_required: false
+    actions:
+      - id: capture-talent-signal
+        title: Capture inbound talent signal
+        description: Application form submission, referral webhook, or sourcing-tool match emits SignalEvent.
+        action_label: '(automatic)'
+        action_href: /talent/apply
+        auto_complete_on:
+          - event_type: TalentSignalCaptured
+    education:
+      why_1min: /docs/acquisition/talent/why/awareness-1min.md
+    events_emitted:
+      - TalentSignalCaptured
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_candidate
+    gamification:
+      badge_slug: talent-discovered
+      badge_name: Discovered
+      streak_eligible: false
+      fallback_predicted_influence_usd: 200
+    ppim_signature:
+      interaction: talent pipeline seeded
+      economics: avg $200 sourcing-cost equivalent retired per signal
+      predictability: HIGH
+      brand_dimension: discoverability + outreach
+
+  # ─── STAGE 1 — IDENTIFICATION ──────────────────────────────────────────
+  - id: stage-1-talent-identified
+    order: 1
+    name: Talent Identified
+    short_description: Candidate self-identifies (email + name + jurisdiction); IDPProfile created with category=talent.
+    why_this_stage: |
+      UAF Stage 2. Identity is required before any role-fit conversation,
+      contract, or payout rail can be established. Jurisdiction matters
+      because payout rails (Stripe Connect, ACH) and tax forms vary.
+    primary_actor: talent
+    owning_engine: user-access-engine
+    secondary_engines: [intelligence-silo]
+    ui_route: /talent/apply
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-0-talent-discovered
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/idp/profile?session_id={session_id}'
+      predicate:
+        all_of:
+          - json_path: '$.idp_profile_id'
+            operator: is_not_null
+          - json_path: '$.category'
+            operator: eq
+            value: talent
+          - json_path: '$.jurisdiction'
+            operator: is_not_null
+      ttl_seconds: 30
+    exit_criterion:
+      event_type: TalentIDPResolved
+      description: idp_profiles row created with category=talent and non-null jurisdiction
+    signoff_required: false
+    actions:
+      - id: capture-identity
+        title: Capture identity + jurisdiction
+        description: Name, email, country/state/region of tax residence; pre-fills payout-rail decision in stage-5.
+        action_label: Continue
+        action_href: /talent/apply/identity
+        auto_complete_on:
+          - event_type: TalentIdentitySubmitted
+      - id: resolve-idp
+        title: Resolve IDP profile
+        description: Resolution worker creates/merges IDP and walks back any prior anon signals.
+        action_label: '(automatic)'
+        action_href: /talent/apply
+        auto_complete_on:
+          - event_type: TalentIDPResolved
+    education:
+      why_1min: /docs/acquisition/talent/why/identification-1min.md
+    events_emitted:
+      - TalentIdentitySubmitted
+      - TalentIDPResolved
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_candidate
+    gamification:
+      badge_slug: talent-identified
+      badge_name: Identified
+      streak_eligible: false
+      fallback_predicted_influence_usd: 350
+    ppim_signature:
+      interaction: dialog can begin
+      economics: avoids miscategorized sourcing
+      predictability: HIGH
+      brand_dimension: legitimacy
+
+  # ─── STAGE 2 — QUALIFICATION I (SKILL VECTOR) ──────────────────────────
+  - id: stage-2-skill-vector-captured
+    order: 2
+    name: Skill Vector Captured
+    short_description: Skills, prior outcomes, modality fit, and self-attested specializations are captured into a queryable skill_vector.
+    why_this_stage: |
+      UAF Stage 3a. UAF §2.2 talent overlay specifies qualification via
+      skill_vectors cosine match. Without a vector, dispatch matching has
+      nothing to score against and the talent cannot be routed to relevant
+      work. Backed by intelligence-silo's 10 Intelligence Dimensions for
+      latent-skill inference from prior-work artifacts.
+    primary_actor: talent
+    owning_engine: intelligence-silo
+    secondary_engines: [user-access-engine, decision-engine]
+    ui_route: /talent/profile/skills
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-1-talent-identified
+    activation_gate:
+      method: GET
+      url: '{intel_silo_base}/v1/talent/skill-vector?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.skill_vector_id'
+            operator: is_not_null
+          - json_path: '$.dimensions_filled'
+            operator: gte
+            value: 5
+          - json_path: '$.evidence_artifact_count'
+            operator: gte
+            value: 1
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: SkillVectorComputed
+      description: skill_vector embedded against IDPProfile with ≥5 dimensions filled and ≥1 evidence artifact uploaded
+    signoff_required: false
+    actions:
+      - id: declare-skills
+        title: Declare skills + specializations
+        description: Self-attested taxonomy; pre-filled from any prior-work artifacts uploaded.
+        action_label: Declare skills
+        action_href: /talent/profile/skills?action=declare
+        auto_complete_on:
+          - event_type: TalentSkillsDeclared
+      - id: upload-evidence
+        title: Upload prior-work evidence
+        description: Portfolio, case studies, references — silo's needs_inference also reads these to score 10 Intelligence Dimensions.
+        action_label: Upload evidence
+        action_href: /talent/profile/skills?action=evidence
+        auto_complete_on:
+          - event_type: EvidenceArtifactUploaded
+            min_count: 1
+      - id: compute-skill-vector
+        title: Compute skill vector
+        description: Background job — produces queryable vector for cosine match against dispatch criteria.
+        action_label: '(automatic)'
+        action_href: /talent/profile/skills
+        auto_complete_on:
+          - event_type: SkillVectorComputed
+    education:
+      why_1min: /docs/acquisition/talent/why/skill-vector-1min.md
+    events_emitted:
+      - TalentSkillsDeclared
+      - EvidenceArtifactUploaded
+      - SkillVectorComputed
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_qualified
+    gamification:
+      badge_slug: talent-skills-mapped
+      badge_name: Skills Mapped
+      streak_eligible: false
+      fallback_predicted_influence_usd: 1200
+    ppim_signature:
+      interaction: cosine match makes dispatch possible
+      economics: avg 3-5x dispatch-acceptance vs unmatched outreach
+      predictability: HIGH
+      brand_dimension: capability legibility
+
+  # ─── STAGE 3 — QUALIFICATION II (TRUST TIER) ───────────────────────────
+  - id: stage-3-trust-tier-assigned
+    order: 3
+    name: Trust Tier Assigned
+    short_description: Trust assessor + Penrose checks + principles filter assign tier T0-T4; ethnographic frames projected.
+    why_this_stage: |
+      UAF Stage 3b. Trust tier is the gating signal for what dispatch
+      classes the talent can receive (T0 = none; T4 = autonomous in-scope
+      execution). Per [[foundational_goal_maximize_human_superpowers]] the
+      full qualification stack runs — Variable Registry + Axiom Registry +
+      ethnographic frames + trust assessor.
+    primary_actor: operator
+    owning_engine: decision-engine
+    secondary_engines: [intelligence-silo, user-access-engine]
+    ui_route: /talent/profile/trust
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-2-skill-vector-captured
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/talent/trust-tier?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.trust_tier'
+            operator: in
+            value: [T0, T1, T2, T3, T4]
+          - json_path: '$.ethnographic_frames_projected'
+            operator: eq
+            value: true
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: TrustTierAssigned
+      description: decision-engine writes trust_tier row referencing skill_vector + identity + ethnographic frames
+    signoff_required: true
+    signoff:
+      type: operator_acknowledgement
+      actor: operator_admin
+      stored_in: decision_engine_trust_tier_decisions_table
+    actions:
+      - id: run-trust-assessor
+        title: Run trust assessor
+        description: Background job — combines identity verification, references, evidence quality, prior-platform reputation if available.
+        action_label: '(automatic)'
+        action_href: /talent/profile/trust
+        auto_complete_on:
+          - event_type: TrustAssessorCompleted
+      - id: project-ethnographic-frames
+        title: Project ethnographic frames
+        description: Apply 5 ethnographic frames (state vars, trigger events, conditional deps, behavioral probs, decision pathways) to enrich the profile.
+        action_label: '(automatic)'
+        action_href: /talent/profile/trust
+        auto_complete_on:
+          - event_type: EthnographicFramesProjected
+      - id: operator-tier-signoff
+        title: Operator confirms initial trust tier
+        description: Optional but recommended human signoff before T3/T4 assignment.
+        action_label: Confirm tier
+        action_href: /talent/profile/trust?action=confirm
+        auto_complete_on:
+          - event_type: TrustTierAssigned
+    education:
+      why_1min: /docs/acquisition/talent/why/trust-tier-1min.md
+    events_emitted:
+      - TrustAssessorCompleted
+      - EthnographicFramesProjected
+      - TrustTierAssigned
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_qualified
+    gamification:
+      badge_slug: talent-trust-anchored
+      badge_name: Trust Anchored
+      streak_eligible: false
+      fallback_predicted_influence_usd: 1800
+    ppim_signature:
+      interaction: dispatch class is now legally bounded
+      economics: prevents avg $25k/yr in misrouted-dispatch rework
+      predictability: HIGH
+      brand_dimension: integrity + accountability
+
+  # ─── STAGE 4 — ENGAGEMENT (ROLE CONTRACT) ──────────────────────────────
+  - id: stage-4-role-contract-signed
+    order: 4
+    name: Role Contract Signed
+    short_description: Talent and operator sign a scoped role contract that codifies dispatch boundaries, comp split, and termination clauses.
+    why_this_stage: |
+      UAF Stage 4. Engagement, from the talent's POV, is the role contract.
+      The contract references the comp+payout structure (see
+      [[compensation_payout_structure_thursday_5_28_deadline]]) and the
+      INTEL-3 algorithmic-weights doctrine — splits are seeded with bounds,
+      not static.
+    primary_actor: talent
+    owning_engine: decision-engine
+    secondary_engines: [user-access-engine, intelligence-silo]
+    ui_route: /talent/profile/contract
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-3-trust-tier-assigned
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/talent/role-contract?idp_profile_id={idp_profile_id}'
+      predicate:
+        json_path: '$.contract_signed_at'
+        operator: is_not_null
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: RoleContractSigned
+      description: signed contract artifact written to scope_contracts (talent_role variant) and cryptographically acknowledged by both parties
+    signoff_required: true
+    signoff:
+      type: dual_signature
+      actors: [talent, operator_admin]
+      stored_in: scope_contracts_table
+    actions:
+      - id: present-role-terms
+        title: Present role terms + comp split
+        description: Auto-rendered with INTEL-3-doctrine seeded comp values (within published bounds) + scope of dispatch classes the trust tier permits.
+        action_label: Review terms
+        action_href: /talent/profile/contract?action=review
+        auto_complete_on:
+          - event_type: RoleTermsPresented
+      - id: counter-or-accept
+        title: Talent counter-proposes or accepts
+        description: Counter routes through decision-engine for operator response; accept advances to signing.
+        action_label: Accept / Counter
+        action_href: /talent/profile/contract?action=respond
+        auto_complete_on:
+          - event_type: RoleTermsAccepted
+      - id: sign-role-contract
+        title: Sign role contract
+        description: Both parties cryptographically acknowledge; copy stored in both namespaces.
+        action_label: Sign & continue
+        action_href: /talent/profile/contract?action=sign
+        auto_complete_on:
+          - event_type: RoleContractSigned
+    education:
+      why_1min: /docs/acquisition/talent/why/role-contract-1min.md
+      what_3min: /docs/acquisition/talent/what/contract-clauses-3min.md
+    events_emitted:
+      - RoleTermsPresented
+      - RoleTermsAccepted
+      - RoleContractSigned
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_contracted
+    gamification:
+      badge_slug: talent-contracted
+      badge_name: Contracted
+      streak_eligible: false
+      success_celebration: 'Welcome to the team. Connect a payout rail next.'
+      fallback_predicted_influence_usd: 5500
+    ppim_signature:
+      interaction: economic + legal alignment achieved
+      economics: foundational for talent comp flow
+      predictability: HIGH
+      brand_dimension: integrity + clarity
+
+  # ─── STAGE 5 — ONBOARDING I (PAYOUT RAIL) ──────────────────────────────
+  - id: stage-5-payout-rail-bound
+    order: 5
+    name: Payout Rail Bound
+    short_description: Talent connects Stripe Connect Express (default) or ACH (alt); jurisdiction-correct tax form captured.
+    why_this_stage: |
+      UAF Stage 5a. Per [[payout_1_min_threshold_1k_2026_05_26]] every
+      payout rail enforces $1k minimum indefinitely. Stripe Connect Express
+      is the default; ACH is the alternative; jurisdiction (captured in
+      stage-1) selects the tax form (W-9 / W-8BEN / etc.).
+    primary_actor: talent
+    owning_engine: gigaton-gateway
+    secondary_engines: [user-access-engine]
+    ui_route: /talent/payouts/connect
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-4-role-contract-signed
+    activation_gate:
+      method: GET
+      url: '{gateway_base}/v1/talent/payout-rail?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.rail'
+            operator: in
+            value: [stripe_connect_express, ach]
+          - json_path: '$.payout_account_verified'
+            operator: eq
+            value: true
+          - json_path: '$.tax_form_on_file'
+            operator: eq
+            value: true
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: PayoutRailVerified
+      description: gateway emits PayoutRailVerified with rail + provider_account_id + tax form on file
+    signoff_required: true
+    signoff:
+      type: payout_provider_kyc
+      actor: payment_provider_webhook
+      stored_in: gateway_payout_accounts_table
+    actions:
+      - id: choose-payout-rail
+        title: Choose payout rail
+        description: Stripe Connect Express (default) or ACH (alt). Selection persists per-talent.
+        action_label: Choose rail
+        action_href: /talent/payouts/connect?action=choose
+        auto_complete_on:
+          - event_type: PayoutRailSelected
+      - id: complete-kyc
+        title: Complete payout-provider KYC
+        description: Stripe Connect Express onboarding flow or ACH account verification (micro-deposits).
+        action_label: Complete KYC
+        action_href: /talent/payouts/connect?action=kyc
+        auto_complete_on:
+          - event_type: PayoutKYCCompleted
+      - id: file-tax-form
+        title: File tax form
+        description: W-9 (US) / W-8BEN (intl) / per-jurisdiction equivalent; resolved from stage-1 jurisdiction.
+        action_label: File tax form
+        action_href: /talent/payouts/connect?action=tax
+        auto_complete_on:
+          - event_type: TaxFormFiled
+      - id: verify-rail
+        title: Verify rail end-to-end
+        description: Send $0 verification ping; rail must round-trip.
+        action_label: '(automatic)'
+        action_href: /talent/payouts/connect
+        auto_complete_on:
+          - event_type: PayoutRailVerified
+    education:
+      why_1min: /docs/acquisition/talent/why/payout-rail-1min.md
+      deep_dive_10min: /docs/acquisition/talent/deep/payout-1k-floor-10min.md
+    events_emitted:
+      - PayoutRailSelected
+      - PayoutKYCCompleted
+      - TaxFormFiled
+      - PayoutRailVerified
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_contracted
+    gamification:
+      badge_slug: talent-payout-ready
+      badge_name: Payout Ready
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0  # rail itself doesn't produce influence
+    ppim_signature:
+      interaction: talent can now be paid
+      economics: removes top day-1 churn cause (broken rail)
+      predictability: HIGH
+      brand_dimension: trust + reliability
+
+  # ─── STAGE 6 — ONBOARDING II (FIRST DISPATCH CRITERIA) ─────────────────
+  - id: stage-6-first-dispatch-criteria
+    order: 6
+    name: First-Dispatch Criteria Set
+    short_description: Talent codifies preferences (availability hours, max concurrent dispatches, exclusions); operator confirms acceptance bar.
+    why_this_stage: |
+      UAF Stage 5b. Without first-dispatch criteria, the routing layer
+      cannot send anything safely. The talent overlay in UAF §2.2 names
+      first-dispatch criteria as the engagement→activation bridge. Maps
+      onto Ti Agent Matrix dispatch logic.
+    primary_actor: talent
+    owning_engine: human-management-engine
+    secondary_engines: [decision-engine]
+    ui_route: /talent/profile/dispatch-prefs
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-5-payout-rail-bound
+    activation_gate:
+      method: GET
+      url: '{hme_base}/v1/talent/dispatch-criteria?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.availability_hours_per_week'
+            operator: gte
+            value: 1
+          - json_path: '$.acceptance_floor_set'
+            operator: eq
+            value: true
+          - json_path: '$.exclusions_captured'
+            operator: eq
+            value: true
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: DispatchCriteriaSet
+      description: HME stores dispatch_criteria row covering availability + acceptance bar + exclusions
+    signoff_required: false
+    actions:
+      - id: declare-availability
+        title: Declare availability
+        description: Hours per week, timezone, blackout windows.
+        action_label: Set availability
+        action_href: /talent/profile/dispatch-prefs?action=availability
+        auto_complete_on:
+          - event_type: AvailabilityDeclared
+      - id: set-acceptance-bar
+        title: Set acceptance bar
+        description: Minimum dispatch payout, minimum scope clarity, minimum trust-tier of counterparty.
+        action_label: Set bar
+        action_href: /talent/profile/dispatch-prefs?action=acceptance
+        auto_complete_on:
+          - event_type: AcceptanceBarSet
+      - id: capture-exclusions
+        title: Capture exclusions
+        description: Industries / counterparties / dispatch classes talent will not accept.
+        action_label: Capture exclusions
+        action_href: /talent/profile/dispatch-prefs?action=exclusions
+        auto_complete_on:
+          - event_type: ExclusionsCaptured
+      - id: finalize-criteria
+        title: Finalize dispatch criteria
+        description: HME writes the dispatch_criteria row.
+        action_label: Save
+        action_href: /talent/profile/dispatch-prefs?action=save
+        auto_complete_on:
+          - event_type: DispatchCriteriaSet
+    education:
+      why_1min: /docs/acquisition/talent/why/first-dispatch-1min.md
+    events_emitted:
+      - AvailabilityDeclared
+      - AcceptanceBarSet
+      - ExclusionsCaptured
+      - DispatchCriteriaSet
+      - StageCompleted
+    capability_unlocks_on_completion: tier_4_activated
+    gamification:
+      badge_slug: talent-dispatch-ready
+      badge_name: Dispatch Ready
+      streak_eligible: false
+      fallback_predicted_influence_usd: 400
+    ppim_signature:
+      interaction: routing layer can safely dispatch
+      economics: avg $400 of misrouted-dispatch rework avoided
+      predictability: HIGH
+      brand_dimension: operational coherence
+
+  # ─── STAGE 7 — ACTIVATION (FIRST DISPATCH COMPLETED) ───────────────────
+  - id: stage-7-first-dispatch-completed
+    order: 7
+    name: First Dispatch Completed
+    short_description: First matched dispatch is accepted, delivered, and graded; ActivationEvent recorded against Penrose scoreboard.
+    why_this_stage: |
+      UAF Stage 6. Talent activation = first paid, delivered dispatch with
+      a non-negative OVS-calibration score. Per activation_metrics.yaml
+      category=talent, this is the canonical activation moment.
+    primary_actor: talent
+    owning_engine: decision-engine
+    secondary_engines: [human-management-engine, gigaton-gateway]
+    ui_route: /talent/dispatches
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-6-first-dispatch-criteria
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/activation/events?idp_profile_id={idp_profile_id}&category=talent&first=true'
+      predicate:
+        json_path: '$.activation_event_count'
+        operator: gte
+        value: 1
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: ActivationEventRecorded
+      description: decision-engine writes ActivationEvent with category=talent + first_for_idp_profile=true + ovs_score recorded
+    signoff_required: true
+    signoff:
+      type: dispatch_grading
+      actor: operator_admin
+      stored_in: hme_dispatch_grades_table
+    actions:
+      - id: receive-first-dispatch
+        title: Receive first matched dispatch
+        description: HME router proposes first matched dispatch using skill_vector + dispatch_criteria.
+        action_label: View dispatch
+        action_href: /talent/dispatches
+        auto_complete_on:
+          - event_type: DispatchProposed
+      - id: accept-dispatch
+        title: Accept dispatch
+        description: Talent accepts within acceptance bar; HME locks resource.
+        action_label: Accept
+        action_href: /talent/dispatches
+        auto_complete_on:
+          - event_type: DispatchAccepted
+      - id: deliver-dispatch
+        title: Deliver dispatch
+        description: Work completed; artifacts uploaded; counterparty grades.
+        action_label: Mark delivered
+        action_href: /talent/dispatches
+        auto_complete_on:
+          - event_type: DispatchDelivered
+      - id: trip-activation-event
+        title: Activation recorded
+        description: decision-engine emits ActivationEvent; Penrose updates.
+        action_label: '(automatic)'
+        action_href: /talent/scoreboard
+        auto_complete_on:
+          - event_type: ActivationEventRecorded
+    education:
+      why_1min: /docs/acquisition/talent/why/first-dispatch-completed-1min.md
+    events_emitted:
+      - DispatchProposed
+      - DispatchAccepted
+      - DispatchDelivered
+      - ActivationEventRecorded
+      - StageCompleted
+    capability_unlocks_on_completion: tier_4_activated
+    gamification:
+      badge_slug: talent-first-paid
+      badge_name: First Paid Dispatch
+      streak_eligible: true
+      success_celebration: 'First paid dispatch in the books. The matrix is now learning your edges.'
+      fallback_predicted_influence_usd: 2800
+    ppim_signature:
+      interaction: talent is in the value loop
+      economics: foundational for utilization × accept-rate × retention LTV
+      predictability: HIGH
+      brand_dimension: outcomes + delivery
+
+  # ─── STAGE 8 — COMPOUNDING ─────────────────────────────────────────────
+  - id: stage-8-compounding
+    order: 8
+    name: Compounding
+    short_description: Utilization, accept-rate, retention, and referral tracked; HR signal fires if utilization drifts; real-time coaching activates.
+    why_this_stage: |
+      UAF Stage 7. compounding_per_profile.sql aggregates talent KPIs;
+      HME utilization sweep triggers Self-Engineered HR signals if
+      utilization drifts outside published bounds (per
+      [[wave2_intelligence_layer_ti_agent_matrix]] §8). Real-time coaching
+      is Wave-2 intelligence-layer capability.
+    primary_actor: operator
+    owning_engine: human-management-engine
+    secondary_engines: [decision-engine, intelligence-silo]
+    ui_route: /talent/scoreboard
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-7-first-dispatch-completed
+    activation_gate:
+      method: GET
+      url: '{hme_base}/v1/compounding/per-profile?idp_profile_id={idp_profile_id}&category=talent'
+      predicate:
+        any_of:
+          - json_path: '$.utilization_pct'
+            operator: gte
+            value: 0.4
+          - json_path: '$.accept_rate'
+            operator: gte
+            value: 0.5
+          - json_path: '$.retention_days'
+            operator: gte
+            value: 30
+      ttl_seconds: 300
+    exit_criterion:
+      event_type: CompoundingObserved
+      description: any one of utilization ≥ 0.4 / accept-rate ≥ 0.5 / retention ≥ 30d observed within 90d window
+    signoff_required: false
+    actions:
+      - id: enable-realtime-coaching
+        title: Enable real-time coaching
+        description: Ti Agent Matrix coach surfaces in-dispatch suggestions; opt-in per talent.
+        action_label: Enable coaching
+        action_href: /talent/scoreboard?action=coaching
+        auto_complete_on:
+          - event_type: CoachingEnabled
+      - id: refer-other-talent
+        title: Refer other talent
+        description: Talent issues affiliate-style tracking links (delegates into affiliate manifest).
+        action_label: Refer
+        action_href: /talent/network
+        auto_complete_on:
+          - event_type: TalentReferralIssued
+    education:
+      why_1min: /docs/acquisition/talent/why/compounding-1min.md
+    events_emitted:
+      - CoachingEnabled
+      - TalentReferralIssued
+      - UtilizationObserved
+      - CompoundingObserved
+      - StageCompleted
+    capability_unlocks_on_completion: tier_5_compounding
+    gamification:
+      badge_slug: talent-compounding
+      badge_name: Compounding
+      streak_eligible: true
+      fallback_predicted_influence_usd: 9500
+    ppim_signature:
+      interaction: talent is now an amplifier (utilization + referral)
+      economics: full talent LTV loop closed
+      predictability: continuously falsified by Penrose
+      brand_dimension: full coherence
+
+# ─────────────────────────────────────────────────────────────────────────
+# CHAT ORCHESTRATION CONTRACT (inherits from onboarding_v1)
+# ─────────────────────────────────────────────────────────────────────────
+chat_orchestration:
+  inherits_from: master-knowledge-base/manifests/onboarding_v1.yaml#/chat_orchestration
+  default_intent_derivation:
+    question_template: '{action.title}'
+    context_template: '{action.description}'
+    button_label: '{action.action_label}'
+    fallback_route: '{action.action_href}'
+    success_template: '{action.verify_description}'
+    activation_event: '{action.auto_complete_on[0].event_type}'
+  affordance_resolution:
+    inline_form:
+      trigger_events:
+        - TalentIdentitySubmitted
+        - TalentSkillsDeclared
+        - AvailabilityDeclared
+        - AcceptanceBarSet
+        - ExclusionsCaptured
+      ux: 'Inline form in chat'
+    file_drop:
+      trigger_events:
+        - EvidenceArtifactUploaded
+      ux: 'Drag-drop zone for portfolio/case studies'
+    oauth_kickoff:
+      trigger_events:
+        - PayoutKYCCompleted
+      ux: 'Stripe Connect Express OAuth window'
+    confirmation_only:
+      trigger_events:
+        - SkillVectorComputed
+        - TrustTierAssigned
+        - PayoutRailVerified
+        - DispatchCriteriaSet
+        - ActivationEventRecorded
+        - CompoundingObserved
+      ux: 'Acknowledge button in chat'
+  per_stage_overrides:
+    stage-0-talent-discovered:
+      opening_message: |
+        Glad you found us. Before anything else — what kind of work are
+        you here to do? I'll match you to whatever fits.
+    stage-2-skill-vector-captured:
+      opening_message: |
+        Now we'll build your skill vector. The more evidence you upload,
+        the better the matrix can route work to you.
+    stage-5-payout-rail-bound:
+      opening_message: |
+        Let's get your payout rail set up. Stripe Connect Express is the
+        default; ACH is the alternative. Minimum payout is $1k — that's
+        platform-wide, not per-rail.
+    stage-7-first-dispatch-completed:
+      opening_message: |
+        First dispatch is in your inbox. Accept, deliver, and the system
+        starts learning your edges from real outcomes.
+
+# ─────────────────────────────────────────────────────────────────────────
+# OVERLAY SCHEMA (per-operator customizations of this talent manifest)
+# ─────────────────────────────────────────────────────────────────────────
+overlay_schema:
+  description: |
+    Each operator can override this talent manifest via
+    UAE.client_namespaces.workflow_overlays.talent_acquisition. The resolver
+    merges the overlay with the canonical manifest at request time.
+  shape:
+    hide:
+      type: array
+      items: string
+      restricted_by_axiom: AX-???
+    reorder:
+      type: array
+      items: string
+    replace:
+      type: object
+      additional_properties:
+        type: object
+    extend:
+      type: array
+      items:
+        $ref: '#/stages/0'
+    inviolable_stage_ids:
+      type: array
+      const:
+        - stage-3-trust-tier-assigned
+        - stage-4-role-contract-signed
+        - stage-5-payout-rail-bound
+        - stage-7-first-dispatch-completed
+
+# ─────────────────────────────────────────────────────────────────────────
+# GATEWAY ENDPOINTS
+# ─────────────────────────────────────────────────────────────────────────
+gateway_endpoints:
+  manifest:
+    endpoint: GET /v1/acquisition/manifest
+    query_params:
+      category: talent
+      operator_id: required
+      idp_profile_id: optional
+      include_overlay: default=true
+    headers:
+      X-Client-Namespace: required
+    response:
+      schema_ref: '#/stages'
+      cache_control: 'max-age=60, private'
+      etag: required
+  state:
+    endpoint: GET /v1/acquisition/state
+    query_params:
+      category: talent
+      idp_profile_id: required
+    response:
+      shape:
+        current_stage_id: string
+        stages_completed: array of stage_id
+        current_tier_unlocked: enum [tier_1_candidate, tier_2_qualified, tier_3_contracted, tier_4_activated, tier_5_compounding]
+        nav_circles_enabled: array of circle_id
+        skill_vector_id: string
+        trust_tier: enum [T0, T1, T2, T3, T4]
+        payout_rail: enum [stripe_connect_express, ach, null]
+    cache_control: 'max-age=10, private'
+  intent:
+    endpoint: POST /v1/acquisition/intent
+    purpose: |
+      Talent chat reply / button click / form submission goes here.
+
+# ─────────────────────────────────────────────────────────────────────────
+# CROSS-REFERENCES
+# ─────────────────────────────────────────────────────────────────────────
+references:
+  doctrine:
+    - universal_acquisition_framework_2026_05_26
+    - foundational_goal_gigaton_engineered_brand_experience
+    - foundational_goal_maximize_human_superpowers
+    - intel_3_no_static_weights_algorithmic_determination_2026_05_26
+    - payout_1_min_threshold_1k_2026_05_26
+    - compensation_payout_structure_thursday_5_28_deadline
+  schemas:
+    - uaf_phase_a_shared_schemas  # SignalEvent + IDPProfile (talent category)
+  manifests:
+    - onboarding_v1  # CLIENT manifest — shape template
+  patterns:
+    - directed_workflow_registry_pattern
+  governance:
+    - decision-engine/drift_sentinel/AXIOM_REGISTRY.md
+    - master-knowledge-base/CONSTITUTION.md
+  related_engines:
+    - user-access-engine  # IDP + customer_accounts (talent variant)
+    - intelligence-silo  # skill_vector + 10 dimensions + ethnographic frames
+    - decision-engine  # trust_tier + role_contract + activation_metrics
+    - human-management-engine  # dispatch_criteria + utilization + Self-Engineered HR
+    - gigaton-gateway  # payout_rail + signal endpoint + intent
