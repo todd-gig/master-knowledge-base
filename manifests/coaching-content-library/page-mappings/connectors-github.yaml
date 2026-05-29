@@ -1,0 +1,25 @@
+page_id: /connectors/github
+value_now:
+  description: "Configure the GitHub connector — personal access token, scoped repos, and the event subscriptions (PR / issue / release) that feed engineering-progress intelligence."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: github
+    target_capability: engineering-progress-intelligence
+    smallest_action: "Add a GitHub PAT scoped to your repos to surface PR / issue / release flow into the engine"
+    est_value_delta: 4
+  - input_kind: input
+    name: repo_priority_set
+    target_capability: priority-weighted-engineering-signal
+    smallest_action: "Mark your priority repos so engineering-progress insights weight signal from them first"
+    est_value_delta: 3
+  - input_kind: connector
+    name: clickup
+    target_capability: project-progress-intelligence
+    smallest_action: "Pair GitHub with ClickUp so engineering activity reconciles against the planned project state"
+    est_value_delta: 3
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - decision_pattern_alert

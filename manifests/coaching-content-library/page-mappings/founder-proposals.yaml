@@ -1,0 +1,28 @@
+page_id: /founder/proposals
+value_now:
+  description: "Founder review of cross-operator proposals — engine drafts ready to graduate to live-mode across the managed fleet, with cohort context for each."
+  requires:
+    - operator_token
+    - founder_role
+    - tier_5_live
+next_unlock_inputs:
+  - input_kind: signoff
+    name: auto_execute_class_signoff
+    target_capability: live-auto-execute-fleetwide
+    smallest_action: "Sign off on a proposal class to graduate it to live auto-execute across managed operators"
+    est_value_delta: 5
+  - input_kind: input
+    name: parent_operator_scope
+    target_capability: cross-operator-read-only
+    smallest_action: "Declare your parent-operator scope so proposals from child operators surface here for ratification"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: cohort_benchmarking
+    target_capability: comparative-intelligence
+    smallest_action: "Enable cohort benchmarking so each proposal carries peer-context before you ratify it"
+    est_value_delta: 3
+applicable_insight_types:
+  - signoff_pending
+  - decision_pattern_alert
+  - override_pattern_bias
+  - cohort_benchmarking

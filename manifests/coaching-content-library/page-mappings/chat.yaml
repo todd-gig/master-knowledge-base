@@ -1,0 +1,25 @@
+page_id: /chat
+value_now:
+  description: "Legacy chat surface — used by Stage-N onboarding flows that hardcode /chat?onboarding=stage-X. For general Q&A use /intelligence; this page persists for onboarding deeplinks and provider-switching transparency."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: scope_contract
+    target_capability: tier_1_data
+    smallest_action: "Complete the onboarding scope contract here at /chat?onboarding=stage-0 to advance the manifest"
+    est_value_delta: 5
+  - input_kind: source
+    name: drive_folder
+    target_capability: chat-with-your-data
+    smallest_action: "Connect a Google Drive folder so chat answers cite your own documentation"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: provider_selector
+    target_capability: model-routing-transparency
+    smallest_action: "Open the ProviderSelector to pin the Claude / GPT / Gemini route for this thread"
+    est_value_delta: 2
+applicable_insight_types:
+  - phase_gate_progress
+  - coverage_gap
+  - memory_query_recommendation

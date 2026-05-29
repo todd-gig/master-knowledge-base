@@ -1,0 +1,27 @@
+page_id: /admin/review-queue
+value_now:
+  description: "Admin review queue — engine outputs, brand-experience reviews, and gignet-gated approvals awaiting an admin pass before promotion to operator-facing surfaces."
+  requires:
+    - operator_token
+    - admin_role
+next_unlock_inputs:
+  - input_kind: configuration
+    name: notification_strict
+    target_capability: real-time-coaching
+    smallest_action: "Enable strict notifications so review items fire to NotificationBell the moment they enter the queue"
+    est_value_delta: 4
+  - input_kind: input
+    name: review_rubric
+    target_capability: rubric-graded-reviews
+    smallest_action: "Publish a review rubric so each queue item is scored consistently across admins"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: principles_filter_strict
+    target_capability: doctrine-violation-detection
+    smallest_action: "Set the principles filter to strict so doctrine-violating items are pre-flagged before manual review"
+    est_value_delta: 3
+applicable_insight_types:
+  - signoff_pending
+  - override_pattern_bias
+  - decision_pattern_alert
+  - notification_preference_tuning

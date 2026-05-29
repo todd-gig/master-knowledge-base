@@ -1,0 +1,25 @@
+page_id: /wizard
+value_now:
+  description: "Wizard entry point — redirects into the conversational onboarding flow at /chat?onboarding=stage-0 so each onboarding stage advances the manifest and unlocks the next capability tier."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: scope_contract
+    target_capability: tier_1_data
+    smallest_action: "Start at Stage 0 (scope contract) — every later artifact attaches to the scope you sign here"
+    est_value_delta: 5
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Connect a Google Drive folder during Stage 1 to ground the platform in your real documentation"
+    est_value_delta: 5
+  - input_kind: input
+    name: north_star
+    target_capability: tier_3_recommend
+    smallest_action: "Declare your north-star metric (Stage 4) so Penrose has a target to score decisions against"
+    est_value_delta: 4
+applicable_insight_types:
+  - phase_gate_progress
+  - coverage_gap
+  - signoff_pending

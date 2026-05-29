@@ -1,0 +1,26 @@
+page_id: /connectors/google-analytics
+value_now:
+  description: "Configure the Google Analytics connector — GA4 property, measurement-ID scope, and which conversion events feed the acquisition-funnel intelligence layer."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: google_analytics
+    target_capability: acquisition-funnel-intelligence
+    smallest_action: "Authorize the GA4 property to surface real acquisition-funnel data into the engine"
+    est_value_delta: 4
+  - input_kind: input
+    name: conversion_events
+    target_capability: outcome-mapped-funnel
+    smallest_action: "Mark which GA events count as conversions for this operator so the funnel maps to outcome"
+    est_value_delta: 4
+  - input_kind: input
+    name: north_star
+    target_capability: outcome-graded-decisions
+    smallest_action: "Declare your north-star metric so GA data ranks by leverage on it, not by raw event volume"
+    est_value_delta: 3
+applicable_insight_types:
+  - revenue_opportunity_match
+  - cohort_benchmarking
+  - coverage_gap
+  - connector_recommendation

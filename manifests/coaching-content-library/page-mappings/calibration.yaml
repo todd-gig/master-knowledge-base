@@ -1,0 +1,27 @@
+page_id: /calibration
+value_now:
+  description: "Calibration loop — shadow-mode vs live agreement scores, override rates by decision class, and the codification readiness signal for each Claude-First pattern."
+  requires:
+    - operator_token
+    - tier_3_recommend
+next_unlock_inputs:
+  - input_kind: configuration
+    name: shadow_mode
+    target_capability: calibration-loop
+    smallest_action: "Enable shadow mode on additional decision classes so calibration has agreement data to score"
+    est_value_delta: 5
+  - input_kind: input
+    name: north_star
+    target_capability: outcome-graded-decisions
+    smallest_action: "Declare your north-star metric so calibration measures agreement on outcome, not just label"
+    est_value_delta: 4
+  - input_kind: signoff
+    name: auto_execute_class_signoff
+    target_capability: live-auto-execute
+    smallest_action: "Sign off the next decision class that has cleared the codification threshold to graduate to live"
+    est_value_delta: 4
+applicable_insight_types:
+  - decision_pattern_alert
+  - override_pattern_bias
+  - phase_gate_progress
+  - signoff_pending

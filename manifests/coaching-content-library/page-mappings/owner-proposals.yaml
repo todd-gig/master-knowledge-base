@@ -1,0 +1,28 @@
+page_id: /owner/proposals
+value_now:
+  description: "Owner view of decision proposals awaiting owner-level sign-off — engine drafts scoped to this operator, with override history and the constraint-set check inline."
+  requires:
+    - operator_token
+    - owner_role
+    - tier_3_recommend
+next_unlock_inputs:
+  - input_kind: signoff
+    name: auto_execute_class_signoff
+    target_capability: live-auto-execute
+    smallest_action: "Sign off on a proposal class to graduate it from recommend-only to live auto-execute"
+    est_value_delta: 5
+  - input_kind: input
+    name: constraint_set
+    target_capability: hard-guardrail-enforcement
+    smallest_action: "Register hard constraints so proposals that violate them are blocked before reaching this queue"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: shadow_mode
+    target_capability: calibration-loop
+    smallest_action: "Run new proposal classes in shadow mode for 30 days before signing off on live execution"
+    est_value_delta: 3
+applicable_insight_types:
+  - signoff_pending
+  - decision_pattern_alert
+  - override_pattern_bias
+  - phase_gate_progress

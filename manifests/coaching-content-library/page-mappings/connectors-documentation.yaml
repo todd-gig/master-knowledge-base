@@ -1,0 +1,25 @@
+page_id: /connectors/documentation
+value_now:
+  description: "Documentation ingest surface — bulk-upload PDFs, paste URL sets, or schedule recurring crawls. Each ingest run lands in the operator-scoped FAISS index with provenance."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Connect a Drive folder for continuous ingest rather than one-off uploads"
+    est_value_delta: 5
+  - input_kind: source
+    name: url_set
+    target_capability: web-corpus-ingest
+    smallest_action: "Add a URL set of public docs / marketing pages and schedule a weekly re-crawl"
+    est_value_delta: 3
+  - input_kind: configuration
+    name: ingest_cadence
+    target_capability: fresh-corpus-guarantee
+    smallest_action: "Set a re-ingest cadence so the index does not drift from the source as documents change"
+    est_value_delta: 3
+applicable_insight_types:
+  - coverage_gap
+  - memory_query_recommendation
+  - connector_recommendation

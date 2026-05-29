@@ -1,0 +1,30 @@
+page_id: /connectors
+value_now:
+  description: "Connector hub — browse the catalog of 3rd-party connectors (Stripe, Gmail, Twilio, Calendar, GitHub, WhatsApp, Airbnb, GA, ClickUp) and configure each. Live connectors feed gated capabilities downstream."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Connect Stripe to ingest 90 days of invoices and turn on Influence vs Cost"
+    est_value_delta: 5
+  - input_kind: connector
+    name: gmail
+    target_capability: customer-dm-coaching
+    smallest_action: "Connect Gmail to enable customer-DM coaching and inbox-grounded answers"
+    est_value_delta: 4
+  - input_kind: connector
+    name: google_calendar
+    target_capability: meeting-context-intelligence
+    smallest_action: "Connect Google Calendar so meetings inform people-and-priority coaching"
+    est_value_delta: 3
+  - input_kind: input
+    name: tech_stack_declaration
+    target_capability: connector-queue-personalization
+    smallest_action: "Declare your tech stack first so this catalog re-ranks by what you actually use"
+    est_value_delta: 3
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - revenue_opportunity_match

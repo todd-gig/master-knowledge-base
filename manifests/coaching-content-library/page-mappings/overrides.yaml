@@ -1,0 +1,26 @@
+page_id: /overrides
+value_now:
+  description: "Override registry — every decision an operator overrode, with the reason captured. Patterns here become candidates for codification (Claude-First → Python-First)."
+  requires:
+    - operator_token
+    - tier_3_recommend
+next_unlock_inputs:
+  - input_kind: input
+    name: override_reason_taxonomy
+    target_capability: pattern-codification
+    smallest_action: "Publish your override-reason taxonomy so repeat reasons can graduate into Python rules"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: shadow_mode
+    target_capability: calibration-loop
+    smallest_action: "Re-shadow decision classes with high override rates so the engine recalibrates before re-promotion"
+    est_value_delta: 4
+  - input_kind: input
+    name: constraint_set
+    target_capability: hard-guardrail-enforcement
+    smallest_action: "Promote frequently-cited override reasons into hard constraints so the engine blocks pre-override"
+    est_value_delta: 5
+applicable_insight_types:
+  - override_pattern_bias
+  - decision_pattern_alert
+  - phase_gate_progress

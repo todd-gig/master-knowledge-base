@@ -1,0 +1,25 @@
+page_id: /onboarding/tech-stack
+value_now:
+  description: "Declare the tools your team already uses (CRM, ESP, billing, calendar, docs). The platform maps each declared tool to a connector and pre-orders the connector queue by your stack reality."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: tech_stack_declaration
+    target_capability: connector-queue-personalization
+    smallest_action: "Declare your current stack so the connector queue is ranked by what you already use, not generic defaults"
+    est_value_delta: 4
+  - input_kind: connector
+    name: gmail
+    target_capability: customer-dm-coaching
+    smallest_action: "Connect Gmail first if it is in your declared stack — highest near-term unlock for most operators"
+    est_value_delta: 4
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Connect Stripe if billing lives there — turns on Influence vs Cost end-to-end"
+    est_value_delta: 5
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - phase_gate_progress

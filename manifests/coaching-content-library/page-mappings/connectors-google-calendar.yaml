@@ -1,0 +1,25 @@
+page_id: /connectors/google-calendar
+value_now:
+  description: "Configure the Google Calendar connector — which calendars feed people-and-priority coaching, the meeting-context window, and the auto-create scope for scheduled actions."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: google_calendar
+    target_capability: meeting-context-intelligence
+    smallest_action: "Authorize Google Calendar to ground people-and-priority coaching in actual meeting context"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: auto_create_events
+    target_capability: scheduled-action-automation
+    smallest_action: "Allow auto-create on a single test calendar so the engine can schedule follow-ups it commits to"
+    est_value_delta: 3
+  - input_kind: input
+    name: north_star
+    target_capability: leverage-ranked-meetings
+    smallest_action: "Declare your north-star metric so meeting suggestions rank by leverage, not chronology"
+    est_value_delta: 3
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - decision_pattern_alert

@@ -1,0 +1,19 @@
+page_id: /brand-icon-lists
+value_now:
+  description: "Brand icon catalog — reference list of brand-approved iconography for the design system. Primarily informational; supports design + brand-experience reviews."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: brand_voice_dictionary
+    target_capability: brand-grounded-output
+    smallest_action: "Pair this catalog with your brand voice dictionary so engine outputs reference both visual and verbal brand"
+    est_value_delta: 3
+  - input_kind: source
+    name: drive_folder
+    target_capability: brand-asset-grounding
+    smallest_action: "Connect a Drive folder of brand assets so the catalog reconciles against the canonical source"
+    est_value_delta: 2
+applicable_insight_types:
+  - coverage_gap
+  - connector_recommendation
