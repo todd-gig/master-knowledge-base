@@ -1,0 +1,25 @@
+page_id: /setup/:workflowId
+value_now:
+  description: "Directed-workflow setup modal — a guided sequence for a specific connector or capability (driven by the workflowId in the URL). Each step has a smallest-action and a verification check."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: configuration
+    name: workflow_completion
+    target_capability: capability-activation
+    smallest_action: "Complete the current workflow step — each setup workflow gates exactly one downstream capability"
+    est_value_delta: 5
+  - input_kind: input
+    name: tech_stack_declaration
+    target_capability: connector-queue-personalization
+    smallest_action: "Declare your tech stack so directed workflows queue in the order that fits your reality"
+    est_value_delta: 3
+  - input_kind: configuration
+    name: notification_strict
+    target_capability: real-time-coaching
+    smallest_action: "Enable strict notifications so workflow blockers surface to NotificationBell instead of waiting on a refresh"
+    est_value_delta: 2
+applicable_insight_types:
+  - phase_gate_progress
+  - coverage_gap
+  - connector_recommendation

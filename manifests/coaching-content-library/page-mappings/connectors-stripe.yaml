@@ -1,0 +1,26 @@
+page_id: /connectors/stripe
+value_now:
+  description: "Configure the Stripe connector — API key, account scope (Connect parent vs sub-account), backfill window, and which invoice/payment events feed the unit-economics dashboard."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Authorize Stripe and trigger a 90-day backfill to populate Influence vs Cost end-to-end"
+    est_value_delta: 5
+  - input_kind: configuration
+    name: stripe_connect_express
+    target_capability: payout-automation
+    smallest_action: "Configure Stripe Connect Express so per-operator payouts run automatically at the $1k threshold"
+    est_value_delta: 5
+  - input_kind: input
+    name: north_star
+    target_capability: outcome-graded-decisions
+    smallest_action: "Declare your north-star metric so Stripe data ranks against revenue impact, not gross volume"
+    est_value_delta: 3
+applicable_insight_types:
+  - revenue_opportunity_match
+  - cost_drift
+  - cohort_benchmarking
+  - connector_recommendation

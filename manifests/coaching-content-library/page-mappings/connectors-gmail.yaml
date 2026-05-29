@@ -1,0 +1,25 @@
+page_id: /connectors/gmail
+value_now:
+  description: "Configure the Gmail connector — OAuth scope, Workspace DWD impersonation for transactional sends, and the inbox-grounding scope for inbound DM coaching."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: gmail
+    target_capability: customer-dm-coaching
+    smallest_action: "Authorize Gmail to enable customer-DM coaching grounded in real inbox threads"
+    est_value_delta: 5
+  - input_kind: configuration
+    name: workspace_dwd
+    target_capability: support-relay-channel
+    smallest_action: "Configure Workspace DWD so notifications send as notifications@gigaton.ai through the support relay"
+    est_value_delta: 4
+  - input_kind: channel
+    name: email
+    target_capability: out-of-session-summaries
+    smallest_action: "Enable email as a notification channel so digests reach operators outside the platform"
+    est_value_delta: 3
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - notification_preference_tuning

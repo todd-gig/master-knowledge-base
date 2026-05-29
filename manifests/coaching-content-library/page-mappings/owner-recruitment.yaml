@@ -1,0 +1,26 @@
+page_id: /owner/recruitment
+value_now:
+  description: "Owner recruitment surface — talent pipeline status, role-coverage gaps inferred from declared org structure, and recommended next hires ranked by leverage on the north-star."
+  requires:
+    - operator_token
+    - owner_role
+next_unlock_inputs:
+  - input_kind: input
+    name: org_structure_declaration
+    target_capability: coverage-gap-detection
+    smallest_action: "Declare your org structure (roles + reporting lines) so recruitment can flag the actual coverage gaps"
+    est_value_delta: 5
+  - input_kind: input
+    name: north_star
+    target_capability: leverage-ranked-hiring
+    smallest_action: "Declare your north-star metric so candidate ranking weights leverage on the metric, not generic role-fit"
+    est_value_delta: 4
+  - input_kind: connector
+    name: gmail
+    target_capability: candidate-thread-context
+    smallest_action: "Connect Gmail so candidate conversations enrich the recruitment context automatically"
+    est_value_delta: 3
+applicable_insight_types:
+  - coverage_gap
+  - revenue_opportunity_match
+  - cohort_benchmarking

@@ -1,0 +1,27 @@
+page_id: /owner/coverage
+value_now:
+  description: "Per-operator coverage scoreboard: capability-tier completeness, connector inventory health, decision-class shadow-vs-live ratios, and Phase Gate readiness."
+  requires:
+    - operator_token
+    - owner_role
+next_unlock_inputs:
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Close the largest coverage gap by connecting a Drive folder to ground Tier 1 data"
+    est_value_delta: 5
+  - input_kind: signoff
+    name: tier_5_live_signoff
+    target_capability: tier_5_live
+    smallest_action: "Complete pending Tier 5 sign-offs to close the live-execution coverage gap"
+    est_value_delta: 4
+  - input_kind: connector
+    name: stripe
+    target_capability: unit-economics-dashboard
+    smallest_action: "Connect Stripe to close the unit-economics coverage gap on the scoreboard"
+    est_value_delta: 4
+applicable_insight_types:
+  - coverage_gap
+  - phase_gate_progress
+  - connector_recommendation
+  - signoff_pending

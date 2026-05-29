@@ -1,0 +1,25 @@
+page_id: /connectors/whatsapp
+value_now:
+  description: "Configure the WhatsApp Business connector — phone number, message templates, webhook target, and the consent flow that gates customer-DM coaching."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: whatsapp
+    target_capability: customer-dm-coaching
+    smallest_action: "Verify your WhatsApp Business phone number to activate customer-DM coaching on this channel"
+    est_value_delta: 5
+  - input_kind: input
+    name: message_templates
+    target_capability: template-driven-replies
+    smallest_action: "Register approved message templates so the platform can send outside the 24h session window"
+    est_value_delta: 4
+  - input_kind: channel
+    name: sms
+    target_capability: out-of-band-escalation
+    smallest_action: "Also enable SMS as a fallback channel for customers without WhatsApp"
+    est_value_delta: 2
+applicable_insight_types:
+  - connector_recommendation
+  - coverage_gap
+  - revenue_opportunity_match

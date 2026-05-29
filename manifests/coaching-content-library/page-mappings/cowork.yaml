@@ -1,0 +1,26 @@
+page_id: /cowork
+value_now:
+  description: "4-tier model-routing transparency (Ti Expert / Device-Local / Gigaton-Cloud / Third-Party-Cloud). Inspect which tier handled each request, per-tier latency + cost, and override the default routing per workload class."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: configuration
+    name: tier_routing_policy
+    target_capability: cost-optimized-routing
+    smallest_action: "Pin a routing policy (e.g. PII workloads → Ti Expert / Device-Local only) to lock cost and sovereignty"
+    est_value_delta: 4
+  - input_kind: input
+    name: service_tier
+    target_capability: sovereignty-aware-routing
+    smallest_action: "Declare your service-tier requirements (data-residency, on-device-only, third-party-allowed) so routing respects sovereignty"
+    est_value_delta: 3
+  - input_kind: connector
+    name: stripe
+    target_capability: per-tier-unit-economics
+    smallest_action: "Connect Stripe so cowork can attribute model spend to revenue per workload class"
+    est_value_delta: 3
+applicable_insight_types:
+  - cost_drift
+  - decision_pattern_alert
+  - override_pattern_bias
+  - cohort_benchmarking

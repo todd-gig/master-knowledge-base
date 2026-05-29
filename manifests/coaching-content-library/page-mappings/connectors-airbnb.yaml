@@ -1,0 +1,26 @@
+page_id: /connectors/airbnb
+value_now:
+  description: "Configure the Airbnb connector — listing scope, calendar sync, and the booking-event subscriptions that feed property-occupancy intelligence."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: connector
+    name: airbnb
+    target_capability: occupancy-and-pricing-intelligence
+    smallest_action: "Connect Airbnb to ingest live booking + calendar data for the occupancy-ROI panel"
+    est_value_delta: 5
+  - input_kind: connector
+    name: stripe
+    target_capability: revenue-attributed-occupancy
+    smallest_action: "Pair Airbnb with Stripe so occupancy reconciles against actual collected revenue, not posted rate"
+    est_value_delta: 4
+  - input_kind: input
+    name: property_set
+    target_capability: per-property-rollup
+    smallest_action: "Declare your property set so booking signal rolls up correctly across multi-unit operators"
+    est_value_delta: 3
+applicable_insight_types:
+  - revenue_opportunity_match
+  - coverage_gap
+  - cohort_benchmarking
+  - connector_recommendation

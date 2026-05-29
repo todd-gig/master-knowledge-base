@@ -1,0 +1,26 @@
+page_id: /admin/review/:id
+value_now:
+  description: "Single-item brand experience review — full audit of one engine output with rubric scoring, principles-filter trace, and an inline edit-and-rerun loop."
+  requires:
+    - operator_token
+    - admin_role
+next_unlock_inputs:
+  - input_kind: input
+    name: review_rubric
+    target_capability: rubric-graded-reviews
+    smallest_action: "Apply the published review rubric inline so this item carries a consistent score on resolve"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: principles_filter_strict
+    target_capability: doctrine-violation-detection
+    smallest_action: "Run the principles filter against this item to capture any doctrine drift before approving"
+    est_value_delta: 3
+  - input_kind: input
+    name: doctrine_set
+    target_capability: founder-doctrine-grounding
+    smallest_action: "Reference the founder doctrine set when scoring — items must clear doctrine before scoring matters"
+    est_value_delta: 3
+applicable_insight_types:
+  - override_pattern_bias
+  - decision_pattern_alert
+  - signoff_pending

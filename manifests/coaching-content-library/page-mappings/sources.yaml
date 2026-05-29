@@ -1,0 +1,30 @@
+page_id: /sources
+value_now:
+  description: "Knowledge sources surface — manage Drive folders, Notion workspaces, URL sets, and uploaded files that feed the operator-scoped FAISS index."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Connect a Google Drive folder — fastest path from zero corpus to grounded Q&A"
+    est_value_delta: 5
+  - input_kind: source
+    name: notion_workspace
+    target_capability: cross-tool-knowledge-search
+    smallest_action: "Connect Notion so notes and docs surface alongside Drive in the same retrieval"
+    est_value_delta: 3
+  - input_kind: source
+    name: url_set
+    target_capability: web-corpus-ingest
+    smallest_action: "Add a URL set (public docs, marketing pages) to ingest external-facing material into the index"
+    est_value_delta: 3
+  - input_kind: configuration
+    name: ingest_cadence
+    target_capability: fresh-corpus-guarantee
+    smallest_action: "Set a re-ingest cadence so the index does not drift from the source over time"
+    est_value_delta: 2
+applicable_insight_types:
+  - coverage_gap
+  - connector_recommendation
+  - memory_query_recommendation

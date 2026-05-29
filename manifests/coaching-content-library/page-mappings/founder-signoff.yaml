@@ -1,0 +1,26 @@
+page_id: /founder/signoff
+value_now:
+  description: "Founder sign-off matrix — pending Tier-5 graduations, auto-execute class ratifications, and Phase Gate criteria awaiting founder authority."
+  requires:
+    - operator_token
+    - founder_role
+next_unlock_inputs:
+  - input_kind: signoff
+    name: tier_5_live_signoff
+    target_capability: tier_5_live
+    smallest_action: "Clear the Tier 5 sign-offs in the queue to graduate operators that meet criteria into live mode"
+    est_value_delta: 5
+  - input_kind: signoff
+    name: auto_execute_class_signoff
+    target_capability: live-auto-execute
+    smallest_action: "Ratify the next auto-execute class to extend live-mode coverage"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: notification_strict
+    target_capability: real-time-coaching
+    smallest_action: "Enable strict notifications so sign-off-ready items reach you the moment they qualify"
+    est_value_delta: 3
+applicable_insight_types:
+  - signoff_pending
+  - phase_gate_progress
+  - decision_pattern_alert

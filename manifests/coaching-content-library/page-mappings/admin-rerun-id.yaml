@@ -1,0 +1,26 @@
+page_id: /admin/rerun/:id
+value_now:
+  description: "Rerun editor — adjust the prompt, provider, or input set for a flagged item and rerun in shadow before publishing the revised output."
+  requires:
+    - operator_token
+    - admin_role
+next_unlock_inputs:
+  - input_kind: configuration
+    name: shadow_mode
+    target_capability: calibration-loop
+    smallest_action: "Run the rerun in shadow mode so the original output is preserved while you compare the revised version"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: provider_selector
+    target_capability: model-routing-transparency
+    smallest_action: "Pin the provider + model for this rerun so the comparison isolates the variable you are testing"
+    est_value_delta: 3
+  - input_kind: input
+    name: review_rubric
+    target_capability: rubric-graded-reviews
+    smallest_action: "Score the rerun output against the rubric so the diff carries a numeric delta, not just a vibe"
+    est_value_delta: 3
+applicable_insight_types:
+  - override_pattern_bias
+  - decision_pattern_alert
+  - cost_drift

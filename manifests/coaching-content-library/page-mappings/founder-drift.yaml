@@ -1,0 +1,27 @@
+page_id: /founder/drift
+value_now:
+  description: "Drift sentinel: surfaces operator drift from declared doctrine, principles violations, and scoring-weight excursions outside the bounds-and-seeds INTEL-3 envelope."
+  requires:
+    - operator_token
+    - founder_role
+next_unlock_inputs:
+  - input_kind: configuration
+    name: principles_filter_strict
+    target_capability: doctrine-violation-detection
+    smallest_action: "Set the principles filter to strict so drift events fire on any unconverted-principle output"
+    est_value_delta: 4
+  - input_kind: input
+    name: doctrine_set
+    target_capability: founder-doctrine-grounding
+    smallest_action: "Publish your founder doctrine set so drift can measure against an explicit baseline"
+    est_value_delta: 5
+  - input_kind: configuration
+    name: cohort_benchmarking
+    target_capability: comparative-drift-analysis
+    smallest_action: "Enable cohort benchmarking so drift events compare against peer behavior, not abstract thresholds"
+    est_value_delta: 3
+applicable_insight_types:
+  - override_pattern_bias
+  - decision_pattern_alert
+  - cost_drift
+  - cohort_benchmarking

@@ -1,0 +1,25 @@
+page_id: /brand-voice-dictionary
+value_now:
+  description: "Brand voice data dictionary (200+ brand intelligence data points). Paginated reference for brand voice, messaging, and tone. Used by the synthesizer to keep outputs on-brand."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: brand_voice_dictionary
+    target_capability: brand-grounded-output
+    smallest_action: "Confirm your operator's brand voice rows so the synthesizer enforces them on every generated output"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: principles_filter_strict
+    target_capability: doctrine-violation-detection
+    smallest_action: "Enable strict principles filtering so outputs that drift from brand voice are flagged inline"
+    est_value_delta: 3
+  - input_kind: source
+    name: drive_folder
+    target_capability: brand-corpus-grounding
+    smallest_action: "Connect a Drive folder of brand source material so dictionary entries cite the original artifact"
+    est_value_delta: 3
+applicable_insight_types:
+  - coverage_gap
+  - override_pattern_bias
+  - memory_query_recommendation

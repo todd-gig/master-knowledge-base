@@ -1,0 +1,26 @@
+page_id: /founder/doctrine
+value_now:
+  description: "Founder doctrine surface — publish, version, and audit the canonical principles, axioms, and first-principles set that govern every engine across the fleet."
+  requires:
+    - operator_token
+    - founder_role
+next_unlock_inputs:
+  - input_kind: input
+    name: doctrine_set
+    target_capability: founder-doctrine-grounding
+    smallest_action: "Publish v1 of your founder doctrine set so engines have an explicit principles baseline to filter against"
+    est_value_delta: 5
+  - input_kind: configuration
+    name: principles_filter_strict
+    target_capability: doctrine-violation-detection
+    smallest_action: "Set the principles filter to strict so doctrine violations block outputs rather than warn"
+    est_value_delta: 4
+  - input_kind: source
+    name: drive_folder
+    target_capability: doctrine-corpus-grounding
+    smallest_action: "Connect a Drive folder of doctrine source material so the principles set cites the original artifacts"
+    est_value_delta: 3
+applicable_insight_types:
+  - override_pattern_bias
+  - decision_pattern_alert
+  - phase_gate_progress

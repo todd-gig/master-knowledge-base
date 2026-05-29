@@ -1,0 +1,25 @@
+page_id: /platform
+value_now:
+  description: "Platform overview surface — a directory of all operator-console pages, capability tiers, and the current Phase Gate status for this operator."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: scope_contract
+    target_capability: tier_1_data
+    smallest_action: "Sign the scope contract (Stage 0) to unlock the full operator surface beyond the directory shell"
+    est_value_delta: 5
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Connect a Google Drive folder so platform tiles populate with insights grounded in your own corpus"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: notification_strict
+    target_capability: real-time-coaching
+    smallest_action: "Enable strict notifications so the platform NotificationBell pushes high-severity items"
+    est_value_delta: 2
+applicable_insight_types:
+  - phase_gate_progress
+  - coverage_gap
+  - connector_recommendation
