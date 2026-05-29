@@ -1,0 +1,32 @@
+page_id: /decisions
+value_now:
+  description: "Review decision drafts the engine has proposed against your goals, constraints, and ICP. Approve, override with reason, or queue for sign-off."
+  requires:
+    - operator_token
+    - tier_3_recommend
+next_unlock_inputs:
+  - input_kind: input
+    name: north_star
+    target_capability: outcome-graded-decisions
+    smallest_action: "Declare your north-star metric so every decision draft is scored against it"
+    est_value_delta: 5
+  - input_kind: input
+    name: constraint_set
+    target_capability: hard-guardrail-enforcement
+    smallest_action: "Register at least one hard constraint so the engine blocks decisions that violate it"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: shadow_mode
+    target_capability: calibration-loop
+    smallest_action: "Enable shadow mode so the engine recommends in parallel for 30 days before going live"
+    est_value_delta: 3
+  - input_kind: signoff
+    name: auto_execute_class_signoff
+    target_capability: live-auto-execute
+    smallest_action: "Sign off on your first auto-execute decision class to graduate to Tier 5 live"
+    est_value_delta: 5
+applicable_insight_types:
+  - decision_pattern_alert
+  - override_pattern_bias
+  - phase_gate_progress
+  - signoff_pending

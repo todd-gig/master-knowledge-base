@@ -1,0 +1,33 @@
+page_id: /admin
+value_now:
+  description: "Admin view: operator namespace state, connector credentials, secret rotations, and feature-flag posture."
+  requires:
+    - operator_token
+    - admin_role
+next_unlock_inputs:
+  - input_kind: input
+    name: scope_contract
+    target_capability: tier_1_data
+    smallest_action: "Ensure the operator's scope contract is signed so artifacts attach to a compliance scope"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: notification_strict
+    target_capability: real-time-coaching
+    smallest_action: "Set notification mode to strict so admins receive urgent issues at the moment they fire"
+    est_value_delta: 3
+  - input_kind: connector
+    name: gmail
+    target_capability: support-relay-channel
+    smallest_action: "Configure Gmail Workspace DWD to route platform notifications through gigaton.ai"
+    est_value_delta: 3
+  - input_kind: channel
+    name: sms
+    target_capability: out-of-band-escalation
+    smallest_action: "Enable SMS as an escalation channel for incidents that require out-of-band reach"
+    est_value_delta: 2
+applicable_insight_types:
+  - connector_recommendation
+  - cost_drift
+  - coverage_gap
+  - signoff_pending
+  - notification_preference_tuning

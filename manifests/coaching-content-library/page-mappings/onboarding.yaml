@@ -1,0 +1,41 @@
+page_id: /onboarding
+value_now:
+  description: "Walk through the 10-stage operator onboarding manifest. Each stage unlocks a capability tier (data → personalized → recommend → costs → live)."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: input
+    name: scope_contract
+    target_capability: tier_1_data
+    smallest_action: "Sign the scope contract (Stage 0) so every later artifact attaches to a compliance scope"
+    est_value_delta: 5
+  - input_kind: source
+    name: drive_folder
+    target_capability: tier_1_data
+    smallest_action: "Connect a Google Drive folder (Stage 1) to ground the platform in your real documentation"
+    est_value_delta: 5
+  - input_kind: input
+    name: bft_snapshot
+    target_capability: tier_2_personalized
+    smallest_action: "Capture BFT intent for 3+ key people (Stage 2) to unlock personalized communication"
+    est_value_delta: 4
+  - input_kind: input
+    name: icp_segment
+    target_capability: tier_2_personalized
+    smallest_action: "Declare at least one ICP segment (Stage 3) so the platform speaks to the right audience"
+    est_value_delta: 4
+  - input_kind: input
+    name: north_star
+    target_capability: tier_3_recommend
+    smallest_action: "Declare your north-star metric (Stage 4) so Penrose has a target to score decisions against"
+    est_value_delta: 5
+  - input_kind: signoff
+    name: tier_5_live_signoff
+    target_capability: tier_5_live
+    smallest_action: "Complete shadow-mode review + graduate to live recommend (Stage 9) to enter compounding mode"
+    est_value_delta: 5
+applicable_insight_types:
+  - phase_gate_progress
+  - coverage_gap
+  - signoff_pending
+  - connector_recommendation

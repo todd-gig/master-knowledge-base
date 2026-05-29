@@ -1,0 +1,31 @@
+page_id: /memory
+value_now:
+  description: "Query the operator's memory hierarchy (working / episodic / semantic / procedural). Search by topic, source, or decision; cited results link to the source artifact."
+  requires:
+    - operator_token
+    - tier_1_data
+next_unlock_inputs:
+  - input_kind: source
+    name: drive_folder
+    target_capability: semantic-memory-grounding
+    smallest_action: "Connect a Google Drive folder so semantic-memory results cite real documents"
+    est_value_delta: 5
+  - input_kind: input
+    name: bft_snapshot
+    target_capability: episodic-memory-personalization
+    smallest_action: "Capture BFT intent for key people so episodic memory threads conversations correctly"
+    est_value_delta: 3
+  - input_kind: source
+    name: notion_workspace
+    target_capability: cross-tool-memory-search
+    smallest_action: "Connect Notion to extend memory search beyond Drive"
+    est_value_delta: 3
+  - input_kind: configuration
+    name: principles_filter_strict
+    target_capability: principles-checked-memory
+    smallest_action: "Enable the principles filter on memory answers so doctrine violations are flagged inline"
+    est_value_delta: 2
+applicable_insight_types:
+  - memory_query_recommendation
+  - coverage_gap
+  - decision_pattern_alert

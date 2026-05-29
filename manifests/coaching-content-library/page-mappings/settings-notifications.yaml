@@ -1,0 +1,35 @@
+page_id: /settings/notifications
+value_now:
+  description: "Configure where and when the platform reaches you — in-platform NotificationBell, email, SMS, FCM — and what severity routes to each channel."
+  requires:
+    - operator_token
+next_unlock_inputs:
+  - input_kind: channel
+    name: in_platform
+    target_capability: real-time-coaching
+    smallest_action: "Enable the in-platform NotificationBell to receive urgent items as you navigate"
+    est_value_delta: 5
+  - input_kind: channel
+    name: email
+    target_capability: out-of-session-summaries
+    smallest_action: "Enable email notifications so daily insight digests reach you even when you're offline"
+    est_value_delta: 3
+  - input_kind: channel
+    name: sms
+    target_capability: out-of-band-escalation
+    smallest_action: "Enable SMS for critical escalations that require out-of-band reach"
+    est_value_delta: 3
+  - input_kind: channel
+    name: fcm
+    target_capability: mobile-push-coaching
+    smallest_action: "Enable mobile push (FCM) to receive coaching on your phone"
+    est_value_delta: 2
+  - input_kind: configuration
+    name: quiet_hours
+    target_capability: respectful-coaching
+    smallest_action: "Set quiet hours so non-urgent coaching defers until you're back on-shift"
+    est_value_delta: 2
+applicable_insight_types:
+  - notification_preference_tuning
+  - connector_recommendation
+  - phase_gate_progress

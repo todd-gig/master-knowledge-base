@@ -1,0 +1,29 @@
+page_id: /founder
+value_now:
+  description: "Founder-only view: sign-off matrix, cross-operator visibility, cohort benchmarking, and Phase Gate ratification status across managed operators."
+  requires:
+    - operator_token
+    - founder_role
+    - tier_5_live
+next_unlock_inputs:
+  - input_kind: signoff
+    name: auto_execute_class_signoff
+    target_capability: live-auto-execute-fleetwide
+    smallest_action: "Sign off on the next auto-execute class to extend live-mode coverage across managed operators"
+    est_value_delta: 5
+  - input_kind: input
+    name: parent_operator_scope
+    target_capability: cross-operator-read-only
+    smallest_action: "Declare your parent-operator scope (Phase Gate §5) to enable read-only visibility into child operators"
+    est_value_delta: 4
+  - input_kind: configuration
+    name: cohort_benchmarking
+    target_capability: comparative-intelligence
+    smallest_action: "Opt this operator into cohort benchmarking to compare performance against peers"
+    est_value_delta: 3
+applicable_insight_types:
+  - signoff_pending
+  - phase_gate_progress
+  - cohort_benchmarking
+  - decision_pattern_alert
+  - override_pattern_bias
