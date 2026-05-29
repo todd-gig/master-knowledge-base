@@ -1,0 +1,36 @@
+{
+  "_comment": "Operator todd corpus sources. Mirrors the 2026-05-28 seed. New operators get their own file in this dir; the launchd job picks operator_id by filename or via --operator override.",
+  "operator_id": "todd",
+  "sources": [
+    {
+      "label": "Obsidian vault",
+      "root": "~/Documents/Obsidian Vault/Gigaton",
+      "category": "vault",
+      "extensions": [".md"]
+    },
+    {
+      "label": "Auto-memory",
+      "root": "~/.claude/projects/-Users-admin/memory",
+      "category": "memory",
+      "extensions": [".md"]
+    },
+    {
+      "label": "MKB runbooks",
+      "root": "~/Documents/GitHub/master-knowledge-base/runbooks",
+      "category": "runbook",
+      "extensions": [".md"]
+    },
+    {
+      "label": "MKB architecture",
+      "root": "~/Documents/GitHub/master-knowledge-base/docs/architecture",
+      "category": "architecture",
+      "extensions": [".md"]
+    },
+    {
+      "label": "MKB manifests",
+      "root": "~/Documents/GitHub/master-knowledge-base/manifests",
+      "category": "manifest",
+      "extensions": [".yaml", ".yml"]
+    }
+  ]
+}
