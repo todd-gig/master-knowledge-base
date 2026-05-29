@@ -65,7 +65,7 @@ These are deterministic rules. The gigaton-engine billing module and Stripe Conn
 | Rounding direction | **Round UP** (favor recipient) | Same | `math.ceil(amount_cents)` on every payout calculation; document on receipts |
 | ACH fee bearer | **Platform absorbs** | Same | Stripe `application_fee = 0` on payout side; fee aggregates to gigaton-engine COGS line, not recipient deduction |
 | First-time payout exception | **No exception** | Same | No special-case logic; first payout uses identical threshold + cadence as steady-state |
-| Default rail | **Stripe Connect Express** | [[payout_1_min_threshold_1k_2026_05_26]] | Operator onboarding (Stage 7+ in onboarding_v1) collects KYC + bank via Stripe Connect Express hosted flow |
+| Default rail | **Stripe Connect Express** | [[payout_1_min_threshold_1k_2026_05_26]] | Operator onboarding (Stage 8 `stage-8-tech-stack-costs` — Tech Stack + Unit Economics + Financial Audit) collects KYC + bank via Stripe Connect Express hosted flow (action `connect-billing`) |
 | Alternative rail | **ACH** (same $1k floor, same cadence) | Same | For operators who cannot or will not use Stripe Connect Express; accumulate balances below threshold; release on next scheduled cadence when running total clears |
 | Multi-currency | Convert `$1k USD` to operator's home currency at payout time; round per the LOCKED round-up rule | Same | Currency conversion at payout-emit time (not at accrual); store both USD-equivalent and home-currency amounts in payout record |
 | Sub-clients | Inherit parent operator's payout config unless explicitly overridden | [[payout_1_min_threshold_1k_2026_05_26]] | E.g. `cbp_walking_tour` uses CBP's Stripe Connect Express account by default; override via `client_namespaces.governance_overlays.payout_override` JSONB key |
@@ -406,7 +406,7 @@ PAYOUT_CONFIG = {
 
 ### 5.2 Onboarding manifest reference (follow-on PR)
 
-`master-knowledge-base/manifests/onboarding_v1.yaml` should add a link to this doc from **Stage 7 (Capability+Payouts)** (_strawman: leaf operator's payout config gathered as part of v1 onboarding's Stage 7; override if needed_). Note: this is a **follow-on PR**, not part of this scaffold.
+`master-knowledge-base/manifests/onboarding_v1.yaml` should add a link to this doc from **Stage 8 `stage-8-tech-stack-costs` (Tech Stack + Unit Economics + Financial Audit)** — payouts/KYC/billing rails are gathered here via the `connect-billing` action, NOT at Stage 7 (`stage-7-assignments` is "Human-assigned + Automated Processes" — process ownership, not payouts). Correction 2026-05-28: the earlier strawman labeled Stage 7 "Capability+Payouts," but the actual manifest at v1.0.0/v1.1.0 names Stage 7 `Human-assigned + Automated Processes` and gathers payout-relevant data at Stage 8. Note: this is a **follow-on PR**, not part of this scaffold.
 
 ### 5.3 gigaton-engine billing module (currently in development)
 
@@ -476,7 +476,7 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [ ] **v1 promotion**: Confirm payroll/contractor cash burn + cash on hand + approve auto_bump mechanism + authorize cost-coverage aggregator wiring
 
 ### Implementation follow-ons (§5)
-- [x] Confirm onboarding_v1.yaml stage number to link this doc from (strawman: Stage 7 — Capability+Payouts)
+- [x] Confirm onboarding_v1.yaml stage number to link this doc from — **CORRECTED 2026-05-28**: Stage 8 `stage-8-tech-stack-costs` (Tech Stack + Unit Economics + Financial Audit), not Stage 7. Earlier strawman ("Stage 7 — Capability+Payouts") didn't match the actual manifest; payouts/KYC/billing live at Stage 8 via the `connect-billing` action.
 - [x] Authorize UAE schema follow-on for `compensation_terms` (strawman: YES — flag as separate follow-on PR)
 
 **Pre-filled strawmen = 21 of 29; strategic-only remaining = 8 (highlighted with `**STRATEGIC**` flag in §3).**
