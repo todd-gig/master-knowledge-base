@@ -16,6 +16,7 @@ JOBS=(
   com.gigaton.mkb-ingest
   com.gigaton.auto-memory-promote
   com.gigaton.knowledge-extracts-refresh
+  com.gigaton.qa-corpus-incremental-todd
 )
 
 for job in "${JOBS[@]}"; do

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>                <string>com.gigaton.qa-corpus-incremental-todd</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <!--
+      Incremental Q&A corpus ingest for operator_id=todd. Reads the same
+      sources that were seeded 2026-05-28 (Obsidian vault + auto-memory +
+      MKB runbooks/architecture/manifests). State file at
+      ~/.local/state/gigaton/qa-corpus/todd.json makes runs cheap when
+      nothing has changed.
+
+      To swap to gigaton-platform post-migration, edit SILO_URL below.
+    -->
+    <string>cd $HOME/Documents/GitHub/master-knowledge-base &amp;&amp; \
+            /usr/bin/python3 scripts/qa_corpus_ingest.py \
+              --operator todd \
+              --silo-url "$SILO_URL" \
+              --config scripts/qa_corpus_configs/todd.json \
+              &gt;&gt; "$HOME/.knowledge_sync/qa-corpus-todd.out.log" 2&gt;&amp;1</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- Carmen-beach intel-silo (current). Swap to gigaton-platform silo
+         URL after the migration cuts over. -->
+    <key>SILO_URL</key>            <string>https://intelligence-silo-rjmcrtvuzq-uc.a.run.app</string>
+    <!-- SILO_TOKEN optional: leave empty and the script falls back to
+         `gcloud auth print-identity-token` for user creds. -->
+    <key>SILO_TOKEN</key>          <string></string>
+    <key>PATH</key>                <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <!-- Fire every hour. Each run is cheap because state file gates
+       unchanged files. Heavier than mkb-ingest's weekly cadence because
+       auto-memory churns inside every Claude Code session. -->
+  <key>StartInterval</key>         <integer>3600</integer>
+  <key>StandardOutPath</key>       <string>/Users/admin/.knowledge_sync/qa-corpus-todd.out.log</string>
+  <key>StandardErrorPath</key>     <string>/Users/admin/.knowledge_sync/qa-corpus-todd.err.log</string>
+  <key>RunAtLoad</key>             <false/>
+</dict>
+</plist>

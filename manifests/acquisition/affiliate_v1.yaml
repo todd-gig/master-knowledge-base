@@ -1,0 +1,883 @@
+# Gigaton Affiliate Acquisition Onboarding — Manifest v1.0.0
+#
+# This manifest is the SOURCE OF TRUTH for the AFFILIATE acquisition path —
+# external parties (Ti Solutions affiliates, partner agencies, individual
+# referrers, Gignet certified pros) who issue tracking links + earn comp
+# on attributed conversions. It is declarative data.
+#
+# Provenance / doctrine refs (see references[] block at bottom):
+#   - [[universal_acquisition_framework_2026_05_26]]               (parent spec)
+#   - [[onboarding_v1]]                                            (CLIENT manifest — shape template)
+#   - [[compensation_payout_structure_thursday_5_28_deadline]]     (rev share + cadence)
+#   - [[payout_1_min_threshold_1k_2026_05_26]]                     ($1k min payout)
+#   - [[intel_3_no_static_weights_algorithmic_determination_2026_05_26]] (algorithmic weights)
+#
+# UAF stage mapping (parent spec §2.1 → this manifest):
+#   UAF Stage 1 Awareness        → stage-0-affiliate-discovered
+#   UAF Stage 2 Identification   → stage-1-affiliate-identified
+#   UAF Stage 3 Qualification    → stage-2-affiliate-qualified
+#   UAF Stage 4 Engagement       → stage-3-affiliate-terms-accepted, stage-4-tracking-link-issued
+#   UAF Stage 5 Onboarding       → stage-5-referral-kit-delivered, stage-6-payout-rail-bound
+#   UAF Stage 6 Activation       → stage-7-first-attributed-conversion
+#   UAF Stage 7 Compounding      → stage-8-compounding
+
+version: 1.0.0
+manifest_id: gigaton-affiliate-acquisition-onboarding
+acquisition_category: affiliate
+introduced_at: '2026-05-28T00:00:00Z'
+canonical_source: master-knowledge-base/manifests/acquisition/affiliate_v1.yaml
+parent_framework: universal_acquisition_framework_2026_05_26
+ratified_by:
+  - todd@gigaton.ai
+  - matt@gigaton.ai
+  - bella@gigaton.ai
+
+# Capability tiers — what the affiliate can do.
+capability_tiers:
+  tier_1_prospect:
+    unlocked_by_stages: [stage-0-affiliate-discovered, stage-1-affiliate-identified]
+    grants:
+      - affiliate.program.browse_terms
+  tier_2_qualified:
+    unlocked_by_stages: [stage-2-affiliate-qualified]
+    grants:
+      - affiliate.terms.read_personalized_rates
+  tier_3_active:
+    unlocked_by_stages: [stage-3-affiliate-terms-accepted, stage-4-tracking-link-issued, stage-5-referral-kit-delivered, stage-6-payout-rail-bound]
+    grants:
+      - affiliate.tracking_links.issue
+      - affiliate.kit.download_assets
+      - affiliate.payouts.receive
+      - affiliate.dashboard.view_attribution
+  tier_4_activated:
+    unlocked_by_stages: [stage-7-first-attributed-conversion]
+    grants:
+      - affiliate.dashboard.view_funnel
+      - affiliate.coaching.realtime
+  tier_5_compounding:
+    unlocked_by_stages: [stage-8-compounding]
+    grants:
+      - affiliate.tier.priority_rate
+      - affiliate.network.sub_affiliate_invites
+      - affiliate.cobranded.surfaces
+
+nav_circles:
+  - circle_id: program
+    label: Program
+    route: /affiliate/program
+    tier_required: always
+    icon: gift
+  - circle_id: links
+    label: My Links
+    route: /affiliate/links
+    tier_required: tier_3_active
+    icon: link
+  - circle_id: kit
+    label: Referral Kit
+    route: /affiliate/kit
+    tier_required: tier_3_active
+    icon: package
+  - circle_id: attribution
+    label: Attribution
+    route: /affiliate/attribution
+    tier_required: tier_3_active
+    icon: pie-chart
+  - circle_id: payouts
+    label: Payouts
+    route: /affiliate/payouts
+    tier_required: tier_3_active
+    icon: dollar-sign
+  - circle_id: funnel
+    label: Funnel
+    route: /affiliate/funnel
+    tier_required: tier_4_activated
+    icon: filter
+  - circle_id: sub-affiliates
+    label: Sub-Affiliates
+    route: /affiliate/network
+    tier_required: tier_5_compounding
+    icon: share-2
+
+deprecated_routes: []
+
+# ─────────────────────────────────────────────────────────────────────────
+# STAGES
+# ─────────────────────────────────────────────────────────────────────────
+
+stages:
+
+  # ─── STAGE 0 — AWARENESS ───────────────────────────────────────────────
+  - id: stage-0-affiliate-discovered
+    order: 0
+    name: Affiliate Discovered
+    short_description: First signal indicates a candidate affiliate (program page view, partner-channel intro, certified-pro upgrade path).
+    why_this_stage: |
+      UAF Stage 1. Pre-IDP signal capture lets attribution flow from the
+      moment the affiliate first touches the program page, even before
+      they identify themselves.
+    primary_actor: affiliate
+    owning_engine: user-access-engine
+    secondary_engines: [intelligence-silo, gigaton-gateway]
+    ui_route: /affiliate/program
+    entry_signal:
+      type: always_open
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/idp/signals?session_id={session_id}&category=affiliate'
+      predicate:
+        json_path: '$.signal_count'
+        operator: gte
+        value: 1
+      ttl_seconds: 30
+    exit_criterion:
+      event_type: AffiliateSignalCaptured
+      description: SignalEvent with category=affiliate received
+    signoff_required: false
+    actions:
+      - id: capture-affiliate-signal
+        title: Capture first program-page touch
+        description: Program page view, partner intro inbound, or certified-pro tier upgrade emits SignalEvent.
+        action_label: '(automatic)'
+        action_href: /affiliate/program
+        auto_complete_on:
+          - event_type: AffiliateSignalCaptured
+    education:
+      why_1min: /docs/acquisition/affiliate/why/awareness-1min.md
+    events_emitted:
+      - AffiliateSignalCaptured
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_prospect
+    gamification:
+      badge_slug: affiliate-discovered
+      badge_name: Program Discovered
+      streak_eligible: false
+      fallback_predicted_influence_usd: 120
+    ppim_signature:
+      interaction: affiliate funnel seeded
+      economics: avg $120 partnership-sourcing equivalent
+      predictability: HIGH
+      brand_dimension: discoverability
+
+  # ─── STAGE 1 — IDENTIFICATION ──────────────────────────────────────────
+  - id: stage-1-affiliate-identified
+    order: 1
+    name: Affiliate Identified
+    short_description: Candidate self-identifies (legal entity OR individual + jurisdiction); IDPProfile created with category=affiliate.
+    why_this_stage: |
+      UAF Stage 2. Legal entity (or individual) + jurisdiction are required
+      before any terms presentation, because terms vary by jurisdiction
+      and tax form.
+    primary_actor: affiliate
+    owning_engine: user-access-engine
+    secondary_engines: [intelligence-silo]
+    ui_route: /affiliate/program/identify
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-0-affiliate-discovered
+    activation_gate:
+      method: GET
+      url: '{uae_base}/v1/idp/profile?session_id={session_id}'
+      predicate:
+        all_of:
+          - json_path: '$.idp_profile_id'
+            operator: is_not_null
+          - json_path: '$.category'
+            operator: eq
+            value: affiliate
+          - json_path: '$.jurisdiction'
+            operator: is_not_null
+      ttl_seconds: 30
+    exit_criterion:
+      event_type: AffiliateIDPResolved
+      description: idp_profiles row created with category=affiliate + jurisdiction + entity_kind (individual | entity)
+    signoff_required: false
+    actions:
+      - id: capture-identity
+        title: Capture identity (individual or legal entity) + jurisdiction
+        description: Name + entity kind + country/state; pre-fills payout rail + tax form later.
+        action_label: Continue
+        action_href: /affiliate/program/identify
+        auto_complete_on:
+          - event_type: AffiliateIdentitySubmitted
+      - id: resolve-idp
+        title: Resolve IDP profile
+        description: Resolution worker creates/merges IDP and walks back prior anon signals.
+        action_label: '(automatic)'
+        action_href: /affiliate/program
+        auto_complete_on:
+          - event_type: AffiliateIDPResolved
+    education:
+      why_1min: /docs/acquisition/affiliate/why/identification-1min.md
+    events_emitted:
+      - AffiliateIdentitySubmitted
+      - AffiliateIDPResolved
+      - StageCompleted
+    capability_unlocks_on_completion: tier_1_prospect
+    gamification:
+      badge_slug: affiliate-identified
+      badge_name: Identified
+      streak_eligible: false
+      fallback_predicted_influence_usd: 280
+    ppim_signature:
+      interaction: terms can be tailored
+      economics: avoids generic-terms churn
+      predictability: HIGH
+      brand_dimension: legitimacy
+
+  # ─── STAGE 2 — QUALIFICATION ───────────────────────────────────────────
+  - id: stage-2-affiliate-qualified
+    order: 2
+    name: Affiliate Qualified
+    short_description: Reach + audience-fit + reputation scored; tier (bronze/silver/gold/platinum) and personalized rate proposed.
+    why_this_stage: |
+      UAF Stage 3. The platform must move beyond "applied" to "understand
+      audience fit and earnings potential". Trust assessor + 10 Intelligence
+      Dimensions + ethnographic frames score the candidate. INTEL-3 doctrine
+      applies — proposed rates are seeded within published bounds, not
+      static targets.
+    primary_actor: operator
+    owning_engine: decision-engine
+    secondary_engines: [intelligence-silo, user-access-engine]
+    ui_route: /affiliate/program/qualification
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-1-affiliate-identified
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/affiliate/qualification?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.tier'
+            operator: in
+            value: [bronze, silver, gold, platinum]
+          - json_path: '$.proposed_rate_basis_points'
+            operator: gte
+            value: 1
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: AffiliateQualified
+      description: decision-engine writes affiliate_qualification row with tier + proposed_rate (within INTEL-3-doctrine bounds) + audience_fit_score
+    signoff_required: true
+    signoff:
+      type: operator_acknowledgement
+      actor: operator_admin
+      stored_in: decision_engine_affiliate_qualification_table
+    actions:
+      - id: declare-audience
+        title: Declare audience + channels
+        description: Where do you reach people? (newsletter, podcast, community, agency client list, etc.)
+        action_label: Declare audience
+        action_href: /affiliate/program/qualification?action=audience
+        auto_complete_on:
+          - event_type: AudienceDeclared
+      - id: run-trust-assessor
+        title: Run trust assessor
+        description: Background job — assesses reputation, prior referral quality, audience-fit vs operator ICP.
+        action_label: '(automatic)'
+        action_href: /affiliate/program/qualification
+        auto_complete_on:
+          - event_type: TrustAssessorCompleted
+      - id: propose-tier-and-rate
+        title: Propose tier and rate
+        description: Auto-rendered with INTEL-3-seeded rate within published bounds; operator may override pre-signoff.
+        action_label: Review proposal
+        action_href: /affiliate/program/qualification?action=review
+        auto_complete_on:
+          - event_type: AffiliateQualified
+    education:
+      why_1min: /docs/acquisition/affiliate/why/qualification-1min.md
+    events_emitted:
+      - AudienceDeclared
+      - TrustAssessorCompleted
+      - AffiliateQualified
+      - StageCompleted
+    capability_unlocks_on_completion: tier_2_qualified
+    gamification:
+      badge_slug: affiliate-qualified
+      badge_name: Qualified
+      streak_eligible: false
+      fallback_predicted_influence_usd: 850
+    ppim_signature:
+      interaction: terms can now be presented
+      economics: avg $850 of misclassified-affiliate downstream rework avoided
+      predictability: MEDIUM
+      brand_dimension: relevance + selectivity
+
+  # ─── STAGE 3 — ENGAGEMENT I (TERMS) ────────────────────────────────────
+  - id: stage-3-affiliate-terms-accepted
+    order: 3
+    name: Affiliate Terms Accepted
+    short_description: Personalized affiliate terms presented; affiliate accepts or counter-proposes; signed agreement stored.
+    why_this_stage: |
+      UAF Stage 4a. Engagement = the legal+commercial alignment. Terms
+      enumerate rev share, cookie window, attribution model (first-touch
+      / last-touch / multi-touch), exclusivity, and termination. Counter
+      routes through decision-engine for operator response.
+    primary_actor: affiliate
+    owning_engine: decision-engine
+    secondary_engines: [user-access-engine]
+    ui_route: /affiliate/program/terms
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-2-affiliate-qualified
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/affiliate/terms?idp_profile_id={idp_profile_id}'
+      predicate:
+        json_path: '$.terms_signed_at'
+        operator: is_not_null
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: AffiliateTermsSigned
+      description: signed affiliate_terms artifact written to scope_contracts (affiliate variant) with dual cryptographic acknowledgement
+    signoff_required: true
+    signoff:
+      type: dual_signature
+      actors: [affiliate, operator_admin]
+      stored_in: scope_contracts_table
+    actions:
+      - id: present-terms
+        title: Present personalized terms
+        description: Rate from stage-2; attribution model; cookie window; exclusivity defaults; termination clauses.
+        action_label: Review terms
+        action_href: /affiliate/program/terms?action=review
+        auto_complete_on:
+          - event_type: AffiliateTermsPresented
+      - id: counter-or-accept
+        title: Counter-propose or accept
+        description: Counter routes through decision-engine; accept advances to signing.
+        action_label: Accept / Counter
+        action_href: /affiliate/program/terms?action=respond
+        auto_complete_on:
+          - event_type: AffiliateTermsAccepted
+      - id: sign-terms
+        title: Sign affiliate terms
+        description: Both parties cryptographically acknowledge; copy stored in both namespaces.
+        action_label: Sign & continue
+        action_href: /affiliate/program/terms?action=sign
+        auto_complete_on:
+          - event_type: AffiliateTermsSigned
+    education:
+      why_1min: /docs/acquisition/affiliate/why/terms-1min.md
+    events_emitted:
+      - AffiliateTermsPresented
+      - AffiliateTermsAccepted
+      - AffiliateTermsSigned
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_active
+    gamification:
+      badge_slug: affiliate-signed
+      badge_name: Terms Signed
+      streak_eligible: false
+      success_celebration: 'Welcome to the program. Your tracking link is on the next screen.'
+      fallback_predicted_influence_usd: 0  # terms are foundational; value lands later
+    ppim_signature:
+      interaction: economic + legal alignment
+      economics: foundational for revenue share flow
+      predictability: HIGH
+      brand_dimension: integrity + clarity
+
+  # ─── STAGE 4 — ENGAGEMENT II (TRACKING LINK) ───────────────────────────
+  - id: stage-4-tracking-link-issued
+    order: 4
+    name: Tracking Link Issued
+    short_description: Per-affiliate tracking link issued; deep-link variants for top SKUs; UTM parameters bound to IDP profile.
+    why_this_stage: |
+      UAF Stage 4b. Tracking link is the affiliate's revenue instrument.
+      Issued only after terms are signed. Bound to the affiliate's
+      idp_profile_id so every downstream conversion attributes correctly.
+    primary_actor: operator
+    owning_engine: gigaton-gateway
+    secondary_engines: [user-access-engine, decision-engine]
+    ui_route: /affiliate/links
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-3-affiliate-terms-accepted
+    activation_gate:
+      method: GET
+      url: '{gateway_base}/v1/affiliate/tracking-links?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.link_count'
+            operator: gte
+            value: 1
+          - json_path: '$.primary_link_url'
+            operator: is_not_null
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: TrackingLinkIssued
+      description: gateway writes tracking_links row with primary link + UTM params bound to idp_profile_id
+    signoff_required: false
+    actions:
+      - id: issue-primary-link
+        title: Issue primary tracking link
+        description: Short URL + UTM-encoded long form; bound to idp_profile_id; copy-to-clipboard affordance.
+        action_label: Get link
+        action_href: /affiliate/links?action=primary
+        auto_complete_on:
+          - event_type: TrackingLinkIssued
+      - id: issue-deep-links
+        title: Issue deep-link variants
+        description: One per top SKU / surface; same UTM root.
+        action_label: Get deep links
+        action_href: /affiliate/links?action=deep
+        auto_complete_on:
+          - event_type: DeepLinkVariantsIssued
+    education:
+      why_1min: /docs/acquisition/affiliate/why/tracking-link-1min.md
+    events_emitted:
+      - TrackingLinkIssued
+      - DeepLinkVariantsIssued
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_active
+    gamification:
+      badge_slug: affiliate-link-issued
+      badge_name: Live Link
+      streak_eligible: false
+      fallback_predicted_influence_usd: 200
+    ppim_signature:
+      interaction: affiliate is now revenue-generating-capable
+      economics: clears top day-1 affiliate friction
+      predictability: HIGH
+      brand_dimension: enablement
+
+  # ─── STAGE 5 — ONBOARDING I (REFERRAL KIT) ─────────────────────────────
+  - id: stage-5-referral-kit-delivered
+    order: 5
+    name: Initial Referral Kit Delivered
+    short_description: Brand-voice-aligned promo assets, copy templates, and channel-specific creative delivered to the affiliate.
+    why_this_stage: |
+      UAF Stage 5a. Without a kit, the affiliate types from scratch and
+      consistency erodes. The kit is auto-generated from the operator's
+      brand voice variables (their Stage 3 brand_voice in onboarding_v1)
+      and the affiliate's declared channels (from stage-2 here).
+    primary_actor: operator
+    owning_engine: intelligence-silo
+    secondary_engines: [gigaton-ui-system, user-access-engine]
+    ui_route: /affiliate/kit
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-4-tracking-link-issued
+    activation_gate:
+      method: GET
+      url: '{intel_silo_base}/v1/affiliate/referral-kit?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.kit_generated_at'
+            operator: is_not_null
+          - json_path: '$.asset_count'
+            operator: gte
+            value: 5
+          - json_path: '$.copy_template_count'
+            operator: gte
+            value: 3
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: ReferralKitDelivered
+      description: silo writes referral_kit row with ≥5 assets + ≥3 copy templates + brand_voice traceable
+    signoff_required: false
+    actions:
+      - id: generate-kit
+        title: Generate brand-aligned kit
+        description: Auto-generated from operator brand voice (their onboarding_v1 stage-3) + affiliate's declared channels (this manifest's stage-2).
+        action_label: '(automatic)'
+        action_href: /affiliate/kit
+        auto_complete_on:
+          - event_type: ReferralKitGenerated
+      - id: notify-affiliate
+        title: Notify affiliate
+        description: Email + in-app notification with deep-link to kit.
+        action_label: '(automatic)'
+        action_href: /affiliate/kit
+        auto_complete_on:
+          - event_type: ReferralKitDelivered
+    education:
+      why_1min: /docs/acquisition/affiliate/why/kit-1min.md
+    events_emitted:
+      - ReferralKitGenerated
+      - ReferralKitDelivered
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_active
+    gamification:
+      badge_slug: affiliate-kit-ready
+      badge_name: Kit Ready
+      streak_eligible: false
+      fallback_predicted_influence_usd: 350
+    ppim_signature:
+      interaction: brand consistency across affiliate channels
+      economics: avg 30-50% lift on attributed conversion vs unkitted affiliates
+      predictability: MEDIUM
+      brand_dimension: voice coherence
+
+  # ─── STAGE 6 — ONBOARDING II (PAYOUT RAIL) ─────────────────────────────
+  - id: stage-6-payout-rail-bound
+    order: 6
+    name: Payout Rail Bound
+    short_description: Affiliate connects Stripe Connect Express (default) or ACH (alt); jurisdiction-correct tax form captured.
+    why_this_stage: |
+      UAF Stage 5b. Same rail/floor doctrine as talent — $1k indefinite
+      minimum per [[payout_1_min_threshold_1k_2026_05_26]]. Stripe Connect
+      Express default, ACH alternative, tax form per jurisdiction.
+    primary_actor: affiliate
+    owning_engine: gigaton-gateway
+    secondary_engines: [user-access-engine]
+    ui_route: /affiliate/payouts/connect
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-5-referral-kit-delivered
+    activation_gate:
+      method: GET
+      url: '{gateway_base}/v1/affiliate/payout-rail?idp_profile_id={idp_profile_id}'
+      predicate:
+        all_of:
+          - json_path: '$.rail'
+            operator: in
+            value: [stripe_connect_express, ach]
+          - json_path: '$.payout_account_verified'
+            operator: eq
+            value: true
+          - json_path: '$.tax_form_on_file'
+            operator: eq
+            value: true
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: PayoutRailVerified
+      description: gateway emits PayoutRailVerified with rail + provider_account_id + tax form on file
+    signoff_required: true
+    signoff:
+      type: payout_provider_kyc
+      actor: payment_provider_webhook
+      stored_in: gateway_payout_accounts_table
+    actions:
+      - id: choose-payout-rail
+        title: Choose payout rail
+        description: Stripe Connect Express (default) or ACH (alt).
+        action_label: Choose rail
+        action_href: /affiliate/payouts/connect?action=choose
+        auto_complete_on:
+          - event_type: PayoutRailSelected
+      - id: complete-kyc
+        title: Complete payout-provider KYC
+        description: Stripe Connect Express flow or ACH micro-deposit verification.
+        action_label: Complete KYC
+        action_href: /affiliate/payouts/connect?action=kyc
+        auto_complete_on:
+          - event_type: PayoutKYCCompleted
+      - id: file-tax-form
+        title: File tax form
+        description: W-9 / W-8BEN / per-jurisdiction; resolved from stage-1 jurisdiction.
+        action_label: File tax form
+        action_href: /affiliate/payouts/connect?action=tax
+        auto_complete_on:
+          - event_type: TaxFormFiled
+      - id: verify-rail
+        title: Verify rail end-to-end
+        description: $0 verification ping must round-trip.
+        action_label: '(automatic)'
+        action_href: /affiliate/payouts/connect
+        auto_complete_on:
+          - event_type: PayoutRailVerified
+    education:
+      why_1min: /docs/acquisition/affiliate/why/payout-rail-1min.md
+      deep_dive_10min: /docs/acquisition/affiliate/deep/payout-1k-floor-10min.md
+    events_emitted:
+      - PayoutRailSelected
+      - PayoutKYCCompleted
+      - TaxFormFiled
+      - PayoutRailVerified
+      - StageCompleted
+    capability_unlocks_on_completion: tier_3_active
+    gamification:
+      badge_slug: affiliate-payout-ready
+      badge_name: Payout Ready
+      streak_eligible: false
+      fallback_predicted_influence_usd: 0
+    ppim_signature:
+      interaction: affiliate can be paid
+      economics: removes top day-1 churn cause (broken rail)
+      predictability: HIGH
+      brand_dimension: trust + reliability
+
+  # ─── STAGE 7 — ACTIVATION (FIRST ATTRIBUTED CONVERSION) ────────────────
+  - id: stage-7-first-attributed-conversion
+    order: 7
+    name: First Attributed Conversion
+    short_description: First conversion attributes to affiliate's tracking link; ActivationEvent records against Penrose scoreboard.
+    why_this_stage: |
+      UAF Stage 6. Affiliate activation = first paid, attributed conversion.
+      activation_metrics.yaml category=affiliate defines this precisely; the
+      attribution model from stage-3 (first-touch / last-touch / multi-touch)
+      governs which conversions credit this affiliate.
+    primary_actor: customer
+    owning_engine: decision-engine
+    secondary_engines: [gigaton-gateway, intelligence-silo]
+    ui_route: /affiliate/attribution
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-6-payout-rail-bound
+    activation_gate:
+      method: GET
+      url: '{decision_engine_base}/v1/activation/events?idp_profile_id={idp_profile_id}&category=affiliate&first=true'
+      predicate:
+        json_path: '$.activation_event_count'
+        operator: gte
+        value: 1
+      ttl_seconds: 60
+    exit_criterion:
+      event_type: ActivationEventRecorded
+      description: decision-engine writes ActivationEvent with category=affiliate + first_for_idp_profile=true + attributed_revenue_usd > 0
+    signoff_required: false
+    actions:
+      - id: observe-attributed-conversion
+        title: Observe first attributed conversion
+        description: gateway transaction stream attributes conversion to affiliate via UTM + cookie matching.
+        action_label: '(automatic)'
+        action_href: /affiliate/attribution
+        auto_complete_on:
+          - event_type: AttributedConversionObserved
+      - id: record-activation
+        title: Record activation event
+        description: decision-engine emits ActivationEvent; Penrose updates.
+        action_label: '(automatic)'
+        action_href: /affiliate/attribution
+        auto_complete_on:
+          - event_type: ActivationEventRecorded
+    education:
+      why_1min: /docs/acquisition/affiliate/why/first-conversion-1min.md
+    events_emitted:
+      - AttributedConversionObserved
+      - ActivationEventRecorded
+      - StageCompleted
+    capability_unlocks_on_completion: tier_4_activated
+    gamification:
+      badge_slug: affiliate-first-conversion
+      badge_name: First Conversion
+      streak_eligible: true
+      success_celebration: 'First attributed conversion. Comp is queued for next payout cycle.'
+      fallback_predicted_influence_usd: 1100
+    ppim_signature:
+      interaction: affiliate is producing referred revenue
+      economics: foundational for referred-LTV × commission flow
+      predictability: HIGH
+      brand_dimension: outcomes + delivery
+
+  # ─── STAGE 8 — COMPOUNDING ─────────────────────────────────────────────
+  - id: stage-8-compounding
+    order: 8
+    name: Compounding
+    short_description: Sustained referred-LTV; tier promotions; sub-affiliate invites; cobranded surfaces.
+    why_this_stage: |
+      UAF Stage 7. compounding_per_profile.sql aggregates affiliate KPIs;
+      tier promotions trigger algorithmically under INTEL-3 doctrine (rates
+      adjust within bounds based on observed referred-LTV quality). Cobranded
+      surfaces unlock at platinum tier.
+    primary_actor: operator
+    owning_engine: human-management-engine
+    secondary_engines: [decision-engine, intelligence-silo]
+    ui_route: /affiliate/funnel
+    entry_signal:
+      type: prior_stage_completed
+      stage_id: stage-7-first-attributed-conversion
+    activation_gate:
+      method: GET
+      url: '{hme_base}/v1/compounding/per-profile?idp_profile_id={idp_profile_id}&category=affiliate'
+      predicate:
+        any_of:
+          - json_path: '$.attributed_conversions_90d'
+            operator: gte
+            value: 5
+          - json_path: '$.referred_ltv_usd_90d'
+            operator: gte
+            value: 1000
+          - json_path: '$.sub_affiliate_count'
+            operator: gte
+            value: 1
+      ttl_seconds: 300
+    exit_criterion:
+      event_type: CompoundingObserved
+      description: any one of ≥5 attributed conversions / ≥$1k referred-LTV / ≥1 sub-affiliate observed in 90d window
+    signoff_required: false
+    actions:
+      - id: enable-realtime-coaching
+        title: Enable real-time coaching
+        description: Ti Agent Matrix coach surfaces channel-specific improvements (copy A/B, channel allocation).
+        action_label: Enable coaching
+        action_href: /affiliate/funnel?action=coaching
+        auto_complete_on:
+          - event_type: CoachingEnabled
+      - id: invite-sub-affiliates
+        title: Invite sub-affiliates
+        description: Affiliate issues invite codes; sub-affiliate enters program with attribution chain.
+        action_label: Invite
+        action_href: /affiliate/network?action=invite
+        auto_complete_on:
+          - event_type: SubAffiliateInvited
+      - id: tier-promotion-check
+        title: Tier promotion check
+        description: HME re-evaluates tier; INTEL-3 algorithm adjusts rate within bounds.
+        action_label: '(automatic)'
+        action_href: /affiliate/program
+        auto_complete_on:
+          - event_type: AffiliateTierAdjusted
+    education:
+      why_1min: /docs/acquisition/affiliate/why/compounding-1min.md
+    events_emitted:
+      - CoachingEnabled
+      - SubAffiliateInvited
+      - AffiliateTierAdjusted
+      - CompoundingObserved
+      - StageCompleted
+    capability_unlocks_on_completion: tier_5_compounding
+    gamification:
+      badge_slug: affiliate-compounding
+      badge_name: Compounding
+      streak_eligible: true
+      fallback_predicted_influence_usd: 6500
+    ppim_signature:
+      interaction: affiliate is now a network multiplier
+      economics: full affiliate LTV loop closed
+      predictability: continuously falsified by Penrose
+      brand_dimension: full coherence
+
+# ─────────────────────────────────────────────────────────────────────────
+# CHAT ORCHESTRATION CONTRACT (inherits from onboarding_v1)
+# ─────────────────────────────────────────────────────────────────────────
+chat_orchestration:
+  inherits_from: master-knowledge-base/manifests/onboarding_v1.yaml#/chat_orchestration
+  default_intent_derivation:
+    question_template: '{action.title}'
+    context_template: '{action.description}'
+    button_label: '{action.action_label}'
+    fallback_route: '{action.action_href}'
+    success_template: '{action.verify_description}'
+    activation_event: '{action.auto_complete_on[0].event_type}'
+  affordance_resolution:
+    inline_form:
+      trigger_events:
+        - AffiliateIdentitySubmitted
+        - AudienceDeclared
+      ux: 'Inline form in chat'
+    oauth_kickoff:
+      trigger_events:
+        - PayoutKYCCompleted
+      ux: 'Stripe Connect Express OAuth window'
+    confirmation_only:
+      trigger_events:
+        - AffiliateQualified
+        - AffiliateTermsSigned
+        - TrackingLinkIssued
+        - ReferralKitDelivered
+        - PayoutRailVerified
+        - ActivationEventRecorded
+        - CompoundingObserved
+      ux: 'Acknowledge button in chat'
+  per_stage_overrides:
+    stage-0-affiliate-discovered:
+      opening_message: |
+        Welcome to the program. Before we propose terms, tell me a bit
+        about who you reach and how.
+    stage-3-affiliate-terms-accepted:
+      opening_message: |
+        Based on your audience fit, here's what we're proposing. Take a
+        look — counter if anything doesn't work for you.
+    stage-4-tracking-link-issued:
+      opening_message: |
+        Your tracking link is ready. Copy it now — the kit lands next.
+    stage-6-payout-rail-bound:
+      opening_message: |
+        Let's wire up your payout rail. Stripe Connect Express is default;
+        ACH is the alternative. Min payout is $1k — platform-wide.
+
+# ─────────────────────────────────────────────────────────────────────────
+# OVERLAY SCHEMA
+# ─────────────────────────────────────────────────────────────────────────
+overlay_schema:
+  description: |
+    Each operator can override this affiliate manifest via
+    UAE.client_namespaces.workflow_overlays.affiliate_acquisition.
+  shape:
+    hide:
+      type: array
+      items: string
+      restricted_by_axiom: AX-???
+    reorder:
+      type: array
+      items: string
+    replace:
+      type: object
+      additional_properties:
+        type: object
+    extend:
+      type: array
+      items:
+        $ref: '#/stages/0'
+    inviolable_stage_ids:
+      type: array
+      const:
+        - stage-2-affiliate-qualified
+        - stage-3-affiliate-terms-accepted
+        - stage-6-payout-rail-bound
+        - stage-7-first-attributed-conversion
+
+# ─────────────────────────────────────────────────────────────────────────
+# GATEWAY ENDPOINTS
+# ─────────────────────────────────────────────────────────────────────────
+gateway_endpoints:
+  manifest:
+    endpoint: GET /v1/acquisition/manifest
+    query_params:
+      category: affiliate
+      operator_id: required
+      idp_profile_id: optional
+      include_overlay: default=true
+    headers:
+      X-Client-Namespace: required
+    response:
+      schema_ref: '#/stages'
+      cache_control: 'max-age=60, private'
+      etag: required
+  state:
+    endpoint: GET /v1/acquisition/state
+    query_params:
+      category: affiliate
+      idp_profile_id: required
+    response:
+      shape:
+        current_stage_id: string
+        stages_completed: array of stage_id
+        current_tier_unlocked: enum [tier_1_prospect, tier_2_qualified, tier_3_active, tier_4_activated, tier_5_compounding]
+        nav_circles_enabled: array of circle_id
+        affiliate_tier: enum [bronze, silver, gold, platinum]
+        attribution_model: enum [first_touch, last_touch, multi_touch]
+        payout_rail: enum [stripe_connect_express, ach, null]
+    cache_control: 'max-age=10, private'
+  intent:
+    endpoint: POST /v1/acquisition/intent
+    purpose: |
+      Affiliate chat reply / button click / form submission goes here.
+
+# ─────────────────────────────────────────────────────────────────────────
+# CROSS-REFERENCES
+# ─────────────────────────────────────────────────────────────────────────
+references:
+  doctrine:
+    - universal_acquisition_framework_2026_05_26
+    - foundational_goal_gigaton_engineered_brand_experience
+    - intel_3_no_static_weights_algorithmic_determination_2026_05_26
+    - payout_1_min_threshold_1k_2026_05_26
+    - compensation_payout_structure_thursday_5_28_deadline
+  schemas:
+    - uaf_phase_a_shared_schemas
+  manifests:
+    - onboarding_v1
+  patterns:
+    - directed_workflow_registry_pattern
+  governance:
+    - decision-engine/drift_sentinel/AXIOM_REGISTRY.md
+    - master-knowledge-base/CONSTITUTION.md
+  related_engines:
+    - user-access-engine  # IDP + affiliate_accounts
+    - intelligence-silo  # qualification + referral kit auto-gen
+    - decision-engine  # tier + rate + activation_metrics + INTEL-3 algorithmic adjust
+    - gigaton-gateway  # tracking links + attribution + payout_rail
+    - human-management-engine  # compounding + tier promotion
