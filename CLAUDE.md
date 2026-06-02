@@ -144,6 +144,7 @@ See [LEARNING_LOOP.md](LEARNING_LOOP.md) for the architecture connecting auto-me
 - `scripts/ingest_mkb_to_silo.sh` — pushes MKB content into intel-silo's FAISS index (`operator_id=gigaton`) so the Q&A pipeline grounds answers in doctrine.
 - `scripts/mkb_gcs_backup.sh` — nightly off-GitHub bundle archive (eliminates single-point-of-failure on the GitHub remote).
 - `scripts/launchagents/` — macOS LaunchAgent plists that wire all the above to weekly/nightly cadences. Install with `scripts/install_launchagents.sh`.
+- `scripts/dogfood_e2e_local_mind.py` — end-to-end validation of the gigaton-local-mind → intel-silo `/v1/qa/ingest_preembedded` → gateway `/v1/qa/ask` flow. Run after Phase 1 PRs (silo #69 + gateway #82) deploy. Operator-facing runbook at [runbooks/2026_06_02_dogfood_install_local_mind.md](runbooks/2026_06_02_dogfood_install_local_mind.md). `--self-test` flag exercises the wiring offline.
 
 # Manifest fork — onboarding_v1.yaml
 
