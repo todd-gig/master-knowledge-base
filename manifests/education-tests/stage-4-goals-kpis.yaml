@@ -1,0 +1,170 @@
+# Education tests — Stage 4: Goals, KPIs & Constraints
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[4]
+# Schema: manifests/education-tests/SCHEMA.md
+
+stage_id: stage-4-goals-kpis
+manifest_education_block:
+  why_1min: /docs/why/goals-1min.md
+  what_3min: /docs/what/goals-3min.md
+  deep_dive_10min: /docs/deep/penrose-falsification-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/goals-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-penrose-needs-targets
+        prompt: |
+          Why does the Penrose Falsification Scoreboard require operator-declared
+          targets before any decision can be scored?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "score against"
+          - regex: "(?i)target|score|grade"
+        weight: 1.0
+
+      - id: why-constraints-as-guardrails
+        prompt: |
+          Constraints declared in Stage 4 become what kind of rule for the
+          Decision Execution Engine?
+        type: multiple_choice
+        options:
+          - id: a
+            text: Soft preference (weighted)
+          - id: b
+            text: Hard guardrail
+          - id: c
+            text: Logging-only metadata
+          - id: d
+            text: Optional override
+        correct: b
+        weight: 1.0
+        references_action: register-constraints
+
+      - id: why-no-targets-no-recs
+        prompt: |
+          True or false: Without a north star + supporting metrics + at least one
+          constraint, decision-engine cannot make graded recommendations.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/goals-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-three-action-counts
+        prompt: |
+          The Stage 4 activation gate requires which three predicates to all hold?
+        type: multiple_choice
+        options:
+          - id: a
+            text: north_star_defined == true AND supporting_metrics_count >= 3 AND constraints_count >= 1
+          - id: b
+            text: north_star_defined == true AND supporting_metrics_count >= 1 AND constraints_count >= 3
+          - id: c
+            text: north_star_defined == true AND supporting_metrics_count >= 6 AND constraints_count >= 0
+          - id: d
+            text: north_star_defined == false AND supporting_metrics_count >= 3 AND constraints_count >= 1
+        correct: a
+        weight: 1.0
+
+      - id: what-supporting-metrics-purpose
+        prompt: |
+          What is the stated purpose of supporting metrics relative to the north star?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "counterweight"
+          - regex: "(?i)gaming|game"
+        weight: 1.0
+        references_action: pick-supporting-metrics
+
+      - id: what-north-star-examples
+        prompt: |
+          Which of the following are valid example north star metrics the operator may pick?
+        type: multiple_choice
+        options:
+          - id: a
+            text: Revenue, retention, or NPS — operator's call
+          - id: b
+            text: Only revenue
+          - id: c
+            text: Only NPS
+          - id: d
+            text: Whatever decision-engine seeds; operator cannot override
+        correct: a
+        weight: 1.0
+        references_action: declare-north-star
+
+      - id: what-capability-unlock
+        prompt: |
+          Stage 4 completion unlocks which capability tier?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "tier_3"
+          - regex: "(?i)tier_?3_?recommend|recommend"
+        weight: 1.0
+
+  - tier: deep_dive
+    source_doc: /docs/deep/penrose-falsification-10min.md
+    pass_criteria:
+      min_score_pct: 90
+      attempts_allowed: 3
+    questions:
+      - id: deep-penrose-name
+        prompt: |
+          What is the full name of the scoreboard that grades every later
+          decision-engine recommendation against operator-declared targets?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Penrose Falsification Scoreboard"
+          - regex: "(?i)penrose.*falsification"
+        weight: 1.5
+
+      - id: deep-constraint-example
+        prompt: |
+          Which of the following is a valid example of a hard constraint per the
+          register-constraints action description?
+        type: multiple_choice
+        options:
+          - id: a
+            text: Never email opt-outs; never undercut floor price
+          - id: b
+            text: Prefer cheaper LLM provider when latency tied
+          - id: c
+            text: Surface Slack notifications during business hours
+          - id: d
+            text: Round payouts to the nearest dollar
+        correct: a
+        weight: 1.0
+        references_action: register-constraints
+
+      - id: deep-misaligned-automation-cost
+        prompt: |
+          The PPIM signature quantifies the economic risk avoided by Stage 4 at
+          approximately how much per year?
+        type: multiple_choice
+        options:
+          - id: a
+            text: $3k+/yr
+          - id: b
+            text: $30k+/yr
+          - id: c
+            text: $300k+/yr
+          - id: d
+            text: Unspecified
+        correct: b
+        weight: 1.0
+
+      - id: deep-secondary-engine
+        prompt: |
+          True or false: persona-engine is listed as a secondary engine on Stage 4
+          (the owning engine is decision-engine).
+        type: true_false
+        correct: true
+        weight: 1.0

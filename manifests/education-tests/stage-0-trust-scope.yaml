@@ -1,0 +1,173 @@
+# Education tests — Stage 0: Trust & Scope Anchor
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[0]
+# Schema: manifests/education-tests/SCHEMA.md
+
+stage_id: stage-0-trust-scope
+manifest_education_block:
+  why_1min: /docs/why/trust-scope-1min.md
+  what_3min: /docs/what/trust-scope-3min.md
+  deep_dive_10min: /docs/deep/trust-scope-axiom-registry-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/trust-scope-1min.md
+    pass_criteria:
+      min_score_pct: 80   # INTEL-3 seed, range 70-95
+      attempts_allowed: 3 # INTEL-3 algorithm-pending
+    questions:
+      - id: why-scope-contract-matters
+        prompt: |
+          Why must every operator sign a scope contract BEFORE any other ingest or decision happens?
+        type: multiple_choice
+        options:
+          - id: a
+            text: It's a legal formality required by Stripe Connect Express
+          - id: b
+            text: Every artifact recorded after this point attaches to a scope contract; without it, ingestion creates silent compliance debt
+          - id: c
+            text: It unlocks the gamification badge "Trust Anchored"
+          - id: d
+            text: It is what triggers the Variable Registry to load
+        correct: b
+        weight: 1.0
+        references_action: sign-scope-contract
+
+      - id: why-axioms-acknowledged-not-just-shown
+        prompt: |
+          The Axiom Registry could be a one-way disclosure. Why does Stage 0 require
+          per-axiom acknowledgement instead?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "inviolable"
+          - keyword: "enforce"
+          - regex: "(?i)conflict|scope"
+        weight: 1.0
+        references_action: acknowledge-axioms
+
+      - id: why-trust-precedes-data
+        prompt: |
+          True or false: Stage 0 must precede Stage 1 (Sources) because compliance posture
+          determines what + where data may be ingested.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/trust-scope-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-four-actions
+        prompt: |
+          Stage 0 consists of which four actions, in this exact order?
+        type: multiple_choice
+        options:
+          - id: a
+            text: declare-legal-entity → select-jurisdictions → acknowledge-axioms → sign-scope-contract
+          - id: b
+            text: sign-scope-contract → declare-legal-entity → acknowledge-axioms → select-jurisdictions
+          - id: c
+            text: acknowledge-axioms → declare-legal-entity → select-jurisdictions → sign-scope-contract
+          - id: d
+            text: declare-legal-entity → acknowledge-axioms → select-jurisdictions → sign-scope-contract
+        correct: a
+        weight: 1.0
+
+      - id: what-activation-gate-predicate
+        prompt: |
+          The Stage 0 activation gate at GET /v1/operators/{operator_id}/scope-contract
+          succeeds when which JSON path resolves to a non-null value?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "$.signed_at"
+          - keyword: "signed_at"
+        weight: 1.0
+
+      - id: what-axiom-severities-required
+        prompt: |
+          Which axiom severities must be fully acknowledged for the
+          acknowledge-axioms action to auto-complete?
+        type: multiple_choice
+        options:
+          - id: a
+            text: All CRIT axioms only
+          - id: b
+            text: All CRIT and all MAJ axioms
+          - id: c
+            text: All severities
+          - id: d
+            text: At least one of each severity
+        correct: b
+        weight: 1.0
+        references_action: acknowledge-axioms
+
+      - id: what-capability-unlock
+        prompt: |
+          Stage 0 completion partially unlocks which capability tier?
+        type: multiple_choice
+        options:
+          - id: a
+            text: tier_1_data (closes when Stage 1 completes)
+          - id: b
+            text: tier_2_personalized
+          - id: c
+            text: tier_5_live
+          - id: d
+            text: No tier; Stage 0 only emits StageCompleted
+        correct: a
+        weight: 1.0
+
+  - tier: deep_dive
+    source_doc: /docs/deep/trust-scope-axiom-registry-10min.md
+    pass_criteria:
+      min_score_pct: 90   # INTEL-3 seed, range 70-95 — deep_dive higher leverage
+      attempts_allowed: 3
+    questions:
+      - id: deep-axiom-registry-role
+        prompt: |
+          In one sentence, what is the Axiom Registry's structural role in the
+          decision-engine, and how does an operator's acknowledgement constrain it?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "inviolable"
+          - keyword: "decision"
+          - regex: "(?i)guardrail|constrain|enforce"
+        weight: 1.5
+
+      - id: deep-jurisdiction-implications
+        prompt: |
+          A jurisdiction selection in Stage 0 directly drives which later choices?
+          (Select the BEST answer.)
+        type: multiple_choice
+        options:
+          - id: a
+            text: Brand voice variables in Stage 3
+          - id: b
+            text: Every later compliance check + data residency choice
+          - id: c
+            text: Which industry catalog loads in Stage 5
+          - id: d
+            text: Which OTA connectors appear in Stage 8
+        correct: b
+        weight: 1.0
+        references_action: select-jurisdictions
+
+      - id: deep-overlay-cannot-bypass
+        prompt: |
+          True or false: A per-operator workflow_overlays JSONB CAN remove Stage 0
+          from that operator's onboarding sequence.
+        type: true_false
+        correct: false
+        weight: 1.5
+
+      - id: deep-scope-contract-cryptographic
+        prompt: |
+          The scope contract is described as a "cryptographic acknowledgement."
+          What is preserved in the operator namespace as a result?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "signed copy"
+          - regex: "(?i)namespace|operator"
+        weight: 1.0

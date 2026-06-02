@@ -1,0 +1,165 @@
+# Education tests — Stage 1: Sources
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[1]
+# Schema: manifests/education-tests/SCHEMA.md
+
+stage_id: stage-1-sources
+manifest_education_block:
+  why_1min: /docs/why/sources-1min.md
+  what_3min: /docs/what/sources-3min.md
+  deep_dive_10min: /docs/deep/documentation-ingest-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/sources-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-grounding-vs-templates
+        prompt: |
+          Without sources connected, what does the platform fall back to when making decisions?
+        type: multiple_choice
+        options:
+          - id: a
+            text: Generic templates
+          - id: b
+            text: The operator's Slack history
+          - id: c
+            text: A randomized seed from the Variable Registry
+          - id: d
+            text: Nothing — the system halts
+        correct: a
+        weight: 1.0
+
+      - id: why-chat-with-data-unlock
+        prompt: |
+          How many connected sources are required before the "chat with your data"
+          capability turns on?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "1"
+          - regex: "(?i)at least one|one|>=\\s*1"
+        weight: 1.0
+
+      - id: why-grounded-decisions-true-false
+        prompt: |
+          True or false: Sources are optional context; later decisions can be
+          fully grounded without them.
+        type: true_false
+        correct: false
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/sources-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-owning-engine
+        prompt: |
+          Which engine OWNS Stage 1?
+        type: multiple_choice
+        options:
+          - id: a
+            text: persona-engine
+          - id: b
+            text: intelligence-silo
+          - id: c
+            text: human-management-engine
+          - id: d
+            text: decision-engine
+        correct: b
+        weight: 1.0
+
+      - id: what-activation-gate-threshold
+        prompt: |
+          The Stage 1 activation gate predicate requires file_count >= what value?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "20"
+        weight: 1.0
+
+      - id: what-delegated-workflow
+        prompt: |
+          Stage 1 has empty `actions: []` because it delegates to which existing workflow?
+        type: multiple_choice
+        options:
+          - id: a
+            text: documentation-ingest-2026-05-20
+          - id: b
+            text: trust-scope-anchor
+          - id: c
+            text: bft-snapshot-onboarding
+          - id: d
+            text: penrose-falsification
+        correct: a
+        weight: 1.0
+
+      - id: what-coverage-event
+        prompt: |
+          Name one event Stage 1 emits as ingest progresses.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "DocumentationAccountsLinked"
+          - keyword: "DocumentationFolderSubscribed"
+          - keyword: "DocumentationIngestRun"
+          - keyword: "DocumentationCoverageAdvanced"
+        weight: 1.0
+
+  - tier: deep_dive
+    source_doc: /docs/deep/documentation-ingest-10min.md
+    pass_criteria:
+      min_score_pct: 90
+      attempts_allowed: 3
+    questions:
+      - id: deep-canonical-folder
+        prompt: |
+          What is the structural outcome of the Stage 1 ingest — i.e. where do all the
+          connected Google Drive sources end up consolidated?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "canonical"
+          - regex: "(?i)notebooklm|notebook-?lm"
+        weight: 1.5
+
+      - id: deep-tier-unlocked-on-completion
+        prompt: |
+          Stage 1 completion CLOSES the tier that Stage 0 partially opened. Which tier is that?
+        type: multiple_choice
+        options:
+          - id: a
+            text: tier_1_data
+          - id: b
+            text: tier_2_personalized
+          - id: c
+            text: tier_3_recommend
+          - id: d
+            text: tier_4_costs
+        correct: a
+        weight: 1.0
+
+      - id: deep-ingest-cost-and-payoff
+        prompt: |
+          The PPIM signature claims approx $0.50/operator/mo ingest cost unlocks
+          how much in founder time saved?
+        type: multiple_choice
+        options:
+          - id: a
+            text: $50-100/mo
+          - id: b
+            text: $1-3k/mo
+          - id: c
+            text: $10-30k/mo
+          - id: d
+            text: Unspecified
+        correct: b
+        weight: 1.0
+
+      - id: deep-streak-eligible
+        prompt: |
+          True or false: Stage 1 is streak-eligible in the gamification system,
+          rewarding sustained ingest cadence.
+        type: true_false
+        correct: true
+        weight: 1.0

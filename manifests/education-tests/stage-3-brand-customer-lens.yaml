@@ -1,0 +1,164 @@
+# Education tests — Stage 3: Brand & Customer Lens
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[3]
+# Schema: manifests/education-tests/SCHEMA.md
+
+stage_id: stage-3-brand-customer-lens
+manifest_education_block:
+  why_1min: /docs/why/brand-customer-1min.md
+  what_3min: /docs/what/brand-customer-3min.md
+  deep_dive_10min: /docs/deep/ppim-doctrine-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/brand-customer-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-penrose-needs-target-distribution
+        prompt: |
+          Without brand voice + ICP defined, what does Penrose lack?
+        type: multiple_choice
+        options:
+          - id: a
+            text: A target distribution to optimize against
+          - id: b
+            text: Access to the Variable Registry
+          - id: c
+            text: A scope contract signature
+          - id: d
+            text: The drift_critical counter
+        correct: a
+        weight: 1.0
+
+      - id: why-brand-voice-bound-to-variable-registry
+        prompt: |
+          The brand voice is bound to which subsystem's "brand_voice" category?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Variable Registry"
+          - regex: "(?i)variable_?registry"
+        weight: 1.0
+
+      - id: why-icp-true-false
+        prompt: |
+          True or false: An Ideal Customer Profile (ICP) is OPTIONAL for Stage 3 to
+          complete.
+        type: true_false
+        correct: false
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/brand-customer-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-six-brand-voice-vars
+        prompt: |
+          How many brand_voice category seed variables must be filled to satisfy the
+          Stage 3 activation gate?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "6"
+        weight: 1.0
+        references_action: fill-brand-voice-variables
+
+      - id: what-six-brand-voice-vars-content
+        prompt: |
+          Which list correctly names the six brand voice variables?
+        type: multiple_choice
+        options:
+          - id: a
+            text: tone, formality, languages, archetypes, taboos, response cadence
+          - id: b
+            text: tone, color, font, archetypes, taboos, channel
+          - id: c
+            text: voice, audience, geography, archetypes, slogan, tagline
+          - id: d
+            text: tone, formality, north_star, ICP, lifecycle, drift_critical
+        correct: a
+        weight: 1.0
+
+      - id: what-icp-storage
+        prompt: |
+          Where is the ICP segment data stored?
+        type: multiple_choice
+        options:
+          - id: a
+            text: persona-engine org_persona.icp_attributes JSONB
+          - id: b
+            text: intel-silo FAISS index
+          - id: c
+            text: HME initiatives table
+          - id: d
+            text: decision-engine drift_sentinel
+        correct: a
+        weight: 1.0
+        references_action: declare-icp-segments
+
+      - id: what-default-lifecycle
+        prompt: |
+          Name two of the default customer lifecycle stages the
+          define-lifecycle-stages action pre-populates.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "prospect"
+          - keyword: "first-contact"
+          - keyword: "qualified"
+          - keyword: "converted"
+          - keyword: "renewed"
+          - keyword: "champion"
+        weight: 1.0
+        references_action: define-lifecycle-stages
+
+  - tier: deep_dive
+    source_doc: /docs/deep/ppim-doctrine-10min.md
+    pass_criteria:
+      min_score_pct: 90
+      attempts_allowed: 3
+    questions:
+      - id: deep-ppim-full-name
+        prompt: |
+          Write out the full expansion of the PPIM acronym in one phrase.
+        type: short_answer
+        accepted_patterns:
+          - keyword: "predictably profitable"
+          - keyword: "interaction management"
+          - regex: "(?i)gigaton.*brand.*experience"
+        weight: 1.5
+
+      - id: deep-experience-engineering-equation
+        prompt: |
+          The PPIM signature says Stage 3 is "foundational for revenue forecasting
+          via" which named framework?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Experience Engineering Equation"
+          - regex: "(?i)experience.*equation"
+        weight: 1.5
+
+      - id: deep-brand-coherence
+        prompt: |
+          Which brand dimension does the PPIM signature attribute to Stage 3?
+        type: multiple_choice
+        options:
+          - id: a
+            text: coherence + voice integrity
+          - id: b
+            text: integrity + legitimacy
+          - id: c
+            text: financial integrity + transparency
+          - id: d
+            text: operational accountability
+        correct: a
+        weight: 1.0
+
+      - id: deep-tier-2-half-closing
+        prompt: |
+          True or false: Stage 3 completion CLOSES tier_2_personalized that Stage 2
+          opened (i.e. the second half).
+        type: true_false
+        correct: true
+        weight: 1.0

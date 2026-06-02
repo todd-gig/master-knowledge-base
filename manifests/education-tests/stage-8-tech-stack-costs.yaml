@@ -1,0 +1,163 @@
+# Education tests — Stage 8: Tech Stack + Unit Economics + Financial Audit
+# Source of truth for question content: manifests/onboarding_v1.yaml stages[8]
+# Schema: manifests/education-tests/SCHEMA.md
+
+stage_id: stage-8-tech-stack-costs
+manifest_education_block:
+  why_1min: /docs/why/tech-stack-costs-1min.md
+  what_3min: /docs/what/tech-stack-costs-3min.md
+  deep_dive_10min: /docs/deep/influence-vs-cost-10min.md
+
+tests:
+
+  - tier: why
+    source_doc: /docs/why/tech-stack-costs-1min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: why-profitability-requires-cost-truth
+        prompt: |
+          PPIM expands to "predictably PROFITABLE interaction management."
+          Profitability requires knowing what about every atomic action?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "cost"
+          - regex: "(?i)what.*actually.*cost|unit.*cost"
+        weight: 1.0
+
+      - id: why-stage-8-backfills
+        prompt: |
+          Stage 8 backfills unit economics across which prior stages?
+        type: multiple_choice
+        options:
+          - id: a
+            text: All prior stages
+          - id: b
+            text: Only Stages 6 and 7
+          - id: c
+            text: Only Stage 4
+          - id: d
+            text: None — it stands alone
+        correct: a
+        weight: 1.0
+
+      - id: why-dashboard-turns-on-true-false
+        prompt: |
+          True or false: The Influence vs Cost dashboard turns on as a result of
+          Stage 8 completion.
+        type: true_false
+        correct: true
+        weight: 1.0
+
+  - tier: what
+    source_doc: /docs/what/tech-stack-costs-3min.md
+    pass_criteria:
+      min_score_pct: 80
+      attempts_allowed: 3
+    questions:
+      - id: what-activation-gate-thresholds
+        prompt: |
+          The Stage 8 activation gate requires BOTH:
+          tools_with_unit_cost_pct >= X AND invoice_days_ingested >= Y.
+          What are X and Y?
+        type: multiple_choice
+        options:
+          - id: a
+            text: X=80, Y=90
+          - id: b
+            text: X=50, Y=30
+          - id: c
+            text: X=100, Y=180
+          - id: d
+            text: X=20, Y=7
+        correct: a
+        weight: 1.0
+
+      - id: what-billing-scope
+        prompt: |
+          The connect-billing action explicitly requests what level of access?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "read-only"
+          - regex: "(?i)read.?only|no write"
+        weight: 1.0
+        references_action: connect-billing
+
+      - id: what-credential-classes-exist
+        prompt: |
+          Which of the following IS a credential class that the
+          register-provider-credentials action knows how to ingest?
+        type: multiple_choice
+        options:
+          - id: a
+            text: llm_provider
+          - id: b
+            text: north_star
+          - id: c
+            text: scope_contract
+          - id: d
+            text: bft_snapshot
+        correct: a
+        weight: 1.0
+        references_action: register-provider-credentials
+
+      - id: what-storage-target
+        prompt: |
+          Where does the platform store registered provider credentials per the
+          storage_target documented in the manifest?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Secret Manager"
+          - regex: "(?i)per-?operator.*secret"
+        weight: 1.5
+        references_action: register-provider-credentials
+
+  - tier: deep_dive
+    source_doc: /docs/deep/influence-vs-cost-10min.md
+    pass_criteria:
+      min_score_pct: 90
+      attempts_allowed: 3
+    questions:
+      - id: deep-unit-economics-meaning
+        prompt: |
+          In one phrase, what unit do "unit economics" refer to at Stage 8?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "cost-per-atomic-action"
+          - regex: "(?i)atomic.*action|per.*action"
+        weight: 1.5
+
+      - id: deep-credential-never-leaks
+        prompt: |
+          The credential_paste affordance specifies the masked value is never:
+          (select the best answer)
+        type: multiple_choice
+        options:
+          - id: a
+            text: Echoed back, logged in the transcript, or sent to the LLM router
+          - id: b
+            text: Stored in Secret Manager
+          - id: c
+            text: Validated against the provider's API
+          - id: d
+            text: Used to make API calls
+        correct: a
+        weight: 1.5
+
+      - id: deep-vertex-ai-no-key
+        prompt: |
+          True or false: Vertex AI Claude + Gemini still require an API key paste
+          per the llm_provider credential class note.
+        type: true_false
+        correct: false
+        weight: 1.0
+
+      - id: deep-pre-storage-probe
+        prompt: |
+          Each credential class declares a `probe` field. What does the probe gate?
+        type: short_answer
+        accepted_patterns:
+          - keyword: "Secret Manager"
+          - regex: "(?i)before storage|until.*probe|validate.*before"
+        weight: 1.0
