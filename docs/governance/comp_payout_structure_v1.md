@@ -1,9 +1,9 @@
 ---
 type: governance-scaffold
 established: 2026-05-26
-status: ACTIVE (v1.0) — ratified by Todd 2026-05-27; binding policy for all money-out-of-platform events. Deferred (non-blocking): §3.5 Gignet tiers → v1.1, §3.4/§3.6 v1-promotion calibration triggers → Day-30 window
-version: v1.0
-authority: Todd sign-off granted 2026-05-27 on §3 v0 locks, §5 retry policy, and the §6 checklist (non-deferred items). Now binding.
+status: ACTIVE (v1.1) — ratified by Todd 2026-05-27 (v1.0); §3.5 Gignet tiers ratified by Todd 2026-06-02 (v1.1 — Conservative model). Binding policy for all money-out-of-platform events. Deferred (non-blocking): §3.4/§3.6 v1-promotion calibration triggers → Day-30 window
+version: v1.1
+authority: Todd sign-off granted 2026-05-27 on §3 v0 locks, §5 retry policy, and the §6 checklist (non-deferred items); 2026-06-02 on §3.5 Gignet tier table (Conservative model). Now binding.
 serves: foundational_goal_gigaton_engineered_brand_experience (PPIM)
 ppim_interaction: meta — governs every money-out-of-platform event for every operator entity
 ppim_economics: directly determines net rev share routing across CBP / Ti Solutions clients / Multipli / Gignet / Gigaton-self
@@ -31,7 +31,7 @@ cross_refs:
 
 # Compensation + Payout Structure — v1 Scaffold
 
-> **Document state.** ACTIVE as of **2026-05-27** (ahead of the Thursday 2026-05-28 EOD deadline). All v0 locked decisions are binding policy. Deferred, non-blocking: §3.5 Gignet tiers (→ v1.1) and the §3.4/§3.6 v1-promotion calibration triggers (→ Day-30 window). The gigaton-engine billing module may run live for any entity with §3 percentages set; Gignet stays dry-run until its tiers are filled in at v1.1.
+> **Document state.** ACTIVE as of **2026-05-27** (v1.0, ahead of the Thursday 2026-05-28 EOD deadline). **v1.1 ratified 2026-06-02** — §3.5 Gignet tier table filled (Conservative model: T1 5% / T2 10% / T3 15% / T4 25% / T5 35%; 12-month declining tail). Gignet affiliate payouts now LIVE (no longer dry-run). All v0 locked decisions remain binding policy. Deferred, non-blocking: §3.4/§3.6 v1-promotion calibration triggers (→ Day-30 window).
 
 ---
 
@@ -253,12 +253,12 @@ Revenue model: tier-based per-conversion commission, paid out of the operator's 
 
 | Tier | Per-conversion rev share % | Cadence | Rail | Guidance |
 |---|---|---|---|---|
-| Tier 1 (entry) | **STRATEGIC — Todd to fill in** | per-conversion (accrues; pays bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Affiliate commission norms by tier: tier 1 = 5-10%, tier 2 = 10-20%, tier 3 = 20-30%, tier 4 = 30-40%, tier 5 = 40-50% (capped per master_project_plan Chapter 11); recurring-revenue tail commonly 6-24 months declining. Confirm against master_project_plan Chapter 11 tier definitions. |
-| Tier 2 | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above. |
-| Tier 3 | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above. |
-| Tier 4 | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above. |
-| Tier 5 (top — Pascal certs / high-volume) | **STRATEGIC — Todd to fill in** | Same | Same | Same guidance as above; consider tail-commission on recurring revenue. |
-| Recurring-revenue tail policy (any tier) | **STRATEGIC — Todd to fill in** | (e.g. 6-24 months declining) | — | Affiliate-network norm: 6-24 months declining tail (e.g. 100% → 50% → 25% over 3 quarters). Confirm against master_project_plan Chapter 11. |
+| Tier 1 (entry — T1 CERTIFIED) | **5%** ✅ LOCKED v1.1 (Conservative) | per-conversion (accrues; pays bi-weekly Wed if ≥ $1k) | Stripe Connect Express | Bottom of master_plan Chapter 11 tier-1 range (5-10%). Conservative model preserves Gigaton platform margin (Ops 40 / R&D 35 / Reserves 25 per §3.6 LOCKED). |
+| Tier 2 (T2 SENIOR — 7+ certs) | **10%** ✅ LOCKED v1.1 (Conservative) | Same | Same | Bottom of master_plan Chapter 11 tier-2 range (10-20%). |
+| Tier 3 (T3 ORG_AFFILIATE — 12+ certs + sub-affiliate mgmt) | **15%** ✅ LOCKED v1.1 (Conservative) | Same | Same | Below master_plan Chapter 11 tier-3 range (20-30%) — Conservative model trades growth velocity for margin preservation. |
+| Tier 4 (elite — high-volume + Advanced certs) | **25%** ✅ LOCKED v1.1 (Conservative) | Same | Same | Below master_plan Chapter 11 tier-4 range (30-40%) — same Conservative trade-off. |
+| Tier 5 (top — Pascal certs / Expert-tier CERT-023/024/025 / high-volume) | **35%** ✅ LOCKED v1.1 (Conservative) | Same | Same | Below master_plan Chapter 11 tier-5 range (40-50%) — preserves Gigaton net for highest-payout tier. Tail-commission stacks per the row below. |
+| Recurring-revenue tail policy (any tier) | **12 months declining** ✅ LOCKED v1.1 (Conservative) | 100% mo 1-6 → 50% mo 7-9 → 25% mo 10-12 → 0 after month 12 | (same rail as tier) | Bottom of affiliate-network norm (6-24 months); fast wind-down preserves operator economics on long-tail subscription revenue. Calibration trigger: revisit at M6 if affiliate-driven churn delta > 5pp vs direct-acquired customers. |
 
 **Attribution rule**: Gignet affiliate commission is computed against the conversion's `ppim_attribution_chain`. If the chain is `[cbp_walking_tour, cbp, gigaton-root]` and an affiliate referred the customer, the affiliate's commission comes out of Gigaton's platform fee slice, not out of CBP's owner share. (Source: [[2026-05-08_affiliate_centralization_at_gigaton]] — SIE chain 22 owns the canonical affiliate state; tenants attribute, they do not own.)
 
@@ -459,7 +459,7 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [x] Self-serve tokenized link architecture spec'd (URL pattern + bundle + reuses + ~23h new work)
 - [ ] **v1 promotion**: Confirm 15/18/20 perf share final, base retainer yes/no, attribution window 90/180/365, Y1 cap, e-sign tool (in-app vs DocuSign), link expiry, co-branded hero approval gate, send timing
 
-### Gignet affiliates (§3.5) — **STRATEGIC**
+### Gignet affiliates (§3.5) — ✅ LOCKED v1.1 (Conservative model, 2026-06-02)
 - [ ] Tier 1 per-conversion rev share %
 - [ ] Tier 2 per-conversion rev share %
 - [ ] Tier 3 per-conversion rev share %
@@ -479,7 +479,7 @@ Checklist Todd ticks off to promote this doc from DRAFT → ACTIVE. Each TBD fro
 - [x] Confirm onboarding_v1.yaml stage number to link this doc from — **CORRECTED 2026-05-28**: Stage 8 `stage-8-tech-stack-costs` (Tech Stack + Unit Economics + Financial Audit), not Stage 7. Earlier strawman ("Stage 7 — Capability+Payouts") didn't match the actual manifest; payouts/KYC/billing live at Stage 8 via the `connect-billing` action.
 - [x] Authorize UAE schema follow-on for `compensation_terms` (strawman: YES — flag as separate follow-on PR)
 
-**Pre-filled strawmen = 21 of 29; strategic-only remaining = 8 (highlighted with `**STRATEGIC**` flag in §3).**
+**v1.1 status (2026-06-02): all 29 §3 entries LOCKED.** v0.2 pre-filled 21 strawmen → v0.3 math-backed 21 + 2 enriched → v1.0 ratified non-deferred items → v1.1 ratifies the remaining 6 §3.5 Gignet tier entries (Conservative model) + 2 calibration-trigger placeholders. Strategic-only remaining = 0.
 
 **Promotion gate (satisfied 2026-05-27)**: this doc promotes to `ACTIVE` once every *non-deferred* checkbox above is ticked + Todd updates the front-matter `status:`. Three boxes remain unticked **by design, not as blockers**: §3.5 Gignet tiers (no active affiliate deal → deferred to v1.1 / Day-30 calibration) and the two v1-promotion calibration lines in §3.4 Multipli + §3.6 Gigaton-self (calibration-trigger inputs, not v0 locks). All v0 locked values stand as binding policy. The gigaton-engine billing module runs live for any entity with §3 percentages set (CBP, Multipli, Gigaton-self) and stays in dry-run mode only for entities whose percentages remain unset (Gignet until v1.1). Strawmen are accepted by default; Todd un-ticks any line to revise.
 
@@ -514,6 +514,7 @@ Cross-reference table linking each section to the underlying memory file and arc
 | v0.2 (hybrid strawman fill) | 2026-05-26 | Claude Opus 4.7 (1M context) — under Todd direction | Pre-filled 21 of 29 TBDs with industry-norm strawmen marked `(_strawman; override if needed_)`; 8 strategic %s flagged `**STRATEGIC — Todd to fill in**` |
 | v0.3 (math-backed v0) | 2026-05-26 eve | Claude Opus 4.7 (this session) — under Todd direction "ensure all math is completed as correctly as possible from start" | **3 research agents in parallel** derived math-backed v0 values from real artifacts (`carmen-beach-agent-costing.md` + `carmen-beach-occupancy-roi.md` + `gigaton-playa-dag-model.md` + `gigaton-company-valuation.md` + `multipli_research_brief.md` + `multipli/sample_bundles/*/deal_economics_model.json` + 11+ Cloud Run `cloudbuild.yaml` configs) + 2025-2026 industry benchmarks (Airbnb 15.5% / VRBO 8% / Vacasa 25-35% / Evolve 10% / MasterHost PDC 12% / SaaS Capital 2025 / Benchmarkit 2025 / Rule-of-40 / channel-partner 5-20% band). **§3.1 CBP** v0.2 strawmen replaced: Gigaton 2.5% → 5.0% (cost-to-serve math); Ti 5% → 3% (market-ceiling); cleaning pass-through itemized; owner 78%/81%; risk reserve 1.5% added. **§3.3 DELETED** (4 entities reclassified as knowledge-sources, 1 dropped). **§3.4 Multipli** repositioned under GIGATON brand with full math-backed terms (18% perf share + monthly T+15 + Stripe Connect + $1K floor + no retainer + 180d attribution + 6mo term + $250K Y1 cap) + self-serve tokenized link architecture spec'd (`gigaton.ai/onboard/multipli/<jwt>` + bundle + reuses + ~23h new dev work). **§3.6 Gigaton-self** Option A LOCKED (Ops 40 / R&D 35 / Reserves 25 / Distribution 0; $180K floor with auto-bump). **§3.7 NEW** knowledge-extraction sources catalog (Kollosche+McGrath for CBP RE; Medvidi+CareRev for service/HR/acquisition doctrine; Integra-CCS dropped). PPIM axis-weighted multi-objective (M-theory) justifications on every line. Logged to MASTER_PLAN.md §13 via `add_decision` MCP 21:42 + 22:03 UTC. Companion ratifications: D1 + D2 + MIG-DEFER. |
 | v1.0 (RATIFIED) | 2026-05-27 | Todd (via Claude Opus 4.7 1M) | Promoted DRAFT → ACTIVE one day ahead of deadline. v0 math-backed values approved as locked/binding. Pre-flip fixes: §3.1 sum-to-100 cleaning figure corrected ~14% → ~12.5% (the prior "✓" overstated by 1.5pp); §6 promotion-gate text reconciled to acknowledge the 3 by-design deferrals (Gignet §3.5 → v1.1; §3.4 Multipli + §3.6 Gigaton-self v1-promotion calibration → Day-30) rather than requiring every box. Gignet §3.5 (5 tiers + tail policy) deferred to v1.1 (Day-30 calibration window). |
+| **v1.1 (RATIFIED)** | **2026-06-02** | **Todd (via Claude Opus 4.7 — same-day Conservative pick post-Hub-ship)** | **§3.5 Gignet affiliate tier table LOCKED.** Conservative model: T1 entry 5% / T2 senior 10% / T3 org_affiliate 15% / T4 elite 25% / T5 top (Pascal certs / Expert tier) 35%. Recurring-revenue tail: 12 months declining (100% mo 1-6 → 50% mo 7-9 → 25% mo 10-12 → 0). Calibration trigger: revisit T5 + tail at M6 if affiliate-driven churn delta > 5pp vs direct-acquired customers. **Gignet affiliate payouts now LIVE (no longer dry-run).** Conservative model selected over Moderate / Aggressive Growth strawmen — preserves §3.6 Gigaton-self bucket targets (Ops 40 / R&D 35 / Reserves 25) when affiliate-attributed deals route through the Chapter 11 commission rail. Strategic-only TBDs remaining = 0. |
 
 ---
 
