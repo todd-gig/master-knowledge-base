@@ -1,9 +1,9 @@
 ---
 name: learning-loop-architecture
-description: How auto-memory → MKB → intelligence-silo Q&A → telemetry forms the recursive learning loop, and which files/launchd jobs implement it.
+description: How auto-memory → MKB → intelligence-silo Q&A → telemetry forms the recursive learning loop. Architecture LIVE end-to-end as of 2026-05-28 EOD; LLM-polished synthesis LIVE via direct Anthropic SDK tier-2 as of 2026-06-02 (Vertex tier-1 awaits resolution of gigaton-platform Vertex billing gate).
 status: ratified
-version: 1.0.0
-ratified: 2026-05-28
+version: 1.1.0
+ratified: 2026-05-28 (v1.0); operational verification + LLM polish 2026-06-02 (v1.1.0)
 companion: CONSTITUTION.md §Article VI (Enforcement)
 ---
 
@@ -108,3 +108,58 @@ This routes runtime adherence failures back into the constitutional amendment pr
 ## Versioning
 
 This document is itself doctrine — amendments follow Article V §5.4 (SemVer). New §clauses = MINOR. Component re-paths = PATCH. Removal or scope change of the loop = MAJOR.
+
+---
+
+## Operational state — 2026-06-02 (v1.1.0)
+
+End-to-end verification record. Update this section on every substantive operational change.
+
+### What's LIVE
+
+| Layer | State |
+|---|---|
+| **MKB corpus in silo FAISS** | 132 files / 3,795 chunks (carmen-beach-properties silo, `operator_id=gigaton`); persisted to `gs://gigaton-silo-index/semantic-index/` (all 4 FAISS files present) |
+| **Q&A retrieval** | `/v1/qa/ask` returns 10 cited grounded answers; `/memory/search` returns scored results for doctrine queries |
+| **LLM polish (tier-1: gateway router)** | Wired but Vertex Anthropic 403'ing on `gigaton-platform` due to project-level "Lightning dunning" billing gate (NOT a code issue; resolution = Cloud Console billing check) |
+| **LLM polish (tier-2: direct Anthropic SDK)** | **ACTIVE** via Secret Manager `gigaton-anthropic-api-key` v3; produces grounded prose with `[n]` citation markers; verified end-to-end |
+| **Extractive stitch (tier-3 fallback)** | Available as final safety; never reached on healthy path |
+| **GCS persistence** | Fixed 2026-06-02 — silo runtime SA `intel-silo-runtime@carmen-beach-properties` now has objectAdmin on bucket (was wrong-project SA before). Future ingests persist. |
+| **Durable env on silo** | `GATEWAY_LLM_URL` + conditional `ANTHROPIC_API_KEY` secret-bind both declared in `cloudbuild.yaml` (PR #68); survives all subsequent deploys. |
+| **Synthesizer fallthrough fix** | PR #70 — silo correctly detects `python_deterministic` extractive sentinel from gateway and fires tier-2 instead of returning the sentinel as text. |
+| **CI green-gating** | Gateway, silo, UAE, UI deploys all gated on green CI per PRs #80/#67/#63/#69 (open — recommend merging). |
+
+### Known operational gaps (logged, not blocking)
+
+1. **Vertex Anthropic on gigaton-platform** — all calls 403 with `Lightning dunning decision is deny`. Affects every model (Haiku/Sonnet/Opus), not just Anthropic. Resolution = check billing console; once cleared, tier-1 lights up automatically. Tier-2 covers value in the meantime.
+2. **Gateway `/v1/qa/ask` requires `X-Client-Namespace: gigaton`** — UAE has the namespace registered; gateway resolver has a 60s LRU cache that sometimes shows transient 403 on cold-call. Stable after first hit.
+3. **Auto-memory promotion** — first scheduled run Sunday 06:00 UTC (`com.gigaton.auto-memory-promote` LaunchAgent). Dry-run identified 42 promotion candidates (INTEL-3, PAYOUT-1, foundational-goal, feedback rules, etc.). Pre-Sunday manual promotion available via `python3 scripts/auto_memory_promote.py --apply --pr`.
+4. **`gigaton-platform` silo (rev `00001-kcf` from 2026-05-25)** — intentional deferred-migration target; do NOT seed until MIG-DEFER fires. Keep AS-IS per [[two_silos_carmen_vs_gigaton_platform_2026_05_28]].
+
+### Verification commands (paste-runnable)
+
+```bash
+# 1. Silo direct Q&A (works without namespace header)
+SILO=https://intelligence-silo-rjmcrtvuzq-uc.a.run.app
+TOK=$(gcloud auth print-identity-token)
+curl -sS -H "Authorization: Bearer $TOK" -H "Content-Type: application/json" \
+  -X POST $SILO/v1/qa/ask \
+  -d '{"question":"What is PPIM?","operator_id":"gigaton"}' | jq .
+
+# 2. Gateway Q&A (requires namespace header)
+GW=https://gigaton-gateway-sqatlxhlza-uc.a.run.app
+curl -sS -H "Authorization: Bearer $TOK" -H "Content-Type: application/json" \
+  -H "X-Client-Namespace: gigaton" \
+  -X POST $GW/v1/qa/ask \
+  -d '{"question":"What is PPIM?","operator_id":"gigaton"}' | jq .
+
+# 3. Verify GCS persistence
+gcloud storage ls gs://gigaton-silo-index/semantic-index/
+# Expect: 4 files (index.faiss, metadata.json, embeddings.npy, id_order.json)
+
+# 4. Verify LLM router endpoint accepts qa_synthesis (after Vertex billing fixed)
+curl -sS -H "Authorization: Bearer $TOK" -H "Content-Type: application/json" \
+  -H "X-Client-Namespace: gigaton" \
+  -X POST $GW/v1/llm/call \
+  -d '{"prompt":"hi","task_class":"qa_synthesis","max_tokens":10,"operator_context":{"operator_id":"gigaton"}}' | jq '.decision'
+```
