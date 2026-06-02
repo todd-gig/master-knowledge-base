@@ -27,7 +27,10 @@
 # merges this manifest with the overlay at request time.
 #
 # PPIM signature applies to the manifest itself:
-#   ppim_interaction: every operator's first ~30 days on the platform
+#   ppim_interaction: every operator's first weeks-to-months on the platform —
+#     duration is operator-throughput-paced, not clock-paced (see v1.1.0 Stage 9
+#     amendment: 30-day shadow gate replaced with evidence-based verification
+#     across accuracy + feature knowledge + value creation + education tests).
 #   ppim_economics:   est. $5-15k saved per onboarding via self-serve vs hand-held
 #   ppim_predictability: HIGH — completion of all stages = operator is in live mode
 #   ppim_brand_dimension: adoption + comprehension + activation
@@ -42,12 +45,36 @@
 
 version: 1.1.0
 manifest_id: gigaton-operator-onboarding
-introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target
+introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target (v1.0.0)
 canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
 ratified_by:
-  - todd@gigaton.ai     # assumed within triad signoff window 2026-05-14 → 2026-05-24
-  - matt@gigaton.ai
-  - bella@gigaton.ai
+  - todd@gigaton.ai     # v1.0.0 — assumed within triad signoff window 2026-05-14 → 2026-05-24
+  - matt@gigaton.ai     # v1.0.0
+  - bella@gigaton.ai    # v1.0.0
+amendments:
+  - version: 1.1.0
+    introduced_at: '2026-05-28T00:00:00Z'
+    change: |
+      Stage 9 (`stage-9-calibration-live`) — removed the 30-day shadow-period
+      time gate that was limiting tier_5_live unlock. Replaced with an
+      evidence-based verification gate across four dimensions: (1) operator
+      accuracy (decisions align with platform recommendations or operator-
+      corrected recommendations track to ground-truth outcomes), (2) feature-
+      functionality knowledge requirements complete, (3) value-creation
+      process demonstrated via attributable outcomes, (4) all education-test
+      requirements passed. "Monitor more closely until verification" becomes
+      the operational layer (continuous Penrose sampling + post-graduation
+      human-in-loop on first auto-execute classes) instead of a clock-paced
+      block. Per-stage education tests (the `education.why_1min` / `what_3min`
+      / `deep_dive_*` modules already referenced) are now formally part of
+      stage completion via `EducationTestPassed` events. Aligns Stage 9 with
+      the INTEL-1 §4.2 coaching-graduation doctrine (competence-based, no
+      time gate) in `docs/governance/comp_payout_structure_v1.md`.
+    ratified_by:
+      - todd@gigaton.ai  # 2026-05-28 directive — pending review of this PR
+    pending_re_ratification:
+      - matt@gigaton.ai
+      - bella@gigaton.ai
 
 # Capability tiers unlocked by stage completion.
 # Tier values are role-orthogonal — they layer ON TOP of UAE.capabilities_catalog
@@ -860,48 +887,128 @@ stages:
   - id: stage-9-calibration-live
     order: 9
     name: Calibration → Live Mode
-    short_description: 30-day shadow period where the platform recommends in parallel with you. Graduate to live recommend, then live auto-execute.
+    short_description: |
+      Evidence-based graduation to live mode (v1.1.0). No time gate — operator
+      graduates when accuracy + feature-knowledge + value-creation + education-test
+      requirements verify. Platform monitors more closely (continuous Penrose
+      sampling, post-graduation human-in-loop on first auto-execute classes)
+      instead of blocking on a clock.
     why_this_stage: |
-      Onboarding doesn't end when data lands; it ends when the system
-      produces live, trusted decisions. PPEME simulates, decision-engine
-      recommends, OVS-Calibration scores attribution. After 30 days +
-      drift_critical=0, you graduate.
+      Onboarding doesn't end when data lands; it ends when the system can be
+      TRUSTED to produce live decisions. Trust = (a) operator is accurate
+      (their actions align with platform recommendations within tolerance, or
+      their corrections of platform recommendations track to ground-truth
+      outcomes), (b) operator demonstrably knows every feature they're about
+      to delegate to autonomy, (c) value-creation is observable via attributed
+      outcomes, (d) all stage-tied education tests are passed. Under v1.1.0
+      this replaces the v1.0.0 30-day clock — duration becomes operator-
+      throughput-paced, not date-paced. Post-graduation monitoring continues
+      and can pull capability back via the Penrose drift signal.
     owning_engine: decision-engine
-    secondary_engines: [ppeme, human-management-engine]
+    secondary_engines: [ppeme, human-management-engine, intelligence-silo]
     entry_signal:
       type: prior_stage_completed
       stage_id: stage-8-tech-stack-costs
     activation_gate:
       method: GET
       url: '{decision_engine_base}/v1/operators/{operator_id}/calibration-status'
+      # NOTE: this endpoint must be extended (decision-engine follow-on PR) to
+      # return the 4 new fields below in addition to the existing drift_critical_count.
       predicate:
         all_of:
+          # (1) Operator accuracy — INTEL-3 seed within bounded range; algorithm-pending.
+          # Computed by OVS-Calibration as a rolling-window agreement score between
+          # operator actions and platform recommendations, plus value-attribution
+          # alignment on operator-corrected recommendations.
+          - json_path: '$.operator_accuracy_score'  # seed 0.75 / range 0.60–0.90 (INTEL-3)
+            operator: gte
+            value: 0.75
+          # (2) Complete knowledge requirements of feature functionality.
+          # Per-feature verification cards (built on the existing education.why_1min/
+          # what_3min/deep_dive_* modules each stage already references); operator
+          # must verify each feature they're about to grant tier_5_live access to.
+          - json_path: '$.feature_knowledge_verified_pct'  # seed 100 — every feature
+            operator: gte
+            value: 100
+          # (3) Value-creation process demonstrated — attributable outcomes count.
+          # Replaces v1.0.0 `interactions_logged_count >= 30` with a value-attributed
+          # outcomes count (an interaction without attribution doesn't count).
+          - json_path: '$.value_creation_outcomes_count'  # seed 10 / range 5–30 (INTEL-3)
+            operator: gte
+            value: 10
+          # (4) All education tests passed (per-stage; aligned with INTEL-1 §4.2
+          # competence-graduation pattern from docs/governance/comp_payout_structure_v1.md).
+          - json_path: '$.education_tests_passed_all'
+            operator: eq
+            value: true
+          # Safety floor (preserved from v1.0.0) — drift_critical must be zero.
+          # This is the "monitor more closely" signal in action; if it goes nonzero
+          # post-graduation, capability auto-suspends per the post-graduation policy below.
           - json_path: '$.drift_critical_count'
             operator: eq
             value: 0
-          - json_path: '$.interactions_logged_count'
-            operator: gte
-            value: 30
-          - json_path: '$.shadow_days_elapsed'
-            operator: gte
-            value: 30
       ttl_seconds: 600
+    post_graduation_policy:
+      # The "monitor more closely until verified" doctrine, formalized.
+      # Operational layer that runs continuously after tier_5_live unlock —
+      # NOT a pre-unlock delay.
+      penrose_sampling_rate: 1.0  # seed: 100% of decisions scored (vs sampled) for first phase
+      human_in_loop_first_classes: true  # first N auto-execute decisions per class go to async human-review queue
+      auto_suspension_trigger:
+        json_path: '$.drift_critical_count'
+        operator: gt
+        value: 0
+        action: 'revert capability_unlocks → tier_4_costs; notify operator + accountable owners; re-verify education tests on the affected feature class'
     actions:
       - id: enable-shadow-mode
-        title: Enable shadow mode
-        description: Decision-engine starts recommending in parallel with your existing process. No actions taken — observation only.
+        title: Enable shadow mode (concurrent observation, no time limit)
+        description: |
+          Decision-engine starts recommending in parallel with your existing
+          process. No actions taken — observation only. v1.1.0: this is no
+          longer time-boxed; it runs until the verification gate predicates
+          pass, at whatever pace your throughput allows.
         action_label: Enable shadow
         action_href: '/onboarding/calibration?action=enable-shadow'
         auto_complete_on:
           - event_type: ShadowModeEnabled
-      - id: review-shadow-recommendations
-        title: Review shadow recommendations weekly
-        description: 4 weekly reviews. Each review = drift detection + outcome attribution + variance scoring.
-        action_label: Review shadow log
-        action_href: '/onboarding/calibration?action=review-shadow'
+      - id: complete-feature-knowledge-verifications
+        title: Verify your knowledge of every feature you're granting autonomy to
+        description: |
+          For each feature that tier_5_live unlocks, a short verification card
+          (built on the stage's existing why_1min/what_3min/deep_dive modules)
+          confirms you can describe what the feature does, what it costs to
+          run, and how to override it. Auto-completes when every required
+          feature has a passing verification.
+        action_label: Verify feature knowledge
+        action_href: '/onboarding/calibration?action=verify-feature-knowledge'
         auto_complete_on:
-          - event_type: ShadowReviewCompleted
-            min_count: 4
+          - event_type: FeatureKnowledgeVerified
+            min_count_predicate: all_features_granted_by_tier_5
+      - id: pass-education-tests
+        title: Pass education tests across all stages
+        description: |
+          Each stage's education modules carry a short comprehension test (one
+          per education tier — why_1min / what_3min / deep_dive_*). All
+          required tests must be passed before tier_5_live unlocks. Aligned
+          with the INTEL-1 §4.2 competence-graduation pattern in the comp+payout
+          governance doc.
+        action_label: Take education tests
+        action_href: '/onboarding/calibration?action=education-tests'
+        auto_complete_on:
+          - event_type: EducationTestPassed
+            min_count_predicate: all_stage_tied_required_tests
+      - id: accumulate-value-creation-outcomes
+        title: Accumulate value-creation outcomes
+        description: |
+          Observe attributed outcomes from your usage — these are
+          decisions/actions where downstream value can be traced back to a
+          platform interaction. Auto-completes at the seed threshold; the
+          seed is INTEL-3 algorithm-pending.
+        action_label: View attributed outcomes
+        action_href: '/onboarding/calibration?action=value-outcomes'
+        auto_complete_on:
+          - event_type: ValueCreationOutcomeLogged
+            min_count: 10  # seed; aligned with $.value_creation_outcomes_count gate predicate
       - id: graduate-to-live-recommend
         title: Graduate to live recommend
         description: Platform now surfaces recommendations to your team in real workflows. Still no auto-execute.
@@ -911,7 +1018,11 @@ stages:
           - event_type: LiveRecommendActivated
       - id: graduate-to-live-execute
         title: Graduate to live auto-execute
-        description: Tier 5 capability unlocks. Platform now executes low-risk decisions autonomously, surfaces high-risk ones to humans.
+        description: |
+          Tier 5 capability unlocks. Platform now executes low-risk decisions
+          autonomously, surfaces high-risk ones to humans. Post-graduation
+          policy (above) applies — Penrose monitors more closely and capability
+          auto-suspends on drift_critical regression.
         action_label: Graduate to live execute
         action_href: '/onboarding/calibration?action=graduate-execute'
         verify_description: Sign-off matrix per /founder/signoff for first auto-execute class
@@ -924,7 +1035,9 @@ stages:
     events_emitted:
       - StageStarted
       - ShadowModeEnabled
-      - ShadowReviewCompleted
+      - FeatureKnowledgeVerified
+      - EducationTestPassed
+      - ValueCreationOutcomeLogged
       - LiveRecommendActivated
       - LiveAutoExecuteActivated
       - StageCompleted
@@ -933,13 +1046,13 @@ stages:
       badge_slug: live-mode-graduate
       badge_name: Live Mode Graduate
       streak_eligible: false
-      success_celebration: '🚀 You are live. Every decision is now grounded in your doctrine, ICP, goals, processes, ownership, and economics — and the platform learns from every outcome.'
+      success_celebration: '🚀 You are live. Every decision is now grounded in your doctrine, ICP, goals, processes, ownership, and economics — verified by your accuracy, feature knowledge, value creation, and education tests. The platform learns from every outcome and monitors itself more closely now that it acts on your behalf.'
       fallback_predicted_influence_usd: 85000
     ppim_signature:
       interaction: platform now produces decisions on your behalf
       economics: full PPIM loop closed — operator is in compounding regime
-      predictability: continuously falsified by Penrose scoreboard
-      brand_dimension: full coherence + autonomy
+      predictability: continuously falsified by Penrose scoreboard (sampling rate elevated post-graduation per post_graduation_policy)
+      brand_dimension: full coherence + autonomy + verified competence
 
 # ─────────────────────────────────────────────────────────────────────────
 # CHAT ORCHESTRATION CONTRACT
@@ -1013,7 +1126,8 @@ chat_orchestration:
     confirmation_only:
       trigger_events:
         - UnitEconomicsReviewed
-        - ShadowReviewCompleted
+        - FeatureKnowledgeVerified  # v1.1.0 — per-feature confirmation card
+        - EducationTestPassed       # v1.1.0 — per-test confirmation
         - LiveRecommendActivated
         - LiveAutoExecuteActivated
         - EscalationPathDefined
@@ -1042,9 +1156,13 @@ chat_orchestration:
         often. Let's confirm who they are and what they do for your operator.
     stage-9-calibration-live:
       opening_message: |
-        Last stage. We're going to run me in shadow mode for 30 days while
-        you keep doing things your way — then graduate me to live decisions
-        once drift is clean and you're comfortable.
+        Last stage. I'm going to run in shadow mode alongside you for as long
+        as it takes — there's no clock. You graduate me to live decisions when
+        four things are true: you're accurate (your actions or your corrections
+        of mine track to good outcomes), you've verified you know every feature
+        you're handing me, value is being created and attributed, and you've
+        passed the stage education tests. After graduation I monitor myself
+        more closely, not less — and I roll back if drift spikes.
 
 # ─────────────────────────────────────────────────────────────────────────
 # OVERLAY SCHEMA (for client_namespaces.workflow_overlays JSONB)
