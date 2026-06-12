@@ -1,4 +1,4 @@
-# Gigaton Operator Onboarding — Canonical Manifest v1.1.0
+# Gigaton Operator Onboarding — Canonical Manifest v1.2.0
 #
 # This manifest is the SOURCE OF TRUTH for the directed onboarding workflow.
 # It is declarative data. No business logic lives here. Logic lives in:
@@ -43,7 +43,7 @@
 #   - Versioned audit artifact ("operator X completed manifest v1.0.0")
 #   - Aligns with decision-engine's declarative DecisionRecord pattern
 
-version: 1.1.0
+version: 1.2.0
 manifest_id: gigaton-operator-onboarding
 introduced_at: '2026-05-22T19:00:00Z'  # Friday 19:00 CT target (v1.0.0)
 canonical_source: master-knowledge-base/manifests/onboarding_v1.yaml
@@ -105,6 +105,105 @@ capability_tiers:
     grants:
       - gigaton.decision.live_recommend
       - gigaton.decision.live_auto_execute
+
+# ─────────────────────────────────────────────────────────────────────────
+# LOCAL-MIND CAPABILITY LADDER (added v1.2.0)
+#
+# Orthogonal to capability_tiers above. capability_tiers are onboarding-stage
+# completion gates that turn on Gigaton platform features. local_mind_tiers
+# are LOCAL-NODE-installed-capability gates that turn on offload-to-operator-
+# machine features (embed locally, search locally, transcribe locally,
+# generate locally). An operator may sit at, say, tier_3_recommend on the
+# platform side but tier_0_unprovisioned on the local-mind side until they
+# install the gigaton-local-mind MCP server.
+#
+# Source-of-truth state lives on the operator's local machine and is reported
+# UPSTREAM to gateway via the local-mind handshake:
+#   POST /v1/local-mind/handshake (gateway, per directive_local_mind_buildout_2026_06_01)
+# The handshake response telegraphs which local-mind tier the operator's
+# machine qualifies for (capability probe — RAM, disk, mic-authorized, etc.).
+# Gateway then includes the unlocked tier set in:
+#   GET /v1/onboarding/state.local_mind_tiers_unlocked: array of tier_id
+# The FE primitive `useNavCircleGating` reads this in addition to
+# `nav_circles_enabled` and lights/dims local-mind circles accordingly.
+#
+# Phase mapping (per [[directive_local_mind_buildout_2026_06_01]]):
+#   Phase 1 EOD 2026-06-03 → tier_1 (Reading Eyes)
+#   Phase 2 EOD 2026-06-12 → tier_2 (Local Mind) + conditional tier_3 (mic-authorized)
+#   Phase 3 EOD 2026-06-26 → tier_4 (Writing Hand) gated on capability probe
+#
+# Tier names match [[gignet_local_node_doctrine]] 4-tier model — the older
+# 7-tier ladder in [[gignet_local_node_capability_ladder]] (2026-05-08) is
+# superseded by the Phase 1-3 buildout directive (2026-06-01).
+# ─────────────────────────────────────────────────────────────────────────
+local_mind_tiers:
+  tier_0_unprovisioned:
+    description: |
+      Operator has not installed the gigaton-local-mind MCP server. All
+      embed/search/classify/transcribe/generate work routes to cloud (Vertex
+      AI for frontier, intelligence-silo for FAISS). This is the default for
+      every new operator.
+    handshake_state:
+      installed: false
+    grants: []
+  tier_1_reading_eyes:
+    description: |
+      Local mind installed + Phase 1 capabilities active. Embeds, dedup, and
+      PII redaction run on operator's machine; intelligence-silo accepts
+      pre-embedded chunks via /v1/qa/ingest_preembedded (cloud embedder
+      bypassed). FAISS index lives at ~/.gigaton/local-mind/<operator_id>/.
+    handshake_state:
+      installed: true
+      phase_1_active: true
+    grants:
+      - gigaton.local_mind.embed
+      - gigaton.local_mind.dedup
+      - gigaton.local_mind.redact_pii
+      - gigaton.local_mind.ingest_preembedded
+    capability_required: [embed, dedup, redact_pii]
+  tier_2_local_mind:
+    description: |
+      Phase 2 search + classification active. /v1/qa/ask first-pass routes
+      to the operator's local FAISS index. Local classifier handles routine
+      categorization; escalates to Vertex Haiku only when confidence < 0.7.
+    handshake_state:
+      installed: true
+      phase_2_active: true
+    grants:
+      - gigaton.local_mind.search
+      - gigaton.local_mind.categorize_doc
+      - gigaton.local_mind.classifier_head_v1
+    capability_required: [search, categorize]
+  tier_3_connected_tools:
+    description: |
+      Microphone authorized + transcription active. mlx-whisper (Apple
+      Silicon) or whisper.cpp (cross-platform) runs locally; meeting audio
+      never leaves the operator's machine. Connected to the operator's
+      installed desktop apps surfaced via the local MCP server.
+    handshake_state:
+      installed: true
+      phase_2_active: true
+      mic_authorized: true
+    grants:
+      - gigaton.local_mind.transcribe_audio
+      - gigaton.local_mind.desktop_tool_bridge
+    capability_required: [transcribe, mic_authorized]
+    additional_gate: 'operator microphone authorization'
+  tier_4_writing_hand:
+    description: |
+      Phase 3 local SLM (Llama-3.2-3B Q4_K_M default) generates first-pass
+      drafts on operator's machine. /v1/qa/ask first-pass is local; explicit
+      "ask the frontier" escalates to Vertex per the routing doctrine.
+      Gated on capability probe — RAM ≥16GB AND disk ≥10GB free.
+    handshake_state:
+      installed: true
+      phase_3_active: true
+      capability_probe_passed: true
+    grants:
+      - gigaton.local_mind.slm_first_pass
+      - gigaton.local_mind.escalate_to_frontier
+    capability_required: [slm_generate, capability_probe]
+    additional_gate: 'capability_probe: ram_gb >= 16 AND disk_free_gb >= 10'
 
 # Circular nav-rail gating. New operators see /chat lit and everything else
 # locked. As stages complete, tiers unlock, and the corresponding circles
@@ -193,6 +292,92 @@ nav_circles:
     tier_required: always
     icon: shield
     additional_gate: 'role:admin'
+
+  # ─── LOCAL-MIND TIER CIRCLES (added v1.2.0) ──────────────────────────
+  # These 4 circles render in their own concentric orbit per
+  # [[platform_hub_circles_design_directive]] (inner orbit reserved for
+  # tier_1_data + always; local-mind circles land in a NEW orbit dedicated
+  # to operator-machine-installed capabilities — visually distinct from the
+  # platform-side tier orbits).
+  #
+  # GATING SEMANTICS DIFFER from platform circles:
+  #   platform circles: bright IFF circle_id in nav_circles_enabled[]
+  #   local-mind circles: bright IFF local_mind_tier_required in
+  #     local_mind_tiers_unlocked[] (NEW field on /v1/onboarding/state)
+  #
+  # CLICK-WHEN-DIM behavior (per directive):
+  #   navigates to /chat?onboarding=stage-10-local-mind&tier=N
+  #   The chat orchestrator walks the operator through install
+  #   (Phase 1) / Phase 2 enable / mic authorization / capability probe
+  #   per the local-mind tier they're trying to unlock. See stage-10
+  #   below for the action set.
+  #
+  # tier_required is set to `always` so platform-tier gating does NOT
+  # block these — local-mind capabilities are independent of onboarding
+  # stage progression. The local_mind_tier_required field is the binding
+  # gate. (The FE primitive useNavCircleGating must respect both fields
+  # — additive contract, see SCHEMA NOTES at the bottom of this manifest.)
+  - circle_id: local-mind-reading-eyes
+    label: Reading Eyes
+    route: /local-mind/reading-eyes
+    tier_required: always
+    local_mind_tier_required: tier_1_reading_eyes
+    capability_required: [embed, dedup, redact_pii]
+    parent_circle: platform
+    orbit: local_mind
+    icon: local-mind-tier-1  # placeholder per [[icon_generation_system_directive]]
+    navigates_to_on_locked: '/chat?onboarding=stage-10-local-mind&tier=1'
+    description: |
+      Tier 1 — embeddings, dedup, and PII redaction run on the operator's
+      own machine. Cloud embedder bypassed; intelligence-silo accepts
+      pre-embedded chunks. Unlocked by installing gigaton-local-mind MCP
+      server (Phase 1, EOD 2026-06-03 per directive_local_mind_buildout).
+  - circle_id: local-mind-local-mind
+    label: Local Mind
+    route: /local-mind/local-mind
+    tier_required: always
+    local_mind_tier_required: tier_2_local_mind
+    capability_required: [search, categorize]
+    parent_circle: platform
+    orbit: local_mind
+    icon: local-mind-tier-2
+    navigates_to_on_locked: '/chat?onboarding=stage-10-local-mind&tier=2'
+    description: |
+      Tier 2 — local FAISS search + classifier head. /v1/qa/ask first-pass
+      hits the operator's local index; categorization runs locally and
+      escalates to Vertex Haiku only when confidence < 0.7. Unlocks after
+      Phase 2 (EOD 2026-06-12).
+  - circle_id: local-mind-connected-tools
+    label: Connected Tools
+    route: /local-mind/connected-tools
+    tier_required: always
+    local_mind_tier_required: tier_3_connected_tools
+    capability_required: [transcribe, mic_authorized]
+    parent_circle: platform
+    orbit: local_mind
+    icon: local-mind-tier-3
+    navigates_to_on_locked: '/chat?onboarding=stage-10-local-mind&tier=3'
+    additional_gate: 'operator microphone authorization'
+    description: |
+      Tier 3 — transcription (mlx-whisper / whisper.cpp) runs locally;
+      meeting audio never crosses the cloud boundary. Mic authorization
+      required. Unlocks after Phase 2 + mic grant.
+  - circle_id: local-mind-writing-hand
+    label: Writing Hand
+    route: /local-mind/writing-hand
+    tier_required: always
+    local_mind_tier_required: tier_4_writing_hand
+    capability_required: [slm_generate, capability_probe]
+    parent_circle: platform
+    orbit: local_mind
+    icon: local-mind-tier-4
+    navigates_to_on_locked: '/chat?onboarding=stage-10-local-mind&tier=4'
+    additional_gate: 'capability_probe: ram_gb >= 16 AND disk_free_gb >= 10'
+    description: |
+      Tier 4 — local SLM (Llama-3.2-3B Q4_K_M default) generates first-pass
+      drafts on the operator's machine. /v1/qa/ask first-pass is local;
+      explicit "ask the frontier" escalates to Vertex. Gated on capability
+      probe. Unlocks after Phase 3 (EOD 2026-06-26).
 
 # Deprecated routes — redirect rules the FE App.tsx enforces.
 deprecated_routes:
@@ -1055,6 +1240,140 @@ stages:
       predictability: continuously falsified by Penrose scoreboard (sampling rate elevated post-graduation per post_graduation_policy)
       brand_dimension: full coherence + autonomy + verified competence
 
+  # ─── STAGE 10 — LOCAL MIND (added v1.2.0) ───────────────────────────────
+  # Differs from stages 0-9: this stage is NOT linearly sequenced after
+  # stage-9-calibration-live; it has 4 INDEPENDENT sub-paths (one per
+  # local-mind tier) that operator can pursue in any order once they've
+  # installed gigaton-local-mind (Phase 1). Entry signal = always_open
+  # because local-mind progression is orthogonal to the onboarding tier
+  # ladder. The 4 actions below map 1:1 to the 4 local-mind nav circles.
+  #
+  # Operators reach this stage by clicking a dim local-mind circle on
+  # the /platform hub. The chat orchestrator switches to local-mind mode
+  # via query-param `?tier=N` and walks the operator through that tier's
+  # action set ONLY.
+  - id: stage-10-local-mind
+    order: 10
+    name: Local Mind — Operator-Machine Capability Ladder
+    short_description: Install gigaton-local-mind on your machine, then progressively unlock embed → search → transcribe → generate locally — driving Vertex cost toward zero for routine work.
+    why_this_stage: |
+      Vertex AI is the frontier-reasoning + IAM + sovereignty wrapper, not
+      the cost-reduction lever. The cost lever is the LOCAL half of the
+      routing doctrine — bounded repeatable abilities run on your machine
+      (embed, dedup, redact, search, classify, transcribe, first-pass
+      generate). This stage walks you through installing gigaton-local-mind
+      and authorizing each capability tier. See
+      [[directive_local_mind_buildout_2026_06_01]] for the 3-phase build
+      schedule (Ph1 EOD 6/03, Ph2 EOD 6/12, Ph3 EOD 6/26).
+    owning_engine: gigaton-gateway  # handshake endpoint owner
+    secondary_engines: [intelligence-silo]  # ingest_preembedded + search escalation
+    entry_signal:
+      type: always_open  # orthogonal to stage progression — operator can pursue any time
+    activation_gate:
+      # Stage completion = all 4 tiers unlocked. Sub-tier unlock = individual circle bright.
+      # The activation gate uses the gateway local-mind state aggregator.
+      method: GET
+      url: '{gateway_base}/v1/local-mind/state?operator_id={operator_id}'
+      predicate:
+        json_path: '$.tiers_unlocked_count'
+        operator: gte
+        value: 4
+      ttl_seconds: 30
+    actions:
+      - id: install-local-mind
+        title: Install gigaton-local-mind on your machine
+        description: |
+          Download + run the gigaton-local-mind installer (Inno Setup .exe
+          on Windows / .pkg on macOS / .sh on Linux). Once installed, the
+          local MCP server registers with the gateway via the handshake
+          endpoint. Tier 1 (Reading Eyes) unlocks immediately on successful
+          handshake. Persistence lands at ~/.gigaton/local-mind/<operator_id>/.
+        action_label: Install local mind
+        action_href: '/chat?onboarding=stage-10-local-mind&tier=1'
+        unlocks_local_mind_tier: tier_1_reading_eyes
+        education_ref: '/docs/local-mind/install-walkthrough'
+        verify_description: |
+          Gateway has received a POST /v1/local-mind/handshake with
+          installed=true and phase_1_active=true for this operator.
+        auto_complete_on:
+          - event_type: LocalMindInstalled
+          - event_type: LocalMindHandshakeRegistered
+      - id: enable-local-search
+        title: Enable local FAISS search + classifier
+        description: |
+          Activate Phase 2 capabilities. /v1/qa/ask first-pass routes to
+          your local index; local classifier handles routine categorization.
+          Requires Phase 2 of the local-mind MCP installed (auto-updates if
+          you opted into the update channel).
+        action_label: Enable local search
+        action_href: '/chat?onboarding=stage-10-local-mind&tier=2'
+        unlocks_local_mind_tier: tier_2_local_mind
+        education_ref: '/docs/local-mind/local-search'
+        auto_complete_on:
+          - event_type: LocalMindPhase2Activated
+      - id: authorize-microphone
+        title: Authorize microphone for local transcription
+        description: |
+          Grant microphone access so transcription (mlx-whisper /
+          whisper.cpp) can run on your machine. Meeting audio never leaves
+          your computer.
+        action_label: Authorize mic
+        action_href: '/chat?onboarding=stage-10-local-mind&tier=3'
+        unlocks_local_mind_tier: tier_3_connected_tools
+        education_ref: '/docs/local-mind/transcription'
+        verify_description: |
+          Local MCP reports mic_authorized=true on the next handshake heartbeat.
+        auto_complete_on:
+          - event_type: LocalMindMicAuthorized
+      - id: pass-capability-probe
+        title: Run capability probe + enable local SLM
+        description: |
+          Local SLM (Llama-3.2-3B Q4_K_M ~2GB by default) generates
+          first-pass drafts on your machine. Requires RAM ≥16GB AND ≥10GB
+          free disk. The probe runs automatically on Phase 3 install; if
+          your machine doesn't qualify, the platform stays cloud-only for
+          generation but Tiers 1-3 keep working.
+        action_label: Run capability probe
+        action_href: '/chat?onboarding=stage-10-local-mind&tier=4'
+        unlocks_local_mind_tier: tier_4_writing_hand
+        education_ref: '/docs/local-mind/capability-probe'
+        verify_description: |
+          Local MCP reports capability_probe_passed=true.
+        auto_complete_on:
+          - event_type: LocalMindCapabilityProbePassed
+    education:
+      why_1min: '/docs/why/local-mind-1min.md'
+      what_3min: '/docs/what/local-mind-3min.md'
+      deep_dive_10min: '/docs/deep/local-mind-routing-doctrine-10min.md'
+    events_emitted:
+      - StageStarted
+      - LocalMindInstalled
+      - LocalMindHandshakeRegistered
+      - LocalMindPhase2Activated
+      - LocalMindMicAuthorized
+      - LocalMindCapabilityProbePassed
+      - LocalMindTierUnlocked  # generic — fired with tier_id payload
+      - StageCompleted
+    # NOTE: stage-10 does NOT grant a capability_tier from the platform
+    # ladder. Local-mind tiers are orthogonal — see local_mind_tiers block.
+    capability_unlocks_on_completion: null
+    grants_local_mind_tier_on_completion: tier_4_writing_hand  # final tier
+    gamification:
+      badge_slug: local-mind-fully-installed
+      badge_name: Local Mind — Fully Installed
+      streak_eligible: true  # daily local-mind uptime streak
+      per_tier_badges:
+        tier_1_reading_eyes: { badge_slug: local-mind-reading-eyes, badge_name: Reading Eyes }
+        tier_2_local_mind: { badge_slug: local-mind-local-mind, badge_name: Local Mind }
+        tier_3_connected_tools: { badge_slug: local-mind-connected-tools, badge_name: Connected Tools }
+        tier_4_writing_hand: { badge_slug: local-mind-writing-hand, badge_name: Writing Hand }
+      fallback_predicted_influence_usd: 12000  # est. annual Vertex offload per operator
+    ppim_signature:
+      interaction: every routine embed/search/classify/transcribe runs at $0 marginal
+      economics: est. Vertex bill reduction 40-70% for steady-state operators
+      predictability: HIGH — capability-tier-gated, telemetry-tuned escalation thresholds
+      brand_dimension: sovereignty + cost integrity + sub-100ms loop
+
 # ─────────────────────────────────────────────────────────────────────────
 # CHAT ORCHESTRATION CONTRACT
 # How ChatOnboardingOrchestrator derives chat affordances from this manifest.
@@ -1233,10 +1552,70 @@ gateway_endpoints:
         current_stage_actions_completed: array of action_id
         current_tier_unlocked: enum [tier_1_data, tier_2_personalized, tier_3_recommend, tier_4_costs, tier_5_live]
         nav_circles_enabled: array of circle_id
+        # ADDED v1.2.0 — local-mind tier state, surfaced alongside platform tier state.
+        # Empty array when operator hasn't installed gigaton-local-mind.
+        local_mind_tiers_unlocked: array of tier_id  # subset of local_mind_tiers keys
+        local_mind_installed: boolean
+        local_mind_handshake_last_seen_at: timestamp | null
         predicted_influence_to_date_usd: number
         predicted_influence_at_completion_usd: number
     cache_control: 'max-age=10, private'
-    computed_by: 'gateway polls each stage activation_gate; aggregates'
+    computed_by: 'gateway polls each stage activation_gate + reads latest local-mind handshake state; aggregates'
+
+  # ADDED v1.2.0 — local-mind handshake. Owned by gigaton-gateway.
+  local_mind_handshake:
+    endpoint: POST /v1/local-mind/handshake
+    purpose: |
+      Operator's local gigaton-local-mind MCP server posts heartbeat /
+      registration here. Gateway records install state, phase activation,
+      mic_authorized, capability_probe_passed, then re-computes
+      local_mind_tiers_unlocked and updates /v1/onboarding/state.
+    request_body:
+      operator_id: string (required)
+      installed: boolean
+      phase_1_active: boolean
+      phase_2_active: boolean
+      phase_3_active: boolean
+      mic_authorized: boolean
+      capability_probe_passed: boolean
+      capability_probe_details:
+        ram_gb: number
+        disk_free_gb: number
+        cpu_arch: string
+        gpu_present: boolean
+      mcp_server_address: string  # default 127.0.0.1:7180 per [[gignet_local_node_doctrine]]
+      mtls_cert_fingerprint: string
+    response:
+      shape:
+        tiers_unlocked: array of tier_id
+        routing_hints:
+          embed: enum [local, cloud]
+          search: enum [local, cloud]
+          transcribe: enum [local, cloud]
+          generate: enum [local, frontier]
+        next_unlock_action_id: string | null  # action_id from stage-10
+    side_effects:
+      - emits LocalMindHandshakeRegistered event
+      - if newly-unlocked tier: emits LocalMindTierUnlocked + flips local_mind nav circles bright
+
+  # ADDED v1.2.0 — local-mind state aggregator (read-side mirror of handshake).
+  local_mind_state:
+    endpoint: GET /v1/local-mind/state
+    query_params:
+      operator_id: required
+    response:
+      shape:
+        installed: boolean
+        tiers_unlocked: array of tier_id
+        tiers_unlocked_count: integer
+        last_handshake_at: timestamp | null
+        cost_saved_to_date_usd: number  # Vertex bill avoided via local routing
+        per_tier_status:
+          tier_1_reading_eyes: enum [locked, unlocked, degraded]
+          tier_2_local_mind: enum [locked, unlocked, degraded]
+          tier_3_connected_tools: enum [locked, unlocked, degraded]
+          tier_4_writing_hand: enum [locked, unlocked, degraded, not_eligible]
+    cache_control: 'max-age=30, private'
 
   intent:
     endpoint: POST /v1/onboarding/intent
@@ -1290,3 +1669,118 @@ references:
     - standalone_bundle_net_new_concepts  # Concepts 2, 3, 5, 7, 8, 9, 10
   deployments:
     target_window: '2026-05-22T19:00:00-05:00'  # Friday 19:00 CT
+
+# ─────────────────────────────────────────────────────────────────────────
+# SCHEMA NOTES — v1.2.0 ADDITIVE EXTENSIONS (do not break v1.1.0 readers)
+# ─────────────────────────────────────────────────────────────────────────
+#
+# v1.2.0 (2026-06-02) adds the LOCAL-MIND CAPABILITY LADDER. Every
+# extension below is additive — v1.1.0-compatible readers (current gateway
+# resolver + FE useNavCircleGating hook + ChatOnboardingOrchestrator) keep
+# working without code changes; new fields are read-when-present.
+#
+# 1. TOP-LEVEL NEW BLOCK: `local_mind_tiers`
+#    Parallel to `capability_tiers`. 5 tier definitions
+#    (tier_0_unprovisioned through tier_4_writing_hand) each with
+#    handshake_state predicate + grants + capability_required.
+#
+# 2. NEW OPTIONAL FIELDS on `nav_circles[]` entries:
+#      - local_mind_tier_required: string | null
+#          When set, circle is bright IFF tier_id ∈ local_mind_tiers_unlocked.
+#          Existing entries omit this field → behavior unchanged.
+#      - capability_required: array of capability strings (informational —
+#          FE can render "requires: embed, dedup" tooltip on dim circles).
+#      - parent_circle: string  (default "platform" — used by hub layout).
+#      - orbit: enum [inner, middle, outer, local_mind]
+#          Concentric-orbit hint per [[platform_hub_circles_design_directive]].
+#          Existing entries default to tier-based orbit; local_mind orbit
+#          is NEW and renders as a separate concentric ring.
+#      - navigates_to_on_locked: string
+#          Click-when-dim destination URL. If absent, FE falls back to the
+#          existing rule from the directive memo (`/chat?onboarding=stage-N`
+#          where N is the last entry in capability_tiers[tier_required]
+#          .unlocked_by_stages[]).
+#      - description: string (long-form, surfaced in hover tooltip).
+#
+# 3. NEW OPTIONAL FIELDS on `stages[]` entries (used only by stage-10):
+#      - grants_local_mind_tier_on_completion: tier_id
+#      - actions[].unlocks_local_mind_tier: tier_id
+#      - gamification.per_tier_badges: object
+#
+# 4. NEW GATEWAY ENDPOINTS (additive — existing 3 endpoints unchanged):
+#      - POST /v1/local-mind/handshake
+#      - GET  /v1/local-mind/state
+#      - GET /v1/onboarding/state response gains 3 new fields:
+#          local_mind_tiers_unlocked, local_mind_installed,
+#          local_mind_handshake_last_seen_at
+#
+# 5. NEW STAGE: `stage-10-local-mind` with order:10.
+#    entry_signal.type=always_open (orthogonal to stage 0-9 linear progression).
+#    Convention preserved: stages numbered sequentially by `order:`; new
+#    stages append after the highest existing order. Future additions
+#    should continue this pattern (stage-11, stage-12, ...).
+#
+# 6. FE INTEGRATION CONTRACT for useNavCircleGating (downstream — gigaton-ui-system):
+#      circle.isBright =
+#        (tier_required === 'always' OR nav_circles_enabled.includes(circle.circle_id))
+#        AND (local_mind_tier_required == null
+#             OR local_mind_tiers_unlocked.includes(local_mind_tier_required))
+#        AND (additional_gate satisfied — existing rule)
+#      circle.onClick (when dim) = navigates_to_on_locked
+#        (FALLBACK to existing `/chat?onboarding=stage-N` derivation
+#        if navigates_to_on_locked is absent).
+#
+# 7. CIRCLE-NAMING CONVENTION:
+#      local_mind_* circles use hyphenated `circle_id`:
+#        `local-mind-reading-eyes`, `local-mind-local-mind`,
+#        `local-mind-connected-tools`, `local-mind-writing-hand`.
+#      Future per-vertical or per-operator capability circles SHOULD
+#      follow the `<namespace>-<capability>` pattern to avoid collision
+#      with platform-tier circle names (which are bare nouns: chat,
+#      sources, dashboard, etc.).
+#
+# 8. ICON PLACEHOLDERS — `local-mind-tier-N` icon strings are placeholders
+#    per [[icon_generation_system_directive]]. FE falls back to a
+#    lucide-react icon (suggestion: `cpu` / `database` / `mic` / `pen-tool`)
+#    until the brand icon generator runs for the operator.
+#
+# Downstream wiring (NOT part of this PR — sequenced after merge):
+#   - gigaton-gateway: implement POST /v1/local-mind/handshake + GET
+#     /v1/local-mind/state + extend GET /v1/onboarding/state response.
+#   - gigaton-ui-system: extend useNavCircleGating per §6 above; add
+#     `<LocalMindOrbit>` ring to PlatformPage; render 4 new circles.
+#   - intelligence-silo: already supports /v1/qa/ingest_preembedded
+#     per [[directive_local_mind_buildout_2026_06_01]] Phase 1.
+#   - cowork hub page: surface local-mind tier state + cost-saved counter
+#     per Phase 2 routing-transparency requirement.
+
+schema_notes:
+  version: 1.2.0
+  additive_extensions:
+    - top_level: local_mind_tiers
+    - nav_circles_optional_fields:
+        - local_mind_tier_required
+        - capability_required
+        - parent_circle
+        - orbit
+        - navigates_to_on_locked
+        - description
+    - stages_optional_fields:
+        - grants_local_mind_tier_on_completion
+        - 'actions[].unlocks_local_mind_tier'
+        - 'gamification.per_tier_badges'
+    - gateway_endpoints:
+        - local_mind_handshake
+        - local_mind_state
+    - state_response_fields:
+        - local_mind_tiers_unlocked
+        - local_mind_installed
+        - local_mind_handshake_last_seen_at
+    - new_stages:
+        - stage-10-local-mind
+  backward_compatibility: full  # v1.1.0 consumers ignore unknown fields per overlay_schema convention
+  cross_refs:
+    - directive_local_mind_buildout_2026_06_01
+    - platform_hub_circles_design_directive
+    - gignet_local_node_doctrine
+    - icon_generation_system_directive
