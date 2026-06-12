@@ -14,7 +14,7 @@ User directive (verbatim, 2026-05-25 session):
 
 > "ensure that gigaton intelligence is utilized to answer questions about files after ingestion > analysis to glean all possible context utilizing the ethnographic research skills + gigaton principles & additional research where required"
 
-This plan operationalizes that into a concrete pipeline so that after a document is ingested into intelligence-silo (currently lands as text in semantic memory), the operator can ask questions in chat (`/chat`) and get answers that:
+This plan operationalizes that into a concrete pipeline so that after a document is ingested into intelligence-silo (currently lands as text in semantic memory), the operator can ask questions in chat (`/intelligence`) and get answers that:
 
 1. Cite specific source files from the ingest folder
 2. Use the silo's Society-of-Minds reasoning (Perceiver → Analyst → Critic → Synthesizer) rather than flat RAG retrieval
@@ -190,6 +190,7 @@ This plan operationalizes that into a concrete pipeline so that after a document
 
 ### Phase 3 — Chat gateway bridge
 - **Repo:** `MD Files/intelligence-engine`
+- **NOTE — fragile path:** the `MD Files/intelligence-engine/` prefix contains a literal space, which breaks unquoted shell/CI commands and many tools. Always quote the path (e.g. `"MD Files/intelligence-engine/..."`) or rename the directory to a space-free slug (e.g. `md-files/`) before scripting against it.
 - **Files (new):** `api/silo_client.py`
 - **Files (modified):**
   - `api/routes/chat.py` (`/chat/message/stream`) — after `engine_middleware.process()`, if `intent ∈ {explanation, analytics, decision_governance, strategy, property_ops, owner_acquisition}` AND `sources_count(operator_id) > 0`, call `silo_client.call_silo_qa(...)` and stream silo answer before falling through to provider LLM. Provider LLM is called only when the silo returns `confidence < 0.5`.
@@ -197,7 +198,7 @@ This plan operationalizes that into a concrete pipeline so that after a document
 - **SSE event shape extended with:** `event: citation`, `event: society_trace`, `event: principles_check`, `event: research_backfill`.
 - **Effort:** 1.5d
 - **Acceptance:**
-  - Ask a question in `/chat` about a file the operator ingested today → response includes a citation chip pointing to the right Drive file
+  - Ask a question in `/intelligence` about a file the operator ingested today → response includes a citation chip pointing to the right Drive file
   - Disconnect silo → chat still works (fail-soft path)
 
 ### Phase 4 — UI rendering
@@ -212,7 +213,7 @@ This plan operationalizes that into a concrete pipeline so that after a document
   - `components/chat/MessageBubble.tsx` — render `Citation` and `PrinciplesCheckBanner`
   - `services/intelligenceSiloClient.ts` — add `qaAsk(...)` for direct-call/debug usage
 - **Effort:** 1d
-- **Acceptance:** End-to-end test: ingest a fixture file → ask a question in `/chat` → DOM contains `[data-testid="citation-chip"]` whose `href` resolves to the right `drive_file_id`.
+- **Acceptance:** End-to-end test: ingest a fixture file → ask a question in `/intelligence` → DOM contains `[data-testid="citation-chip"]` whose `href` resolves to the right `drive_file_id`.
 
 ### Phase 5 — Backfill loop close
 - **Repo:** `intelligence-silo`
@@ -290,7 +291,7 @@ Given the 5 decisions above, the dependency order tightens:
 
 ---
 
-## 7. Critical Files for Implementation
+## 8. Critical Files for Implementation
 
 - `intelligence-silo/core/api.py`
 - `intelligence-silo/core/orchestrator/society.py`

@@ -144,7 +144,7 @@ Files to remove/modify in `intelligence-silo`:
 ### 5.4 OAuth consent screen update
 
 After the sunset:
-- Edit consent screen at `console.cloud.google.com/auth/scopes?project=carmen-beach-properties` (or `gigaton-platform` post-migration)
+- Edit consent screen at `console.cloud.google.com/auth/scopes?project=carmen-beach-properties`
 - **Remove** `https://www.googleapis.com/auth/drive.readonly`
 - Keep `https://www.googleapis.com/auth/drive.file` + `openid` + `userinfo.email`
 - App stays in "In Production" status, no verification needed for the remaining non-sensitive scope set

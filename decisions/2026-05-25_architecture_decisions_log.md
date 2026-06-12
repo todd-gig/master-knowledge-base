@@ -278,12 +278,10 @@ Captures all decisions ratified during the 2026-05-25 session. Each entry: decis
 - **Two payout paths, both enforced:**
   - **Path A (default): Stripe Connect Express.** Every recipient onboards via Stripe's hosted Connect flow (KYC + bank linking handled by Stripe). Bookings/sales auto-split at transaction time; recipient gets paid on Stripe's normal payout schedule (typically T+2 to T+7).
   - **Path B (alternative): Scheduled ACH.** Recipient opts for direct ACH with:
-    - Additional platform fees (TBD specific rate — likely $0.50-$2/payout to cover ACH costs)
-    - **Minimum payout threshold = 5% of cost basis** for the transaction-set, rounded to nearest currency unit:
-      - USD: nearest $0.25 (so a $20 transaction set has minimum payout of $1.00 — but rounds up to $1.00 since 5% × $20 = $1.00 already at $0.25 boundary; a $7 set has 5% = $0.35 → rounds to $0.25 nearest? CLARIFY with user — see open Q below)
-      - MXN: nearest 5 MXN (so a 200-peso set → 5% × 200 = 10 MXN; a 75-peso set → 5% × 75 = 3.75 → rounds to 5 MXN)
-      - Other currencies: nearest equivalent denomination (TBD currency mapping table)
-    - Payout frequency rules (TBD: weekly? monthly? — likely weekly with carryover)
+    - **ACH fee: LOCKED — the platform absorbs the ACH cost.** Recipient pays nothing; no per-payout or per-transaction fee passed through.
+    - **Minimum payout threshold = LOCKED $1,000 USD** (platform-wide, indefinite; see PAYOUT-1 amendment 2026-05-26). Amounts below the threshold carry over until the $1k floor is met.
+      - **Rounding: LOCKED — always round UP to favor the recipient**, to the nearest currency denomination (USD nearest $0.25; MXN nearest 5 MXN; other currencies nearest equivalent denomination).
+    - **Payout frequency: LOCKED — bi-weekly, every other Wednesday**, with carryover of sub-threshold balances.
 - **No other payout mechanism supported.** No wire transfers, no PayPal, no crypto, no manual checks. Connect Express OR scheduled ACH only.
 - **Implementation surface:**
   - Lives in gigaton-engine per locked B3 ADR (billing logic)
@@ -294,12 +292,13 @@ Captures all decisions ratified during the 2026-05-25 session. Each entry: decis
   - 30-day launch roadmap: every entity launch now includes Stripe Connect KYC during Step 10
   - Entity-creation flow doc: Step 10 expands to include payout-method selector
   - Per-entity legal scaffold: ToS adds payout terms section
-- **Open clarifications for user:**
-  - Currency rounding: 5% × cost basis rounded WHICH direction? (Up to nearest 25¢ in USD?)
-  - ACH frequency: weekly / monthly / configurable?
-  - ACH fee: flat $X/payout, or $/transaction? Who pays — recipient or platform?
-  - Minimum payout exception for first-time recipients (welcome bonus / earlier ACH)?
-- Source: user 2026-05-26 ~02:00 UTC
+- **Clarifications — ALL LOCKED 2026-05-26 (PAYOUT-1 amendment):**
+  - Currency rounding: **round UP to favor the recipient.**
+  - Minimum payout threshold: **$1,000 USD, indefinite** (replaces the earlier 5%-of-cost-basis seed).
+  - ACH frequency: **bi-weekly, every other Wednesday** (with carryover).
+  - ACH fee: **platform absorbs it** (recipient pays nothing).
+  - First-time-recipient exception: **none** — the $1k floor applies uniformly with no welcome-bonus/early-ACH carve-out.
+- Source: user 2026-05-26 ~02:00 UTC; clarifications locked 2026-05-26 (PAYOUT-1 amendment)
 
 ## Architecture lock 2026-05-26 ~01:30 UTC
 
